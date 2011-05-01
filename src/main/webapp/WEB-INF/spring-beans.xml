@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+	<bean id="datasource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/datasource" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="datasource" />
+		<property name="configLocation" value="WEB-INF/hibernate.cfg.xml" />
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- <bean id="gameboard" class="net.sourceforge.romulan.GameBoard"> -->
+	<!-- <constructor-arg index="0" value="3" /> -->
+	<!-- <constructor-arg index="1" value="3" /> -->
+	<!-- </bean> -->
+
+	<bean name="userDAO" class="net.sourceforge.romulan.directory.UserDAOHibernate">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="helloWorldBacking" class="net.sourceforge.romulan.web.HelloWorldBacking"
+		scope="request">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+
+	<bean id="userBackingBean" class="net.sourceforge.romulan.directory.web.UserBackingBean"
+		scope="request">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+</beans>

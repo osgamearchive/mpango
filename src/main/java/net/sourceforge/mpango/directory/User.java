@@ -1,0 +1,66 @@
+package net.sourceforge.mpango.directory;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+public class User {
+
+	private Long identifier;
+	private String email;
+	private String username;
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	@Column(unique=true)
+	public String getEmail() {
+		return email;
+	}
+	public void setIdentifier(Long identifier) {
+		this.identifier = identifier;
+	}
+	@Id
+	@GeneratedValue
+	public Long getIdentifier() {
+		return identifier;
+	}
+	@Override
+	public String toString() {
+		return "User [identifier=" + identifier + ", email=" + email
+				+ ", username=" + username + "]";
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
+	}
+	
+	
+}

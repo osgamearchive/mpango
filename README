@@ -1,0 +1,23 @@
+In order to start the jetty server:
+
+mvn jetty:run
+
+Then, you can access the web application by entering the following URL on the browser:
+
+http://localhost:8080/mpango
+
+To clean the project
+
+mvn clean
+
+To package the project into a distributable WAR file:
+
+mvn package
+
+To pass the tests:
+
+mvn test
+
+To generate cobertura reports:
+
+mvn cobertura:cobertura

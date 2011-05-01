@@ -1,0 +1,24 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+<head>
+<title>Success</title>
+</head>
+<body>
+
+<f:loadBundle basename="MessageBundle" var="msg"/>
+<f:view>
+	<h:outputFormat value="#{msg.user_register_success}">
+		<f:param value="#{helloWorldBacking.username}" />
+		<f:param value="#{helloWorldBacking.identifier}" />
+	</h:outputFormat>
+	<h:form id="form2">
+		<h:commandLink id="link1" action="back">
+			<h:outputText id="linkText" value="#{msg.go_home}" />
+		</h:commandLink>
+	</h:form>
+</f:view>
+</body>
+</html>
