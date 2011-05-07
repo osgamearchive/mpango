@@ -27,16 +27,16 @@
 	<!-- <constructor-arg index="1" value="3" /> -->
 	<!-- </bean> -->
 
-	<bean name="userDAO" class="net.sourceforge.romulan.directory.UserDAOHibernate">
+	<bean name="userDAO" class="net.sourceforge.mpango.directory.UserDAOHibernate">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
-	<bean id="helloWorldBacking" class="net.sourceforge.romulan.web.HelloWorldBacking"
+	<bean id="helloWorldBacking" class="net.sourceforge.mpango.web.HelloWorldBacking"
 		scope="request">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 
-	<bean id="userBackingBean" class="net.sourceforge.romulan.directory.web.UserBackingBean"
+	<bean id="userBackingBean" class="net.sourceforge.mpango.directory.web.UserBackingBean"
 		scope="request">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
