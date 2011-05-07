@@ -65,13 +65,13 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
-			<version>2.5.6</version>
+			<version>${spring.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring</artifactId>
-			<version>2.5.6</version>
+			<version>${spring.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-dbcp</groupId>
@@ -96,7 +96,7 @@
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
 			<artifactId>activemq-web</artifactId>
-			<version>4.1.1</version>
+			<version>${activemq.version}</version>
 		</dependency>
 	</dependencies>
 	<issueManagement>
@@ -145,8 +145,8 @@
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<configuration>
-					<jettyEnvXml>src/main/webapp/WEB-INF/jetty-env.xml</jettyEnvXml>
-					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<jettyEnvXml>${jetty.jettyEnvXml}</jettyEnvXml>
+					<scanIntervalSeconds>${jetty.scanIntervalSeconds}</scanIntervalSeconds>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -208,6 +208,22 @@
 				<version>1.0-beta-6</version>
 			</extension>
 		</extensions>
+		<resources>
+			<resource>
+				<directory>src/main/webapp/WEB-INF</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 	<distributionManagement>
 		<downloadUrl>http://sourceforge.net/projects/mpango/files/</downloadUrl>
@@ -221,5 +237,7 @@
 		<mpango.connection>scm:svn:http://mpango.svn.sourceforge.net/svnroot/mpango</mpango.connection>
 		<mpango.developerConnection>scm:svn:https://mpango.svn.sourceforge.net/svnroot/mpango</mpango.developerConnection>
 		<mpango.url>http://mpango.svn.sourceforge.net/viewvc/mpango/</mpango.url>
+		<activemq.version>5.4.1</activemq.version>
+		<spring.version>2.5.6</spring.version>
 	</properties>
 </project>
