@@ -9,8 +9,8 @@
 	<body>
 	
 		<menu name="General">
-			<item name="home" href="index.html" />
-			<item name="faq" href="faq.html" />
+			<item name="Home" href="index.html" />
+			<item name="FAQ" href="faq.html" />
 		</menu>
 		
 		<menu ref="reports"/>
