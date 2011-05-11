@@ -111,6 +111,13 @@
 			<roles>
 			</roles>
 		</developer>
+		<developer>
+			<id>jaywellings</id>
+			<name>Jay Wellings</name>
+			<timezone>GMT+1</timezone>
+			<roles>
+			</roles>
+		</developer>
 	</developers>
 	<contributors>
 	</contributors>
