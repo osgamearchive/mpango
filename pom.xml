@@ -107,15 +107,20 @@
 		<developer>
 			<id>edvera</id>
 			<name>Eduardo de Vera</name>
-			<timezone>GMT+1</timezone>
+			<timezone>+1</timezone>
+			<email>edvera@users.sourceforge.net</email>
 			<roles>
+				<role>Project Manager</role>
+				<role>Developer</role>
+				<role>Analyst</role>
 			</roles>
 		</developer>
 		<developer>
 			<id>jaywellings</id>
 			<name>Jay Wellings</name>
-			<timezone>GMT+1</timezone>
+			<timezone>+1</timezone>
 			<roles>
+				<role>Developer</role>
 			</roles>
 		</developer>
 	</developers>
