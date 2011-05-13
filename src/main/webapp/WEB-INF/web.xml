@@ -17,6 +17,10 @@
 		<param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
 		<param-value>true</param-value>
 	</context-param>
+	<context-param>
+    	<param-name>org.primefaces.component.captcha.PRIVATE_KEY</param-name>
+    	<param-value>6LenWsQSAAAAAPF1J-_2KlkD4y4CHFz5NGpjIujJ</param-value>
+	</context-param>
 
 	<!-- Configure tomahawk taglib -->
 	<context-param>

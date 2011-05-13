@@ -8,7 +8,20 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<description>A web turn based strategy game.</description>
 	<url>http://mpango.sourceforge.net</url>
+	<repositories>
+		<repository>  
+	    <id>prime-repo</id>  
+	    <name>Prime Technology Maven Repository</name>  
+	    <url>http://repository.prime.com.tr</url>  
+	    <layout>default</layout>  
+	   </repository>    
+	</repositories>
 	<dependencies>
+		<dependency>  
+		    <groupId>org.primefaces</groupId>  
+		    <artifactId>primefaces</artifactId>  
+		    <version>1.1</version>  
+		</dependency>
 		<dependency>
 			<groupId>org.easymock</groupId>
 			<artifactId>easymockclassextension</artifactId>
@@ -98,7 +111,13 @@
 			<artifactId>activemq-web</artifactId>
 			<version>${activemq.version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.claudiushauptmann</groupId>
+		    <artifactId>gwt-recaptcha</artifactId>
+		    <version>1.0.0.Beta2</version>
+		</dependency>
 	</dependencies>
+	
 	<issueManagement>
 		<system>mPango Trac</system>
 		<url>https://sourceforge.net/tracker/?group_id=540830</url>
