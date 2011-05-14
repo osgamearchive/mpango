@@ -162,7 +162,7 @@
 		<developer>
 			<id>gutmox</id>
 			<name>Pablo Gutierrez</name>
-			<timezone>GMT +1</timezone>
+			<timezone>+1</timezone>
 			<email>gutmox@gmail.com</email>
 			<roles>
 				<role>Developer</role>
