@@ -23,7 +23,7 @@
 			</h:panelGrid>
 			
 			<p:messages showDetail="true"/>
-		    <p:captcha label="Captcha" publicKey="6LenWsQSAAAAADxsxhP1jT3_lmCRD6CYq-Xg1KUT"/>  
+		    <p:captcha label="Captcha" publicKey="${primefaces.recaptcha.publicKey}"/>  
 		    <p:commandButton value="Check" ajax="false" action="#{helloWorldBacking.send}" /> 
 			
 		</h:form>

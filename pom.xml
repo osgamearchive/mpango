@@ -76,17 +76,6 @@
 			<version>1.8.0.10</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.2.2</version>
@@ -115,6 +104,34 @@
 		    <groupId>com.claudiushauptmann</groupId>
 		    <artifactId>gwt-recaptcha</artifactId>
 		    <version>1.0.0.Beta2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			<type>jar</type>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 	
@@ -247,6 +264,25 @@
 			        <licenseName>gpl_v3</licenseName>
 			    </configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1.1</version>
+				<configuration>
+					<filters>
+						<filter>src/main/filters/web.properties</filter>
+					</filters>
+					<webResources>
+						<resource>
+							<directory>src/main/webapp</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>**/*.xhtml</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
 		</plugins>
 		<extensions>
 			<extension>
@@ -255,22 +291,6 @@
 				<version>1.0-beta-6</version>
 			</extension>
 		</extensions>
-		<resources>
-			<resource>
-				<directory>src/main/webapp/WEB-INF</directory>
-				<filtering>true</filtering>
-				<includes>
-					<include>**/*.xml</include>
-				</includes>
-			</resource>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
-				<includes>
-					<include>**/*.properties</include>
-				</includes>
-			</resource>
-		</resources>
 	</build>
 	<distributionManagement>
 		<downloadUrl>http://sourceforge.net/projects/mpango/files/</downloadUrl>
@@ -285,6 +305,6 @@
 		<mpango.developerConnection>scm:svn:https://mpango.svn.sourceforge.net/svnroot/mpango</mpango.developerConnection>
 		<mpango.url>http://mpango.svn.sourceforge.net/viewvc/mpango/</mpango.url>
 		<activemq.version>5.4.1</activemq.version>
-		<spring.version>2.5.6</spring.version>
+		<spring.version>3.0.3.RELEASE</spring.version>
 	</properties>
 </project>
