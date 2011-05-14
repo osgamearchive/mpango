@@ -1,6 +1,10 @@
-In order to start the jetty server:
+In order to start the jetty server to run a development version of the application:
 
 mvn jetty:run
+
+In order to run a production like version of the application:
+
+mvn jetty:run-exploded
 
 Then, you can access the web application by entering the following URL on the browser:
 
