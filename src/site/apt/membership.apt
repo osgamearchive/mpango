@@ -1,0 +1,47 @@
+	------
+	mPango :: Open Source :: Strategy Game :: Membership
+	------
+	Eduardo de Vera Toquero
+	------
+	2011-05-07
+	
+Membership
+
+	At this early stage everybody is pretty much welcome to the project. This means that you can join the project just by submitting a request following Sourceforge's standard procedures. 
+	However, we will be cleaning up the project member list every now and then. Be aware that if in the first weeks of becoming a member you have not contributed to the project in any way, you are eligible to be removed from the project as a member. 
+	The reason behind this is due to the fact that we can't manage a large amount of members in an efficient way, the team management can't create enough tasks and having members unassigned can result into members losing interest in the project.
+	The language to use on the project due to its international projection is English, all team members are asked to use it when communicating with other members of the project so that everybody can understand each other and documentation can flow seamlessly.
+	At joining the project, new members shall state the position that they want to occupy, the skills they hold, the skills they wish to learn and the availability and level of commitment they think they can commit to. As this is a voluntary work, nobody can be pushed to work, nevertheless we do appreciate to be realistic when estimating the availability in order to be able to do effective project planning. We kindly ask members to inform management when leaving for holidays, vacations, exams, etc... so that work can be distributed the best possible way.
+	
+
+* How to sign up
+
+	If you are interested in joining the project in any of the different roles that are available, you can do so by becoming a Sourceforge user and requesting so by normal means.
+	
+* Roles to cover
+
+	An individual can hold several of the following roles. Management will try to match your interests and skills the best possible way. We are actively looking for:
+	
+** Creators
+
+	Creators are people that describe how the game should work. Creators describe how the game works, what the functionality of the game should be. In order to have an outstanding game that is more fun, interesting and challenging than any of the existing games creators must imagine a game worth of being called the next generation of strategy games. They will have close contact with the project management in order to prioritize and distribute the work resulting from their ideas. Creators must be gamers, preferably with experience on strategy games. They must have good communication skills so that they can transmit their ideas to the rest of the team in a direct and transparent way.
+
+** Graphic designers
+
+	Graphic designers are responsible for delivering images that will be used in the game. Things such as the board (and its different type of cells), units, icons, etc. are to be designed and delivered so that we can create a user friendly interface that will make the user enjoy the game to a further degree. They must be skilled in or willing to learn 2D and 3D graphics.
+	
+** Web designers
+
+	Web designers are responsible for the look and feel of the web. Things such as style sheets, web page layouts, user interfaces, etc. are to be produced by web designers. They need to have close contact with the graphic designers in order to produce a coherent and comprehensive front end so that end users can have a user friendly application to interact with. They must be skilled or willing to learn technologies such as Cascade Style Sheets, HTML, Adobe Firework, etc...
+	
+** Front end developers
+
+	Front end developers are responsible for the code that connects the web interface to the game logic. They must be skilled or willing to learn technologies such as HTML, Javascript, MVC frameworks such as Java Server Faces, Struts, Spring Roo, or the alike plus unit testing.
+	
+** Back end developers
+
+	Back end developers are renposible for the code that runs on the server and contains the core logic for the game. These developers must be skilled or willing to learn technologies such as Java, JEE (JMS, EJB, Container components), Database SQL, Frameworks such as Spring, AOP, Unit testing EasyMock, etc...
+	
+** Testers
+
+	Testers will be responsible for high level testing. Depending on the technical strength of the testers, they will be performing tests such as integration tests, system tests, performance tests or end user tests once the game is mature enough and an environment is available to run it.

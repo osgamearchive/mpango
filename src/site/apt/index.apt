@@ -8,6 +8,10 @@
 
 Introduction
 
-	mPango is a Open Source project dedicated to the creation of a turn based strategy game. You can find all the information about this project at the {{{https://sourceforge.net/projects/mpango/} sourceforge site}}.
+	mPango is a Open Source project dedicated to the creation of a turn based strategy game.
+	
+	Have you ever wished you could tweak your favorite game so that new cool features would be part of it? Did you ever wonder what magic it takes to construct a game? If so, welcome to the mPango project, we are a team that is committed to producing the best possible strategy game for the web. Our goal is to have a high quality production ready game that will allow hundreds of users play together in the most challenging web strategy game on the Internet.
+	
+	You can find all the information about this project at the {{{https://sourceforge.net/projects/mpango/} sourceforge site}}.
 
-	If you wish to follow the progress of the project, tune in the project's {{{http://mpangoproject.blogspot.com} blog}}
+	If you wish to follow the progress of the project, tune in the project's {{{http://mpangoproject.blogspot.com} blog}}.
