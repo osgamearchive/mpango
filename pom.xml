@@ -278,6 +278,7 @@
 							<filtering>true</filtering>
 							<includes>
 								<include>**/*.xhtml</include>
+								<include>**/*.xml</include>
 							</includes>
 						</resource>
 					</webResources>

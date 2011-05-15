@@ -19,7 +19,7 @@
 	</context-param>
 	<context-param>
     	<param-name>org.primefaces.component.captcha.PRIVATE_KEY</param-name>
-    	<param-value>6LenWsQSAAAAAPF1J-_2KlkD4y4CHFz5NGpjIujJ</param-value>
+    	<param-value>${primefaces.recaptcha.privateKey}</param-value>
 	</context-param>
 
 	<!-- Configure tomahawk taglib -->
