@@ -168,6 +168,15 @@
 				<role>Developer</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>mbadiac</id>
+			<name>Marc Badia</name>
+			<timezone>+1</timezone>
+			<email>marc.badiac@gmail.com</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
 	</developers>
 	<contributors>
 	</contributors>
