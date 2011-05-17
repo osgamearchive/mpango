@@ -177,6 +177,15 @@
 				<role>Developer</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>devdlee</id>
+			<name>Dong Lee</name>
+			<timezone>+1</timezone>
+			<email>dlee0113@gmail.com</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>		
 	</developers>
 	<contributors>
 	</contributors>
