@@ -1,5 +1,10 @@
 package net.sourceforge.mpango.web;
 
+import java.util.ArrayList;
+import java.util.Date;
+
+import javax.faces.model.SelectItem;
+
 import net.sourceforge.mpango.directory.User;
 import net.sourceforge.mpango.directory.UserDAOHibernate;
 
@@ -14,6 +19,10 @@ public class HelloWorldBacking {
     private String email;
 	private Long identifier;
 	private String message;
+	private ArrayList<SelectItem>countries;
+	private Date dateOfBirth;
+	private String password;
+	private String gender;
 	
 	public String getMessage() {
 		return message;
@@ -61,6 +70,16 @@ public class HelloWorldBacking {
 		return email;
 	}
 
+    public ArrayList<SelectItem> getCountries() 
+    {
+    	countries = new ArrayList<SelectItem>();
+    	countries.add(new SelectItem("Country1","Country 1"));
+    	countries.add(new SelectItem("Country2","Country 2",""));
+    	countries.add(new SelectItem("Country3","Country 3",""));
+    	countries.add(new SelectItem("Country4","Country 4",""));
+		return countries;
+	}
+    
 	public void setEmail(String email) {
 		this.email = email;
 	}
@@ -75,6 +94,30 @@ public class HelloWorldBacking {
 
 	public UserDAOHibernate getUserDAO() {
 		return userDAO;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getGender() {
+		return gender;
 	}
     
     

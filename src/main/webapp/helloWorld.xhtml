@@ -16,8 +16,10 @@
 			<h:panelGrid id="grid" columns="2">
 				<h:outputText id="output1" value="Username: " />
 				<h:inputText id="input1" value="#{helloWorldBacking.username}" required="true" />
+				
 				<h:outputText id="output2" value="Email: " />
 				<h:inputText id="input2" value="#{helloWorldBacking.email}" required="true" />
+				
 				<h:message id="message1" for="input1" />
 				<h:outputText id="output3" value="#{helloWorldBacking.identifier}" />
 			</h:panelGrid>

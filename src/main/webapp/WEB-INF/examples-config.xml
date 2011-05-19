@@ -16,9 +16,9 @@
         <default-render-kit-id>org.apache.myfaces.trinidad.core</default-render-kit-id>
 	</application>
 
-	<!-- navigation rules for helloWorld.jsp -->
+	<!-- navigation rules for userRegistration.xhtml -->
 	<navigation-rule>
-		<from-view-id>/helloWorld.xhtml</from-view-id>
+		<from-view-id>/userRegistration.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>success</from-outcome>
 			<to-view-id>/directory/success.xhtml</to-view-id>
@@ -26,9 +26,9 @@
 	</navigation-rule>
 
 
-	<!-- navigation rules for helloWorld.jsp -->
+	<!-- navigation rules for userRegistration.xhtml -->
 	<navigation-rule>
-		<from-view-id>/helloWorld.xhtml</from-view-id>
+		<from-view-id>/userRegistration.xhtml</from-view-id>
 		<navigation-case>
 			<from-outcome>failure</from-outcome>
 			<to-view-id>/directory/failure.xhtml</to-view-id>
@@ -39,7 +39,7 @@
 	<navigation-rule>
 		<navigation-case>
 			<from-outcome>back</from-outcome>
-			<to-view-id>/helloWorld.xhtml</to-view-id>
+			<to-view-id>/userRegistration.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 </faces-config>
