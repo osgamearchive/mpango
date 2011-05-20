@@ -323,7 +323,7 @@
 		<mpango.connection>scm:svn:http://mpango.svn.sourceforge.net/svnroot/mpango</mpango.connection>
 		<mpango.developerConnection>scm:svn:https://mpango.svn.sourceforge.net/svnroot/mpango</mpango.developerConnection>
 		<mpango.url>http://mpango.svn.sourceforge.net/viewvc/mpango/</mpango.url>
-		<activemq.version>5.4.1</activemq.version>
+		<activemq.version>5.5.0</activemq.version>
 		<spring.version>3.0.3.RELEASE</spring.version>
 	</properties>
 </project>
