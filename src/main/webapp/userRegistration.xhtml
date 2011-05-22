@@ -4,18 +4,18 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.prime.com.tr/ui">
+
 <f:view contentType="text/html">
+
 <head>
-
-
-<p:resources />
 	
 	<title>User Registration</title>
+	<p:resources />
+	
 	 <!-- Framework CSS -->
     <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print"/>
     <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
-    
     <script>
     jQuery.noConflict();
     jQuery(document).ready(function(){
@@ -25,48 +25,56 @@
    
 </head>
 <body>
-	<ui:include src="/elements/header.xhtml" />
-	
-	<div class="span-12 final">	
-	<h:form id="form" prependId="false">
-		<h:panelGrid id="grid" columns="2">
-				<h:outputText id="usernameLabel" value="Username: " />
-				<h:inputText id="usernameInput" value="#{helloWorldBacking.username}" required="true" />
-				
-				<h:outputText id="passwordLabel" value="Password: " />
-				<h:inputSecret  id="passwordInput"  value="#{helloWorldBacking.password}" required="true" />
-				
-				<h:outputText id="emailabel" value="Email: " />
-				<h:inputText id="emailInput" value="#{helloWorldBacking.email}" required="true" />
-				
-				<h:outputText id="countryLabel" value="Country: " />
-				<h:selectOneMenu>
-					<f:selectItems value="#{helloWorldBacking.countries}" />
-				</h:selectOneMenu>
-				
-				<h:outputText id="dateOfBirthLabel" value="Date Of Birth: " />
-				<input id="dateOfBirthInput" type="text"/>
 
-				<h:outputText id="genderLabel" value="gender: " />
-				<h:selectOneRadio required="true" id="gender">
-					<f:selectItem itemLabel="Male" itemValue="male" />
-					<f:selectItem itemLabel="Female" itemValue="female" />
-				</h:selectOneRadio>
+	<div class="container showgrid">
+		<ui:include src="/elements/header.xhtml" />
+		
+		<fieldset>
+		<legend>Register for mpango!</legend>
+			<div class="span-12 final">	
+				<h:form id="form" prependId="false">
+					<p>
+						<h:outputLabel id="usernameLabel" for="usernameInput" value="Username: " /><br />
+						<h:inputText id="usernameInput" value="#{helloWorldBacking.username}" required="true" />
+					</p>
+					<p>
+						<h:outputLabel id="passwordLabel" for="usernameInput" value="Password: " /><br />
+						<h:inputSecret  id="passwordInput"  value="#{helloWorldBacking.password}" required="true" />
+					</p>
+					<p>
+						<h:outputLabel id="emailabel" for="usernameInput" value="Email: " /><br />
+						<h:inputText id="emailInput" value="#{helloWorldBacking.email}" required="true" />
+					</p>
+					<p>
+						<h:outputLabel id="countryLabel" for="usernameInput" value="Country: " /><br />
+						<h:selectOneMenu>
+							<f:selectItems value="#{helloWorldBacking.countries}" />
+						</h:selectOneMenu>
+					</p>
+					<p>
+						<h:outputLabel id="dateOfBirthLabel" for="usernameInput" value="Date Of Birth: " /><br />
+						<input id="dateOfBirthInput" type="text"/>
+					</p>
+					<p>
+						<h:outputLabel id="genderLabel" for="genderInput" value="gender: " />
+						<h:selectOneRadio required="true" id="genderInput">
+							<f:selectItem itemLabel="Male" itemValue="male" />
+							<f:selectItem itemLabel="Female" itemValue="female" />
+						</h:selectOneRadio>
+					</p>
+					<p>					
+						<p:messages showdetail="true"/>
+					    <p:captcha label="captcha" publickey="${primefaces.recaptcha.publickey}"/>  
+					    <p:commandButton value="Register User" ajax="false" action="#{helloWorldBacking.send}" /> 
+					</p>	
+				</h:form>
 				
-				
-				<p:messages showdetail="true"/>
-			    <p:captcha label="captcha" publickey="${primefaces.recaptcha.publickey}"/>  
-			    <p:commandButton value="Register User" ajax="false" action="#{helloWorldBacking.send}" /> 
-
-				
-		</h:panelGrid>
-
-	
-	</h:form>
+			</div>
+		</fieldset>
 	</div>
-
-	
 </body>
+
 </f:view>
+
 </html>
 
