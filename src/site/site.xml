@@ -14,9 +14,11 @@
 			<item name="Members" href="membership.html" />
 		</menu>
 		
-		<!-- menu name="Developers Corner">
-			<item name="Running It" href="developer/starting.html" />
-		</menu -->
+		<menu name="Developers Corner">
+			<item name="Knowing It" href="developer/knowit.html" />
+			<item name="Working It" href="developer/workit.html" />
+			<item name="Running It" href="developer/runit.html" />
+		</menu>
 		
 		<menu ref="reports"/>
 		
