@@ -172,6 +172,15 @@
 			<roles>
 				<role>Developer</role>
 			</roles>
+		</developer>
+		<developer>
+			<id>aplause</id>
+			<name>Andrzej Paluch</name>
+			<timezone>+2</timezone>
+			<email>aplause@users.sourceforge.net</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
 		</developer>		
 	</developers>
 	<contributors>
