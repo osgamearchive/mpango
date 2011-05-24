@@ -133,14 +133,15 @@
 			<email>edvera@users.sourceforge.net</email>
 			<roles>
 				<role>Project Manager</role>
+				<role>Game Desingner</role>
 				<role>Developer</role>
-				<role>Analyst</role>
 			</roles>
 		</developer>
 		<developer>
 			<id>jaywellings</id>
 			<name>Jay Wellings</name>
 			<timezone>+1</timezone>
+			<email>jaywellings@users.sourceforge.net</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -149,7 +150,7 @@
 			<id>gutmox</id>
 			<name>Pablo Gutierrez</name>
 			<timezone>+1</timezone>
-			<email>gutmox@gmail.com</email>
+			<email>gutmox@users.sourceforge.net</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -158,7 +159,7 @@
 			<id>mbadiac</id>
 			<name>Marc Badia</name>
 			<timezone>+1</timezone>
-			<email>marc.badiac@gmail.com</email>
+			<email>mbadiac@users.sourceforge.net</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -167,7 +168,7 @@
 			<id>devdlee</id>
 			<name>Dong Lee</name>
 			<timezone>+1</timezone>
-			<email>dlee0113@gmail.com</email>
+			<email>devdlee@users.sourceforge.net</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
