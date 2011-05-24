@@ -19,7 +19,8 @@ Working in a team
         
         [[2]] Compile the latest code together with your changes.
         
-        [[3]] Run the application on your computer <<making sure you don't see any new errors>>.
+        [[3]] Run the application on your computer <<making sure you don't see any new errors>>. 
+        There is nothing more exasperating than to find someone else's errors on your machine. Should any one need help regarding errors, then the best way is to create patches and upload them to a support ticket.
         
         [[4]] Commit your code with detailed comments (preferably these should include the task number you have worked on)
         
