@@ -7,10 +7,36 @@
 	
 Important resources
 
+	For the sake of everyone's time, take a look at the following resources in order to know where to find what you are looking for. 
+	Only in case you don't see a resource that addresses your problem, you should contact an individual.
 	The following is a list of resources that are useful for developers:
-	
-        * Trac: A holistic system for project management that every developer should pay close attention to.
         
-        * Mailing lists: We have different mailing lists for different purposes.
+        * Forum: The developer forum is a place to share knowledge in an structured way. You can find the forum {{{https://sourceforge.net/projects/mpango/forums/forum/1775932}here}} 
+        Things such as technical discussions, environment set up... should be addressed to the forum so that other users can find the right information without having to ask.
+        <<If you have a problem>> when trying to compile, run, test... the project <<the forum is the first place to look into>>.
         
+        * Mailing lists: We have different mailing lists for different purposes. You can subscribe, browse and unsubscribe to them {{{https://sourceforge.net/mail/?group_id=540830} here}}
+        
+                * Core: The audience of this list are the team members involved in the project. You should subscriber to this list as soon as you have been admitted in the project as a team member in order to communicate with other members. 
+                At the moment all discussion topics that are not managed by trackers or forum topics should be addressed to this list. This list can be browsed {{{https://sourceforge.net/mailarchive/forum.php?forum_name=mpango-core}here}}.
+                If you are a new comer, please make sure to introduce yourself to the rest of the team by sending your introduction email to the list.
+                
+                * Users: The audience of this list are the end users of the project. 
+                Any end user of the project that wishes to communicate with other users is encouraged to subscribe to the list and to address questions, comments, critics to this list.
+                The archive of this list can be browsed {{{https://sourceforge.net/mailarchive/forum.php?forum_name=mpango-users}here}}
+                
+        * Trackers: Trackers allow the organization of tasks so that we can follow up what needs to be done.
+        Are you eager to get your hands on something? Then trackers are the place to look for work!
+        
+        	* Feature tracker: This tracker contains future features tasks to be done together with the priority. 
+        	Make sure you pick a task that doesn't have anyone assigned to it, otherwise two people might be doing the same thing. 
+        	You can find this tracker {{{https://sourceforge.net/tracker/?group_id=540830&atid=2195936}here}}
+        	
+        	* Bug tracker: This tracker contains bug tasks to be done in order to fix a problem.
+        	You can find this tracker {{{https://sourceforge.net/tracker/?group_id=540830&atid=2195933}here}}
+        	
+        	* Support tracker: Are you having problems? Do you want to help others that have problems? Then this is the right tracker to follow!
+        	In this tracker we find support related tasks, meaning tasks that are not bugs in the project but that have to do with environment specific issues.
+        	You can find this tracker {{{https://sourceforge.net/tracker/?group_id=540830&atid=2195934}here}}
+        	
         []
