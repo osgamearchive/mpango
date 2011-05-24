@@ -201,21 +201,6 @@
 		<param-value>/WEB-INF/spring-beans.xml</param-value>
 	</context-param>
 
-	<context-param>
-		<param-name>org.apache.myfaces.trinidad.ALTERNATE_VIEW_HANDLER</param-name>
-		<!-- TrinidadFaceletViewHander must be the alternate view handler if SessionChangeManager 
-			is used -->
-		<param-value>org.apache.myfaces.trinidadinternal.facelets.TrinidadFaceletViewHandler</param-value>
-	</context-param>
-
-	<context-param>
-		<!--Unfortunately, Facelets provides no hook for plugging the PageResolver 
-			into the logic handling "facelets.VIEW_MAPPINGS". You should leave "facelets.VIEW_MAPPINGS" 
-			unset and use "org.apache.myfaces.trinidad.FACELETS_VIEW_MAPPINGS" instead. -->
-		<param-name>org.apache.myfaces.trinidad.FACELETS_VIEW_MAPPINGS</param-name>
-		<param-value>*.xhtml</param-value>
-	</context-param>
-
 	<!-- Extensions Filter -->
 	<filter>
 		<filter-name>extensionsFilter</filter-name>
@@ -240,18 +225,6 @@
 			<param-value>100k</param-value>
 		</init-param>
 	</filter>
-
-	<filter>
-		<filter-name>trinidad</filter-name>
-		<filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class>
-	</filter>
-
-	<filter-mapping>
-		<filter-name>trinidad</filter-name>
-		<!-- This assumes that the FacesServlet has been registered -->
-		<!-- under the name "faces" -->
-		<servlet-name>faces</servlet-name>
-	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>extensionsFilter</filter-name>
@@ -283,11 +256,6 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-
-	<servlet>
-		<servlet-name>resources</servlet-name>
-		<servlet-class>org.apache.myfaces.trinidad.webapp.ResourceServlet</servlet-class>
-	</servlet>
 	
 	<servlet>
 	   <servlet-name>Resource Servlet</servlet-name>
@@ -296,12 +264,6 @@
 	<servlet-mapping>
 	   <servlet-name>Resource Servlet</servlet-name>
 	   <url-pattern>/primefaces_resource/*</url-pattern>
-	</servlet-mapping>
-
-	<!-- This cannot be configured currently -->
-	<servlet-mapping>
-		<servlet-name>resources</servlet-name>
-		<url-pattern>/adf/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- Faces Servlet Mapping -->
