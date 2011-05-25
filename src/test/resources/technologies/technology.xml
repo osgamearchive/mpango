@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<treetech xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+xs:noNamespaceSchemaLocation="technology.xsd">
+  <technology>
+    <techname>stone</techname>
+    <description>...</description>
+    <unitsenabled>stone axe</unitsenabled>
+    <buildingsenabled>Sandstone</buildingsenabled>
+    <effects>+att</effects>
+    <cost>10</cost>
+  </technology>
+  <technology>
+    <techname>fire</techname>
+    <description>Fire is a great succes, now people can eat more easy so they can live longer. You learn how to dry wood improving your weapons.</description>
+    <requires>stone</requires>
+    <requires>religion</requires>
+    <unitsenabled>wood lancers</unitsenabled>
+    <unitsenabled>flame trapper</unitsenabled>
+    <effects>+hp</effects>
+    <cost>10</cost>
+  </technology>
+  
+</treetech>

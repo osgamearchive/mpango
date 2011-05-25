@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <!-- types -->
+
+  <!-- elements -->
+  <xs:element name="techname" type="xs:string"/>
+  <xs:element name="requires" type="xs:string"/>
+  <xs:element name="description" type="xs:string"/>
+  <xs:element name="unitsenabled" type="xs:string"/>
+  <xs:element name="buildingsenabled" type="xs:string"/>
+  <xs:element name="effects" type="xs:string"/>
+  <xs:element name="cost" type="xs:positiveInteger"/>
+
+  <!-- complex elements -->
+  <!-- basic technology -->
+  <xs:element name="technology" >
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="techname"/>
+        <xs:element ref="description"/>
+        <xs:element ref="requires" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="unitsenabled" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="buildingsenabled" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="effects" minOccurs="0" maxOccurs="unbounded"/>
+        <xs:element ref="cost"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+   
+  <!-- root (all the technologies) -->
+  <xs:element name="treetech">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="technology" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
