@@ -1,10 +1,10 @@
 package net.sourceforge.mpango.battle;
 
-import net.sourceforge.mpango.Cell;
 import net.sourceforge.mpango.battle.BattleEngine;
-import net.sourceforge.mpango.battle.BattleResult;
-import net.sourceforge.mpango.battle.FightResult;
-import net.sourceforge.mpango.battle.Fleet;
+import net.sourceforge.mpango.entity.Cell;
+import net.sourceforge.mpango.entity.Fleet;
+import net.sourceforge.mpango.result.BattleResult;
+import net.sourceforge.mpango.result.FightResult;
 import junit.framework.TestCase;
 import static org.easymock.classextension.EasyMock.*;
 

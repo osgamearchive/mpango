@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.directory;
+package net.sourceforge.mpango.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

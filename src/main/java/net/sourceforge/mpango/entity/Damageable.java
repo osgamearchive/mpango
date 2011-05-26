@@ -1,4 +1,4 @@
-package net.sourceforge.mpango;
+package net.sourceforge.mpango.entity;
 
 /**
  * Every entity that can receive damage should implement this interface

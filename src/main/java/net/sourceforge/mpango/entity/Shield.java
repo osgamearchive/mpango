@@ -1,8 +1,7 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.entity;
 
 import javax.persistence.Entity;
 
-import net.sourceforge.mpango.AbstractPersistable;
 import net.sourceforge.mpango.exception.UselessShieldException;
 
 /**

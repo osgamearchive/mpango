@@ -1,7 +1,7 @@
 package net.sourceforge.mpango;
 
-import net.sourceforge.mpango.Cell;
-import net.sourceforge.mpango.GameBoard;
+import net.sourceforge.mpango.entity.Cell;
+import net.sourceforge.mpango.entity.GameBoard;
 import junit.framework.TestCase;
 
 public class GameBoardTest extends TestCase {

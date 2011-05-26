@@ -3,12 +3,12 @@ package net.sourceforge.mpango.battle;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sourceforge.mpango.Technology;
-import net.sourceforge.mpango.Unit;
-import net.sourceforge.mpango.battle.Shield;
-import net.sourceforge.mpango.battle.ShieldTechnology;
-import net.sourceforge.mpango.battle.Weapon;
-import net.sourceforge.mpango.battle.WeaponTechnology;
+import net.sourceforge.mpango.entity.Shield;
+import net.sourceforge.mpango.entity.Technology;
+import net.sourceforge.mpango.entity.Unit;
+import net.sourceforge.mpango.entity.Weapon;
+import net.sourceforge.mpango.entity.technology.ShieldTechnology;
+import net.sourceforge.mpango.entity.technology.WeaponTechnology;
 import net.sourceforge.mpango.exception.UnknownTechnologyException;
 
 import junit.framework.TestCase;

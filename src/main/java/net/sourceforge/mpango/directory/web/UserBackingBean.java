@@ -2,8 +2,8 @@ package net.sourceforge.mpango.directory.web;
 
 import java.util.List;
 
-import net.sourceforge.mpango.directory.User;
 import net.sourceforge.mpango.directory.UserDAO;
+import net.sourceforge.mpango.entity.User;
 
 public class UserBackingBean {
 	

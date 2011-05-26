@@ -1,9 +1,10 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.result;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sourceforge.mpango.Cell;
+import net.sourceforge.mpango.entity.Cell;
+import net.sourceforge.mpango.entity.Fleet;
 
 /**
  * This class helps deal with the results of a battle.

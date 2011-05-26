@@ -2,6 +2,8 @@ package net.sourceforge.mpango.directory;
 
 import java.util.List;
 
+import net.sourceforge.mpango.entity.User;
+
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 

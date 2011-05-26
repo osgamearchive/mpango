@@ -1,6 +1,6 @@
 package net.sourceforge.mpango.exception;
 
-import net.sourceforge.mpango.Construction;
+import net.sourceforge.mpango.entity.Construction;
 
 public class ConstructionAlreadyInPlaceException extends Exception {
 

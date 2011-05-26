@@ -1,12 +1,13 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sourceforge.mpango.Unit;
 import net.sourceforge.mpango.exception.InvalidUnitException;
+import net.sourceforge.mpango.result.AttackResult;
+import net.sourceforge.mpango.result.FightResult;
 
 /**
  * Class that represents a group of units.

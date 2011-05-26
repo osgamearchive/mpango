@@ -1,4 +1,4 @@
-package net.sourceforge.mpango;
+package net.sourceforge.mpango.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,10 +13,8 @@ import javax.persistence.Transient;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import net.sourceforge.mpango.battle.Shield;
-import net.sourceforge.mpango.battle.ShieldTechnology;
-import net.sourceforge.mpango.battle.Weapon;
-import net.sourceforge.mpango.battle.WeaponTechnology;
+import net.sourceforge.mpango.entity.technology.ShieldTechnology;
+import net.sourceforge.mpango.entity.technology.WeaponTechnology;
 import net.sourceforge.mpango.exception.UnknownTechnologyException;
 import net.sourceforge.mpango.exception.UselessShieldException;
 

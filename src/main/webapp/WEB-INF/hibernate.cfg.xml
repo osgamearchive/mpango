@@ -12,6 +12,6 @@
 <!--       <mapping class="net.sourceforge.romulan.battle.Shield"/> -->
 <!--       <mapping class="net.sourceforge.romulan.battle.Weapon"/> -->
 <!--       <mapping class="net.sourceforge.romulan.Technology"/> -->
-		<mapping class="net.sourceforge.mpango.directory.User" />
+		<mapping class="net.sourceforge.mpango.entity.User" />
    </session-factory>
 </hibernate-configuration>

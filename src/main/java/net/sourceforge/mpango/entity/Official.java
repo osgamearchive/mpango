@@ -1,9 +1,7 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.entity;
 
 import java.util.List;
 
-import net.sourceforge.mpango.Technology;
-import net.sourceforge.mpango.Unit;
 import net.sourceforge.mpango.exception.UnknownTechnologyException;
 
 public class Official extends Unit {

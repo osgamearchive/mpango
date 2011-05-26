@@ -1,4 +1,4 @@
-package net.sourceforge.mpango;
+package net.sourceforge.mpango.entity;
 
 import java.util.ArrayList;
 import java.util.List;

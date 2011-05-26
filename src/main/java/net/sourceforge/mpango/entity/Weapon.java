@@ -1,8 +1,7 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.entity;
 
 import javax.persistence.Entity;
 
-import net.sourceforge.mpango.AbstractPersistable;
 
 /**
  * This class represents a offence weapon and increases the attack points of the unit that carries it.

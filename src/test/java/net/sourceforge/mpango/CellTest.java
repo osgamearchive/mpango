@@ -1,6 +1,6 @@
 package net.sourceforge.mpango;
 
-import net.sourceforge.mpango.Cell;
+import net.sourceforge.mpango.entity.Cell;
 import junit.framework.TestCase;
 
 public class CellTest extends TestCase {

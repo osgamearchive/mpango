@@ -1,6 +1,9 @@
 package net.sourceforge.mpango.battle;
 
-import net.sourceforge.mpango.Cell;
+import net.sourceforge.mpango.entity.Cell;
+import net.sourceforge.mpango.entity.Fleet;
+import net.sourceforge.mpango.result.BattleResult;
+import net.sourceforge.mpango.result.FightResult;
 
 /**
  * This class is the battle engine that takes care of the development of a battle between two fleets.

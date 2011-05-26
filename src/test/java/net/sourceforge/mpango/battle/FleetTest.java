@@ -1,11 +1,11 @@
 package net.sourceforge.mpango.battle;
 
-import net.sourceforge.mpango.Unit;
-import net.sourceforge.mpango.battle.FightResult;
-import net.sourceforge.mpango.battle.Fleet;
-import net.sourceforge.mpango.battle.Official;
+import net.sourceforge.mpango.entity.Fleet;
+import net.sourceforge.mpango.entity.Official;
+import net.sourceforge.mpango.entity.Unit;
 import net.sourceforge.mpango.exception.InvalidUnitException;
 import net.sourceforge.mpango.exception.UnknownTechnologyException;
+import net.sourceforge.mpango.result.FightResult;
 import junit.framework.TestCase;
 import static org.easymock.classextension.EasyMock.*;
 

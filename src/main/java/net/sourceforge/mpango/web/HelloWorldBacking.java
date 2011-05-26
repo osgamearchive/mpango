@@ -5,8 +5,8 @@ import java.util.Date;
 
 import javax.faces.model.SelectItem;
 
-import net.sourceforge.mpango.directory.User;
 import net.sourceforge.mpango.directory.UserDAOHibernate;
+import net.sourceforge.mpango.entity.User;
 
 /** 
  * @author edvera

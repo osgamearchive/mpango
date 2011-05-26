@@ -1,6 +1,6 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.result;
 
-import net.sourceforge.mpango.Unit;
+import net.sourceforge.mpango.entity.Unit;
 
 public class AttackResult {
 	

@@ -1,6 +1,6 @@
 package net.sourceforge.mpango.terrains;
 
-import net.sourceforge.mpango.Construction;
+import net.sourceforge.mpango.entity.Construction;
 
 public class WaterTerrain implements Terrain{
 

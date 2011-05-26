@@ -1,6 +1,6 @@
 package net.sourceforge.mpango.terrains;
 
-import net.sourceforge.mpango.Construction;
+import net.sourceforge.mpango.entity.Construction;
 
 /**
  * Represents the terrain of a cell.

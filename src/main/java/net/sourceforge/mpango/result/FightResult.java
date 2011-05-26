@@ -1,7 +1,9 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.result;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sourceforge.mpango.entity.Fleet;
 
 /**
  * Class that contains the result of a fight.
