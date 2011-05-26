@@ -12,15 +12,76 @@
 	
 	 <!-- Framework CSS -->
     <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection"/>
+    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen, projection"/>
     <link rel="stylesheet" href="css/blueprint/print.css" type="text/css" media="print"/>
     <!--[if lt IE 8]><link rel="stylesheet" href="css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
+    <script type="text/javascript" src="javascript/jquery-validation-1.8.1/jquery.validate.min.js"></script>
     <script>
+    
+    
     jQuery.noConflict();
-    jQuery(document).ready(function(){
-    	jQuery("#dateOfBirthInput").datepicker();
-	});
+
+    jQuery(document).ready(function() { 
+        // validate signup form on keyup
+        var validator = jQuery("#form").validate({ 
+            rules: {  
+                usernameInput: { 
+                    required: true, 
+                    minlength: 2, 
+                }, 
+                passwordInput: { 
+                    required: true, 
+                    minlength: 5 
+                }, 
+                passwordInput_confirm: { 
+                    required: true, 
+                    minlength: 5, 
+                    equalTo: "#passwordInput" 
+                }, 
+                emailInput: { 
+                    required: true, 
+                    email: true, 
+                }, 
+                emailInput_confirm: { 
+                    required: true, 
+                    email: true, 
+                    equalTo: "#emailInput"
+                }
+            }, 
+            messages: { 
+            	usernameInput: { 
+                    required: "Enter a username", 
+                    minlength: jQuery.format("Enter at least {0} characters")
+                }, 
+                passwordInput: { 
+                    required: "Provide a password", 
+                    rangelength: jQuery.format("Enter at least {0} characters") 
+                }, 
+                passwordInput_confirm: { 
+                    required: "Repeat your password", 
+                    minlength: jQuery.format("Enter at least {0} characters"), 
+                    equalTo: "Enter the same password as above" 
+                }, 
+                emailInput: { 
+                    required: "Please enter a valid email address", 
+                    minlength: "Please enter a valid email address"
+                }, 
+                emailInput_confirm: { 
+                    required: "Please enter a valid email address", 
+                    minlength: "Please enter a valid email address",
+                    equalTo: "Enter the same email as above"
+                }
+            }, 
+            // the errorPlacement has to take the table layout into account 
+	        errorPlacement: function(error, element) {
+	            error.insertAfter(element);
+	        }
+        }); 
+          
+    }); 	
+    
 	</script>
-   
+	
 </h:head>
 <body>
 
@@ -29,32 +90,48 @@
 		
 		<fieldset>
 		<legend>Register for mpango!</legend>
-			<div class="span-12 final">	
+			<div class="span-18 final">	
 				<h:form id="form" prependId="false">
 					<p>
-						<h:outputLabel id="usernameLabel" for="usernameInput" value="Username: " /><br />
-						<h:inputText id="usernameInput" value="#{helloWorldBacking.username}" required="true" />
+						<h:outputLabel id="usernameLabel" for="usernameInput" value="Username: " />
+						<h:inputText id="usernameInput" name="usernameInput" value="#{helloWorldBacking.username}" required="true" />
 					</p>
 					<p>
-						<h:outputLabel id="passwordLabel" for="usernameInput" value="Password: " /><br />
-						<h:inputSecret  id="passwordInput"  value="#{helloWorldBacking.password}" required="true" />
+						<h:outputLabel id="passwordLabel" for="passwordInput" value="Password: " />
+						<h:inputSecret  id="passwordInput" name="passwordInput"  value="#{helloWorldBacking.password}" required="true" />
 					</p>
+					
 					<p>
-						<h:outputLabel id="emailabel" for="usernameInput" value="Email: " /><br />
-						<h:inputText id="emailInput" value="#{helloWorldBacking.email}" required="true" />
+						<h:outputLabel id="passwordConfirmLabel" for="passwordInput_confirm" value="Confirm Password: " />
+						<h:inputSecret  id="passwordInput_confirm" name="passwordInput_confirm" value="" required="true" />
 					</p>
+					
 					<p>
-						<h:outputLabel id="countryLabel" for="usernameInput" value="Country: " /><br />
-						<h:selectOneMenu>
+						<h:outputLabel id="emailabel" for="emailInput" value="Email: " />
+						<h:inputText id="emailInput" name="emailInput"  value="#{helloWorldBacking.email}" required="true">
+							<f:validateRegex pattern=".+@.+\.[a-z]+"/> 
+						</h:inputText>
+					</p>
+					
+					<p>
+						<h:outputLabel id="emailabelConfirm" for="emailInput_confirm" value="Confirm Email: " />
+						<h:inputText id="emailInput_confirm" name="emailInput_confirm" value="" required="true">
+							<f:validateRegex pattern=".+@.+\.[a-z]+"/> 
+						</h:inputText>
+					</p>
+					
+					<p>
+						<h:outputLabel id="countryLabel" for="countryInput" value="Country: " /><br />
+						<h:selectOneMenu id="countryInput">
 							<f:selectItems value="#{helloWorldBacking.countries}" />
 						</h:selectOneMenu>
 					</p>
 					<p>
-						<h:outputLabel id="dateOfBirthLabel" for="usernameInput" value="Date Of Birth: " /><br />
-						<input id="dateOfBirthInput" type="text"/>
+						<h:outputLabel id="dateOfBirthLabel" for="DOBInput" value="Date Of Birth: " /><br />
+						<p:calendar effect="fadeIn" id="DOBInput"/>      
 					</p>
 					<p>
-						<h:outputLabel id="genderLabel" for="genderInput" value="gender: " />
+						<h:outputLabel id="genderLabel" for="genderInput" value="Gender: " />
 						<h:selectOneRadio required="true" id="genderInput">
 							<f:selectItem itemLabel="Male" itemValue="male" />
 							<f:selectItem itemLabel="Female" itemValue="female" />

@@ -1,0 +1,28 @@
+#form input {
+    border: 1px solid #CCCCCC;
+    margin-right: 2em;
+    padding: 0.12em;
+    margin-bottom:0px;
+    height:20px;
+}
+#form input.error {
+    border: 1px solid #AAAAAA;
+    margin-right: 2em;
+    padding: 0.12em;
+    margin-bottom:0px;
+    height:20px;
+}
+#form label {
+    display: inline-block;
+    width: 120px;
+    padding-top: 5px;
+    height:20px;
+}
+
+#form label.error {
+    width: 250px;
+    text-align:center;
+    margin-bottom:0px;
+    padding: 0em;
+    height:19px;
+}
