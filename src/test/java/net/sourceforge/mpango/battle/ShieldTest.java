@@ -1,7 +1,7 @@
 package net.sourceforge.mpango.battle;
 
 import net.sourceforge.mpango.battle.Shield;
-import net.sourceforge.mpango.battle.UselessShieldException;
+import net.sourceforge.mpango.exception.UselessShieldException;
 import junit.framework.TestCase;
 
 /**

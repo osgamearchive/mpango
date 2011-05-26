@@ -9,9 +9,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import net.sourceforge.mpango.events.Event;
-import net.sourceforge.mpango.events.EventNotSupportedException;
 import net.sourceforge.mpango.events.Listener;
 import net.sourceforge.mpango.events.TurnEvent;
+import net.sourceforge.mpango.exception.EventNotSupportedException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

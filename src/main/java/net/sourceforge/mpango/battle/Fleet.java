@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import net.sourceforge.mpango.InvalidUnitException;
 import net.sourceforge.mpango.Unit;
+import net.sourceforge.mpango.exception.InvalidUnitException;
 
 /**
  * Class that represents a group of units.

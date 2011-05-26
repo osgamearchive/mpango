@@ -1,4 +1,4 @@
-package net.sourceforge.mpango;
+package net.sourceforge.mpango.exception;
 
 public class InvalidUnitException extends Exception {
 	

@@ -3,6 +3,7 @@ package net.sourceforge.mpango.battle;
 import javax.persistence.Entity;
 
 import net.sourceforge.mpango.AbstractPersistable;
+import net.sourceforge.mpango.exception.UselessShieldException;
 
 /**
  * This class represents the shield a unit might have.

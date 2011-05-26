@@ -3,6 +3,8 @@ package net.sourceforge.mpango.events;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sourceforge.mpango.exception.EventNotSupportedException;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 

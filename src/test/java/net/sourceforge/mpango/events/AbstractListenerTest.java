@@ -3,7 +3,7 @@ package net.sourceforge.mpango.events;
 import net.sourceforge.mpango.events.AbstractEvent;
 import net.sourceforge.mpango.events.AbstractListener;
 import net.sourceforge.mpango.events.Event;
-import net.sourceforge.mpango.events.EventNotSupportedException;
+import net.sourceforge.mpango.exception.EventNotSupportedException;
 import junit.framework.TestCase;
 
 public class AbstractListenerTest extends TestCase {

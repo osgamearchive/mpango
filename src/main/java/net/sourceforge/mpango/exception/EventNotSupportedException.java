@@ -1,4 +1,6 @@
-package net.sourceforge.mpango.events;
+package net.sourceforge.mpango.exception;
+
+import net.sourceforge.mpango.events.Event;
 
 public class EventNotSupportedException extends Exception {
 	

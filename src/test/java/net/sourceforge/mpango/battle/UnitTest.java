@@ -5,11 +5,11 @@ import java.util.List;
 
 import net.sourceforge.mpango.Technology;
 import net.sourceforge.mpango.Unit;
-import net.sourceforge.mpango.UnknownTechnologyException;
 import net.sourceforge.mpango.battle.Shield;
 import net.sourceforge.mpango.battle.ShieldTechnology;
 import net.sourceforge.mpango.battle.Weapon;
 import net.sourceforge.mpango.battle.WeaponTechnology;
+import net.sourceforge.mpango.exception.UnknownTechnologyException;
 
 import junit.framework.TestCase;
 

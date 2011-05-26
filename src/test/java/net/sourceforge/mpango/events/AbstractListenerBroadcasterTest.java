@@ -6,8 +6,8 @@ import java.util.List;
 import net.sourceforge.mpango.events.AbstractEvent;
 import net.sourceforge.mpango.events.AbstractListenerBroadcaster;
 import net.sourceforge.mpango.events.Event;
-import net.sourceforge.mpango.events.EventNotSupportedException;
 import net.sourceforge.mpango.events.Listener;
+import net.sourceforge.mpango.exception.EventNotSupportedException;
 
 import junit.framework.TestCase;
 

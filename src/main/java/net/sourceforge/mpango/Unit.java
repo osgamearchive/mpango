@@ -15,9 +15,10 @@ import org.apache.commons.logging.LogFactory;
 
 import net.sourceforge.mpango.battle.Shield;
 import net.sourceforge.mpango.battle.ShieldTechnology;
-import net.sourceforge.mpango.battle.UselessShieldException;
 import net.sourceforge.mpango.battle.Weapon;
 import net.sourceforge.mpango.battle.WeaponTechnology;
+import net.sourceforge.mpango.exception.UnknownTechnologyException;
+import net.sourceforge.mpango.exception.UselessShieldException;
 
 /**
  * Abstract class that contains the basic attributes and methods for all units.
