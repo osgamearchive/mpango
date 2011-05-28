@@ -1,8 +1,8 @@
-package net.sourceforge.mpango.directory;
+package net.sourceforge.mpango.directory.dao;
 
 import java.util.List;
 
-import net.sourceforge.mpango.entity.User;
+import net.sourceforge.mpango.directory.entity.User;
 
 public interface UserDAO {
 

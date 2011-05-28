@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.entity;
+package net.sourceforge.mpango.directory.entity;
 
 import java.util.Date;
 
