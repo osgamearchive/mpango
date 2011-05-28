@@ -2,7 +2,6 @@ package net.sourceforge.mpango.service;
 
 import java.util.List;
 
-import net.sourceforge.mpango.dto.UserDTO;
 import net.sourceforge.mpango.entity.User;
 
 public interface IAuthenticationService {

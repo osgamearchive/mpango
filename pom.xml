@@ -3,129 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>net.sourceforge.mpango</groupId>
 	<artifactId>mpango</artifactId>
-	<packaging>war</packaging>
+	<packaging>pom</packaging>
 	<name>mPango</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<description>A web turn based strategy game.</description>
 	<url>http://mpango.sourceforge.net</url>
-	<repositories>
-		<repository>  
-	    <id>prime-repo</id>  
-	    <name>Prime Technology Maven Repository</name>  
-	    <url>http://repository.prime.com.tr</url>  
-	    <layout>default</layout>  
-	   </repository>    
-	</repositories>
-	<dependencies>
-		<dependency>  
-		    <groupId>org.primefaces</groupId>  
-		    <artifactId>primefaces</artifactId>  
-		    <version>2.1</version>  
-		</dependency>
-		<dependency>
-			<groupId>org.easymock</groupId>
-			<artifactId>easymockclassextension</artifactId>
-			<version>2.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.myfaces.core</groupId>
-			<artifactId>myfaces-api</artifactId>
-			<version>2.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.myfaces.core</groupId>
-			<artifactId>myfaces-impl</artifactId>
-			<version>2.0.2</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
-			<version>3.4.0.GA</version>
-		</dependency>
-		<dependency>
-			<groupId>hsqldb</groupId>
-			<artifactId>hsqldb</artifactId>
-			<version>1.8.0.10</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-dbcp</groupId>
-			<artifactId>commons-dbcp</artifactId>
-			<version>1.2.2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.4.2</version>
-		</dependency>
-		<dependency>
-			<groupId>javassist</groupId>
-			<artifactId>javassist</artifactId>
-			<version>3.8.0.GA</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-web</artifactId>
-			<version>${activemq.version}</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.claudiushauptmann</groupId>
-		    <artifactId>gwt-recaptcha</artifactId>
-		    <version>1.0.0.Beta2</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-test</artifactId>
-			<version>${spring.version}</version>
-			<type>jar</type>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.myfaces.tomahawk</groupId>
-			<artifactId>tomahawk20</artifactId>
-			<version>1.1.10</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
- 			<groupId>javax.mail</groupId>
- 			<artifactId>mail</artifactId>
- 			<version>1.4.1</version>
-		</dependency>
-	</dependencies>
-	
 	<issueManagement>
 		<system>mPango Trac</system>
 		<url>https://sourceforge.net/tracker/?group_id=540830</url>
@@ -186,16 +68,16 @@
 			<roles>
 				<role>Developer</role>
 			</roles>
-		</developer>	
+		</developer>
 		<developer>
 			<id>shoeksema</id>
 			<name>Steve Hoeksema</name>
 			<timezone>ET</timezone>
-				<email>shoeksema@users.sourceforge.net</email>
+			<email>shoeksema@users.sourceforge.net</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
-		</developer>	
+		</developer>
 	</developers>
 	<contributors>
 	</contributors>
@@ -226,14 +108,6 @@
 	</mailingLists>
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-				<configuration>
-					<jettyEnvXml>${jetty.jettyEnvXml}</jettyEnvXml>
-					<scanIntervalSeconds>${jetty.scanIntervalSeconds}</scanIntervalSeconds>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -286,30 +160,10 @@
 				<version>2.3.1</version>
 			</plugin>
 			<plugin>
-			    <groupId>org.codehaus.mojo</groupId>
-			    <artifactId>license-maven-plugin</artifactId>
-			    <configuration>
-			        <licenseName>gpl_v3</licenseName>
-			    </configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<version>2.1.1</version>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>license-maven-plugin</artifactId>
 				<configuration>
-					<filters>
-						<filter>src/main/filters/web.properties</filter>
-					</filters>
-					<webResources>
-						<resource>
-							<directory>src/main/webapp</directory>
-							<filtering>true</filtering>
-							<includes>
-								<include>**/*.xhtml</include>
-								<include>**/*.xml</include>
-							</includes>
-						</resource>
-					</webResources>
+					<licenseName>gpl_v3</licenseName>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -336,4 +190,8 @@
 		<activemq.version>5.5.0</activemq.version>
 		<spring.version>3.0.3.RELEASE</spring.version>
 	</properties>
+	<modules>
+		<module>mpango-core</module>
+		<module>mpango-web</module>
+	</modules>
 </project>
