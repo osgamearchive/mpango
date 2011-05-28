@@ -35,6 +35,9 @@ public class UserFactory {
 		user.setIdentifier(dto.getUserId());
 		user.setUsername(dto.getUsername());
 		user.setEmail(dto.getEmail());
+		user.setDateOfBirth(dto.getDateOfBirth());
+		user.setGender(dto.getGender());
+		user.setPassword(dto.getPassword());
 
 		return user;
 	}

@@ -1,5 +1,7 @@
 package net.sourceforge.mpango.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,30 @@ public class User {
 	private Long identifier;
 	private String email;
 	private String username;
+	private String password;
+	private Date dateOfBirth;
+	private String gender;
 	
+	
+	
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 	public void setUsername(String username) {
 		this.username = username;
 	}

@@ -94,11 +94,11 @@
 				<h:form id="form" prependId="false">
 					<p>
 						<h:outputLabel id="usernameLabel" for="usernameInput" value="Username: " />
-						<h:inputText id="usernameInput" name="usernameInput" value="#{helloWorldBacking.username}" required="true" />
+						<h:inputText id="usernameInput" name="usernameInput" value="#{helloWorldBacking.user.username}" required="true" />
 					</p>
 					<p>
 						<h:outputLabel id="passwordLabel" for="passwordInput" value="Password: " />
-						<h:inputSecret  id="passwordInput" name="passwordInput"  value="#{helloWorldBacking.password}" required="true" />
+						<h:inputSecret  id="passwordInput" name="passwordInput"  value="#{helloWorldBacking.user.password}" required="true" />
 					</p>
 					
 					<p>
@@ -108,7 +108,7 @@
 					
 					<p>
 						<h:outputLabel id="emailabel" for="emailInput" value="Email: " />
-						<h:inputText id="emailInput" name="emailInput"  value="#{helloWorldBacking.email}" required="true">
+						<h:inputText id="emailInput" name="emailInput"  value="#{helloWorldBacking.user.email}" required="true">
 							<f:validateRegex pattern=".+@.+\.[a-z]+"/> 
 						</h:inputText>
 					</p>
@@ -127,11 +127,11 @@
 						</h:selectOneMenu>
 					</p>
 					<p>
-						<h:outputLabel id="dateOfBirthLabel" for="DOBInput" value="Date Of Birth: " /><br />
+						<h:outputLabel id="dateOfBirthLabel" for="DOBInput" value="#{helloWorldBacking.user.dateOfBirth}" /><br />
 						<p:calendar effect="fadeIn" id="DOBInput"/>      
 					</p>
 					<p>
-						<h:outputLabel id="genderLabel" for="genderInput" value="Gender: " />
+						<h:outputLabel id="genderLabel" for="genderInput" value="#{helloWorldBacking.user.gender}" />
 						<h:selectOneRadio required="true" id="genderInput">
 							<f:selectItem itemLabel="Male" itemValue="male" />
 							<f:selectItem itemLabel="Female" itemValue="female" />

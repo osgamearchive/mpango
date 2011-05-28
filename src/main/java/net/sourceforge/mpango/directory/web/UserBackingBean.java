@@ -2,24 +2,29 @@ package net.sourceforge.mpango.directory.web;
 
 import java.util.List;
 
-import net.sourceforge.mpango.directory.UserDAO;
-import net.sourceforge.mpango.entity.User;
+import net.sourceforge.mpango.dto.UserDTO;
+import net.sourceforge.mpango.facade.AuthenticationFacade;
 
 public class UserBackingBean {
 	
-	private List<User> users;
-	private UserDAO userDAO;
+	private List<UserDTO> users;
+	private AuthenticationFacade authFacade;
 	
-	public List<User> getUsers() {
-		return userDAO.list();
+	
+	public List<UserDTO> getUsers() {
+		return authFacade.list();
+	}
+
+
+	public AuthenticationFacade getAuthFacade() {
+		return authFacade;
+	}
+
+
+	public void setAuthFacade(AuthenticationFacade authFacade) {
+		this.authFacade = authFacade;
 	}
 	
-	public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
-	}
-	public UserDAO getUserDAO() {
-		return userDAO;
-	}
 	
 	
 }

@@ -71,14 +71,22 @@
 	<bean name="userDAO" class="net.sourceforge.mpango.directory.UserDAOHibernate">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	<bean name="authService" class="net.sourceforge.mpango.service.AuthenticationService">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	
+	<bean name="authFacade" class="net.sourceforge.mpango.facade.AuthenticationFacade">
+		<property name="authService" ref="authService" />
+	</bean>
 
 	<bean id="helloWorldBacking" class="net.sourceforge.mpango.web.HelloWorldBacking"
 		scope="request">
-		<property name="userDAO" ref="userDAO" />
+		<property name="authFacade" ref="authFacade" />
 	</bean>
 
 	<bean id="userBackingBean" class="net.sourceforge.mpango.directory.web.UserBackingBean"
 		scope="request">
-		<property name="userDAO" ref="userDAO" />
+		<property name="authFacade" ref="authFacade" />
 	</bean>
 </beans>

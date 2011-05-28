@@ -1,5 +1,7 @@
 package net.sourceforge.mpango.dto;
 
+import java.util.Date;
+
 /**
  * @author aplause
  * 
@@ -11,6 +13,9 @@ public class UserDTO extends BaseDTO {
 	private Long userId;
 	private String email;
 	private String username;
+	private String password;
+	private Date dateOfBirth;
+	private String gender;
 
 	/**
 	 * @return
@@ -52,6 +57,48 @@ public class UserDTO extends BaseDTO {
 	 */
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getPassword() {
+		return password;
+	}
+
+	/**
+	 * @param password
+	 */
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	/**
+	 * @return
+	 */
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	/**
+	 * @param dateOfBirth
+	 */
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getGender() {
+		return gender;
+	}
+
+	/**
+	 * @param gender
+	 */
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 }

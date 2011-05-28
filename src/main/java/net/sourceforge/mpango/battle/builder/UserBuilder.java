@@ -1,5 +1,8 @@
 package net.sourceforge.mpango.battle.builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sourceforge.mpango.dto.UserDTO;
 import net.sourceforge.mpango.entity.User;
 
@@ -31,11 +34,36 @@ public class UserBuilder {
 	 * @return {@link UserDTO}
 	 */
 	public UserDTO build(User user) {
+
+		if (null == user) {
+			return null;
+		}
+
 		UserDTO dto = new UserDTO();
 		dto.setUserId(user.getIdentifier());
 		dto.setUsername(user.getUsername());
+		dto.setPassword(user.getPassword());
 		dto.setEmail(user.getEmail());
+		dto.setDateOfBirth(user.getDateOfBirth());
+		dto.setGender(user.getGender());
 
 		return dto;
+	}
+
+	/**
+	 * builds {@link List} of {@link UserDTO}
+	 * 
+	 * @param userList
+	 * @return {@link List} of {@link UserDTO}
+	 */
+	public List<UserDTO> buildList(List<User> userList) {
+		List<UserDTO> dtoList = new ArrayList<UserDTO>();
+
+		for (User user : userList) {
+			dtoList.add(build(user));
+		}
+
+		return dtoList;
+
 	}
 }

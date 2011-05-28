@@ -25,8 +25,10 @@ public class UserDAOHibernate implements UserDAO {
 		return user;
 	}
 
-	public Long save(User user) {
-		return (Long) getHibernateTemplate().save(user);
+	public User save(User user) {
+		Long userId = (Long) getHibernateTemplate().save(user);
+		user.setIdentifier(userId);
+		return user;
 	}
 
 	public void update(User user) {
