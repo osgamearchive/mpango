@@ -135,15 +135,23 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	 * @throws ConstructionAlreadyInPlaceException 
 	 */
 	@Transient
-	public void settle(Cell cell, Float maximumHitPoints) throws ConstructionAlreadyInPlaceException {
+	public boolean settle(Cell cell, Float maximumHitPoints) throws ConstructionAlreadyInPlaceException {
 		boolean flag = true;
-		// conditions to be added to see if a city can be added to a given cell
-		// flag set to false if conditions are not satisfied
+		// additional conditions to be added to see if a city can be added to a given cell
+		// If a given cell already holds a city, a city cannot be created.
+		List<Construction> constructions = cell.getConstructions();
+		for (Construction construction: constructions) {
+			if (construction instanceof City) {
+				flag = false;
+			}
+		}
 		
 		if (flag) {
 			City city = new City(maximumHitPoints);
 			cell.addConstruction(city);
 		}
+		
+		return flag;
 	}
 	@Transient
 	public float repair() {
