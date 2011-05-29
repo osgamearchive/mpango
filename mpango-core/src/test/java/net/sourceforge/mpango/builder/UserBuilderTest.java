@@ -3,8 +3,8 @@ package net.sourceforge.mpango.builder;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 import net.sourceforge.mpango.battle.builder.UserBuilder;
+import net.sourceforge.mpango.directory.entity.User;
 import net.sourceforge.mpango.dto.UserDTO;
-import net.sourceforge.mpango.entity.User;
 
 /**
  * 

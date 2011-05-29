@@ -7,9 +7,8 @@ import java.util.List;
 
 import net.sourceforge.mpango.battle.builder.UserBuilder;
 import net.sourceforge.mpango.battle.factory.UserFactory;
+import net.sourceforge.mpango.directory.service.IAuthenticationService;
 import net.sourceforge.mpango.dto.UserDTO;
-import net.sourceforge.mpango.service.AuthenticationService;
-import net.sourceforge.mpango.service.IAuthenticationService;
 
 /**
  * @author aplause
