@@ -10,13 +10,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import net.sourceforge.mpango.entity.technology.ShieldTechnology;
 import net.sourceforge.mpango.entity.technology.WeaponTechnology;
+import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
 import net.sourceforge.mpango.exception.UnknownTechnologyException;
 import net.sourceforge.mpango.exception.UselessShieldException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Abstract class that contains the basic attributes and methods for all units.
@@ -127,6 +128,22 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 		float maximumHitPoints = this.maximumHitPoints;
 		float realHealth = hitPoints / maximumHitPoints;
 		return realHealth > 0 ? realHealth : 0;
+	}
+	/**
+	 * This method determines if a city can be constructed in a given cell.
+	 * @return
+	 * @throws ConstructionAlreadyInPlaceException 
+	 */
+	@Transient
+	public void settle(Cell cell, Float maximumHitPoints) throws ConstructionAlreadyInPlaceException {
+		boolean flag = true;
+		// conditions to be added to see if a city can be added to a given cell
+		// flag set to false if conditions are not satisfied
+		
+		if (flag) {
+			City city = new City(maximumHitPoints);
+			cell.addConstruction(city);
+		}
 	}
 	@Transient
 	public float repair() {
