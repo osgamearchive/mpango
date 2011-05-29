@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.battle.builder;
+package net.sourceforge.mpango.directory.builder;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,12 @@
 /**
  * 
  */
-package net.sourceforge.mpango.facade;
+package net.sourceforge.mpango.directory.facade;
 
 import java.util.List;
 
-import net.sourceforge.mpango.battle.builder.UserBuilder;
-import net.sourceforge.mpango.battle.factory.UserFactory;
+import net.sourceforge.mpango.directory.builder.UserBuilder;
+import net.sourceforge.mpango.directory.factory.UserFactory;
 import net.sourceforge.mpango.directory.service.IAuthenticationService;
 import net.sourceforge.mpango.dto.UserDTO;
 

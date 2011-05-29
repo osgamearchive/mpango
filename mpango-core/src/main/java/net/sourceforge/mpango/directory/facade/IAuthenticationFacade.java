@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.facade;
+package net.sourceforge.mpango.directory.facade;
 
 import java.util.List;
 
