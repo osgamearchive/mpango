@@ -3,15 +3,18 @@ package net.sourceforge.mpango.battle;
 import java.util.ArrayList;
 import java.util.List;
 
+import junit.framework.TestCase;
+import net.sourceforge.mpango.entity.Cell;
+import net.sourceforge.mpango.entity.City;
+import net.sourceforge.mpango.entity.Construction;
 import net.sourceforge.mpango.entity.Shield;
 import net.sourceforge.mpango.entity.Technology;
 import net.sourceforge.mpango.entity.Unit;
 import net.sourceforge.mpango.entity.Weapon;
 import net.sourceforge.mpango.entity.technology.ShieldTechnology;
 import net.sourceforge.mpango.entity.technology.WeaponTechnology;
+import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
 import net.sourceforge.mpango.exception.UnknownTechnologyException;
-
-import junit.framework.TestCase;
 
 /**
  * This class is named after the entity Unit and for it's nature as a test.
@@ -25,6 +28,7 @@ public class UnitTest extends TestCase {
 	private static final Float UNIT_ATTACK_POINTS = 10f;
 	private static final Float UNIT_HIT_POINTS = 15f;
 	private static final Float MAXIMUM_SHIELD_HIT_POINTS = 5f; 
+	private static final Float MAXIMUM_CITY_HIT_POINTS = 100f; 
 	
 	public void setUp() {
 		
@@ -85,6 +89,23 @@ public class UnitTest extends TestCase {
 		unit.receiveDamage(UNIT_HIT_POINTS);
 		assertNull("The shield should have been destroyed during the attack", unit.getShield());
 		
+	}
+	
+	public void testSettle() throws ConstructionAlreadyInPlaceException, UnknownTechnologyException {
+		Unit unit = new TestUnit(createTechnologies(), UNIT_ATTACK_POINTS, UNIT_HIT_POINTS);
+		Cell cell = new Cell(0, 0);
+		unit.settle(cell, MAXIMUM_CITY_HIT_POINTS);
+		List<Construction> constructions = cell.getConstructions();
+		for (Construction construction: constructions) {
+			if (construction instanceof City) {
+				City city = (City) construction;
+				try {
+					assertEquals("The city should be initialized with the expected hit points", MAXIMUM_CITY_HIT_POINTS, city.getMaximumHitPoints());
+				} catch (AssertionError e) {
+					e.printStackTrace();
+				}
+			} 
+		}
 	}
 	
 	private List<Technology> createTechnologies() {
