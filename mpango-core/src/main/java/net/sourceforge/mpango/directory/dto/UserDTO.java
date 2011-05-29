@@ -1,6 +1,8 @@
-package net.sourceforge.mpango.dto;
+package net.sourceforge.mpango.directory.dto;
 
 import java.util.Date;
+
+import net.sourceforge.mpango.dto.BaseDTO;
 
 /**
  * @author aplause

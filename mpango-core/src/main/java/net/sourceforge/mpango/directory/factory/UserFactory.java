@@ -1,7 +1,7 @@
 package net.sourceforge.mpango.directory.factory;
 
+import net.sourceforge.mpango.directory.dto.UserDTO;
 import net.sourceforge.mpango.directory.entity.User;
-import net.sourceforge.mpango.dto.UserDTO;
 
 
 /**

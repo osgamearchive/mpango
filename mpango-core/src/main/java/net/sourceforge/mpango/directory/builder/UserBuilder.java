@@ -3,8 +3,8 @@ package net.sourceforge.mpango.directory.builder;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sourceforge.mpango.directory.dto.UserDTO;
 import net.sourceforge.mpango.directory.entity.User;
-import net.sourceforge.mpango.dto.UserDTO;
 
 /**
  * 

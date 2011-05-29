@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.builder;
+package net.sourceforge.mpango.directory.builder;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;

@@ -34,9 +34,8 @@ public class GameBoard extends AbstractPersistable {
 	private List<Row> rows;
 	private List<Listener> listeners;
 	
-	public void passTurn() {
-		TurnEvent event = new TurnEvent(this);
-		notifyAllListeners(event);
+	public void passTurn(TurnEvent turnEvent) {
+		notifyAllListeners(turnEvent);
 	}
 	
 	private void notifyAllListeners(Event event) {
