@@ -93,18 +93,41 @@ public class UnitTest extends TestCase {
 	
 	public void testSettle() throws ConstructionAlreadyInPlaceException, UnknownTechnologyException {
 		Unit unit = new TestUnit(createTechnologies(), UNIT_ATTACK_POINTS, UNIT_HIT_POINTS);
+		boolean flag = false;
+
+		// create a city
 		Cell cell = new Cell(0, 0);
-		unit.settle(cell, MAXIMUM_CITY_HIT_POINTS);
+		flag = unit.settle(cell, MAXIMUM_CITY_HIT_POINTS);
+		System.out.println("initial: " + flag);
 		List<Construction> constructions = cell.getConstructions();
 		for (Construction construction: constructions) {
 			if (construction instanceof City) {
 				City city = (City) construction;
 				try {
+					assertEquals("A city should be created successfully.", true, flag);
 					assertEquals("The city should be initialized with the expected hit points", MAXIMUM_CITY_HIT_POINTS, city.getMaximumHitPoints());
 				} catch (AssertionError e) {
 					e.printStackTrace();
 				}
 			} 
+		}
+		
+		// try creating a city in a cell that already has a city in it
+		flag = unit.settle(cell, MAXIMUM_CITY_HIT_POINTS);
+		System.out.println("existing: " + flag);
+		try {
+			assertEquals("A city should not be created since a cell already has a city in it.", false, flag);
+		} catch (AssertionError e) {
+			e.printStackTrace();
+		}
+		
+		// create a city in a different cell
+		cell = new Cell(0, 1);
+		flag = unit.settle(cell, MAXIMUM_CITY_HIT_POINTS);
+		try {
+			assertEquals("A city should be created successfully.", true, flag);
+		} catch (AssertionError e) {
+			e.printStackTrace();
 		}
 	}
 	
