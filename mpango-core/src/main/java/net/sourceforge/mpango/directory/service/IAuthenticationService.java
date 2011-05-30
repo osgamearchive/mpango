@@ -1,44 +1,27 @@
 package net.sourceforge.mpango.directory.service;
 
-import java.util.List;
 
 import net.sourceforge.mpango.directory.entity.User;
 
+/**
+ * Authentication service Interface with the different operations available.
+ * @author etux
+ *
+ */
 public interface IAuthenticationService {
+	
 	/**
-	 * finds {link @User} by email
-	 * 
+	 * Finds {@link User} by email.
 	 * @param email
-	 * @return {link @User}
+	 * @return Returns the {@link User} that is registered with the email address supplied. In case the user does not exist, then returns null.
 	 */
 	public User load(String email);
 
 	/**
-	 * persists {@link UserDTO} in database
+	 * Registers a {@link User} in the game.
 	 * 
-	 * @param user
-	 * @return {link @UserDTO}
+	 * @param user User to be registered.
+	 * @return The {@link User} that has been registered. 
 	 */
-	public User save(User user);
-
-	/**
-	 * updates {@link User} in database
-	 * 
-	 * @param user
-	 */
-	public void update(User user);
-
-	/**
-	 * deletes {@link User} from database
-	 * 
-	 * @param user
-	 */
-	public void delete(User user);
-
-	/**
-	 * gets {@link List} of {@link User}
-	 * 
-	 * @return
-	 */
-	public List<User> list();
+	public User register(User user);
 }

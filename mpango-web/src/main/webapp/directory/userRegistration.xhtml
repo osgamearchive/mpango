@@ -3,12 +3,13 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.prime.com.tr/ui">
-
+	xmlns:p="http://primefaces.prime.com.tr/ui"
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 <f:view contentType="text/html">
+<f:loadBundle basename="MessageBundle" var="msg"/>
 <h:head>
 	
-	<title>User Registration</title>
+	<title><h:outputText value="#{msg.user_registration_title}" /></title>
 	
 	 <!-- Framework CSS -->
     <link rel="stylesheet" href="css/blueprint/screen.css" type="text/css" media="screen, projection"/>
@@ -50,26 +51,26 @@
             }, 
             messages: { 
             	usernameInput: { 
-                    required: "Enter a username", 
-                    minlength: jQuery.format("Enter at least {0} characters")
+                    required: "<h:outputText value="#{msg.required_username}" />", 
+                    minlength: jQuery.format("<h:outputText value="#{msg.username_minimum_length}"/>")
                 }, 
                 passwordInput: { 
-                    required: "Provide a password", 
-                    rangelength: jQuery.format("Enter at least {0} characters") 
+                    required: "<h:outputText value="#{msg.required_password}" />", 
+                    rangelength: jQuery.format("<h:outputText value="#{msg.password_minimum_length}" />") 
                 }, 
                 passwordInput_confirm: { 
-                    required: "Repeat your password", 
-                    minlength: jQuery.format("Enter at least {0} characters"), 
-                    equalTo: "Enter the same password as above" 
+                    required: "<h:outputText value="#{msg.repeat_password}" />", 
+                    minlength: jQuery.format("<h:outputText value="#{msg.repeat_password_minimum_length}"/>"), 
+                    equalTo: "<h:outputText value="#{msg.repeat_password_equals}" />" 
                 }, 
                 emailInput: { 
-                    required: "Please enter a valid email address", 
-                    minlength: "Please enter a valid email address"
+                    required: "<h:outputText value="#{msg.email_address_valid}" />", 
+                    minlength: "<h:outputText value="#{msg.email_address_minimum_legth}" />"
                 }, 
                 emailInput_confirm: { 
-                    required: "Please enter a valid email address", 
-                    minlength: "Please enter a valid email address",
-                    equalTo: "Enter the same email as above"
+                    required: "<h:outputText value="#{msg.email_address_valid}" />", 
+                    minlength: "<h:outputText value="#{msg.email_address_minimum_legth}" />",
+                    equalTo: "<h:outputText value="#{email_address_equals}" />"
                 }
             }, 
             // the errorPlacement has to take the table layout into account 
@@ -83,67 +84,56 @@
 	</script>
 	
 </h:head>
+
 <body>
 
 	<div class="container">
 		<ui:include src="/elements/header.xhtml" />
 		
 		<fieldset>
-		<legend>Register for mpango!</legend>
+		<legend><h:outputText value="#{messages.user_registration_legend}" /></legend>
 			<div class="span-18 final">	
 				<h:form id="form" prependId="false">
-					<p>
-						<h:outputLabel id="usernameLabel" for="usernameInput" value="Username: " />
-						<h:inputText id="usernameInput" name="usernameInput" value="#{helloWorldBacking.user.username}" required="true" />
-					</p>
-					<p>
-						<h:outputLabel id="passwordLabel" for="passwordInput" value="Password: " />
-						<h:inputSecret  id="passwordInput" name="passwordInput"  value="#{helloWorldBacking.user.password}" required="true" />
-					</p>
-					
-					<p>
-						<h:outputLabel id="passwordConfirmLabel" for="passwordInput_confirm" value="Confirm Password: " />
+					<p:messages showdetail="true"/>
+					<t:panelGrid>
+						<h:outputLabel id="usernameLabel" for="usernameInput" value="#{msg.field_username}: " />
+						<h:inputText id="usernameInput" name="usernameInput" value="#{userBackingBean.user.username}" required="true" />
+						
+						<h:outputLabel id="passwordLabel" for="passwordInput" value="#{msg.field_password}: " />
+						<h:inputSecret  id="passwordInput" name="passwordInput"  value="#{userBackingBean.user.password}" required="true" />
+						
+						<h:outputLabel id="passwordConfirmLabel" for="passwordInput_confirm" value="#{msg.field_password_confirm}: " />
 						<h:inputSecret  id="passwordInput_confirm" name="passwordInput_confirm" value="" required="true" />
-					</p>
-					
-					<p>
-						<h:outputLabel id="emailabel" for="emailInput" value="Email: " />
-						<h:inputText id="emailInput" name="emailInput"  value="#{helloWorldBacking.user.email}" required="true">
+						
+						<h:outputLabel id="emailabel" for="emailInput" value="#{msg.field_email}: " />
+						<h:inputText id="emailInput" name="emailInput"  value="#{userBackingBean.user.email}" required="true">
 							<f:validateRegex pattern=".+@.+\.[a-z]+"/> 
 						</h:inputText>
-					</p>
-					
-					<p>
-						<h:outputLabel id="emailabelConfirm" for="emailInput_confirm" value="Confirm Email: " />
+						
+						<h:outputLabel id="emailabelConfirm" for="emailInput_confirm" value="#{msg.field_email_confirm}: " />
 						<h:inputText id="emailInput_confirm" name="emailInput_confirm" value="" required="true">
 							<f:validateRegex pattern=".+@.+\.[a-z]+"/> 
 						</h:inputText>
-					</p>
-					
-					<p>
-						<h:outputLabel id="countryLabel" for="countryInput" value="Country: " /><br />
+						
+						<h:outputLabel id="countryLabel" for="countryInput" value="#{msg.field_country}" />
 						<h:selectOneMenu id="countryInput">
-							<f:selectItems value="#{helloWorldBacking.countries}" />
+							<f:selectItems value="#{userBackingBean.countries}" />
 						</h:selectOneMenu>
-					</p>
-					<p>
-						<h:outputLabel id="dateOfBirthLabel" for="DOBInput" value="#{helloWorldBacking.user.dateOfBirth}" /><br />
-						<p:calendar effect="fadeIn" id="DOBInput"/>      
-					</p>
-					<p>
-						<h:outputLabel id="genderLabel" for="genderInput" value="#{helloWorldBacking.user.gender}" />
+						
+						<h:outputLabel id="dateOfBirthLabel" for="DOBInput" value="#{msg.field_birth_date}: " />
+						<p:calendar effect="fadeIn" id="DOBInput"/>
+						
+						<h:outputLabel id="genderLabel" for="genderInput" value="#{msg.field_gender}" />
 						<h:selectOneRadio required="true" id="genderInput">
 							<f:selectItem itemLabel="Male" itemValue="male" />
 							<f:selectItem itemLabel="Female" itemValue="female" />
 						</h:selectOneRadio>
-					</p>
-					<p>					
-						<p:messages showdetail="true"/>
+						
 					    <p:captcha label="captcha" publickey="${primefaces.recaptcha.publickey}"/>  
-					    <p:commandButton value="Register User" ajax="false" action="#{helloWorldBacking.send}" /> 
-					</p>	
+					    <p:commandButton value="Register User" ajax="false" action="#{userBackingBean.send}" />
+					    
+					</t:panelGrid>
 				</h:form>
-				
 			</div>
 		</fieldset>
 	</div>

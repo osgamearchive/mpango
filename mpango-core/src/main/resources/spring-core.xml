@@ -53,7 +53,7 @@
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="datasource" />
-		<property name="configLocation" value="WEB-INF/hibernate.cfg.xml" />
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
 		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
 		<property name="hibernateProperties">
 			<props>
@@ -63,30 +63,16 @@
 		</property>
 	</bean>
 
-	<!-- <bean id="gameboard" class="net.sourceforge.romulan.GameBoard"> -->
-	<!-- <constructor-arg index="0" value="3" /> -->
-	<!-- <constructor-arg index="1" value="3" /> -->
-	<!-- </bean> -->
-
-	<bean name="userDAO" class="net.sourceforge.mpango.directory.UserDAOHibernate">
+	<bean name="userDAO" class="net.sourceforge.mpango.directory.dao.UserDAOHibernate">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean name="authService" class="net.sourceforge.mpango.service.AuthenticationService">
+	<bean name="authService" class="net.sourceforge.mpango.directory.service.AuthenticationService">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 	
-	<bean name="authFacade" class="net.sourceforge.mpango.facade.AuthenticationFacade">
+	<bean name="authFacade" class="net.sourceforge.mpango.directory.facade.AuthenticationFacade">
 		<property name="authService" ref="authService" />
 	</bean>
 
-	<bean id="helloWorldBacking" class="net.sourceforge.mpango.web.HelloWorldBacking"
-		scope="request">
-		<property name="authFacade" ref="authFacade" />
-	</bean>
-
-	<bean id="userBackingBean" class="net.sourceforge.mpango.directory.web.UserBackingBean"
-		scope="request">
-		<property name="authFacade" ref="authFacade" />
-	</bean>
 </beans>

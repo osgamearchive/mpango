@@ -3,7 +3,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:tr="http://myfaces.apache.org/trinidad">
+	xmlns:t="http://myfaces.apache.org/tomahawk">
 <head>
 <title>Success</title>
 </head>
@@ -11,20 +11,20 @@
 
 	<f:loadBundle basename="MessageBundle" var="msg" />
 	<f:view>
-		<tr:table value="#{userBackingBean.users}" bandingInterval="2" banding="row" var="user">
-			<tr:column>
+		<t:dataTable value="#{userBackingBean.users}" bandingInterval="2" banding="row" var="user">
+			<t:column>
 				<f:facet name="header">
-					<tr:outputText value="#{msg.username}" />
+					<t:outputText value="#{msg.username}" />
 				</f:facet>
-				<tr:outputText value="#{user.username}" />
-			</tr:column>
-			<tr:column>
+				<t:outputText value="#{user.username}" />
+			</t:column>
+			<t:column>
 				<f:facet name="header">
-					<tr:outputText value="#{msg.email}" />
+					<t:outputText value="#{msg.email}" />
 				</f:facet>
-				<tr:outputText value="#{user.email}" />
-			</tr:column>
-		</tr:table>
+				<t:outputText value="#{user.email}" />
+			</t:column>
+		</t:dataTable>
 
 		<h:form id="form2">
 			<h:commandLink id="link1" action="back">

@@ -1,5 +1,9 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango;
 
+import net.sourceforge.mpango.battle.BattleEngineTest;
+import net.sourceforge.mpango.entity.FleetTest;
+import net.sourceforge.mpango.entity.ShieldTest;
+import net.sourceforge.mpango.entity.UnitTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 

@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.entity;
 
 import net.sourceforge.mpango.entity.Shield;
 import net.sourceforge.mpango.exception.UselessShieldException;

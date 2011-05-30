@@ -1,4 +1,4 @@
-package net.sourceforge.mpango;
+package net.sourceforge.mpango.entity;
 
 import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.GameBoard;

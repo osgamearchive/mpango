@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -103,6 +103,7 @@ public class UnitTest extends TestCase {
 		for (Construction construction: constructions) {
 			if (construction instanceof City) {
 				City city = (City) construction;
+				assertEquals("The city should be initialized with the expected hit points", MAXIMUM_CITY_HIT_POINTS, city.getMaximumHitPoints());
 				try {
 					assertEquals("A city should be created successfully.", true, flag);
 					assertEquals("The city should be initialized with the expected hit points", MAXIMUM_CITY_HIT_POINTS, city.getMaximumHitPoints());

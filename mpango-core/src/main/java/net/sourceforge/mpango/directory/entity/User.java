@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/**
+ * <p>Class representing the information of a user.</p>
+ * @author etux
+ *
+ */
 @Entity
 public class User {
 
@@ -16,7 +21,7 @@ public class User {
 	private String password;
 	private Date dateOfBirth;
 	private String gender;
-	
+	private String nonceToken;
 	
 	
 	public String getPassword() {
@@ -58,6 +63,13 @@ public class User {
 	public Long getIdentifier() {
 		return identifier;
 	}
+	public void setNonceToken(String nonceToken) {
+		this.nonceToken = nonceToken;
+	}
+	@Column(unique=true)
+	public String getNonceToken() {
+		return nonceToken;
+	}
 	@Override
 	public String toString() {
 		return "User [identifier=" + identifier + ", email=" + email
@@ -86,6 +98,5 @@ public class User {
 			return false;
 		return true;
 	}
-	
 	
 }

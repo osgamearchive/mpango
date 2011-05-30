@@ -2,7 +2,7 @@
 <web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd " id="WebApp_ID">
-	<description>Romulan</description>
+	<description>mPango web application.</description>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -56,7 +56,7 @@
 			/WEB-INF/faces-config.xml in here.
 		</description>
 		<param-name>javax.faces.CONFIG_FILES</param-name>
-		<param-value>/WEB-INF/examples-config.xml</param-value>
+		<param-value>/WEB-INF/jsf-config.xml</param-value>
 	</context-param>
 	<context-param>
 		<description>
@@ -207,7 +207,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/spring-beans.xml</param-value>
+		<param-value>/WEB-INF/spring-web.xml</param-value>
 	</context-param>
 
 	<!-- Extensions Filter -->

@@ -151,6 +151,11 @@
 							<artifactId>maven-javadoc-plugin</artifactId>
 							<version>2.7</version>
 						</plugin>
+						<plugin>
+							<groupId>org.codehaus.mojo</groupId>
+							<artifactId>cobertura-maven-plugin</artifactId>
+							<version>2.5.1</version>
+						</plugin>
 					</reportPlugins>
 				</configuration>
 			</plugin>
@@ -165,6 +170,11 @@
 				<configuration>
 					<licenseName>gpl_v3</licenseName>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.1</version>
 			</plugin>
 		</plugins>
 		<extensions>

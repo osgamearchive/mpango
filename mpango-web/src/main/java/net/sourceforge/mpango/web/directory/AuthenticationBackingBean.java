@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.web;
+package net.sourceforge.mpango.web.directory;
 
 import java.util.ArrayList;
 
@@ -11,15 +11,11 @@ import net.sourceforge.mpango.directory.facade.IAuthenticationFacade;
 /**
  * @author edvera
  */
-public class HelloWorldBacking {
+public class AuthenticationBackingBean {
 
 	private IAuthenticationFacade authFacade = new AuthenticationFacade();
 
-	UserDTO user = new UserDTO();
-	// private String username;
-	// private String email;
-	// private Long identifier;
-	private String message;
+	private UserDTO user = new UserDTO();
 	private ArrayList<SelectItem> countries;
 
 	public IAuthenticationFacade getAuthFacade() {
@@ -38,35 +34,19 @@ public class HelloWorldBacking {
 		this.user = user;
 	}
 
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public HelloWorldBacking() {
-		System.out.println("Creating instance of " + HelloWorldBacking.class);
-	}
-
 	/**
 	 * Method that is backed to a submit button of a form.
 	 */
 	public String send() {
 		UserDTO userFound = authFacade.load(user.getEmail());
 		if (userFound != null) {
-			message = "User already exists with that email address.";
 			return "failure";
 		} else {
-			user = authFacade.save(user);
-			message = "User registered succesfully";
+			user = authFacade.register(user);
 			return "success";
 		}
 
 	}
-
-	// -------------------getter & setter
 
 	public ArrayList<SelectItem> getCountries() {
 		countries = new ArrayList<SelectItem>();

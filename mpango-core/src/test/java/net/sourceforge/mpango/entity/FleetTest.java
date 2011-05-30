@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.battle;
+package net.sourceforge.mpango.entity;
 
 import net.sourceforge.mpango.entity.Fleet;
 import net.sourceforge.mpango.entity.Official;

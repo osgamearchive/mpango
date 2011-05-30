@@ -4,12 +4,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <head>
-<title>Hello World</title>
+<title><h:outputText value=""/></title>
 </head>
 <body>
 
 <f:view>
-	<h:outputText value="Hello #{helloWorldBacking.username}. We hope you enjoy Apache MyFaces. Your identifier is #{helloWorldBacking.identifier}" />
+	<h:outputText value="Hello #{userAuthenticationBacking.username}. We hope you enjoy Apache MyFaces. Your identifier is #{helloWorldBacking.identifier}" />
 	<h:form id="form2">
 		<h:commandLink id="link1" action="back">
 			<h:outputText id="linkText" value="GO HOME" />

@@ -7,18 +7,20 @@ import net.sourceforge.mpango.directory.entity.User;
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+/**
+ * Data Access Object for the User entity.
+ * @author etux
+ *
+ */
 public class UserDAOHibernate implements UserDAO {
 
 	private HibernateTemplate hibernateTemplate;
 	private SessionFactory sessionFactory;
 
-    public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-	
 	public User load(String email) {
 		User user = null;
-		List results = getHibernateTemplate().find("from User where email= ?",email);
+		@SuppressWarnings("unchecked")
+		List<User> results = (List<User>) getHibernateTemplate().find("from User where email= ?",email);
 		if ((results != null) && (results.size() > 0)) {
 			user = (User) results.get(0);
 		}
@@ -32,20 +34,28 @@ public class UserDAOHibernate implements UserDAO {
 	}
 
 	public void update(User user) {
-		hibernateTemplate.update(user);
+		getHibernateTemplate().update(user);
 	}
 
 	public void delete(User user) {
-		hibernateTemplate.delete(user);
+		getHibernateTemplate().delete(user);
 
 	}
 
-	public HibernateTemplate getHibernateTemplate() {
-		return new HibernateTemplate(sessionFactory);
-	}
-
+	@SuppressWarnings("unchecked")
 	public List<User> list() {
 		return getHibernateTemplate().find("from User");
 	}
+
+	public HibernateTemplate getHibernateTemplate() {
+		if (hibernateTemplate == null) {
+			hibernateTemplate = new HibernateTemplate(sessionFactory);
+		}
+		return hibernateTemplate;
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
 
 }
