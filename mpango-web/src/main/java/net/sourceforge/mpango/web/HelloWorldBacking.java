@@ -1,13 +1,12 @@
 package net.sourceforge.mpango.web;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.faces.model.SelectItem;
 
-import net.sourceforge.mpango.dto.UserDTO;
-import net.sourceforge.mpango.facade.AuthenticationFacade;
-import net.sourceforge.mpango.facade.IAuthenticationFacade;
+import net.sourceforge.mpango.directory.dto.UserDTO;
+import net.sourceforge.mpango.directory.facade.AuthenticationFacade;
+import net.sourceforge.mpango.directory.facade.IAuthenticationFacade;
 
 /**
  * @author edvera

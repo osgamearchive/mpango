@@ -2,8 +2,8 @@ package net.sourceforge.mpango.directory.web;
 
 import java.util.List;
 
-import net.sourceforge.mpango.dto.UserDTO;
-import net.sourceforge.mpango.facade.AuthenticationFacade;
+import net.sourceforge.mpango.directory.dto.UserDTO;
+import net.sourceforge.mpango.directory.facade.AuthenticationFacade;
 
 public class UserBackingBean {
 	
