@@ -1,0 +1,17 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+ "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+ "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+   <session-factory>
+<!--       <mapping class="net.sourceforge.romulan.GameBoard"/> -->
+<!--       <mapping class="net.sourceforge.romulan.Row"/> -->
+<!--       <mapping class="net.sourceforge.romulan.Cell"/> -->
+<!--       <mapping class="net.sourceforge.romulan.Construction"/> -->
+<!--       <mapping class="net.sourceforge.romulan.Unit"/> -->
+<!--       <mapping class="net.sourceforge.romulan.battle.Shield"/> -->
+<!--       <mapping class="net.sourceforge.romulan.battle.Weapon"/> -->
+<!--       <mapping class="net.sourceforge.romulan.Technology"/> -->
+		<mapping class="net.sourceforge.mpango.directory.entity.User" />
+   </session-factory>
+</hibernate-configuration>
