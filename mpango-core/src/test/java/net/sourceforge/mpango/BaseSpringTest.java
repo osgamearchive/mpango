@@ -1,9 +1,6 @@
 package net.sourceforge.mpango;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
