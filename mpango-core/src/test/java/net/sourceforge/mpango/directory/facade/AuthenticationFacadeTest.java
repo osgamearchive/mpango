@@ -7,7 +7,6 @@ import java.util.Calendar;
 
 import net.sourceforge.mpango.BaseSpringTest;
 import net.sourceforge.mpango.directory.dto.UserDTO;
-import net.sourceforge.mpango.directory.entity.User;
 
 import org.junit.Assert;
 import org.junit.Test;
