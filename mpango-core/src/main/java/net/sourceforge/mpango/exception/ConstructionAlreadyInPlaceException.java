@@ -2,7 +2,7 @@ package net.sourceforge.mpango.exception;
 
 import net.sourceforge.mpango.entity.Construction;
 
-public class ConstructionAlreadyInPlaceException extends Exception {
+public class ConstructionAlreadyInPlaceException extends CommandException {
 
 	/** generated serial version uid */
 	private static final long serialVersionUID = -403216765336288386L;

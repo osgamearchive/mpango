@@ -30,6 +30,7 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 	private Long identifier;
 	private List<Construction> constructions = new ArrayList<Construction>();
 	
+	private boolean hasCity;
 	private float defenseBonus;
 	private float attackBonus;
 	private int column;
@@ -38,8 +39,13 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 	public Cell(int columnNumber, int rowNumber) {
 		this.setColumn(columnNumber);
 		this.setRow(rowNumber);
+		this.hasCity = false;
 	}
 	
+	public boolean isHasCity() {
+		return hasCity;
+	}
+
 	public float calculateDefenseBonus () {
 		return defenseBonus + calculateConstructionDefenseBonus ();
 	}
@@ -73,9 +79,16 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 	public List<Listener> getListeners() {
 		return obtainListenerList(this.constructions);
 	}
+	
+	public boolean containsConstruction(Construction construction) {
+		return this.constructions.contains(construction);
+	}
 	public void addConstruction (Construction construction) throws ConstructionAlreadyInPlaceException {
-		if (this.constructions.contains (construction)) {
+		if (this.containsConstruction (construction)) {
 			throw new ConstructionAlreadyInPlaceException (construction);
+		}
+		if (construction instanceof City) {
+			hasCity = true;
 		}
 		this.constructions.add(construction);
 	}

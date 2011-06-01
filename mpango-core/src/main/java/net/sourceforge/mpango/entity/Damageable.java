@@ -12,7 +12,7 @@ public interface Damageable {
 	 * target them to the unit.
 	 * @param attackPoints Number of attack points of the attack (how strong the attack is)
 	 */
-	public void receiveDamage(Float attackPoints);
+	public void receiveDamage(float attackPoints);
 
 	/**
 	 * Determines if the unit is dead.

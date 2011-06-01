@@ -4,56 +4,71 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Timer;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import net.sourceforge.mpango.actions.Command;
+import net.sourceforge.mpango.actions.ConstructCommand;
 import net.sourceforge.mpango.entity.technology.ShieldTechnology;
 import net.sourceforge.mpango.entity.technology.WeaponTechnology;
+import net.sourceforge.mpango.events.CommandExecutedEvent;
+import net.sourceforge.mpango.events.Event;
+import net.sourceforge.mpango.events.Listener;
+import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
-import net.sourceforge.mpango.exception.UnknownTechnologyException;
+import net.sourceforge.mpango.exception.EventNotSupportedException;
 import net.sourceforge.mpango.exception.UselessShieldException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * Abstract class that contains the basic attributes and methods for all units.
- * Every kind of units has certain amount of attack points(AP) and hit points(HP), if the unit's HP reaches zero, it dies / blows up
- * Every unit is created using different technologies. So the attributes of the unit vary depending on the technologies that are used at creation time.
- * @author etux
+ * <p>Abstract class that contains the basic attributes and methods for all units.</p>
+ * <p>Every kind of units has certain amount of attack points(AP) and hit points(HP), if the unit's HP reaches zero, it dies / blows up</p>
+ * <p>Every unit is created using different technologies. So the attributes of the unit vary depending on the technologies that are used at creation time.</p>
+ * @author edvera
  *
  */
 @Entity
-public abstract class Unit extends AbstractPersistable implements Damageable,Serializable {
+public abstract class Unit extends AbstractPersistable implements Damageable,Serializable,Listener {
 
+	private static final long serialVersionUID = 5633302737634656030L;
 	private static final Log logger = LogFactory.getLog(Unit.class);
-	private final Float maximumHitPoints;
+	private final float maximumHitPoints;
 	private Float attackPoints;
 	private Float hitPoints;
 	private Shield shield;
 	private Weapon weapon;
 	private List<Technology> technologies;
+	private float constructionSkills;
+	private List<Command> commands;
+	private Timer timer;
 	
 	public Unit() {
 		this.maximumHitPoints = 0f;
 		this.attackPoints = 0f;
 		this.shield = null;
 		this.weapon = null;
-		this.setTechnologies(new ArrayList<Technology>());
+		this.technologies = new ArrayList<Technology>();
+		this.commands = new ArrayList<Command>();
+		this.timer = new Timer();
 	}
 	
-	public Unit (List<Technology> technologies, Float attackPoints, Float maximumHitPoints) throws UnknownTechnologyException{
+	public Unit (List<Command> commands, List<Technology> technologies, float attackPoints, float maximumHitPoints) {
 		this.maximumHitPoints = maximumHitPoints;
 		this.hitPoints = maximumHitPoints;
 		this.attackPoints = attackPoints;
+		this.commands = commands;
 		this.setTechnologies(technologies);
 		Iterator<Technology> iterator = technologies.iterator();
 		while (iterator.hasNext()) {
 			applyTechnology(iterator.next());
 		}
+		this.timer = new Timer();
 	}
 	
 	private void applyTechnology(ShieldTechnology technology) {
@@ -64,14 +79,13 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 		this.weapon = technology.createWeapon();
 	}
 	
-	private void applyTechnology(Technology technology) throws UnknownTechnologyException {
+	private void applyTechnology(Technology technology) {
 		if (technology instanceof WeaponTechnology) {
 			applyTechnology((WeaponTechnology) technology);
 		} else if (technology instanceof ShieldTechnology) {
 			applyTechnology((ShieldTechnology) technology);
 		} else {
 			logger.error("Unknown Technology: " + technology);
-			throw new UnknownTechnologyException();
 		}
 	}
 	
@@ -94,8 +108,8 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	 * target them to the unit.
 	 * @param attackPoints Number of attack points of the attack (how strong the attack is)
 	 */
-	public void receiveDamage(Float attackPoints) {
-		Float remainingDamage = attackPoints;
+	public void receiveDamage(float attackPoints) {
+		float remainingDamage = attackPoints;
 		if (this.shield != null) {
 			try {
 				remainingDamage = shield.receiveDamage(attackPoints);
@@ -130,29 +144,68 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 		return realHealth > 0 ? realHealth : 0;
 	}
 	/**
-	 * This method determines if a city can be constructed in a given cell.
+	 * <p>Action the Unit can perform in order to settle in a cell resulting in a new city construction.</p>
 	 * @return
 	 * @throws ConstructionAlreadyInPlaceException 
 	 */
-	@Transient
-	public boolean settle(Cell cell, Float maximumHitPoints) throws ConstructionAlreadyInPlaceException {
-		boolean flag = true;
-		// additional conditions to be added to see if a city can be added to a given cell
-		// If a given cell already holds a city, a city cannot be created.
-		List<Construction> constructions = cell.getConstructions();
-		for (Construction construction: constructions) {
-			if (construction instanceof City) {
-				flag = false;
-			}
-		}
-		
-		if (flag) {
-			City city = new City(maximumHitPoints);
-			cell.addConstruction(city);
-		}
-		
-		return flag;
+	public ConstructCommand settle(Cell cell) throws CommandException {
+		return construct(cell, new City());
 	}
+	
+	/**
+	 * <p>Action to to a put to work in a specific construction. The unit will be busy for a certain time until the construction is finished.</p>
+	 * @param cell
+	 * @param construction
+	 * @return 
+	 * @throws ConstructionAlreadyInPlaceException
+	 */
+	protected ConstructCommand construct(Cell cell, Construction construction) throws CommandException {
+		ConstructCommand command = new ConstructCommand(this, construction, cell);
+		this.addCommand(command);
+		return command;
+	}
+	
+	/**
+	 * <p>Method that adds a command to the command queue. If it is the first command, it also executes it after having it added.</p>
+	 * @param command Command to be added and possibly executed.
+	 * @throws CommandException In case there is a problem with the execution of the command.
+	 */
+	public void addCommand(Command command) throws CommandException {
+		boolean executeCommand = false;
+		if (commands.size() == 0)
+			executeCommand = true;
+		this.commands.add(command);
+		if (executeCommand)
+			executeCommand(command);
+	}
+
+	/**
+	 * <p>Method that executes a given command</p>
+	 * @param command to be executed
+	 * @throws CommandException In case there is a problem with the execution of the command.
+	 */
+	private void executeCommand(Command command) throws CommandException {
+		command.execute();
+	}
+	/**
+	 * <p>Method that removes a command. This can happen in two cases:
+	 * <ol>
+	 * 	<li>The user decides to cancel a specific command</li>
+	 *  <li>The command has been successfully executed and must be removed</li>
+	 * <oL>
+	 * </p>
+	 * <p>This method is also responsible for executing the next available command.</p>
+	 * @param command to be removed.
+	 * @throws CommandException In case there is a problem with the removal of the command.
+	 */
+	public void removeCommand(Command command) throws CommandException {
+		System.out.println("Removing command: "+command);
+		this.commands.remove(command);
+		if (commands.iterator().hasNext()) {
+			executeCommand(commands.iterator().next());
+		}
+	}
+	
 	@Transient
 	public float repair() {
 		return 0;
@@ -183,5 +236,41 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	}
 	public void setTechnologies(List<Technology> technologies) {
 		this.technologies = technologies;
+	}
+	@Override
+	public void receiveEvent(Event event) throws EventNotSupportedException {
+		if (event instanceof CommandExecutedEvent) {
+			CommandExecutedEvent commandEvent = (CommandExecutedEvent) event;
+			try {
+				this.removeCommand(commandEvent.getCommand());
+			} catch (CommandException e) {
+				//If this happens is probably due to a code flaw.
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public float getConstructionSkills() {
+		return this.constructionSkills;
+	}
+	
+	public void setConstructionSkills(float constructionSkills) {
+		this.constructionSkills = constructionSkills;
+	}
+
+	public void improveConstructionSkills(float skillsUpgrade) {
+		this.constructionSkills+=skillsUpgrade;
+	}
+	@Transient
+	public Timer getTimer() {
+		if (timer == null) {
+			logger.debug("Initializing the timer");
+			timer = new Timer();
+		}
+		return timer;
+	}
+	//For testing purposes.
+	protected void setTimer(Timer timer) {
+		this.timer = timer;
 	}
 }
