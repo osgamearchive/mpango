@@ -82,9 +82,9 @@
 	<contributors>
 	</contributors>
 	<scm>
-		<connection>scm:svn:https://mpango.svn.sourceforge.net/svnroot/mpango</connection>
-		<developerConnection>scm:svn:https://mpango.svn.sourceforge.net/svnroot/mpango</developerConnection>
-		<url>http://mpango.svn.sourceforge.net/viewvc/mpango/</url>
+		<connection>${mpango.connection}</connection>
+		<developerConnection>${mpango.developerConnection}</developerConnection>
+		<url>${mpango.url}</url>
 	</scm>
 	<organization>
 		<name>mPango</name>
@@ -152,10 +152,40 @@
 							<version>2.7</version>
 						</plugin>
 						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-changelog-plugin</artifactId>
+							<version>2.1</version>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-changes-plugin</artifactId>
+							<version>2.1</version>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-checkstyle-plugin</artifactId>
+							<version>2.5</version>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-surefire-report-plugin</artifactId>
+							<version>2.4.3</version>
+						</plugin>
+						<plugin>
 							<groupId>org.codehaus.mojo</groupId>
 							<artifactId>cobertura-maven-plugin</artifactId>
 							<version>2.5.1</version>
 						</plugin>
+						<plugin>
+					        <groupId>org.apache.maven.plugins</groupId>
+					        <artifactId>maven-project-info-reports-plugin</artifactId>
+					        <version>2.4</version>
+					        <configuration>
+					          <webAccessUrl>${mpango.url}</webAccessUrl>
+					          <anonymousConnection>${mpango.connection}</anonymousConnection>
+					          <developerConnection>${mpango.developerConnection}</developerConnection>
+					        </configuration>
+					      </plugin>
 					</reportPlugins>
 				</configuration>
 			</plugin>
@@ -194,7 +224,7 @@
 		</site>
 	</distributionManagement>
 	<properties>
-		<mpango.connection>scm:svn:http://mpango.svn.sourceforge.net/svnroot/mpango</mpango.connection>
+		<mpango.connection>scm:svn:https://mpango.svn.sourceforge.net/svnroot/mpango</mpango.connection>
 		<mpango.developerConnection>scm:svn:https://mpango.svn.sourceforge.net/svnroot/mpango</mpango.developerConnection>
 		<mpango.url>http://mpango.svn.sourceforge.net/viewvc/mpango/</mpango.url>
 		<activemq.version>5.5.0</activemq.version>
