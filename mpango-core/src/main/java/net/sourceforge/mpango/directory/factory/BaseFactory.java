@@ -22,12 +22,9 @@ public abstract class BaseFactory<DTO extends BaseDTO, T extends Object> {
 	 */
 	public List<T> createList(List<DTO> dtoList) {
 		List<T> entityList = new ArrayList<T>();
-
 		for (DTO dto : dtoList) {
 			entityList.add(create(dto));
 		}
-
 		return entityList;
-
 	}
 }

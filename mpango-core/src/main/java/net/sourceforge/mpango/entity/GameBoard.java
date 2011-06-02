@@ -1,11 +1,10 @@
 package net.sourceforge.mpango.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import net.sourceforge.mpango.events.Event;
@@ -31,7 +30,7 @@ public class GameBoard extends AbstractPersistable {
 	private static final Log logger = LogFactory.getLog(GameBoard.class);
 	private int rowSize;
 	private int colSize;
-	private List<Row> rows;
+	private Cell[][] cells;
 	private List<Listener> listeners;
 	
 	public void passTurn(TurnEvent turnEvent) {
@@ -56,19 +55,20 @@ public class GameBoard extends AbstractPersistable {
 		this.listeners.remove(listener);
 	}
 	
+	public GameBoard(BoardConfiguration configuration) {
+		this(configuration.getRowNumber(), configuration.getColNumber());
+	}
+	
 	/**
 	 * Constructor to create a GameBoard
 	 * @param rowNumber number of rows for the game board
 	 * @param colNumber number of columns for the game board
 	 */
-	public GameBoard (int rowNumber, int colNumber) {
+	private GameBoard (int rowNumber, int colNumber) {
 		logger.debug("Creating game board with " + rowNumber + " rows and " + colNumber + " columns");
 		this.rowSize = rowNumber;
 		this.colSize = colNumber;
-		this.rows = new ArrayList<Row>(rowNumber);
-		for (int i=0; i<rowNumber; i++) {
-			this.rows.add(new Row(i, this.colSize));
-		}
+		this.cells = new Cell[this.rowSize][this.colSize];
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class GameBoard extends AbstractPersistable {
 		if ((this.rowSize <= rowNumber) || (this.colSize <= colNumber)) {
 			throw new IllegalArgumentException("The specified cell is not found in the game board");
 		}
-		return rows.get(rowNumber).getCell(colNumber);
+		return cells[rowNumber][colNumber];
 	}
 	@Column
 	public int getRowSize() {
@@ -105,13 +105,13 @@ public class GameBoard extends AbstractPersistable {
 	public void setColSize(int colSize) {
 		this.colSize = colSize;
 	}
-	@OneToMany
-	public List<Row> getRows() {
-		return rows;
+	@ManyToOne
+	public Cell[][] getCells() {
+		return cells;
 	}
-	public void setRows(List<Row> rows) {
-		this.rows = rows;
+
+	public void setCells(Cell[][] cells) {
+		this.cells = cells;
 	}
-	
 	
 }

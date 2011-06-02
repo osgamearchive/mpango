@@ -2,7 +2,9 @@ package net.sourceforge.mpango.directory.factory;
 
 import java.util.List;
 
+import net.sourceforge.mpango.dto.CellDTO;
 import net.sourceforge.mpango.dto.GameBoardDTO;
+import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.GameBoard;
 
 public class GameBoardFactory extends BaseFactory<GameBoardDTO, GameBoard> {
@@ -20,7 +22,15 @@ public class GameBoardFactory extends BaseFactory<GameBoardDTO, GameBoard> {
 		board.setColSize(dto.getColSize());
 		board.setRowSize(dto.getRowSize());
 		board.setIdentifier(dto.getId());
-		board.setRows(RowFactory.instance().createList(dto.getRows()));
+		Cell[][] cells = new Cell[board.getRowSize()][board.getColSize()];
+		CellDTO [][] dtos = dto.getCells();
+		for (int i=0; i<dtos.length; i++) { //Iterate over the rows
+			for (int j=0; i<dtos[i].length; j++) { //Iterate over the cols
+				Cell cell = CellFactory.instance().create(dtos[i][j]);
+				cells[i][j] = cell;
+			}
+		}
+		board.setCells(cells);
 		return board;
 	}
 

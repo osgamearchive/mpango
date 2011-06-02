@@ -13,11 +13,11 @@ import junit.framework.TestCase;
 
 public class AbstractListenerBroadcasterTest extends TestCase {
 
-	private TestListenerBroadcaster listenerBroadcaster;
+	private TestListenerBroadcaster<TestListener> listenerBroadcaster;
 	private TestListener listener;
 	
 	protected void setUp() throws Exception {
-		listenerBroadcaster = new TestListenerBroadcaster();
+		listenerBroadcaster = new TestListenerBroadcaster<TestListener>();
 		listener = new TestListener();
 		listenerBroadcaster.addListener(listener);
 	}
@@ -25,11 +25,13 @@ public class AbstractListenerBroadcasterTest extends TestCase {
 	protected void tearDown() throws Exception {
 	}
 
+	@SuppressWarnings("serial")
 	public void testReceiveEvent() throws EventNotSupportedException {
 		listenerBroadcaster.receiveEvent(new TestEvent(this) {});
 		assertTrue("The event must have been handled", listenerBroadcaster.handledEvent);
 	}
 
+	@SuppressWarnings("serial")
 	public void testNotifyAllListeners() throws EventNotSupportedException {
 		listenerBroadcaster.notifyListeners(new TestEvent(this) {});
 		assertTrue("The event must have been propagated and handled by included listeners", listener.handledEvent);
@@ -47,23 +49,19 @@ public class AbstractListenerBroadcasterTest extends TestCase {
 	}
 
 	public void testGetList() {
-		List<Listener> listeners = listenerBroadcaster.obtainListenerList(null);
+		List<TestListener> listeners = listenerBroadcaster.obtainListenerList(null);
 		assertSame(listeners.get(0).getClass(), TestListener.class);
 	}
 	
-	class TestListenerBroadcaster extends AbstractListenerBroadcaster<TestListener> {
+	class TestListenerBroadcaster<T extends Listener> extends AbstractListenerBroadcaster<T> {
 
 		protected boolean handledEvent = false;
 		protected List<TestListener> listeners = new ArrayList<TestListener>();	
 		
 		@Override
-		protected void handleEvent(Event event) throws EventNotSupportedException {
+		public void receiveEvent(Event event) throws EventNotSupportedException {
 			handledEvent = true;
 		}
-		@Override
-		protected List<Listener> getListeners() {
-			return obtainListenerList(listeners);
-		}	
 	}
 	
 	class TestListener implements Listener {
@@ -74,6 +72,7 @@ public class AbstractListenerBroadcasterTest extends TestCase {
 		
 	}
 	
+	@SuppressWarnings("serial")
 	class TestEvent extends AbstractEvent {
 		public TestEvent(Object source) {
 			super(source);

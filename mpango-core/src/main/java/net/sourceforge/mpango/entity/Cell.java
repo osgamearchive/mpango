@@ -87,7 +87,7 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 		this.constructions = constructions;
 	}
 	@Transient
-	public List<Listener> getListeners() {
+	public List<Construction> getListeners() {
 		return obtainListenerList(this.constructions);
 	}
 	

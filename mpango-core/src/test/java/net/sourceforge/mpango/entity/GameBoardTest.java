@@ -7,11 +7,13 @@ import junit.framework.TestCase;
 public class GameBoardTest extends TestCase {
 
 	private GameBoard board;
+	private BoardConfiguration boardConfiguration;
 	private static final int ROW_NUMBER = 4;
 	private static final int COL_NUMBER = 6;
 	
 	public void setUp() {
-		board = new GameBoard(ROW_NUMBER,COL_NUMBER);
+		boardConfiguration = new BoardConfiguration(ROW_NUMBER,COL_NUMBER);
+		board = new GameBoard(boardConfiguration);
 	}
 	
 	public void tearDown() {

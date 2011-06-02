@@ -11,7 +11,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import net.sourceforge.mpango.events.AbstractListenerBroadcaster;
-import net.sourceforge.mpango.events.Listener;
 
 @Entity
 public class Row extends AbstractListenerBroadcaster<Cell> implements Serializable {
@@ -80,7 +79,7 @@ public class Row extends AbstractListenerBroadcaster<Cell> implements Serializab
 	}
 	@Override
 	@Transient
-	protected List<Listener> getListeners() {
+	protected List<Cell> getListeners() {
 		return obtainListenerList(this.cells);
 	}
 }

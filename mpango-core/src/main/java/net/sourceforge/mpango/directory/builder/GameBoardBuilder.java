@@ -1,5 +1,6 @@
 package net.sourceforge.mpango.directory.builder;
 
+import net.sourceforge.mpango.dto.CellDTO;
 import net.sourceforge.mpango.dto.GameBoardDTO;
 import net.sourceforge.mpango.entity.GameBoard;
 
@@ -11,8 +12,14 @@ public class GameBoardBuilder extends BaseBuilder<GameBoard, GameBoardDTO> {
 		dto.setId(entity.getIdentifier());
 		dto.setColSize(entity.getColSize());
 		dto.setRowSize(entity.getRowSize());
-		dto.setRows(RowBuilder.instance().buildList(entity.getRows()));
-		
+		CellDTO[][] cellDTOs = new CellDTO[entity.getRowSize()][entity.getColSize()];
+		for (int i=0;i<entity.getCells().length; i++) {
+			for (int j=0;j<entity.getCells()[i].length; j++) {
+				CellDTO cell = CellBuilder.instance().build(entity.getCells()[i][j]);
+				cellDTOs[i][j] = cell;
+			}
+		}
+		dto.setCells(cellDTOs);
 		return dto;
 	}
 
