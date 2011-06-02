@@ -1,27 +1,11 @@
-In order to start the jetty server to run a development version of the application:
+First run:
 
-mvn jetty:run
+mvn clean install
 
-In order to run a production like version of the application:
+Then, In order to start the jetty server to run a development version of the application:
 
 mvn jetty:run-exploded
 
 Then, you can access the web application by entering the following URL on the browser:
 
 http://localhost:8080/mpango
-
-To clean the project
-
-mvn clean
-
-To package the project into a distributable WAR file:
-
-mvn package
-
-To pass the tests:
-
-mvn test
-
-To generate cobertura reports:
-
-mvn cobertura:cobertura

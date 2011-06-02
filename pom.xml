@@ -109,6 +109,16 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId>
+				<configuration>
+					<scanIntervalSeconds>15</scanIntervalSeconds>
+					<webAppSourceDirectory>mpango-web/src/main/webapp</webAppSourceDirectory>
+					<webApp>mpango-web/target/mpango-web-0.0.1-SNAPSHOT/</webApp>
+					<tmpDirectory>mpango-web/target/work</tmpDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
