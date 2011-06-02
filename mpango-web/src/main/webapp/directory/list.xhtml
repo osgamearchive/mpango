@@ -4,33 +4,32 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:t="http://myfaces.apache.org/tomahawk">
-<head>
-<title>Success</title>
-</head>
-<body>
-
 	<f:loadBundle basename="MessageBundle" var="msg" />
-	<f:view>
-		<t:dataTable value="#{userBackingBean.users}" bandingInterval="2" banding="row" var="user">
-			<t:column>
-				<f:facet name="header">
-					<t:outputText value="#{msg.username}" />
-				</f:facet>
-				<t:outputText value="#{user.username}" />
-			</t:column>
-			<t:column>
-				<f:facet name="header">
-					<t:outputText value="#{msg.email}" />
-				</f:facet>
-				<t:outputText value="#{user.email}" />
-			</t:column>
-		</t:dataTable>
-
-		<h:form id="form2">
-			<h:commandLink id="link1" action="back">
-				<h:outputText id="linkText" value="#{msg.go_home}" />
-			</h:commandLink>
-		</h:form>
-	</f:view>
-</body>
+	<head>
+		<title><h:outputText value="#{msg.success}" /></title>
+	</head>
+	<body>
+		<f:view>
+			<t:dataTable value="#{userBackingBean.users}" bandingInterval="2" banding="row" var="user">
+				<t:column>
+					<f:facet name="header">
+						<t:outputText value="#{msg.username}" />
+					</f:facet>
+					<t:outputText value="#{user.username}" />
+				</t:column>
+				<t:column>
+					<f:facet name="header">
+						<t:outputText value="#{msg.email}" />
+					</f:facet>
+					<t:outputText value="#{user.email}" />
+				</t:column>
+			</t:dataTable>
+	
+			<h:form id="form2">
+				<h:commandLink id="link1" action="back">
+					<h:outputText id="linkText" value="#{msg.go_home}" />
+				</h:commandLink>
+			</h:form>
+		</f:view>
+	</body>
 </html>
