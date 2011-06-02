@@ -1,6 +1,7 @@
 package net.sourceforge.mpango.web.directory;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.model.SelectItem;
 
@@ -16,6 +17,15 @@ public class AuthenticationBackingBean {
 	private IAuthenticationFacade authFacade = new AuthenticationFacade();
 
 	private UserDTO user = new UserDTO();
+	private List<UserDTO> users;
+	
+	public List<UserDTO> getUsers() {
+		if (users == null)  {
+			users = authFacade.list();
+		}
+		return users;
+	}
+
 	private ArrayList<SelectItem> countries;
 
 	public IAuthenticationFacade getAuthFacade() {
