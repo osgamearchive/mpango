@@ -71,7 +71,9 @@ public class ConstructCommandTest {
 		expect(unit.getConstructionSkills()).andReturn(TEST_UNIT_CONSTRUCTION_SKILLS);
 		replay(construction);
 		replay(unit);
-		assertEquals("The time slices to use on the construction must be the expected", command.calculateTotalTimeMillis(TEST_MILLES_SLICE), 6);
+		assertEquals("The time slices to use on the construction must be the expected", 
+				command.calculateTotalTimeMillis(TEST_MILLES_SLICE), 
+				(long) (TEST_MILLES_SLICE * (TEST_CONSTRUCTION_TIME_SLICES * TEST_UNIT_CONSTRUCTION_SKILLS) + (TEST_CONSTRUCTION_TIME_SLICES * ConstructCommand.MINIMUM_FACTOR)));
 		verify(unit);
 		verify(construction);
 	}

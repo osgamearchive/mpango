@@ -1,5 +1,6 @@
 package net.sourceforge.mpango.actions;
 
+import net.sourceforge.mpango.events.CommandExecutedEvent;
 import net.sourceforge.mpango.exception.CommandException;
 
 /**
@@ -26,8 +27,9 @@ public interface ITaskCommand extends Command {
 	public int calculateTotalTimeSlices();
 	/**
 	 * Method that contains the logic of the command.
+	 * @returns The event produced by the execution of this method.
 	 */
-	public abstract void runExecute();
+	public CommandExecutedEvent runExecute();
 	/**
 	 * Method that evaluates if the execution is possible before adding the command to the queue.
 	 * @throws CommandException In case it is not possible to run the Command for different reasons.

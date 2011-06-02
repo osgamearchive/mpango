@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import net.sourceforge.mpango.events.CommandExecutedEvent;
+import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.Listener;
 import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.exception.EventNotSupportedException;
@@ -25,7 +26,7 @@ public abstract class AbstractTaskCommand extends TimerTask implements ITaskComm
 	
 	/** Timer assigned to this command */
 	private Timer timer;
-	private List<Listener> listeners;
+	protected List<Listener> listeners;
 	private long millisPerSlice;
 	
 	/**
@@ -79,12 +80,12 @@ public abstract class AbstractTaskCommand extends TimerTask implements ITaskComm
 	@Override
 	public void run() {
 		runExecute();
-		notifyListeners();
+		notifyListeners(new CommandExecutedEvent(this));
 	}
 	/**
 	 * Method that notifies all listeners for the {@link Command}.
 	 */
-	private void notifyListeners() {
+	public void notifyListeners(Event event) {
 		for(Listener listener : listeners) {
 			try {
 				listener.receiveEvent(new CommandExecutedEvent(this));

@@ -2,6 +2,11 @@ package net.sourceforge.mpango.events;
 
 import net.sourceforge.mpango.exception.EventNotSupportedException;
 
+/**
+ * Commodity class that implements the Listener interface.
+ * @author etux
+ *
+ */
 public abstract class AbstractListener implements Listener {
 	
 	/**

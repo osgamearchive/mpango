@@ -22,6 +22,7 @@ import net.sourceforge.mpango.entity.Weapon;
 import net.sourceforge.mpango.entity.technology.ShieldTechnology;
 import net.sourceforge.mpango.entity.technology.WeaponTechnology;
 import net.sourceforge.mpango.events.CommandExecutedEvent;
+import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.Listener;
 import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
@@ -228,14 +229,7 @@ public class UnitTest extends TestCase {
 		@Override
 		public void execute() throws CommandException {
 			executed = true;
-			for (Listener listener : listeners) {
-				try {
-					listener.receiveEvent(new CommandExecutedEvent(this));
-				} catch (EventNotSupportedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+			notifyListeners(new CommandExecutedEvent(this));
 		}
 		
 		public boolean isExecuted() {
@@ -244,6 +238,17 @@ public class UnitTest extends TestCase {
 		public void removeListener(Listener listener) {
 		}
 		public void addListener(Listener listener) {
+		}
+		@Override
+		public void notifyListeners(Event event) {
+			for (Listener listener : listeners) {
+				try {
+					listener.receiveEvent(event);
+				} catch (EventNotSupportedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 	
@@ -257,9 +262,10 @@ public class UnitTest extends TestCase {
 		private boolean executed;
 
 		@Override
-		public void runExecute() {
+		public CommandExecutedEvent runExecute() {
 			this.executed = true;
 			System.out.println("Executed: "+this.name+":"+this);
+			return new CommandExecutedEvent(this);
 		}
 		
 		public synchronized boolean isExecuted() {

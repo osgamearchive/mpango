@@ -7,8 +7,8 @@ import javax.persistence.ManyToOne;
 
 import net.sourceforge.mpango.enums.ConstructionType;
 import net.sourceforge.mpango.events.Event;
-import net.sourceforge.mpango.events.NotEnoughResourcesException;
 import net.sourceforge.mpango.exception.EventNotSupportedException;
+import net.sourceforge.mpango.exception.NotEnoughResourcesException;
 
 @Entity
 public class City extends Construction {

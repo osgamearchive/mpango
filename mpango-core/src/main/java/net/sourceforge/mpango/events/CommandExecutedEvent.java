@@ -7,22 +7,15 @@ import net.sourceforge.mpango.actions.Command;
  * @author edvera
  *
  */
-public class CommandExecutedEvent implements Event {
+public class CommandExecutedEvent extends CommandEvent {
 
-	private static final long serialVersionUID = 1323363565613127060L;
-	private Command command;
-	
+	/**
+	 * Constructor
+	 * @param command
+	 */
 	public CommandExecutedEvent(Command command) {
-		this.command = command;
+		super(command);
 	}
 	
-	public Command getCommand() {
-		return command;
-	}
-	
-	@Override
-	public Object getSource() {
-		return command;
-	}
-
+	private static final long serialVersionUID = 1323363565613127060L;
 }

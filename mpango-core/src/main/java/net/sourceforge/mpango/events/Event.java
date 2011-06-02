@@ -14,4 +14,9 @@ public interface Event extends Serializable {
 	 * @return Object that generated the event.
 	 */
 	Object getSource();
+	
+	/**
+	 * Method that returns the time where the event was originated.
+	 */
+	long getTime();
 }

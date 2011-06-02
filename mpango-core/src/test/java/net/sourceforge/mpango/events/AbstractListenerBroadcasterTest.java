@@ -31,7 +31,7 @@ public class AbstractListenerBroadcasterTest extends TestCase {
 	}
 
 	public void testNotifyAllListeners() throws EventNotSupportedException {
-		listenerBroadcaster.notifyAllListeners(new TestEvent(this) {});
+		listenerBroadcaster.notifyListeners(new TestEvent(this) {});
 		assertTrue("The event must have been propagated and handled by included listeners", listener.handledEvent);
 	}
 

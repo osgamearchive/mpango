@@ -45,8 +45,10 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	private Weapon weapon;
 	private List<Technology> technologies;
 	private float constructionSkills;
+	private float collectionSkills;
 	private List<Command> commands;
 	private Timer timer;
+	private City city;
 	
 	public Unit() {
 		this.maximumHitPoints = 0f;
@@ -272,5 +274,18 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	//For testing purposes.
 	protected void setTimer(Timer timer) {
 		this.timer = timer;
+	}
+
+	public float getCollectionSkills() {
+		return this.collectionSkills;
+	}
+
+	public void putResources(Resources food, int foodCollected) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setCollectionSkills(float collectionSkills) {
+		this.collectionSkills = collectionSkills;
 	}
 }

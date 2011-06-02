@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.events;
+package net.sourceforge.mpango.exception;
 
 import net.sourceforge.mpango.entity.City;
 import net.sourceforge.mpango.entity.Resources;

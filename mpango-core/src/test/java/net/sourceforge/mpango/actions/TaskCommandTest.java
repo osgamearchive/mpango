@@ -65,8 +65,9 @@ public class TaskCommandTest {
 		}
 
 		@Override
-		public void runExecute() {
+		public CommandExecutedEvent runExecute() {
 			executed = true;
+			return new CommandExecutedEvent(this);
 		}
 
 		@Override

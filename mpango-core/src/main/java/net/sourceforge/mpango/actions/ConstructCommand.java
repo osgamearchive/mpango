@@ -5,6 +5,7 @@ import java.util.Timer;
 import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.Construction;
 import net.sourceforge.mpango.entity.Unit;
+import net.sourceforge.mpango.events.CommandExecutedEvent;
 import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
 
@@ -58,21 +59,27 @@ public class ConstructCommand extends AbstractTaskCommand {
 	 * @param constructionSkills
 	 * @return
 	 */
-	protected int calculateTotalTimeSlices (int constructionTime, float constructionSkills) {
+	private int calculateTotalTimeSlices (int constructionTime, float constructionSkills) {
 		int unitFactor 		= (int) (constructionTime * constructionSkills);
 		int minimumTime 	= (int) (constructionTime * MINIMUM_FACTOR);
 		int timeSlices 		= ((constructionTime - unitFactor > 0) ? (constructionTime - unitFactor) : 0) + minimumTime;
 		return timeSlices;
 	}
 
+	/**
+	 * Method than contains the logic to execute for the command.
+	 * @returns CommandExecutedEvent even with the this command.
+	 */
 	@Override
-	public void runExecute() {
+	public CommandExecutedEvent runExecute() {
 		try {
 			this.cell.addConstruction(construction);
 			this.unit.improveConstructionSkills(SKILLS_UPGRADE);
 		} catch (ConstructionAlreadyInPlaceException e) {
 			e.printStackTrace();
 		}
+		CommandExecutedEvent event = new CommandExecutedEvent(this);
+		return event;
 	}
 
 	/**
@@ -84,9 +91,14 @@ public class ConstructCommand extends AbstractTaskCommand {
 		if (cell.containsConstruction(construction)) throw new ConstructionAlreadyInPlaceException(construction);
 	}
 
+	/**
+	 * Method that calculates the total amount of time slices the command needs to execute.
+	 * @return number of time slices
+	 */
 	@Override
 	public int calculateTotalTimeSlices() {
-		// TODO Auto-generated method stub
-		return 0;
+		int constructionTime = construction.getConstructionTime();
+		float constructionSkills = unit.getConstructionSkills();
+		return calculateTotalTimeSlices(constructionTime, constructionSkills);
 	}
 }

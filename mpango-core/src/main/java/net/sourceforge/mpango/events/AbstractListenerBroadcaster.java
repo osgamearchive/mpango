@@ -33,11 +33,11 @@ public abstract class AbstractListenerBroadcaster<T extends Listener> extends Ab
 			logger.error("Unable to handle event", e);
 		} finally {
 			//We make sure the chain is not broken because of the exception
-			notifyAllListeners(event);
+			notifyListeners(event);
 		}
 	}
 	
-	public void notifyAllListeners(Event event) {
+	public void notifyListeners(Event event) {
 		for (Listener listener : getListeners()) {
 			try {
 				listener.receiveEvent(event);

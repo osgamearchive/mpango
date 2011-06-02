@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
 import net.sourceforge.mpango.events.AbstractListenerBroadcaster;
+import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.Listener;
 import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
 import net.sourceforge.mpango.exception.ConstructionNotFoundException;
@@ -144,5 +145,23 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 
 	public void setAttackBonus(float attackBonus) {
 		this.attackBonus = attackBonus;
+	}
+
+	@Override
+	public void notifyListeners(Event event) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	public boolean isCollectable() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	public int getCollectionPoints() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
