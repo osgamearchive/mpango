@@ -27,15 +27,14 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 
 	/** generated serial version uid */
 	private static final long serialVersionUID = 2294912901732869716L;
-	
 	private Long identifier;
 	private List<Construction> constructions = new ArrayList<Construction>();
+	
 	private boolean hasCity;
 	private float defenseBonus;
 	private float attackBonus;
 	private int column;
 	private int row;
-	private boolean collectable;
 
 	public Cell(int columnNumber, int rowNumber) {
 		this.setColumn(columnNumber);
@@ -43,6 +42,16 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 		this.hasCity = false;
 	}
 	
+	
+	/**
+	 * default constructor
+	 */
+	public Cell() {
+		super();
+	}
+
+
+
 	public boolean isHasCity() {
 		return hasCity;
 	}
@@ -135,14 +144,5 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 
 	public void setAttackBonus(float attackBonus) {
 		this.attackBonus = attackBonus;
-	}
-
-	public boolean isCollectable() {
-		return collectable;
-	}
-
-	public int getCollectionPoints() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 }

@@ -12,26 +12,12 @@ public class UserDTO extends BaseDTO {
 
 	private static final long serialVersionUID = 1173974818697158235L;
 
-	private Long userId;
 	private String email;
 	private String username;
 	private String password;
 	private Date dateOfBirth;
 	private String gender;
 
-	/**
-	 * @return
-	 */
-	public Long getUserId() {
-		return userId;
-	}
-
-	/**
-	 * @param userId
-	 */
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
 
 	/**
 	 * @return

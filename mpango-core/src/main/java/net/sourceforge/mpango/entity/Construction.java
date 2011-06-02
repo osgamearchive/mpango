@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
+import net.sourceforge.mpango.enums.ConstructionType;
 import net.sourceforge.mpango.events.Listener;
 
 /**
@@ -32,13 +33,11 @@ public abstract class Construction implements Damageable, Listener {
 	private float attackBonus;
 	private float reparationCostPerPoint;
 	private int constructionTime;
-	private Type type;
+	private ConstructionType type;
 	
-	enum Type {
-		City
-		};
 	
-	public Construction (Type type, float maximumHitPoints, int constructionTime) {
+	
+	public Construction (ConstructionType type, float maximumHitPoints, int constructionTime) {
 		this.maximumHitPoints = maximumHitPoints;
 		this.type = type;
 		this.constructionTime = constructionTime;
@@ -130,5 +129,11 @@ public abstract class Construction implements Damageable, Listener {
 			return false;
 		return true;
 	}
+
+	public ConstructionType getType() {
+		return type;
+	}
+	
+	
 	
 }

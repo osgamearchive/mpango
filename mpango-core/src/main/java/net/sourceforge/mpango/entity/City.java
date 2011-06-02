@@ -5,6 +5,7 @@ import java.util.Hashtable;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
+import net.sourceforge.mpango.enums.ConstructionType;
 import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.NotEnoughResourcesException;
 import net.sourceforge.mpango.exception.EventNotSupportedException;
@@ -20,7 +21,7 @@ public class City extends Construction {
 	private Hashtable<Resources, Integer> resources;
 	
 	public City() {
-		super(Type.City, MAX_HIT_POINTS, CONSTRUCTION_TIME);
+		super(ConstructionType.CITY, MAX_HIT_POINTS, CONSTRUCTION_TIME);
 		setResources(new Hashtable<Resources, Integer>());
 		
 	}

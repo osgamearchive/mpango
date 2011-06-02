@@ -36,6 +36,14 @@ public class Row extends AbstractListenerBroadcaster<Cell> implements Serializab
 			cells.add(cell);
 		}
 	}
+	
+	/**
+	 * default constructor
+	 */
+	public Row() {
+		super();
+	}
+	
 	@Id
 	public Long getIdentifier() {
 		return identifier;

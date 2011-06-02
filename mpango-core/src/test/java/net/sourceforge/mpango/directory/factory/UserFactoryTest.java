@@ -12,13 +12,13 @@ public class UserFactoryTest extends TestCase {
 	 */
 	public void testUserFactory() {
 		UserDTO dto = new UserDTO();
-		dto.setUserId(1L);
+		dto.setId(1L);
 		dto.setUsername("test");
 		dto.setEmail("test@company.com");
 		
 		User user = UserFactory.instance().create(dto);
 		Assert.assertNotNull(dto);
-		Assert.assertEquals(dto.getUserId(), user.getIdentifier());
+		Assert.assertEquals(dto.getId(), user.getIdentifier());
 		Assert.assertEquals(dto.getUsername(), user.getUsername());
 		Assert.assertEquals(dto.getEmail(), user.getEmail());
 	}

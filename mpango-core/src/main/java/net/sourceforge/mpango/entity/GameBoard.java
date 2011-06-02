@@ -38,7 +38,7 @@ public class GameBoard extends AbstractPersistable {
 		notifyAllListeners(turnEvent);
 	}
 	
-	private void notifyAllListeners(Event event) {
+	public void notifyAllListeners(Event event) {
 		for (Listener listener : listeners) {
 			try {
 				listener.receiveEvent(event);
@@ -70,6 +70,14 @@ public class GameBoard extends AbstractPersistable {
 			this.rows.add(new Row(i, this.colSize));
 		}
 	}
+	
+	/**
+	 * default constructor
+	 */
+	public GameBoard() {
+		super();
+	}
+
 	/**
 	 * Obtains the cell by row and column.
 	 * @param rowNumber

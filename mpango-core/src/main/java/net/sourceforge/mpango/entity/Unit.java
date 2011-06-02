@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Timer;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -37,6 +36,8 @@ import org.apache.commons.logging.LogFactory;
 @Entity
 public abstract class Unit extends AbstractPersistable implements Damageable,Serializable,Listener {
 
+	private static final long serialVersionUID = 5633302737634656030L;
+	private static final Log logger = LogFactory.getLog(Unit.class);
 	private final float maximumHitPoints;
 	private Float attackPoints;
 	private Float hitPoints;
@@ -44,10 +45,8 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	private Weapon weapon;
 	private List<Technology> technologies;
 	private float constructionSkills;
-	private float collectionSkills;
 	private List<Command> commands;
 	private Timer timer;
-	private City city;
 	
 	public Unit() {
 		this.maximumHitPoints = 0f;
@@ -211,52 +210,6 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	public float repair() {
 		return 0;
 	}
-	@Override
-	public void receiveEvent(Event event) throws EventNotSupportedException {
-		if (event instanceof CommandExecutedEvent) {
-			CommandExecutedEvent commandEvent = (CommandExecutedEvent) event;
-			try {
-				this.removeCommand(commandEvent.getCommand());
-			} catch (CommandException e) {
-				//If this happens is probably due to a code flaw.
-				e.printStackTrace();
-			}
-		}
-	}
-
-	public float getConstructionSkills() {
-		return this.constructionSkills;
-	}
-	
-	public void setConstructionSkills(float constructionSkills) {
-		this.constructionSkills = constructionSkills;
-	}
-
-	public void improveConstructionSkills(float skillsUpgrade) {
-		this.constructionSkills+=skillsUpgrade;
-	}
-
-	public float getCollectionSkills() {
-		return collectionSkills;
-	}
-
-	public void putResources(Resources resource, int quantity) {
-		this.city.addResources(resource,quantity);
-	}
-
-	@Transient
-	public Timer getTimer() {
-		if (timer == null) {
-			logger.debug("Initializing the timer");
-			timer = new Timer();
-		}
-		return timer;
-	}
-	//For testing purposes.
-	protected void setTimer(Timer timer) {
-		this.timer = timer;
-	}
-
 	public float getHitPoints() {
 		return this.hitPoints;
 	}
@@ -284,15 +237,40 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	public void setTechnologies(List<Technology> technologies) {
 		this.technologies = technologies;
 	}
-	@ManyToOne
-	public City getCity() {
-		return city;
-	}	
-	public void setCity(City city) {
-		this.city = city;
+	@Override
+	public void receiveEvent(Event event) throws EventNotSupportedException {
+		if (event instanceof CommandExecutedEvent) {
+			CommandExecutedEvent commandEvent = (CommandExecutedEvent) event;
+			try {
+				this.removeCommand(commandEvent.getCommand());
+			} catch (CommandException e) {
+				//If this happens is probably due to a code flaw.
+				e.printStackTrace();
+			}
+		}
 	}
 
-	//Unimportant fields of the class
-	private static final long serialVersionUID = 5633302737634656030L;
-	private static final Log logger = LogFactory.getLog(Unit.class);
+	public float getConstructionSkills() {
+		return this.constructionSkills;
+	}
+	
+	public void setConstructionSkills(float constructionSkills) {
+		this.constructionSkills = constructionSkills;
+	}
+
+	public void improveConstructionSkills(float skillsUpgrade) {
+		this.constructionSkills+=skillsUpgrade;
+	}
+	@Transient
+	public Timer getTimer() {
+		if (timer == null) {
+			logger.debug("Initializing the timer");
+			timer = new Timer();
+		}
+		return timer;
+	}
+	//For testing purposes.
+	protected void setTimer(Timer timer) {
+		this.timer = timer;
+	}
 }

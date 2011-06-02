@@ -1,8 +1,5 @@
 package net.sourceforge.mpango.directory.builder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.sourceforge.mpango.directory.dto.UserDTO;
 import net.sourceforge.mpango.directory.entity.User;
 
@@ -11,7 +8,7 @@ import net.sourceforge.mpango.directory.entity.User;
  * @author aplause
  * 
  */
-public class UserBuilder {
+public class UserBuilder extends BaseBuilder<User, UserDTO> {
 
 	private UserBuilder() {
 		super();
@@ -27,11 +24,12 @@ public class UserBuilder {
 
 	}
 
-	/**
-	 * builds dto object from entity
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param user
-	 * @return {@link UserDTO}
+	 * @see
+	 * net.sourceforge.mpango.directory.builder.BaseBuilder#build(java.lang.
+	 * Object)
 	 */
 	public UserDTO build(User user) {
 
@@ -40,7 +38,7 @@ public class UserBuilder {
 		}
 
 		UserDTO dto = new UserDTO();
-		dto.setUserId(user.getIdentifier());
+		dto.setId(user.getIdentifier());
 		dto.setUsername(user.getUsername());
 		dto.setPassword(user.getPassword());
 		dto.setEmail(user.getEmail());
@@ -50,20 +48,4 @@ public class UserBuilder {
 		return dto;
 	}
 
-	/**
-	 * builds {@link List} of {@link UserDTO}
-	 * 
-	 * @param userList
-	 * @return {@link List} of {@link UserDTO}
-	 */
-	public List<UserDTO> buildList(List<User> userList) {
-		List<UserDTO> dtoList = new ArrayList<UserDTO>();
-
-		for (User user : userList) {
-			dtoList.add(build(user));
-		}
-
-		return dtoList;
-
-	}
 }

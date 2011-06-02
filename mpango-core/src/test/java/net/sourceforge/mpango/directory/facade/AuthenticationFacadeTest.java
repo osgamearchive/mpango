@@ -31,7 +31,7 @@ public class AuthenticationFacadeTest extends BaseSpringTest {
 		dto.setUsername("user");
 		dto = authFacade.register(dto);
 		Assert.assertNotNull(dto);
-		Assert.assertNotNull(dto.getUserId());
+		Assert.assertNotNull(dto.getId());
 
 		UserDTO userFound = authFacade.load("nonexisted@email.com");
 		Assert.assertNull(userFound);

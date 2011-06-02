@@ -24,7 +24,7 @@ public class UserBuilderTest extends TestCase{
 		
 		UserDTO dto = UserBuilder.instance().build(user);
 		Assert.assertNotNull(dto);
-		Assert.assertEquals(dto.getUserId(), user.getIdentifier());
+		Assert.assertEquals(dto.getId(), user.getIdentifier());
 		Assert.assertEquals(dto.getUsername(), user.getUsername());
 		Assert.assertEquals(dto.getEmail(), user.getEmail());
 	}
