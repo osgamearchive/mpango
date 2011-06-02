@@ -11,14 +11,14 @@ import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.exception.EventNotSupportedException;
 
 /**
- * The purpose of this class is to execute tasks that need time to be executed.
+ * <p>The purpose of this class is to execute tasks that need time to be executed.
  * The time it takes to execute the {@link Command#execute()} is determined by the {@link TaskCommand.calculateTotalTimeSlices()} method which returns milliseconds.
  * This class receives {@link Timer} as part of the constructor, a timer which will be responsible for executing the {@link Command}.
- * This class is responsible for the {@link Thread} created by the {@link Timer} creates at scheduling time.
+ * This class is responsible for the {@link Thread} created by the {@link Timer} creates at scheduling time.</p>
  * @author etux
  *
  */
-public abstract class TaskCommand extends TimerTask implements Command  {
+public abstract class AbstractTaskCommand extends TimerTask implements ITaskCommand  {
 
 	/** Default time milliseconds per time slice. */
 	public static final long DEFAULT_MILLIS_PER_TIME_SLICE = 1000;
@@ -33,7 +33,7 @@ public abstract class TaskCommand extends TimerTask implements Command  {
 	 * @param timer
 	 * @param listeners
 	 */
-	protected TaskCommand(long millisPerSlice, Timer timer, List<Listener> listeners) {
+	protected AbstractTaskCommand(long millisPerSlice, Timer timer, List<Listener> listeners) {
 		this.timer = timer;
 		this.listeners = listeners;
 		this.millisPerSlice = millisPerSlice;
@@ -44,30 +44,39 @@ public abstract class TaskCommand extends TimerTask implements Command  {
 	 * @param timer
 	 * @param listeners
 	 */
-	protected TaskCommand(long millisPerSlice, Timer timer, Listener...listeners) {
+	protected AbstractTaskCommand(long millisPerSlice, Timer timer, Listener...listeners) {
 		this(millisPerSlice, timer, Arrays.asList(listeners));
 	}
 	/**
 	 * Constructor that uses the default time milliseconds per time slice.
 	 * @param timer to schedule the command.
 	 */
-	protected TaskCommand(Timer timer, Listener...listeners) {
+	protected AbstractTaskCommand(Timer timer, Listener...listeners) {
 		this(DEFAULT_MILLIS_PER_TIME_SLICE, timer, listeners);
 	}
 	/**
 	 * Implementation of the execute method of the command. 
 	 * This method schedules the command as a TimerTask that will be called
-	 * executed in the {@link TaskCommand#calculateTotalTimeSlices()} in the future.
+	 * executed in the {@link AbstractTaskCommand#calculateTotalTimeSlices()} in the future.
 	 * amount of time slices needed.
 	 */
 	public final void execute() throws CommandException {
-		evaluateExecution();
-		timer.schedule(this, calculateTotalTimeMillis(millisPerSlice));
+		evaluateExecution(); //Evaluating if the command can be executed in the current conditions.
+		timer.schedule(this, calculateTotalTimeMillis(millisPerSlice)); //Scheduling the command so that its effects happen in the future.
+	}
+	/**
+	 * Method that returns the number of milliseconds the command will take to execute.
+	 * @param timeMillisPerTimeSlice factor multiplying the time slices of the command.
+	 * @return total amount of time the command will take to execute.
+	 */
+	public long calculateTotalTimeMillis(long timeMillisPerTimeSlice) {
+		return (timeMillisPerTimeSlice * calculateTotalTimeSlices()); //Basic time calculation that will fit most of the cases.
 	}
 	/**
 	 * Implementation of the {@link Timer#run()} method which is a 
 	 * Template Method for the inheriting {@link Command}(s). 
 	 */
+	@Override
 	public void run() {
 		runExecute();
 		notifyListeners();
@@ -85,22 +94,7 @@ public abstract class TaskCommand extends TimerTask implements Command  {
 		}
 	}
 	/**
-	 * Method that calculates the total amount of milliseconds the command needs in order to be completed.
-	 * @param timeMillisPerTimeSlice Time in milliseconds a time slice is.
-	 * @return
-	 */
-	public abstract long calculateTotalTimeMillis(long timeMillisPerTimeSlice);
-	/**
-	 * Method that evaluates if a command can be executed.
-	 * @throws CommandException in case a command can not be executed for a given reason.
-	 */
-	protected abstract void evaluateExecution() throws CommandException;
-	/**
-	 * Abstract method that all {@link TaskCommand} inheritors need to implement.
-	 */
-	protected abstract void runExecute();
-	/**
-	 * Method that add a listener to the {@link TaskCommand}.
+	 * Method that add a listener to the {@link AbstractTaskCommand}.
 	 * @param listener
 	 */
 	@Override

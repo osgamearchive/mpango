@@ -50,7 +50,7 @@ public class TaskCommandTest {
 		EasyMock.verify(listener);
 	}
 	
-	public class TestTaskCommand extends TaskCommand {
+	public class TestTaskCommand extends AbstractTaskCommand {
 
 		public boolean executed; //To prove the command has been executed.
 		
@@ -60,18 +60,19 @@ public class TaskCommandTest {
 		}
 
 		@Override
-		protected void evaluateExecution() throws CommandException {
+		public void evaluateExecution() throws CommandException {
 			
 		}
 
 		@Override
-		protected void runExecute() {
+		public void runExecute() {
 			executed = true;
 		}
 
 		@Override
-		public long calculateTotalTimeMillis(long timeMillisPerTimeSlice) {
-			return 10;
+		public int calculateTotalTimeSlices() {
+			// TODO Auto-generated method stub
+			return 1;
 		}
 		
 	}

@@ -14,7 +14,7 @@ import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
  * @author etux
  *
  */
-public class ConstructCommand extends TaskCommand {
+public class ConstructCommand extends AbstractTaskCommand {
 
 	/** Constant containing the value of the skills upgrade for a unit every time it executes this command */
 	protected static final float SKILLS_UPGRADE = 0.1f;
@@ -52,24 +52,13 @@ public class ConstructCommand extends TaskCommand {
 		this.cell = cell;
 		this.construction = construction;
 	}
-	
-	/**
-	 * Method that returns the number of milliseconds the command will take to execute.
-	 * @param timeMillisPerTimeSlice factor multiplying the time slices of the command.
-	 * @return total amount of time the command will take to execute.
-	 */
-	public long calculateTotalTimeMillis(long timeMillisPerTimeSlice) {
-		int constructionTime 		= construction.getConstructionTime();
-		float constructionSkills 	= unit.getConstructionSkills();
-		return timeMillisPerTimeSlice*calculateTotalTimeSlices(constructionTime, constructionSkills);
-	}
 	/**
 	 * Method that calculates the amount of time slices the command needs to execute.
 	 * @param constructionTime
 	 * @param constructionSkills
 	 * @return
 	 */
-	private int calculateTotalTimeSlices (int constructionTime, float constructionSkills) {
+	protected int calculateTotalTimeSlices (int constructionTime, float constructionSkills) {
 		int unitFactor 		= (int) (constructionTime * constructionSkills);
 		int minimumTime 	= (int) (constructionTime * MINIMUM_FACTOR);
 		int timeSlices 		= ((constructionTime - unitFactor > 0) ? (constructionTime - unitFactor) : 0) + minimumTime;
@@ -77,7 +66,7 @@ public class ConstructCommand extends TaskCommand {
 	}
 
 	@Override
-	protected void runExecute() {
+	public void runExecute() {
 		try {
 			this.cell.addConstruction(construction);
 			this.unit.improveConstructionSkills(SKILLS_UPGRADE);
@@ -91,7 +80,13 @@ public class ConstructCommand extends TaskCommand {
 	 * @throws CommandException in case the command can not be executed.
 	 */
 	@Override
-	protected void evaluateExecution() throws CommandException {
+	public void evaluateExecution() throws CommandException {
 		if (cell.containsConstruction(construction)) throw new ConstructionAlreadyInPlaceException(construction);
+	}
+
+	@Override
+	public int calculateTotalTimeSlices() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

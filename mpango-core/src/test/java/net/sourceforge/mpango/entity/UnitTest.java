@@ -12,7 +12,7 @@ import org.junit.Test;
 import junit.framework.TestCase;
 import net.sourceforge.mpango.actions.Command;
 import net.sourceforge.mpango.actions.ConstructCommand;
-import net.sourceforge.mpango.actions.TaskCommand;
+import net.sourceforge.mpango.actions.AbstractTaskCommand;
 import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.City;
 import net.sourceforge.mpango.entity.Shield;
@@ -129,7 +129,7 @@ public class UnitTest extends TestCase {
 		unit.addCommand(command1);
 		unit.addCommand(command2);
 		assertFalse("Command should not have executed yet", command2.executed);
-		Thread.sleep(TaskCommand.DEFAULT_MILLIS_PER_TIME_SLICE+100);
+		Thread.sleep(AbstractTaskCommand.DEFAULT_MILLIS_PER_TIME_SLICE+100);
 		assertTrue("Command should have executed already", command2.executed);
 	}
 	
@@ -141,13 +141,13 @@ public class UnitTest extends TestCase {
 		unit.addCommand(command2);
 		assertTrue("The first command should not be executed instantly", !command1.isExecuted());
 		while (!command1.isExecuted()) {
-			Thread.sleep(TaskCommand.DEFAULT_MILLIS_PER_TIME_SLICE);
+			Thread.sleep(AbstractTaskCommand.DEFAULT_MILLIS_PER_TIME_SLICE);
 			System.out.print(".");
 		}
 		assertTrue("The first command should have been executed by now", command1.isExecuted());
 		assertTrue("The second command should not be executed instantly", !command2.isExecuted());
 		while(!command2.isExecuted()) {
-			Thread.sleep(TaskCommand.DEFAULT_MILLIS_PER_TIME_SLICE);
+			Thread.sleep(AbstractTaskCommand.DEFAULT_MILLIS_PER_TIME_SLICE);
 			System.out.print(".");
 		}
 		assertTrue("The second command should have been executed by now", command2.isExecuted());
@@ -161,7 +161,7 @@ public class UnitTest extends TestCase {
 		// create a city
 		Cell cell = new Cell(0, 0);
 		ConstructCommand command = unit.settle(cell);
-		Thread.sleep(command.calculateTotalTimeMillis(TaskCommand.DEFAULT_MILLIS_PER_TIME_SLICE)+100);
+		Thread.sleep(command.calculateTotalTimeMillis(AbstractTaskCommand.DEFAULT_MILLIS_PER_TIME_SLICE)+100);
 		assertTrue("The cell must contain a city", cell.getConstructions().contains(city));
 	}
 	
@@ -247,7 +247,7 @@ public class UnitTest extends TestCase {
 		}
 	}
 	
-	public class TestTaskCommand extends TaskCommand  {
+	public class TestTaskCommand extends AbstractTaskCommand  {
 		private String name;
 		public TestTaskCommand(Timer timer, String name, Listener... listeners) {
 			super(timer, listeners);
@@ -267,13 +267,18 @@ public class UnitTest extends TestCase {
 		}
 
 		@Override
-		protected void evaluateExecution() throws CommandException {
+		public void evaluateExecution() throws CommandException {
 			
 		}
 
 		@Override
 		public long calculateTotalTimeMillis(long timeMillisPerTimeSlice) {
 			return timeMillisPerTimeSlice;
+		}
+
+		@Override
+		public int calculateTotalTimeSlices() {
+			return 1;
 		}
 		
 	}
