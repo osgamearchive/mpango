@@ -1,6 +1,8 @@
 package net.sourceforge.mpango.directory.service;
 
 
+import java.util.List;
+
 import net.sourceforge.mpango.directory.entity.User;
 
 /**
@@ -24,4 +26,10 @@ public interface IAuthenticationService {
 	 * @return The {@link User} that has been registered. 
 	 */
 	public User register(User user);
+
+	/**
+	 * Returns the available users.
+	 * @return
+	 */
+	public List<User> list();
 }

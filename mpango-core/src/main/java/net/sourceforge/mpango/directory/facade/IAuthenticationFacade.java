@@ -1,6 +1,8 @@
 package net.sourceforge.mpango.directory.facade;
 
 
+import java.util.List;
+
 import net.sourceforge.mpango.directory.dto.UserDTO;
 
 public interface IAuthenticationFacade {
@@ -20,4 +22,10 @@ public interface IAuthenticationFacade {
 	 * @return {@link UserDTO}
 	 */
 	public UserDTO register(UserDTO user);
+	
+	/**
+	 * Method that list all available users.
+	 * @return
+	 */
+	public List<UserDTO> list();
 }

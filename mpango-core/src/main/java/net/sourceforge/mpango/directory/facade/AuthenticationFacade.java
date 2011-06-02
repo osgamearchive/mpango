@@ -3,6 +3,8 @@
  */
 package net.sourceforge.mpango.directory.facade;
 
+import java.util.List;
+
 import net.sourceforge.mpango.directory.builder.UserBuilder;
 import net.sourceforge.mpango.directory.dto.UserDTO;
 import net.sourceforge.mpango.directory.factory.UserFactory;
@@ -47,6 +49,13 @@ public class AuthenticationFacade implements IAuthenticationFacade {
 
 	public void setAuthService(IAuthenticationService authService) {
 		this.authService = authService;
+	}
+
+	@Override
+	public List<UserDTO> list() {
+		List<UserDTO> users = null;
+		users = UserBuilder.instance().buildList(authService.list());
+		return users;
 	}
 
 }

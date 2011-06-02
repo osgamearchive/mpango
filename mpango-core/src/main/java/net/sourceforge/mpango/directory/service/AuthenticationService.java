@@ -2,6 +2,7 @@ package net.sourceforge.mpango.directory.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.List;
 
 import net.sourceforge.mpango.directory.dao.UserDAO;
 import net.sourceforge.mpango.directory.entity.User;
@@ -65,6 +66,11 @@ public class AuthenticationService implements IAuthenticationService {
 
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
+	}
+
+	@Override
+	public List<User> list() {
+		return userDAO.list();
 	}
 
 }
