@@ -9,6 +9,14 @@ import net.sourceforge.mpango.entity.GameBoard;
 
 public class GameBoardFactory extends BaseFactory<GameBoardDTO, GameBoard> {
 
+	private GameBoardFactory() {
+		super();
+	}
+
+	public static GameBoardFactory instance() {
+		return new GameBoardFactory();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -23,9 +31,9 @@ public class GameBoardFactory extends BaseFactory<GameBoardDTO, GameBoard> {
 		board.setRowSize(dto.getRowSize());
 		board.setIdentifier(dto.getId());
 		Cell[][] cells = new Cell[board.getRowSize()][board.getColSize()];
-		CellDTO [][] dtos = dto.getCells();
-		for (int i=0; i<dtos.length; i++) { //Iterate over the rows
-			for (int j=0; i<dtos[i].length; j++) { //Iterate over the cols
+		CellDTO[][] dtos = dto.getCells();
+		for (int i = 0; i < dtos.length; i++) { // Iterate over the rows
+			for (int j = 0; j < dtos[i].length; j++) { // Iterate over the cols
 				Cell cell = CellFactory.instance().create(dtos[i][j]);
 				cells[i][j] = cell;
 			}

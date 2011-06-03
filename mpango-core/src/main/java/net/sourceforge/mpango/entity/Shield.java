@@ -63,4 +63,10 @@ public class Shield extends AbstractPersistable {
 	public void setRemainingHitPoints(Float hitPoints) {
 		this.hitPoints = hitPoints;
 	}
+
+	public Float getMaximumHitPoints() {
+		return maximumHitPoints;
+	}
+	
+	
 }

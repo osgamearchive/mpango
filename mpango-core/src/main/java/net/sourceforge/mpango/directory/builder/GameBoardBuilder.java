@@ -6,6 +6,14 @@ import net.sourceforge.mpango.entity.GameBoard;
 
 public class GameBoardBuilder extends BaseBuilder<GameBoard, GameBoardDTO> {
 
+	private GameBoardBuilder() {
+		super();
+	}
+
+	public static GameBoardBuilder instance() {
+		return new GameBoardBuilder();
+	}
+	
 	@Override
 	public GameBoardDTO build(GameBoard entity) {
 		GameBoardDTO dto = new GameBoardDTO();

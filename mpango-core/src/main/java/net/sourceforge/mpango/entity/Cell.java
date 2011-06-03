@@ -12,7 +12,6 @@ import javax.persistence.Transient;
 
 import net.sourceforge.mpango.events.AbstractListenerBroadcaster;
 import net.sourceforge.mpango.events.Event;
-import net.sourceforge.mpango.events.Listener;
 import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
 import net.sourceforge.mpango.exception.ConstructionNotFoundException;
 
