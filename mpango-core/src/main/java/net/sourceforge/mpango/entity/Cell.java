@@ -8,12 +8,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
-import net.sourceforge.mpango.events.AbstractListenerBroadcaster;
+import net.sourceforge.mpango.events.AbstractListenerObservable;
 import net.sourceforge.mpango.events.Event;
+import net.sourceforge.mpango.events.Listener;
 import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
 import net.sourceforge.mpango.exception.ConstructionNotFoundException;
+import net.sourceforge.mpango.exception.EventNotSupportedException;
 
 
 /**
@@ -23,7 +24,7 @@ import net.sourceforge.mpango.exception.ConstructionNotFoundException;
  *
  */
 @Entity
-public class Cell extends AbstractListenerBroadcaster<Construction> implements Serializable {
+public class Cell extends AbstractListenerObservable implements Serializable {
 
 	/** generated serial version uid */
 	private static final long serialVersionUID = 2294912901732869716L;
@@ -36,21 +37,14 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 	private int column;
 	private int row;
 
-	public Cell(int columnNumber, int rowNumber) {
-		this.setColumn(columnNumber);
-		this.setRow(rowNumber);
-		this.hasCity = false;
+	public Cell(int rowPosition, int colPosition) {
+		super(new Listener() {
+			@Override
+			public void receive(Event event) throws EventNotSupportedException {}
+		});
+		this.column = colPosition;
+		this.row = rowPosition;
 	}
-	
-	
-	/**
-	 * default constructor
-	 */
-	public Cell() {
-		super();
-	}
-
-
 
 	public boolean isHasCity() {
 		return hasCity;
@@ -84,10 +78,6 @@ public class Cell extends AbstractListenerBroadcaster<Construction> implements S
 	}
 	public void setConstructions(List<Construction> constructions) {
 		this.constructions = constructions;
-	}
-	@Transient
-	public List<Construction> getListeners() {
-		return obtainListenerList(this.constructions);
 	}
 	
 	public boolean containsConstruction(Construction construction) {

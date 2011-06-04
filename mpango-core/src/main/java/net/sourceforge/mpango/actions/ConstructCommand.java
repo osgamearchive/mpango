@@ -12,7 +12,7 @@ import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
 /**
  * Command that represents the construction action.
  * 
- * @author etux
+ * @author edvera
  *
  */
 public class ConstructCommand extends AbstractTaskCommand {

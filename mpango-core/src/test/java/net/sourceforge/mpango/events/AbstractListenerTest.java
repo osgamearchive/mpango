@@ -1,55 +1,61 @@
 package net.sourceforge.mpango.events;
 
+import org.junit.Test;
+
 import net.sourceforge.mpango.events.AbstractEvent;
 import net.sourceforge.mpango.events.AbstractListener;
-import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.exception.EventNotSupportedException;
 import junit.framework.TestCase;
 
 public class AbstractListenerTest extends TestCase {
 	
+	@SuppressWarnings("serial")
+	@Test
 	public void testDefaultReceiveEvent() {
 		AbstractEvent event = new AbstractEvent(this) {};
 		AbstractListener listener = new AbstractListener() {};
 		try {
-			listener.receiveEvent(event);
+			listener.receive(event);
 			fail("Exception exception not raised");
 		} catch (EventNotSupportedException expected) {
 			//do nothing
 		}
 	}
-	
+
+	@Test
 	public void testReceiveSupportedEvent() throws EventNotSupportedException {
 		SupportedEvent event = new SupportedEvent(this);
-		AbstractListener listener = new SupportedListener();
-		listener.receiveEvent(event);
-	}
-
-	public void testReceiveUnsupportedEvent() {
-		AbstractEvent event = new AbstractEvent(this){};
-		AbstractListener listener = new SupportedListener();
-		try {
-			listener.receiveEvent(event);
-			fail("Expected exception not raised");
-		} catch (EventNotSupportedException expected) {}
+		SupportedListener listener = new SupportedListener();
+		listener.receive(event);
+		SupportedListener.assertListener(listener);
 	}
 	
-	class SupportedEvent extends AbstractEvent {
-		public SupportedEvent(Object source) {
-			super(source);
-		}
+	@Test
+	public void testReceiveSupportedEventAsNotSupported () throws EventNotSupportedException {
+		AbstractEvent event = new SupportedEvent(this);
+		SupportedListener listener = new SupportedListener();
+		listener.receive(event);
+		SupportedListener.assertListener(listener);
 	}
-	/**
-	 * Class proving that in order to determine what events are handled, it should be done on the listener implementation.
-	 * @author etux
-	 *
-	 */
-	class SupportedListener extends AbstractListener {
-		@Override
-		public void receiveEvent(Event event) throws EventNotSupportedException {
-			if (!(event instanceof SupportedEvent)) {
-				throw new EventNotSupportedException(event);
-			}
+	
+	@Test
+	public void testReceiveSupportedEventInUnsupportedReference() throws EventNotSupportedException {
+		SupportedEvent event = new SupportedEvent(this);
+		AbstractListener listener = new SupportedListener();
+		listener.receive(event);
+		SupportedListener.assertListener((SupportedListener) listener);
+	}
+
+	@SuppressWarnings("serial")
+	@Test
+	public void testReceiveUnsupportedEvent() {
+		AbstractEvent event = new AbstractEvent(this){};
+		SupportedListener listener = new SupportedListener();
+		try {
+			listener.receive(event);
+			fail("Expected exception not raised");
+		} catch (EventNotSupportedException expected) {
+			assertTrue("The listener should not have handled the event", !(listener.numberOfEvents != 0));
 		}
 	}
 }

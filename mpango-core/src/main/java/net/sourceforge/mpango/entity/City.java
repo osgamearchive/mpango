@@ -27,7 +27,7 @@ public class City extends Construction {
 	}
 	
 	@Override
-	public void receiveEvent(Event event) throws EventNotSupportedException {
+	public void receive(Event event) throws EventNotSupportedException {
 		// TODO Auto-generated method stub
 		
 	}

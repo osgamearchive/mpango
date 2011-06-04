@@ -14,7 +14,7 @@ public abstract class AbstractListener implements Listener {
 	 * @param event
 	 * @throws EventNotSupportedException
 	 */
-	public void receiveEvent(Event event) throws EventNotSupportedException {
+	public void receive(Event event) throws EventNotSupportedException {
 		throw new EventNotSupportedException(event);
 	}
 

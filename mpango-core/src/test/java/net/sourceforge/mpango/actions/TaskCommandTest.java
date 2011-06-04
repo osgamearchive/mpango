@@ -29,7 +29,7 @@ public class TaskCommandTest {
 	
 	@Test
 	public void testScheduledExecution() throws CommandException, EventNotSupportedException, InterruptedException {
-		listener.receiveEvent(EasyMock.isA(CommandExecutedEvent.class));
+		listener.receive(EasyMock.isA(CommandExecutedEvent.class));
 		EasyMock.replay(listener);
 		int numberOfThreadPriorExecution = Thread.activeCount();
 		taskCommand.execute();
@@ -43,7 +43,7 @@ public class TaskCommandTest {
 	@Test
 	public void testRun() throws EventNotSupportedException {
 		CommandExecutedEvent event = new CommandExecutedEvent(taskCommand);
-		listener.receiveEvent(EasyMock.isA(event.getClass()));
+		listener.receive(EasyMock.isA(event.getClass()));
 		EasyMock.replay(listener);
 		taskCommand.run();
 		Assert.assertTrue("The task must have been executed.",taskCommand.executed);

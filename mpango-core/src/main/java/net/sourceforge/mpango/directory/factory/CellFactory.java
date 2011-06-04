@@ -24,7 +24,7 @@ public class CellFactory extends BaseFactory<CellDTO, Cell> {
 	 */
 	public Cell create(CellDTO dto) {
 
-		Cell cell = new Cell();
+		Cell cell = new Cell(dto.getRow(),dto.getColumn());
 		cell.setColumn(dto.getColumn());
 		cell.setRow(dto.getRow());
 		cell.setIdentifier(dto.getId());

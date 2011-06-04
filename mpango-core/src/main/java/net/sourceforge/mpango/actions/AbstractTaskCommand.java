@@ -8,6 +8,7 @@ import java.util.TimerTask;
 import net.sourceforge.mpango.events.CommandExecutedEvent;
 import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.Listener;
+import net.sourceforge.mpango.events.Observable;
 import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.exception.EventNotSupportedException;
 
@@ -19,7 +20,7 @@ import net.sourceforge.mpango.exception.EventNotSupportedException;
  * @author etux
  *
  */
-public abstract class AbstractTaskCommand extends TimerTask implements ITaskCommand  {
+public abstract class AbstractTaskCommand extends TimerTask implements ITaskCommand, Observable  {
 
 	/** Default time milliseconds per time slice. */
 	public static final long DEFAULT_MILLIS_PER_TIME_SLICE = 1000;
@@ -79,16 +80,17 @@ public abstract class AbstractTaskCommand extends TimerTask implements ITaskComm
 	 */
 	@Override
 	public void run() {
-		runExecute();
-		notifyListeners(new CommandExecutedEvent(this));
+		notifyListeners(runExecute());
 	}
+	
 	/**
 	 * Method that notifies all listeners for the {@link Command}.
 	 */
+	@Override
 	public void notifyListeners(Event event) {
 		for(Listener listener : listeners) {
 			try {
-				listener.receiveEvent(new CommandExecutedEvent(this));
+				listener.receive(event);
 			} catch (EventNotSupportedException e) {
 				e.printStackTrace();
 			}

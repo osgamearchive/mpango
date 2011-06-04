@@ -40,7 +40,7 @@ public class GameBoard extends AbstractPersistable {
 	public void notifyAllListeners(Event event) {
 		for (Listener listener : listeners) {
 			try {
-				listener.receiveEvent(event);
+				listener.receive(event);
 			} catch (EventNotSupportedException e) {
 				logger.error("Error on listener [" + listener + "]", e);
 			}
@@ -69,6 +69,11 @@ public class GameBoard extends AbstractPersistable {
 		this.rowSize = rowNumber;
 		this.colSize = colNumber;
 		this.cells = new Cell[this.rowSize][this.colSize];
+		for (int row=0; row<rowNumber; row++) {
+			for (int col=0; col<colNumber; col++) {
+				this.cells[row][col] = new Cell(row, col);
+			}
+		}
 	}
 	
 	/**

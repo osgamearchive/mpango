@@ -240,7 +240,7 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 		this.technologies = technologies;
 	}
 	@Override
-	public void receiveEvent(Event event) throws EventNotSupportedException {
+	public void receive(Event event) throws EventNotSupportedException {
 		if (event instanceof CommandExecutedEvent) {
 			CommandExecutedEvent commandEvent = (CommandExecutedEvent) event;
 			try {

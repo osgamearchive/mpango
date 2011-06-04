@@ -52,7 +52,7 @@ public class TestUtils {
 	}
 
 	public static Cell getCell(Long id) {
-		Cell cell = new Cell();
+		Cell cell = new Cell(1,1);
 		cell.setIdentifier(id);
 		cell.setAttackBonus(1f);
 		cell.setColumn(1);

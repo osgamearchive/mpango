@@ -243,7 +243,7 @@ public class UnitTest extends TestCase {
 		public void notifyListeners(Event event) {
 			for (Listener listener : listeners) {
 				try {
-					listener.receiveEvent(event);
+					listener.receive(event);
 				} catch (EventNotSupportedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

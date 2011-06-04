@@ -6,7 +6,7 @@ package net.sourceforge.mpango.events;
  * @author etux
  *
  */
-public interface Broadcaster<T extends Listener> {
+public interface Observable {
 	/**
 	 * Method iterates over all subscribed listeners and notifies then of an event.
 	 * @param event
@@ -16,11 +16,11 @@ public interface Broadcaster<T extends Listener> {
 	 * To add a new listener to the class.
 	 * @param listener
 	 */
-	void addListener(T listener);
+	void addListener(Listener listener);
 	/**
 	 * To remove a listener from the class.
 	 * @param listener
 	 */
-	void removeListener(T listener);
+	void removeListener(Listener listener);
 	
 }
