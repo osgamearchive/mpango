@@ -7,24 +7,34 @@
 	
 Running the application
 
-	There are two different ways to run the application: development mode and production mode.
+	Before running the application you should know how the application is bundled. At the moment we have two separate modules: core
+	and web. This means that the mPango-core jar is included in the mPango-web war file. This has consequences in order to run the project
+	at development time:
 	
-* Development mode
+	When running the application during development, we officially support {{{http://docs.codehaus.org/display/JETTY/Maven+Jetty+Plugin}Maven Jetty Plugin}}. There are alternatives to this appraoch
+	such as Eclipse WTP support with different application servers. We think Jetty is simple and lightweight enough for a every day development practice.
+	
+	In any case you choose to run mpango-web, make sure that you have installed previously mpango-core by running mvn install in it.
+	
+	Jetty plugin allows 3 possible scenarios when running:
+		
+* Default 
 
-	Runs the application without place holders being substituted. I.e. reCaptcha doesn't contain a valid public key and is disabled producing warning messages.
+	<mvn jetty:run>\
+	Recommended for <<development>> work.\
+	The application will be read directly from sources. This means that auto scanning reloads changes on the fly.
 	
----
-mvn jetty:run
----
-	
-	If you are a developer an wish to just get a feeling of what the application is about, feel free to run this mode.
+			
+* Exploded
 
-* Production mode. 
+	<mvn jetty:run-exploded>\
+	Recommended for <<functional & integration>> testing.\
+	The application must be ready as a folder. This command can be executed from the parent project as well as from mpango-web.
+	You need to have executed mvn package in order to have the web application resources ready to be used.
 
-	Runs the application with place holders being substituted. I.e. reCaptcha does contain a valid public key and is enabled.
-	
----
-mvn jetty:run-exploded
----
-	
-	If you are interested in seeing what the end result will look like, run the application is such a mode.
+* War 
+
+	<mvn jetty:run-war>\
+	Recommended for <<user acceptance & application stress>> testing.\
+	The application must be bundled as a war. This means that the command is best executed from mpango-web after having 
+	done an mvn package or install.
