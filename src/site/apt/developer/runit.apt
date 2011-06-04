@@ -16,13 +16,15 @@ Running the application
 	
 	In any case you choose to run mpango-web, make sure that you have installed previously mpango-core by running mvn install in it.
 	
-	Jetty plugin allows 3 possible scenarios when running:
+	You can run the Maven Jetty plugin allows 3 possible scenarios when running:
 		
 * Default 
 
 	<mvn jetty:run>\
 	Recommended for <<development>> work.\
 	The application will be read directly from sources. This means that auto scanning reloads changes on the fly.
+	When running on this mode and due to the automatic reloanding of the web application when changes are detected, you need to run the application with the following 
+	system property MAVEN_OPTS="-XX:MaxPermSize=256m" to tweak Maven memory settings.
 	
 			
 * Exploded
