@@ -82,6 +82,9 @@
 				<configuration>
 					<scanIntervalSeconds>${jetty.scanIntervalSeconds}</scanIntervalSeconds>
 					<contextPath>${project.parent.artifactId}</contextPath>
+					<scanTargets>
+						<scanTarget>src/main/webapp</scanTarget>
+					</scanTargets>
 				</configuration>
 			</plugin>
 			<plugin>
