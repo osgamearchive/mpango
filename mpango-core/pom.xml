@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>net.sourceforge.mpango</groupId>
 	<artifactId>mpango-core</artifactId>
-	<version>${parent.version}</version>
+	<version>${projert.parent.version}</version>
 	<name>mPango : Core</name>
 	<description>mPango game core functionality.</description>
 	<dependencies>

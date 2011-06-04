@@ -8,7 +8,7 @@
 	</parent>
 	<groupId>net.sourceforge.mpango</groupId>
 	<artifactId>mpango-web</artifactId>
-	<version>${parent.version}</version>
+	<version>${project.parent.version}</version>
 	<packaging>war</packaging>
 	<name>mPango : Web</name>
 	<description>mPango game web user interface.</description>
@@ -71,14 +71,17 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+	<properties>
+		<jetty.scanIntervalSeconds>5</jetty.scanIntervalSeconds>
+	</properties>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
 				<artifactId>maven-jetty-plugin</artifactId>
 				<configuration>
-					<jettyEnvXml>${jetty.jettyEnvXml}</jettyEnvXml>
 					<scanIntervalSeconds>${jetty.scanIntervalSeconds}</scanIntervalSeconds>
+					<contextPath>${project.parent.artifactId}</contextPath>
 				</configuration>
 			</plugin>
 			<plugin>

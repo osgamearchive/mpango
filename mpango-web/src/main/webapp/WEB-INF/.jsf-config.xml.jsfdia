@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="back::#directory#userRegistration.xhtml"
+    NAME="output" PATH="/directory/userRegistration.xhtml"
+    TARGET="rules:#directory#userRegistration.xhtml" TITLE="back" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#directory#failure.xhtml"
+  PATH="/directory/failure.xhtml" SHAPE="464,161,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#directory#success.xhtml"
+  PATH="/directory/success.xhtml" SHAPE="464,17,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#directory#userRegistration.xhtml"
+  PATH="/directory/userRegistration.xhtml" SHAPE="240,289,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#directory#userRegistration.xhtml:0"
+   NAME="item" PATH="/directory/userRegistration.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="success::#directory#success.xhtml"
+    NAME="output" PATH="/directory/success.xhtml"
+    TARGET="rules:#directory#success.xhtml" TITLE="success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#directory#userRegistration.xhtml:1"
+   NAME="item1" PATH="/directory/userRegistration.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="failure::#directory#failure.xhtml"
+    NAME="output" PATH="/directory/failure.xhtml"
+    TARGET="rules:#directory#failure.xhtml" TITLE="failure" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>
