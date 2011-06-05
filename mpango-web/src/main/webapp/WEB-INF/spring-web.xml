@@ -15,7 +15,7 @@
 
 	<import resource="classpath:spring-core.xml" />
 
-	<bean id="userBackingBean" class="net.sourceforge.mpango.web.directory.AuthenticationBackingBean"  scope="request">
+	<bean id="authenticationBackingBean" class="net.sourceforge.mpango.web.directory.AuthenticationBackingBean"  scope="request">
 		<property name="authFacade" ref="authFacade" />
 	</bean>
 </beans>

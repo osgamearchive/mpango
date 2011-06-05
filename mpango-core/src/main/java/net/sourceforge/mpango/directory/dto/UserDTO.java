@@ -14,6 +14,8 @@ public class UserDTO extends BaseDTO {
 
 	private String email;
 	private String username;
+	private String firstname;
+	private String surname;
 	private String password;
 	private Date dateOfBirth;
 	private String gender;
@@ -87,6 +89,34 @@ public class UserDTO extends BaseDTO {
 	 */
 	public void setGender(String gender) {
 		this.gender = gender;
+	}
+
+	/**
+	 * @param firstname
+	 */
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getFirstname() {
+		return firstname;
+	}
+
+	/**
+	 * @param surname
+	 */
+	public void setSurname(String surname) {
+		this.surname = surname;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getSurname() {
+		return surname;
 	}
 
 }
