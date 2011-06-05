@@ -113,6 +113,7 @@
 				<artifactId>maven-jetty-plugin</artifactId>
 				<configuration>
 					<webApp>${basedir}/mpango-web/target/mpango-web-0.0.1-SNAPSHOT/</webApp>
+					<tmpDirectory>${basedir}/mpango-web/target/work</tmpDirectory>
 				</configuration>
 			</plugin>
 			<plugin>

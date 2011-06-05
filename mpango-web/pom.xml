@@ -81,6 +81,7 @@
 				<artifactId>maven-jetty-plugin</artifactId>
 				<configuration>
 					<contextPath>${project.parent.artifactId}</contextPath>
+					<tmpDirectory>${basedir}/target/work</tmpDirectory>
 					<scanIntervalSeconds>${jetty.scanIntervalSeconds}</scanIntervalSeconds>
 					<scanTargets>
 						<scanTarget>${basedir}/src/main/webapp</scanTarget>
