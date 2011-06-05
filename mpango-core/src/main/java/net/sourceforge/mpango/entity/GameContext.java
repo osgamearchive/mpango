@@ -2,7 +2,6 @@ package net.sourceforge.mpango.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import javax.persistence.Transient;
 
@@ -20,7 +19,7 @@ public class GameContext {
 	}
 	
 	public GameContext(GameConfiguration configuration) {
-		this(configuration.getBoard());
+		this(configuration.getBoardConfiguration());
 		this.configuration = configuration;
 		
 	}
@@ -37,9 +36,10 @@ public class GameContext {
 	}
 
 	private Position generateRandomPosition() {
+		BoardConfiguration boardConfiguration = configuration.getBoardConfiguration();
 		Position position = new Position(
-				RandomUtils.nextInt(configuration.getBoard().getColNumber()),
-				RandomUtils.nextInt(configuration.getBoard().getRowNumber()));
+				RandomUtils.nextInt(boardConfiguration.getColNumber()),
+				RandomUtils.nextInt(boardConfiguration.getRowNumber()));
 		return position;
 	}
 

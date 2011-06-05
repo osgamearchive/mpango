@@ -104,6 +104,7 @@ public class ConstructCommandTest {
 	public void testCommand () throws MPangoException, InterruptedException {
 		cell.addConstruction(construction);
 		unit.improveConstructionSkills(ConstructCommand.SKILLS_UPGRADE);
+		expect(construction.getType()).andReturn(ConstructionType.OTHER);
 		replay(cell);
 		replay(construction);
 		replay(unit);

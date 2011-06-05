@@ -4,7 +4,7 @@ public class GameConfiguration {
 
 	private BoardConfiguration boardConfiguration;
 	
-	public BoardConfiguration getBoard() {
+	public BoardConfiguration getBoardConfiguration() {
 		return boardConfiguration;
 	}
 
