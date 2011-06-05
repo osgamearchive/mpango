@@ -1,6 +1,8 @@
 package net.sourceforge.mpango.entity;
 
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -19,11 +21,12 @@ public class City extends Construction {
 	private static final int CONSTRUCTION_TIME = 10;
 	
 	private Hashtable<Resources, Integer> resources;
+	private List<Unit> units;
 	
 	public City() {
 		super(ConstructionType.CITY, MAX_HIT_POINTS, CONSTRUCTION_TIME);
 		setResources(new Hashtable<Resources, Integer>());
-		
+		units = new ArrayList<Unit>();
 	}
 	
 	@Override
@@ -32,6 +35,11 @@ public class City extends Construction {
 		
 	}
 
+	/**
+	 * Method that adds resources to the city.
+	 * @param resource resource being added.
+	 * @param quantity quantity of the resource being added.
+	 */
 	public void addResources(Resources resource, int quantity) {
 		Integer totalResources = resources.get(resource);
 		if (totalResources == null) {
@@ -42,6 +50,12 @@ public class City extends Construction {
 		resources.put(resource, totalResources);
 	}
 	
+	/**
+	 * Method that takes resources from the city
+	 * @param resource resource being taken.
+	 * @param quantity quantity of the resource being taken.
+	 * @throws NotEnoughResourcesException In case the quantity of the requested resources is higher than the actual one.
+	 */
 	public void substractResources(Resources resource, int quantity) throws NotEnoughResourcesException {
 		Integer totalResources = resources.get(resource);
 		if (totalResources == null) {
@@ -56,11 +70,31 @@ public class City extends Construction {
 		resources.put(resource, totalResources);
 	}
 
+	/**
+	 * Getter
+	 * @return
+	 */
 	@ManyToOne
 	public Hashtable<Resources, Integer> getResources() {
 		return resources;
 	}
 	public void setResources(Hashtable<Resources, Integer> resources) {
 		this.resources = resources;
+	}
+	
+	public void addUnit(Unit unit) {
+		this.units.add(unit);
+	}
+
+	public void removeUnit(Unit unit) {
+		this.units.remove(unit);		
+	}
+
+	public List<Unit> getUnits() {
+		return units;
+	}
+
+	public void setUnits(List<Unit> units) {
+		this.units = units;
 	}
 }

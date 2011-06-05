@@ -1,11 +1,14 @@
 package net.sourceforge.mpango.actions;
 
 import net.sourceforge.mpango.entity.Cell;
+import net.sourceforge.mpango.entity.City;
 import net.sourceforge.mpango.entity.Construction;
 import net.sourceforge.mpango.entity.Unit;
+import net.sourceforge.mpango.enums.ConstructionType;
 import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
 import net.sourceforge.mpango.exception.MPangoException;
+import net.sourceforge.mpango.exceptions.ConstructionImpossibleException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -49,6 +52,51 @@ public class ConstructCommandTest {
 			verify(cell);
 		} catch (CommandException e) {
 			fail("Wrong Exception Type");
+		}
+	}
+	
+	@Test
+	public void testEvaluateConstructNewCity() throws CommandException {
+		expect(cell.containsConstruction(construction)).andReturn(false);
+		expect(unit.getCity()).andReturn(new City());
+		expect(construction.getType()).andReturn(ConstructionType.CITY);
+		replay(cell);
+		replay(unit);
+		replay(construction);
+		command.evaluateExecution();
+		verify(construction);
+		verify(unit);
+		verify(cell);
+	}
+	
+	@Test
+	public void testEvaluateConstructCity() throws CommandException {
+		expect(cell.containsConstruction(construction)).andReturn(false);
+		expect(unit.getCity()).andReturn(null);
+		expect(construction.getType()).andReturn(ConstructionType.CITY);
+		replay(cell);
+		replay(unit);
+		replay(construction);
+		command.evaluateExecution();
+		verify(construction);
+		verify(unit);
+		verify(cell);
+	}
+	
+	@Test
+	public void testEvaluateConstructNotCityWithoutCityExecution() {
+		expect(unit.getCity()).andReturn(null);
+		expect(construction.getType()).andReturn(ConstructionType.OTHER);
+		try {
+			replay(unit);
+			replay(construction);
+			command.evaluateExecution();
+			fail("Expected exception not raised");
+		} catch (ConstructionImpossibleException e) {
+			verify(unit);
+			verify(construction);
+		} catch (CommandException e) {
+			fail("Wrong exception type");
 		}
 	}
 	

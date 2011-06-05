@@ -1,110 +1,82 @@
 package net.sourceforge.mpango.entity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Timer;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import net.sourceforge.mpango.actions.Command;
 import net.sourceforge.mpango.actions.ConstructCommand;
 import net.sourceforge.mpango.actions.AbstractTaskCommand;
+import net.sourceforge.mpango.actions.TestCommand;
+import net.sourceforge.mpango.actions.TestTaskCommand;
 import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.City;
-import net.sourceforge.mpango.entity.Shield;
-import net.sourceforge.mpango.entity.Technology;
-import net.sourceforge.mpango.entity.Unit;
-import net.sourceforge.mpango.entity.Weapon;
-import net.sourceforge.mpango.entity.technology.ShieldTechnology;
-import net.sourceforge.mpango.entity.technology.WeaponTechnology;
-import net.sourceforge.mpango.events.CommandExecutedEvent;
-import net.sourceforge.mpango.events.Event;
-import net.sourceforge.mpango.events.Listener;
 import net.sourceforge.mpango.exception.CommandException;
-import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
-import net.sourceforge.mpango.exception.EventNotSupportedException;
 import net.sourceforge.mpango.exception.UnknownTechnologyException;
 
 /**
  * This class is named after the entity Unit and for it's nature as a test.
- * @author etux
+ * @author edvera
  *
  */
 public class UnitTest extends TestCase {
 
-	private static final Float SHIELD_HIT_POINTS = 5f;
-	private static final Float WEAPON_ATTACK_POINTS = 3f;
-	private static final Float UNIT_ATTACK_POINTS = 10f;
-	private static final Float UNIT_HIT_POINTS = 15f;
-	private static final Float MAXIMUM_SHIELD_HIT_POINTS = 5f;
+	private Unit unit;
 	
 	@Before
 	public void setUp() {
-		
+		unit = new TestUnit();
 	}
 	
 	@After
-	public void tearDown() {
-	}
+	public void tearDown() {}
 	
 	public void testEffectiveAttackPoints() throws UnknownTechnologyException {
-		Unit unit = new TestUnit ();
-		Float expectedAttackPoints = UNIT_ATTACK_POINTS * WEAPON_ATTACK_POINTS * unit.getHealth();
+		Float expectedAttackPoints = TestUnit.UNIT_ATTACK_POINTS * TestWeaponTechnology.WEAPON_ATTACK_POINTS * unit.getHealth();
 		assertEquals("The unit should have the expected attack points", expectedAttackPoints, unit.getEffectiveAttackPoints());
 	}
 	
 	public void testSurviving() throws UnknownTechnologyException {
-		Unit unit = new TestUnit ();
 		Float attackPoints = 19f;
 		unit.receiveDamage(attackPoints);
 		assertFalse(unit.isDead());
-		assertEquals("The hit points left should be the expected", UNIT_HIT_POINTS + SHIELD_HIT_POINTS - attackPoints, unit.getHitPoints());
+		assertEquals("The hit points left should be the expected", TestUnit.UNIT_HIT_POINTS + TestUnit.SHIELD_HIT_POINTS - attackPoints, unit.getHitPoints());
 	}
 	
 	public void testKilling() throws UnknownTechnologyException {
-		Unit unit = new TestUnit ();
 		Float attackPoints = 20f;
 		unit.receiveDamage(attackPoints);
 		assertTrue(unit.isDead());
-		assertEquals("The hit points left should be the expected", UNIT_HIT_POINTS + SHIELD_HIT_POINTS - attackPoints, unit.getHitPoints());
+		assertEquals("The hit points left should be the expected", TestUnit.UNIT_HIT_POINTS + TestUnit.SHIELD_HIT_POINTS - attackPoints, unit.getHitPoints());
 	}
 	
 	public void testWeapon() throws UnknownTechnologyException {
-		Unit unit = new TestUnit ();
 		assertNotNull("Since we have provided a weapon technology during construction, the unit should have a weapon", unit.getWeapon());
 	}
 	
 	public void testDamageShield() throws UnknownTechnologyException {
-		Unit unit = new TestUnit ();
 		assertNotNull("Since we have provided a shield technology during construction, the unit should have a shield", unit.getShield());
-		assertEquals("The shield should be initialized with the expected hit points", SHIELD_HIT_POINTS, unit.getShield().getRemainingHitPoints());
+		assertEquals("The shield should be initialized with the expected hit points", TestUnit.SHIELD_HIT_POINTS, unit.getShield().getRemainingHitPoints());
 		unit.receiveDamage(1f);
 		assertNotNull("The shield should have been capable of surviving the attack", unit.getShield());
-		assertEquals("The should have the exact remaining hit points", MAXIMUM_SHIELD_HIT_POINTS - 1f, unit.getShield().getRemainingHitPoints());
+		assertEquals("The should have the exact remaining hit points", TestShieldTechnology.MAXIMUM_SHIELD_HIT_POINTS, TestUnit.SHIELD_HIT_POINTS - 1f, unit.getShield().getRemainingHitPoints());
 	}
 	
 	public void testDestroyShield() throws UnknownTechnologyException {
-		Unit unit = new TestUnit();
 		assertNotNull("Since we have provided a shield technology during construction, the unit should have a shield", unit.getShield());
-		assertEquals("The shield should be initialized with the expected hit points", SHIELD_HIT_POINTS, unit.getShield().getRemainingHitPoints());
-		unit.receiveDamage(UNIT_HIT_POINTS);
+		assertEquals("The shield should be initialized with the expected hit points", TestUnit.SHIELD_HIT_POINTS, unit.getShield().getRemainingHitPoints());
+		unit.receiveDamage(TestUnit.UNIT_HIT_POINTS);
 		assertNull("The shield should have been destroyed during the attack", unit.getShield());
 		
 	}
 	
 	public void testAddFirstCommand() throws CommandException {
-		Unit unit = new TestUnit();
 		TestCommand command = new TestCommand();
 		unit.addCommand(command);
 		assertTrue(command.isExecuted());
 	}
 	
 	public void testExecuteTaskCommand() throws CommandException, InterruptedException {
-		Unit unit = new TestUnit();
 		TestTaskCommand command = new TestTaskCommand(unit.getTimer(),"");
 		unit.addCommand(command);
 		assertTrue("The command should not be executed instantly", !command.isExecuted());
@@ -114,7 +86,6 @@ public class UnitTest extends TestCase {
 	}
 	
 	public void testAddSecondCommand() throws CommandException {
-		Unit unit = new TestUnit();
 		TestCommand command1 = new TestCommand(unit);
 		unit.addCommand(command1);
 		assertTrue(command1.isExecuted());
@@ -124,7 +95,6 @@ public class UnitTest extends TestCase {
 	}
 	
 	public void testAddSecondCommandAfterCommandTask() throws CommandException, InterruptedException {
-		Unit unit = new TestUnit();
 		TestTaskCommand command1 = new TestTaskCommand(unit.getTimer(),"3", unit);
 		TestCommand command2 = new TestCommand(unit);
 		unit.addCommand(command1);
@@ -135,7 +105,6 @@ public class UnitTest extends TestCase {
 	}
 	
 	public void testAddSecondTaskCommand() throws CommandException, InterruptedException {
-		Unit unit = new TestUnit();
 		TestTaskCommand command1 = new TestTaskCommand(unit.getTimer(),"1", unit);
 		TestTaskCommand command2 = new TestTaskCommand(unit.getTimer(),"2", unit);
 		unit.addCommand(command1);
@@ -156,7 +125,6 @@ public class UnitTest extends TestCase {
 	
 	@Test
 	public void testSettle() throws UnknownTechnologyException, CommandException, InterruptedException {
-		Unit unit = new TestUnit();
 		City city = new City();
 		
 		// create a city
@@ -164,128 +132,5 @@ public class UnitTest extends TestCase {
 		ConstructCommand command = unit.settle(cell);
 		Thread.sleep(command.calculateTotalTimeMillis(AbstractTaskCommand.DEFAULT_MILLIS_PER_TIME_SLICE)+100);
 		assertTrue("The cell must contain a city", cell.getConstructions().contains(city));
-	}
-	
-	private List<Technology> createTechnologies() {
-		List<Technology> technologies = new ArrayList<Technology>();
-		technologies.add(new TestShieldTechnology());
-		technologies.add(new TestWeaponTechnology());
-		return technologies;
-	}
-	
-	public class TestWeaponTechnology extends WeaponTechnology {
-		public TestWeaponTechnology() {}
-		public Weapon createWeapon() {
-			return new Weapon(WEAPON_ATTACK_POINTS);
-		}
-		public List<Technology> getRequiredTechnologies() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		public Integer getTechnologyCost() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-	}
-	
-	public class TestShieldTechnology extends ShieldTechnology {
-		public TestShieldTechnology() {}
-		public Shield createShield() {
-			return new Shield(MAXIMUM_SHIELD_HIT_POINTS);
-		}
-		public List<Technology> getRequiredTechnologies() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		public Integer getTechnologyCost() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-	}
-	
-	public class TestUnit extends Unit {
-		
-		public TestUnit() {
-			super(new ArrayList<Command>(), createTechnologies(), UNIT_ATTACK_POINTS, UNIT_HIT_POINTS);
-		}
-		private static final long serialVersionUID = 1L;
-		public float repair() {
-			// TODO Auto-generated method stub
-			return 0;
-		}
-		
-	}
-	
-	public class TestCommand implements Command {
-		private boolean executed;
-		private List<Listener> listeners;
-		
-		public TestCommand(Listener...listeners) {
-			this.listeners = Arrays.asList(listeners);
-			this.executed = false;
-		}
-		@Override
-		public void execute() throws CommandException {
-			executed = true;
-			notifyListeners(new CommandExecutedEvent(this));
-		}
-		
-		public boolean isExecuted() {
-			return executed;
-		}
-		public void removeListener(Listener listener) {
-		}
-		public void addListener(Listener listener) {
-		}
-		@Override
-		public void notifyListeners(Event event) {
-			for (Listener listener : listeners) {
-				try {
-					listener.receive(event);
-				} catch (EventNotSupportedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-	}
-	
-	public class TestTaskCommand extends AbstractTaskCommand  {
-		private String name;
-		public TestTaskCommand(Timer timer, String name, Listener... listeners) {
-			super(timer, listeners);
-			this.name = name;
-		}
-
-		private boolean executed;
-
-		@Override
-		public CommandExecutedEvent runExecute() {
-			this.executed = true;
-			System.out.println("Executed: "+this.name+":"+this);
-			return new CommandExecutedEvent(this);
-		}
-		
-		public synchronized boolean isExecuted() {
-			return executed;
-		}
-
-		@Override
-		public void evaluateExecution() throws CommandException {
-			
-		}
-
-		@Override
-		public long calculateTotalTimeMillis(long timeMillisPerTimeSlice) {
-			return timeMillisPerTimeSlice;
-		}
-
-		@Override
-		public int calculateTotalTimeSlices() {
-			return 1;
-		}
-		
 	}
 }

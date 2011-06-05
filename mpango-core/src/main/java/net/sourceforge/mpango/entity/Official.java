@@ -2,6 +2,10 @@ package net.sourceforge.mpango.entity;
 
 public class Official extends Unit {
 
+	public Official(City city) {
+		super(city);
+	}
+
 	/**
 	 * 
 	 */

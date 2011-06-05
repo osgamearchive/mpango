@@ -7,6 +7,6 @@ package net.sourceforge.mpango.exception;
  */
 public class UselessShieldException extends Exception {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1521096791572194661L;
 
 }

@@ -5,9 +5,11 @@ import java.util.Timer;
 import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.Construction;
 import net.sourceforge.mpango.entity.Unit;
+import net.sourceforge.mpango.enums.ConstructionType;
 import net.sourceforge.mpango.events.CommandExecutedEvent;
 import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
+import net.sourceforge.mpango.exceptions.ConstructionImpossibleException;
 
 /**
  * Command that represents the construction action.
@@ -75,6 +77,9 @@ public class ConstructCommand extends AbstractTaskCommand {
 		try {
 			this.cell.addConstruction(construction);
 			this.unit.improveConstructionSkills(SKILLS_UPGRADE);
+			if (construction.getType() == ConstructionType.CITY) {
+				this.unit.die();
+			}
 		} catch (ConstructionAlreadyInPlaceException e) {
 			e.printStackTrace();
 		}
@@ -89,6 +94,7 @@ public class ConstructCommand extends AbstractTaskCommand {
 	@Override
 	public void evaluateExecution() throws CommandException {
 		if (cell.containsConstruction(construction)) throw new ConstructionAlreadyInPlaceException(construction);
+		if ((unit.getCity() == null) & (construction.getType() != ConstructionType.CITY) )throw new ConstructionImpossibleException(construction); 
 	}
 
 	/**
@@ -100,5 +106,30 @@ public class ConstructCommand extends AbstractTaskCommand {
 		int constructionTime = construction.getConstructionTime();
 		float constructionSkills = unit.getConstructionSkills();
 		return calculateTotalTimeSlices(constructionTime, constructionSkills);
+	}
+	
+
+	public Unit getUnit() {
+		return unit;
+	}
+
+	public void setUnit(Unit unit) {
+		this.unit = unit;
+	}
+
+	public Construction getConstruction() {
+		return construction;
+	}
+
+	public void setConstruction(Construction construction) {
+		this.construction = construction;
+	}
+
+	public Cell getCell() {
+		return cell;
+	}
+
+	public void setCell(Cell cell) {
+		this.cell = cell;
 	}
 }

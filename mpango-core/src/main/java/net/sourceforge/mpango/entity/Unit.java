@@ -15,6 +15,7 @@ import net.sourceforge.mpango.actions.Command;
 import net.sourceforge.mpango.actions.ConstructCommand;
 import net.sourceforge.mpango.entity.technology.ShieldTechnology;
 import net.sourceforge.mpango.entity.technology.WeaponTechnology;
+import net.sourceforge.mpango.events.CommandEvent;
 import net.sourceforge.mpango.events.CommandExecutedEvent;
 import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.Listener;
@@ -34,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
  *
  */
 @Entity
-public abstract class Unit extends AbstractPersistable implements Damageable,Serializable,Listener {
+public class Unit extends AbstractPersistable implements Damageable,Serializable,Listener {
 
 	private static final long serialVersionUID = 5633302737634656030L;
 	private static final Log logger = LogFactory.getLog(Unit.class);
@@ -50,37 +51,65 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	private Timer timer;
 	private City city;
 	
+	/**
+	 * At the beginning of the game the Unit can not belong to a city.
+	 */
 	public Unit() {
-		this.maximumHitPoints = 0f;
-		this.attackPoints = 0f;
-		this.shield = null;
-		this.weapon = null;
-		this.technologies = new ArrayList<Technology>();
-		this.commands = new ArrayList<Command>();
-		this.timer = new Timer();
+		this(null);
 	}
 	
-	public Unit (List<Command> commands, List<Technology> technologies, float attackPoints, float maximumHitPoints) {
-		this.maximumHitPoints = maximumHitPoints;
-		this.hitPoints = maximumHitPoints;
-		this.attackPoints = attackPoints;
+	/**
+	 * <p>Every time a unit is created it is done by assigning it a city.</p>
+	 * <p>All units in the game belong to a city, to and from which resources flow.</p>
+	 * @param city where the unit is born or has moved.
+	 */
+	public Unit(City city) {
+		this (
+				city,
+				new ArrayList<Command>(),
+				new ArrayList<Technology>(),
+				0f,
+				0f
+			);
+	}
+	/**
+	 * Convenient constructor for test classes.
+	 * @param city
+	 * @param commands
+	 * @param technologies
+	 * @param attackPoints
+	 * @param maximumHitPoints
+	 */
+	protected Unit (City city, List<Command> commands, List<Technology> technologies, float attackPoints, float maximumHitPoints) {
+		this.city = city;
 		this.commands = commands;
 		this.setTechnologies(technologies);
-		Iterator<Technology> iterator = technologies.iterator();
-		while (iterator.hasNext()) {
-			applyTechnology(iterator.next());
-		}
+		this.hitPoints = maximumHitPoints;
+		this.maximumHitPoints = maximumHitPoints;
+		this.attackPoints = attackPoints;
 		this.timer = new Timer();
 	}
 	
+	/**
+	 * Method that serves to apply a shield technology.
+	 * @param technology
+	 */
 	private void applyTechnology(ShieldTechnology technology) {
 		this.shield = technology.createShield();
 	}
 
+	/**
+	 * Method that serves to aply a weapon technology.
+	 * @param technology
+	 */
 	private void applyTechnology(WeaponTechnology technology) {
 		this.weapon = technology.createWeapon();
 	}
 	
+	/**
+	 * Method that switches WeaponTechnology or ShieldTechnology. 
+	 * @param technology
+	 */
 	private void applyTechnology(Technology technology) {
 		if (technology instanceof WeaponTechnology) {
 			applyTechnology((WeaponTechnology) technology);
@@ -110,6 +139,7 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	 * target them to the unit.
 	 * @param attackPoints Number of attack points of the attack (how strong the attack is)
 	 */
+	@Transient
 	public void receiveDamage(float attackPoints) {
 		float remainingDamage = attackPoints;
 		if (this.shield != null) {
@@ -212,6 +242,11 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	public float repair() {
 		return 0;
 	}
+	
+	@Transient
+	public void putResources(Resources resource, int foodCollected) {
+		city.addResources(resource, foodCollected);
+	}
 	public float getHitPoints() {
 		return this.hitPoints;
 	}
@@ -237,29 +272,30 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 		return technologies;
 	}
 	public void setTechnologies(List<Technology> technologies) {
+		Iterator<Technology> iterator = technologies.iterator();
+		while (iterator.hasNext()) {
+			applyTechnology(iterator.next());
+		}
 		this.technologies = technologies;
 	}
 	@Override
 	public void receive(Event event) throws EventNotSupportedException {
-		if (event instanceof CommandExecutedEvent) {
-			CommandExecutedEvent commandEvent = (CommandExecutedEvent) event;
-			try {
-				this.removeCommand(commandEvent.getCommand());
-			} catch (CommandException e) {
-				//If this happens is probably due to a code flaw.
-				e.printStackTrace();
-			}
+		receive ((CommandEvent) event);
+	}
+	
+	private void receive(CommandEvent commandEvent) {
+		try {
+			this.removeCommand(commandEvent.getCommand());
+		} catch (CommandException e) {
+			e.printStackTrace(); //If this happens is probably due to a code flaw.
 		}
 	}
-
 	public float getConstructionSkills() {
 		return this.constructionSkills;
 	}
-	
 	public void setConstructionSkills(float constructionSkills) {
 		this.constructionSkills = constructionSkills;
 	}
-
 	public void improveConstructionSkills(float skillsUpgrade) {
 		this.constructionSkills+=skillsUpgrade;
 	}
@@ -275,17 +311,28 @@ public abstract class Unit extends AbstractPersistable implements Damageable,Ser
 	protected void setTimer(Timer timer) {
 		this.timer = timer;
 	}
-
 	public float getCollectionSkills() {
 		return this.collectionSkills;
 	}
-
-	public void putResources(Resources food, int foodCollected) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void setCollectionSkills(float collectionSkills) {
 		this.collectionSkills = collectionSkills;
+	}
+	public void improveCollectionSkills(float skillsUpgrade) {
+		this.collectionSkills += skillsUpgrade;
+	}
+	public void setCity(City city) {
+		this.city = city;
+	}
+	public City getCity() {
+		return city;
+	}
+
+	/**
+	 * Method that kills the unit.
+	 */
+	public void die() {
+		this.timer.cancel();
+		city.removeUnit(this);
+		this.city = null;
 	}
 }

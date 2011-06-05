@@ -16,4 +16,8 @@ public class ConstructionNotFoundException extends MPangoException {
 	public Construction getConstruction () {
 		return this.construction;
 	}
+	
+	public void setConstruction(Construction construction) {
+		this.construction = construction;
+	}
 }

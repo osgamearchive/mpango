@@ -2,5 +2,5 @@ package net.sourceforge.mpango.enums;
 
 public enum ConstructionType {
 
-	CITY
+	CITY, OTHER;
 }
