@@ -58,14 +58,10 @@ public class City extends Construction {
 	 */
 	public void substractResources(Resources resource, int quantity) throws NotEnoughResourcesException {
 		Integer totalResources = resources.get(resource);
-		if (totalResources == null) {
+		if (totalResources == null || totalResources - quantity < 0) {
 			throw new NotEnoughResourcesException(resource, this);
 		} else {
-			if (totalResources - quantity < 0) {
-				throw new NotEnoughResourcesException(resource, this);
-			} else {
-				totalResources -= quantity;
-			}
+			totalResources -= quantity;
 		}
 		resources.put(resource, totalResources);
 	}
