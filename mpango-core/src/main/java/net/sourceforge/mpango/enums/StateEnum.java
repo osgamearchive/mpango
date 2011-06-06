@@ -1,11 +1,16 @@
 package net.sourceforge.mpango.enums;
 
-public enum ConstructionType {
-	OTHER(0), CITY(1);
+/**
+ * @author aplause
+ * 
+ */
+public enum StateEnum {
+
+	CREATED(0), ACTIVE(1), INACTIVE(2), DELETED(3);
 
 	Integer value;
 
-	ConstructionType(Integer value) {
+	StateEnum(Integer value) {
 		this.value = value;
 	}
 
@@ -13,8 +18,8 @@ public enum ConstructionType {
 		return this.value;
 	}
 
-	public ConstructionType fromValue(Integer value) {
-		for (ConstructionType val : ConstructionType.values()) {
+	public StateEnum fromValue(Integer value) {
+		for (StateEnum val : StateEnum.values()) {
 			if (val.getValue().compareTo(value) == 0) {
 				return val;
 			}
