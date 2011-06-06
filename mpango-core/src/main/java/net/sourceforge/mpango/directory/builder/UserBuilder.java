@@ -44,6 +44,7 @@ public class UserBuilder extends BaseBuilder<User, UserDTO> {
 		dto.setEmail(user.getEmail());
 		dto.setDateOfBirth(user.getDateOfBirth());
 		dto.setGender(user.getGender());
+		dto.setState(user.getState());
 
 		return dto;
 	}

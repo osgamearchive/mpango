@@ -6,16 +6,17 @@ import java.util.List;
 
 import net.sourceforge.mpango.directory.dao.UserDAO;
 import net.sourceforge.mpango.directory.entity.User;
+import net.sourceforge.mpango.enums.StateEnum;
 
 /**
  * Basic Authentication Service implementation.
+ * 
  * @author etux
- *
+ * 
  */
 public class AuthenticationService implements IAuthenticationService {
 
 	private UserDAO userDAO;
-
 
 	/*
 	 * (non-Javadoc)
@@ -40,13 +41,14 @@ public class AuthenticationService implements IAuthenticationService {
 	public User register(User user) {
 		String nonce = generateNonce();
 		user.setNonceToken(nonce);
+		user.setState(StateEnum.CREATED);
 		return userDAO.save(user);
 	}
 
 	public String generateNonce() {
 		// Create two secure number generators with the same seed
 		int seedByteCount = 24;
-		byte [] seed = new byte[seedByteCount];
+		byte[] seed = new byte[seedByteCount];
 		try {
 			// Create a secure random number generator
 			SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");

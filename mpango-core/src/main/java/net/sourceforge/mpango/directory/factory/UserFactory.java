@@ -38,6 +38,7 @@ public class UserFactory extends BaseFactory<UserDTO, User> {
 		user.setDateOfBirth(dto.getDateOfBirth());
 		user.setGender(dto.getGender());
 		user.setPassword(dto.getPassword());
+		user.setState(dto.getState());
 
 		return user;
 	}
