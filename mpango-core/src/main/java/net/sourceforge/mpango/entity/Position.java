@@ -1,5 +1,8 @@
 package net.sourceforge.mpango.entity;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Position {
 
 	private int rowNumber;

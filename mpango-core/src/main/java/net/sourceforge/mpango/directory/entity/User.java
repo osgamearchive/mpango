@@ -1,18 +1,26 @@
 package net.sourceforge.mpango.directory.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import net.sourceforge.mpango.entity.Player;
 import net.sourceforge.mpango.enums.StateEnum;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 
 /**
  * <p>
@@ -34,6 +42,7 @@ public class User {
 	private String gender;
 	private String nonceToken;
 	private StateEnum state;
+	private List<Player> playerList;
 
 	/**
 	 * @return
@@ -157,6 +166,22 @@ public class User {
 	@Column(name = "NONCE", unique = true)
 	public String getNonceToken() {
 		return nonceToken;
+	}
+
+	/**
+	 * @return
+	 */
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	@Cascade( { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
+	public List<Player> getPlayerList() {
+		return playerList;
+	}
+
+	/**
+	 * @param playerList
+	 */
+	public void setPlayerList(List<Player> playerList) {
+		this.playerList = playerList;
 	}
 
 	/*
