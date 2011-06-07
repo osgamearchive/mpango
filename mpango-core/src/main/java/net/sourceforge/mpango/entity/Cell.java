@@ -2,13 +2,16 @@ package net.sourceforge.mpango.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import net.sourceforge.mpango.enums.Resources;
 import net.sourceforge.mpango.events.AbstractListenerObservable;
 import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.Listener;
@@ -31,19 +34,33 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 	private Long identifier;
 	private List<Construction> constructions = new ArrayList<Construction>();
 	
+	private Set<Resources> resources;
+	
 	private boolean hasCity;
 	private float defenseBonus;
 	private float attackBonus;
 	private int column;
 	private int row;
-
+	
 	public Cell(int rowPosition, int colPosition) {
+		this(rowPosition, colPosition, new HashSet<Resources>());
+	}
+	public Cell(int rowPosition, int colPosition, Set<Resources> resources) {
 		super(new Listener() {
 			@Override
 			public void receive(Event event) throws EventNotSupportedException {}
 		});
 		this.column = colPosition;
 		this.row = rowPosition;
+		this.resources = resources;
+	}
+	
+	public void addResources(Resources resource) {
+		resources.add(resource);
+	}
+	
+	public Set<Resources> getResources() {
+		return resources;
 	}
 
 	public boolean isHasCity() {
@@ -135,7 +152,7 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 	public void setAttackBonus(float attackBonus) {
 		this.attackBonus = attackBonus;
 	}
-
+	
 	@Override
 	public void notifyListeners(Event event) {
 		// TODO Auto-generated method stub

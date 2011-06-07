@@ -1,7 +1,7 @@
 package net.sourceforge.mpango.actions;
 
 import net.sourceforge.mpango.entity.Cell;
-import net.sourceforge.mpango.entity.Resources;
+import net.sourceforge.mpango.enums.Resources;
 import net.sourceforge.mpango.entity.Unit;
 
 import org.easymock.classextension.EasyMock;

@@ -3,7 +3,7 @@ package net.sourceforge.mpango.actions;
 import java.util.Timer;
 
 import net.sourceforge.mpango.entity.Cell;
-import net.sourceforge.mpango.entity.Resources;
+import net.sourceforge.mpango.enums.Resources;
 import net.sourceforge.mpango.entity.Unit;
 import net.sourceforge.mpango.events.CommandExecutedEvent;
 import net.sourceforge.mpango.exception.CellNotCollectableException;

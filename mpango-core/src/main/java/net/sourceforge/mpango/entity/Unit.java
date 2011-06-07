@@ -23,6 +23,7 @@ import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.exception.ConstructionAlreadyInPlaceException;
 import net.sourceforge.mpango.exception.EventNotSupportedException;
 import net.sourceforge.mpango.exception.UselessShieldException;
+import net.sourceforge.mpango.enums.Resources;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

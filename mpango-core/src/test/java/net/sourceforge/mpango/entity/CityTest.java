@@ -3,6 +3,7 @@ package net.sourceforge.mpango.entity;
 import java.util.Hashtable;
 
 import net.sourceforge.mpango.exception.NotEnoughResourcesException;
+import net.sourceforge.mpango.enums.Resources;
 
 import org.junit.Before;
 import org.junit.Test;

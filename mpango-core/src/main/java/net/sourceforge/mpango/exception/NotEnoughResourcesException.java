@@ -1,7 +1,7 @@
 package net.sourceforge.mpango.exception;
 
 import net.sourceforge.mpango.entity.City;
-import net.sourceforge.mpango.entity.Resources;
+import net.sourceforge.mpango.enums.Resources;
 
 public class NotEnoughResourcesException extends Exception {
 
