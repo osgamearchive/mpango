@@ -3,7 +3,6 @@ package net.sourceforge.mpango.dto;
 import java.util.List;
 
 import net.sourceforge.mpango.directory.entity.User;
-import net.sourceforge.mpango.entity.Position;
 import net.sourceforge.mpango.entity.Unit;
 import net.sourceforge.mpango.enums.StateEnum;
 
@@ -21,8 +20,8 @@ public class PlayerDTO extends BaseDTO {
 	private static final long serialVersionUID = -6825923397531823816L;
 
 	private String name;
-	private Position position;
-	private List<Unit> units;
+	private PositionDTO position;
+	private List<UnitDTO> units;
 	private StateEnum state;
 	private User user;
 
@@ -43,28 +42,28 @@ public class PlayerDTO extends BaseDTO {
 	/**
 	 * @return
 	 */
-	public Position getPosition() {
+	public PositionDTO getPosition() {
 		return position;
 	}
 
 	/**
 	 * @param position
 	 */
-	public void setPosition(Position position) {
+	public void setPosition(PositionDTO position) {
 		this.position = position;
 	}
 
 	/**
 	 * @return
 	 */
-	public List<Unit> getUnits() {
+	public List<UnitDTO> getUnits() {
 		return units;
 	}
 
 	/**
 	 * @param units
 	 */
-	public void setUnits(List<Unit> units) {
+	public void setUnits(List<UnitDTO> units) {
 		this.units = units;
 	}
 

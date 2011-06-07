@@ -1,8 +1,11 @@
 package net.sourceforge.mpango.directory.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import net.sourceforge.mpango.dto.BaseDTO;
+import net.sourceforge.mpango.dto.PlayerDTO;
+import net.sourceforge.mpango.entity.Player;
 import net.sourceforge.mpango.enums.StateEnum;
 
 /**
@@ -21,6 +24,7 @@ public class UserDTO extends BaseDTO {
 	private Date dateOfBirth;
 	private String gender;
 	private StateEnum state;
+	private List<PlayerDTO> playerList;
 
 
 	/**
@@ -134,6 +138,21 @@ public class UserDTO extends BaseDTO {
 	public void setState(StateEnum state) {
 		this.state = state;
 	}
+
+	/**
+	 * @return
+	 */
+	public List<PlayerDTO> getPlayerList() {
+		return playerList;
+	}
+
+	/**
+	 * @param playerList
+	 */
+	public void setPlayerList(List<PlayerDTO> playerList) {
+		this.playerList = playerList;
+	}
+	
 	
 	
 

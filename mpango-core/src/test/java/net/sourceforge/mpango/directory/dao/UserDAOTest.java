@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.sourceforge.mpango.BaseSpringTest;
 import net.sourceforge.mpango.directory.entity.User;
+import net.sourceforge.mpango.enums.StateEnum;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,6 +32,7 @@ public class UserDAOTest extends BaseSpringTest {
 		user.setGender("male");
 		user.setPassword("pwd");
 		user.setUsername("user");
+		user.setState(StateEnum.CREATED);
 		user = userDAO.save(user);
 		Assert.assertNotNull(user);
 		Assert.assertNotNull(user.getIdentifier());
@@ -50,6 +52,7 @@ public class UserDAOTest extends BaseSpringTest {
 		user.setGender("male");
 		user.setPassword("pwd");
 		user.setUsername("user");
+		user.setState(StateEnum.CREATED);
 		user = userDAO.save(user);
 		Assert.assertNotNull(user);
 		

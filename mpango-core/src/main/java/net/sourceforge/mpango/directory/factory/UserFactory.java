@@ -2,6 +2,7 @@ package net.sourceforge.mpango.directory.factory;
 
 import net.sourceforge.mpango.directory.dto.UserDTO;
 import net.sourceforge.mpango.directory.entity.User;
+import net.sourceforge.mpango.entity.Player;
 
 /**
  * @author aplause
@@ -39,6 +40,12 @@ public class UserFactory extends BaseFactory<UserDTO, User> {
 		user.setGender(dto.getGender());
 		user.setPassword(dto.getPassword());
 		user.setState(dto.getState());
+		
+		// players
+		user.setPlayerList(PlayerFactory.instance().createList(dto.getPlayerList()));
+		for(Player player : user.getPlayerList()) {
+			player.setUser(user);
+		}
 
 		return user;
 	}

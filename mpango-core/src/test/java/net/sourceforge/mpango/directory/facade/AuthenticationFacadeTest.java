@@ -7,6 +7,7 @@ import java.util.Calendar;
 
 import net.sourceforge.mpango.BaseSpringTest;
 import net.sourceforge.mpango.directory.dto.UserDTO;
+import net.sourceforge.mpango.enums.StateEnum;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,6 +30,7 @@ public class AuthenticationFacadeTest extends BaseSpringTest {
 		dto.setGender("male");
 		dto.setPassword("pwd");
 		dto.setUsername("user");
+		dto.setState(StateEnum.CREATED);
 		dto = authFacade.register(dto);
 		Assert.assertNotNull(dto);
 		Assert.assertNotNull(dto.getId());
