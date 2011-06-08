@@ -6,8 +6,11 @@ package net.sourceforge.mpango.directory.facade;
 import java.util.Calendar;
 
 import net.sourceforge.mpango.BaseSpringTest;
+import net.sourceforge.mpango.TestUtils;
 import net.sourceforge.mpango.directory.dto.UserDTO;
+import net.sourceforge.mpango.dto.PlayerDTO;
 import net.sourceforge.mpango.enums.StateEnum;
+import net.sourceforge.mpango.exception.PlayerAlreadyExistsException;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -41,5 +44,29 @@ public class AuthenticationFacadeTest extends BaseSpringTest {
 		Assert.assertNotNull(userFound);
 		Assert.assertEquals(userFound.getUsername(), dto.getUsername());
 
+	}
+	
+	@Test()
+	public void createPlayerTest() throws PlayerAlreadyExistsException {
+		UserDTO userDTO = new UserDTO();
+		userDTO.setDateOfBirth(Calendar.getInstance().getTime());
+		userDTO.setEmail("User@company.com");
+		userDTO.setGender("male");
+		userDTO.setPassword("pwd");
+		userDTO.setUsername("user");
+		userDTO = authFacade.register(userDTO);
+
+		PlayerDTO dto1 = TestUtils.getPlayerDTO();
+		dto1 = authFacade.createPlayer(userDTO, dto1);
+		Assert.assertNotNull(dto1.getId());
+
+		//authFacade.delete(dto1);
+		
+		//dto1 = TestUtils.getPlayerDTO();
+		//dto1 = authFacade.createPlayer(userDTO, dto1);
+		
+		//PlayerDTO dto2 = TestUtils.getPlayerDTO();
+		// here exception should be raised 
+		//dto2 = authFacade.createPlayer(userDTO, dto2);
 	}
 }

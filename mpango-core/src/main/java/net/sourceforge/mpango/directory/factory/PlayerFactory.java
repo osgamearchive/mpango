@@ -29,11 +29,16 @@ public class PlayerFactory extends BaseFactory<PlayerDTO, Player> {
 		Player player = new Player();
 		player.setIdentifier(dto.getId());
 		player.setName(dto.getName());
-		player
-				.setPosition(PositionFactory.instance().create(
-						dto.getPosition()));
 		player.setState(dto.getState());
-		player.setUnits(UnitFactory.instance().createList(dto.getUnits()));
+		
+		if (null != dto.getPosition()) {
+			player.setPosition(PositionFactory.instance().create(
+					dto.getPosition()));
+		}
+		
+		if (null != dto.getUnits()) {
+			player.setUnits(UnitFactory.instance().createList(dto.getUnits()));
+		}
 
 		return player;
 	}

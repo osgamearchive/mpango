@@ -6,10 +6,13 @@ import net.sourceforge.mpango.dto.CellDTO;
 import net.sourceforge.mpango.dto.CityDTO;
 import net.sourceforge.mpango.dto.ConstructionDTO;
 import net.sourceforge.mpango.dto.GameBoardDTO;
+import net.sourceforge.mpango.dto.PlayerDTO;
 import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.City;
 import net.sourceforge.mpango.entity.Construction;
 import net.sourceforge.mpango.entity.GameBoard;
+import net.sourceforge.mpango.entity.Player;
+import net.sourceforge.mpango.enums.StateEnum;
 
 import org.junit.Ignore;
 
@@ -99,5 +102,19 @@ public class TestUtils {
 
 		return board;
 
+	}
+	
+	public static Player getPlayer() {
+		Player player = new Player();
+		player.setName("Bob");
+		player.setState(StateEnum.CREATED);
+		return player;
+	}
+	
+	public static PlayerDTO getPlayerDTO() {
+		PlayerDTO dto = new PlayerDTO();
+		dto.setName("Bob");
+		dto.setState(StateEnum.CREATED);
+		return dto;
 	}
 }

@@ -67,6 +67,7 @@ public class UserDAOTest extends BaseSpringTest {
 		user2.setGender("male");
 		user2.setPassword("pwd");
 		user2.setUsername("john");
+		user2.setState(StateEnum.CREATED);
 		user2 = userDAO.save(user2);
 		Assert.assertNotNull(user2.getIdentifier());
 		

@@ -3,14 +3,17 @@ package net.sourceforge.mpango.directory.dao;
 import java.util.List;
 
 import net.sourceforge.mpango.directory.entity.User;
+import net.sourceforge.mpango.entity.Player;
+import net.sourceforge.mpango.enums.StateEnum;
 
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 /**
  * Data Access Object for the User entity.
+ * 
  * @author etux
- *
+ * 
  */
 public class UserDAOHibernate implements UserDAO {
 
@@ -20,7 +23,8 @@ public class UserDAOHibernate implements UserDAO {
 	public User load(String email) {
 		User user = null;
 		@SuppressWarnings("unchecked")
-		List<User> results = (List<User>) getHibernateTemplate().find("from User where email= ?",email);
+		List<User> results = (List<User>) getHibernateTemplate().find(
+				"from User where email= ?", email);
 		if ((results != null) && (results.size() > 0)) {
 			user = (User) results.get(0);
 		}
@@ -47,15 +51,33 @@ public class UserDAOHibernate implements UserDAO {
 		return getHibernateTemplate().find("from User");
 	}
 
+	public Player save(Player player) {
+		if (null == player.getIdentifier()) {
+			Long playerId = (Long) getHibernateTemplate().save(player);
+			player.setIdentifier(playerId);
+		} else {
+			getHibernateTemplate().update(player);
+		}
+		return player;
+
+	}
+
 	public HibernateTemplate getHibernateTemplate() {
 		if (hibernateTemplate == null) {
 			hibernateTemplate = new HibernateTemplate(sessionFactory);
 		}
 		return hibernateTemplate;
 	}
-	
-	public void setSessionFactory(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Player> findPlayersByUser(User user) {
+		return (List<Player>) getHibernateTemplate().find(
+				"from Player p where p.state!=? and p.user.identifier=?",
+				StateEnum.DELETED, user.getIdentifier());
+	}
 }

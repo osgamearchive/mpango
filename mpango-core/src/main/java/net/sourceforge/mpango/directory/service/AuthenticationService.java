@@ -6,7 +6,9 @@ import java.util.List;
 
 import net.sourceforge.mpango.directory.dao.UserDAO;
 import net.sourceforge.mpango.directory.entity.User;
+import net.sourceforge.mpango.entity.Player;
 import net.sourceforge.mpango.enums.StateEnum;
+import net.sourceforge.mpango.exception.PlayerAlreadyExistsException;
 
 /**
  * Basic Authentication Service implementation.
@@ -62,6 +64,17 @@ public class AuthenticationService implements IAuthenticationService {
 		return new String(seed);
 	}
 
+	public Player createPlayer(User user, Player player)
+			throws PlayerAlreadyExistsException {
+		List<Player> players = userDAO.findPlayersByUser(user);
+
+		if (null != players && players.size() > 0) {
+			throw new PlayerAlreadyExistsException();
+		}
+		player.setUser(user);
+		return userDAO.save(player);
+	}
+
 	public UserDAO getUserDAO() {
 		return userDAO;
 	}
@@ -73,6 +86,13 @@ public class AuthenticationService implements IAuthenticationService {
 	@Override
 	public List<User> list() {
 		return userDAO.list();
+	}
+
+	@Override
+	public void delete(Player player) {
+		player.setState(StateEnum.DELETED);
+		userDAO.save(player);
+
 	}
 
 }

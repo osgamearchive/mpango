@@ -5,10 +5,14 @@ package net.sourceforge.mpango.directory.facade;
 
 import java.util.List;
 
+import net.sourceforge.mpango.directory.builder.PlayerBuilder;
 import net.sourceforge.mpango.directory.builder.UserBuilder;
 import net.sourceforge.mpango.directory.dto.UserDTO;
+import net.sourceforge.mpango.directory.factory.PlayerFactory;
 import net.sourceforge.mpango.directory.factory.UserFactory;
 import net.sourceforge.mpango.directory.service.IAuthenticationService;
+import net.sourceforge.mpango.dto.PlayerDTO;
+import net.sourceforge.mpango.exception.PlayerAlreadyExistsException;
 
 /**
  * @author aplause
@@ -42,7 +46,7 @@ public class AuthenticationFacade implements IAuthenticationFacade {
 		return UserBuilder.instance().build(
 				authService.register(UserFactory.instance().create(dto)));
 	}
-	
+
 	public IAuthenticationService getAuthService() {
 		return authService;
 	}
@@ -58,4 +62,17 @@ public class AuthenticationFacade implements IAuthenticationFacade {
 		return users;
 	}
 
+	@Override
+	public PlayerDTO createPlayer(UserDTO user, PlayerDTO player)
+			throws PlayerAlreadyExistsException {
+		return PlayerBuilder.instance().build(
+				authService.createPlayer(UserFactory.instance().create(user),
+						PlayerFactory.instance().create(player)));
+	}
+
+	@Override
+	public void delete(PlayerDTO player) {
+		authService.delete(PlayerFactory.instance().create(player));
+
+	}
 }
