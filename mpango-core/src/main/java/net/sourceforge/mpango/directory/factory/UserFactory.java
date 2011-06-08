@@ -40,11 +40,14 @@ public class UserFactory extends BaseFactory<UserDTO, User> {
 		user.setGender(dto.getGender());
 		user.setPassword(dto.getPassword());
 		user.setState(dto.getState());
-		
+
 		// players
-		user.setPlayerList(PlayerFactory.instance().createList(dto.getPlayerList()));
-		for(Player player : user.getPlayerList()) {
-			player.setUser(user);
+		if (null != dto.getPlayerList()) {
+			user.setPlayerList(PlayerFactory.instance().createList(
+					dto.getPlayerList()));
+			for (Player player : user.getPlayerList()) {
+				player.setUser(user);
+			}
 		}
 
 		return user;
