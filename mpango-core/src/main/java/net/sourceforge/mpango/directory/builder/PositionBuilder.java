@@ -13,8 +13,8 @@ import net.sourceforge.mpango.entity.Position;
 public class PositionBuilder extends BaseBuilder<Position, PositionDTO> {
 
 	public static PositionBuilder instance() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return new PositionBuilder();
 	}
 
 	@Override
