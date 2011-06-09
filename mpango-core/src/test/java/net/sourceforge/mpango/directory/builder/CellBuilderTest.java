@@ -1,6 +1,6 @@
 package net.sourceforge.mpango.directory.builder;
 
-import static org.junit.Assert.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
