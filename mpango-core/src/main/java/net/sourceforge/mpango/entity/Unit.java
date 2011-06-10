@@ -16,7 +16,6 @@ import net.sourceforge.mpango.actions.ConstructCommand;
 import net.sourceforge.mpango.entity.technology.ShieldTechnology;
 import net.sourceforge.mpango.entity.technology.WeaponTechnology;
 import net.sourceforge.mpango.events.CommandEvent;
-import net.sourceforge.mpango.events.CommandExecutedEvent;
 import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.Listener;
 import net.sourceforge.mpango.exception.CommandException;

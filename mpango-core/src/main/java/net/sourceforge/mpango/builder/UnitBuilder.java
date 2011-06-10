@@ -1,9 +1,7 @@
 package net.sourceforge.mpango.builder;
 
 
-import net.sourceforge.mpango.dto.ShieldDTO;
 import net.sourceforge.mpango.dto.UnitDTO;
-import net.sourceforge.mpango.dto.WeaponDTO;
 
 import net.sourceforge.mpango.entity.Unit;
 
@@ -20,25 +18,17 @@ public class UnitBuilder extends BaseBuilder<Unit, UnitDTO> {
 
 	@Override
 	public UnitDTO build(Unit unit) {
-		UnitDTO dto = new UnitDTO();
-		//maybe better do builders
-		WeaponDTO weapon = new WeaponDTO();
-		weapon.setAttackBonus(unit.getWeapon().getAttackBonus());
-		weapon.setId(unit.getIdentifier());
-		ShieldDTO shield = new ShieldDTO();
-		shield.setHitPoints(unit.getShield().getRemainingHitPoints());
-		shield.setMaximumHitPoints(unit.getShield().getMaximumHitPoints());
+		UnitDTO dto = new UnitDTO();	
 		
-		dto.setAttackPoints(unit.getAttackPoints());
+		dto.setAttackPoints(unit.getEffectiveAttackPoints());
 		dto.setHitPoints(unit.getHitPoints());		
-		dto.setShield(shield);		
-		dto.setWeapon(weapon);
+		dto.setShield(ShieldBuilder.instance().build(unit.getShield()));		
+		dto.setWeapon(WeaponBuilder.instance().build(unit.getWeapon()));
 		dto.setTechnologies(TechnologyBuilder.instance().buildList(unit.getTechnologies()));
 		dto.setConstructionSkills(unit.getConstructionSkills());
 		dto.setCollectionSkills(unit.getCollectionSkills());
 		dto.setTimer(unit.getTimer());
-		dto.setCity(CityBuilder.instance().build(unit.getCity()));
-		dto.setCommands(CommandBuilder.instance().buildList(unit.getCommands()));
+		dto.setCity(CityBuilder.instance().build(unit.getCity()));		
 		return dto;
 	}
 

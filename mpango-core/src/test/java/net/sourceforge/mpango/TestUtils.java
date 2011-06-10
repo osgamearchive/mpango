@@ -1,7 +1,10 @@
 package net.sourceforge.mpango;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import net.sourceforge.mpango.actions.Command;
+import net.sourceforge.mpango.builder.TechnologyBuilder;
 import net.sourceforge.mpango.dto.CellDTO;
 import net.sourceforge.mpango.dto.CityDTO;
 import net.sourceforge.mpango.dto.ConstructionDTO;
@@ -12,6 +15,8 @@ import net.sourceforge.mpango.entity.City;
 import net.sourceforge.mpango.entity.Construction;
 import net.sourceforge.mpango.entity.GameBoard;
 import net.sourceforge.mpango.entity.Player;
+import net.sourceforge.mpango.entity.Technology;
+import net.sourceforge.mpango.entity.Unit;
 import net.sourceforge.mpango.enums.StateEnum;
 
 import org.junit.Ignore;
@@ -117,4 +122,21 @@ public class TestUtils {
 		dto.setState(StateEnum.CREATED);
 		return dto;
 	}
+	
+	private static class TestUnit extends Unit {
+		private TestUnit(List<Technology> technology, List<Command> command) {
+			super(new City(), command, technology, 10f, 100f);
+		}
+		public static Unit instance() {
+			List<Technology> tech = new ArrayList<Technology>();
+			List<Command> com = new ArrayList<Command>();
+			return new TestUnit(tech, com);
+		}
+	}
+	
+	public static Unit getUnit() {
+		return TestUnit.instance();
+	}
+	
+	
 }

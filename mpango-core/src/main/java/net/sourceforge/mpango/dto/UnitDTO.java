@@ -17,7 +17,6 @@ public class UnitDTO extends BaseDTO {
 	private List<TechnologyDTO> technologies;
 	private Float constructionSkills;
 	private Float collectionSkills;
-	private List<CommandDTO> commands;
 	private Timer timer;
 	private CityDTO city;
 
@@ -83,14 +82,6 @@ public class UnitDTO extends BaseDTO {
 
 	public void setCollectionSkills(Float collectionSkills) {
 		this.collectionSkills = collectionSkills;
-	}
-
-	public List<CommandDTO> getCommands() {
-		return commands;
-	}
-
-	public void setCommands(List<CommandDTO> commands) {
-		this.commands = commands;
 	}
 
 	public Timer getTimer() {

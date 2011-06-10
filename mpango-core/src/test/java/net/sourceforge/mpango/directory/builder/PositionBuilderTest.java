@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.sourceforge.mpango.builder.PositionBuilder;
 import net.sourceforge.mpango.dto.PositionDTO;
 import net.sourceforge.mpango.entity.Position;
 

@@ -9,7 +9,7 @@ public class ShieldBuilder extends BaseBuilder<Shield, ShieldDTO>{
 		super();
 	}
 	
-	public ShieldBuilder instance() {
+	public static ShieldBuilder instance() {
 		return new ShieldBuilder();
 	}
 	

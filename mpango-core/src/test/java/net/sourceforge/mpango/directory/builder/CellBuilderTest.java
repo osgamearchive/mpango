@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sourceforge.mpango.TestUtils;
+import net.sourceforge.mpango.builder.CellBuilder;
 import net.sourceforge.mpango.dto.CellDTO;
 import net.sourceforge.mpango.entity.Cell;
 

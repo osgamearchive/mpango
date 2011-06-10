@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sourceforge.mpango.TestUtils;
+import net.sourceforge.mpango.builder.PlayerBuilder;
 import net.sourceforge.mpango.directory.entity.User;
 import net.sourceforge.mpango.dto.PlayerDTO;
 import net.sourceforge.mpango.entity.Player;
@@ -17,7 +18,7 @@ import org.junit.Test;
 public class PlayerBuilderTest {
 
 	@Test
-	public void testBuildPlayer() {
+	public void testBuildPlayerNullObj() {
 		Player player = TestUtils.getPlayer();
 		PlayerDTO dto = PlayerBuilder.instance().build(player);
 		assertNotNull(dto);
@@ -26,7 +27,11 @@ public class PlayerBuilderTest {
 		assertNull(dto.getUnits());
 		assertNull(dto.getPosition());
 		assertNull(dto.getUser());
-		
+	}
+	
+	@Test
+	public void testBuildPlayerObj() {
+		Player player = TestUtils.getPlayer();
 		player.setPosition(new Position(1, 2));
 		List<Unit> unitList = new ArrayList<Unit>();
 		unitList.add(new Unit());
@@ -34,8 +39,8 @@ public class PlayerBuilderTest {
 		unitList.add(new Unit());
 		player.setUnits(unitList);
 		player.setUser(new User());
+		PlayerDTO dto = PlayerBuilder.instance().build(player);
 		
-		dto = PlayerBuilder.instance().build(player);
 		assertNotNull("dto.getPosition() is null", dto.getPosition());
 		assertEquals(dto.getPosition().getRowNumber(), 1);
 		assertEquals(dto.getPosition().getColNumber(), 2);

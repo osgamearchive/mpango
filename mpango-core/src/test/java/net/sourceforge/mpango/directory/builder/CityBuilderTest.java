@@ -1,11 +1,12 @@
 package net.sourceforge.mpango.directory.builder;
 
-import static org.junit.Assert.*;
+
 
 import java.util.ArrayList;
 import java.util.List;
 
 import net.sourceforge.mpango.TestUtils;
+import net.sourceforge.mpango.builder.CityBuilder;
 import net.sourceforge.mpango.dto.CityDTO;
 import net.sourceforge.mpango.entity.City;
 

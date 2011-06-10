@@ -2,6 +2,8 @@ package net.sourceforge.mpango.directory.builder;
 
 import junit.framework.Assert;
 import net.sourceforge.mpango.TestUtils;
+import net.sourceforge.mpango.builder.CellBuilder;
+import net.sourceforge.mpango.builder.GameBoardBuilder;
 import net.sourceforge.mpango.dto.CellDTO;
 import net.sourceforge.mpango.dto.GameBoardDTO;
 import net.sourceforge.mpango.entity.Cell;
