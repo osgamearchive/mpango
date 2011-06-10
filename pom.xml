@@ -78,6 +78,15 @@
 				<role>Developer</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>sol2202</id>
+			<name>Michael Tsepelev</name>
+			<timezone>+4</timezone>
+			<email>sol2202@users.sourceforge.net</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
 	</developers>
 	<contributors>
 	</contributors>
