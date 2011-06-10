@@ -1,5 +1,6 @@
 package net.sourceforge.mpango.directory.builder;
 
+import net.sourceforge.mpango.builder.BaseBuilder;
 import net.sourceforge.mpango.directory.dto.UserDTO;
 import net.sourceforge.mpango.directory.entity.User;
 
