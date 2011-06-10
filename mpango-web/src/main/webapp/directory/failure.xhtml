@@ -11,7 +11,7 @@
 <f:loadBundle basename="MessageBundle" var="msg"/>
 <f:view>
 	<h:outputFormat value="#{msg.user_register_failure}">
-		<f:param value="#{userBackingBean.user.email}" />
+		<f:param value="#{authenticationBackingBean.user.email}" />
 	</h:outputFormat>
 	<h:form id="form2">
 		<h:commandLink id="link1" action="back">

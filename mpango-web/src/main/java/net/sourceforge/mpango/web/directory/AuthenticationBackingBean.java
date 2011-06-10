@@ -50,6 +50,7 @@ public class AuthenticationBackingBean {
 	public String send() {
 		UserDTO userFound = authFacade.load(user.getEmail());
 		if (userFound != null) {
+			user = userFound;
 			return "failure";
 		} else {
 			user = authFacade.register(user);

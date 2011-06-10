@@ -10,7 +10,7 @@
 	</head>
 	<body>
 		<f:view>
-			<t:dataTable value="#{userBackingBean.users}" bandingInterval="2" banding="row" var="user">
+			<t:dataTable value="#{authenticationBackingBean.users}" bandingInterval="2" banding="row" var="user">
 				<t:column>
 					<f:facet name="header">
 						<t:outputText value="#{msg.username}" />

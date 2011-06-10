@@ -60,8 +60,9 @@ public class Unit extends AbstractPersistable implements Damageable,Serializable
 	}
 	
 	/**
-	 * <p>Every time a unit is created it is done by assigning it a city.</p>
-	 * <p>All units in the game belong to a city, to and from which resources flow.</p>
+	 * <p>Every time a unit is created it is done by assigning it a city.
+	 * All units in the game belong to a city, to and from which resources flow.
+	 * The only exception to this are the initial units, which don't belong to a city until the first city is founded.</p>
 	 * @param city where the unit is born or has moved.
 	 */
 	public Unit(City city) {

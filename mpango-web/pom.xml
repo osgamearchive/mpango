@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>net.sourceforge.mpango</groupId>
 			<artifactId>mpango-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${project.parent.version}</version>
 		</dependency>
 	</dependencies>
 	<properties>
