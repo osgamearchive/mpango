@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.directory.builder;
+package net.sourceforge.mpango.builder;
 
 import static org.junit.Assert.*;
 
