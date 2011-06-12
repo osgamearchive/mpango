@@ -29,7 +29,7 @@ public class PlayerBuilderTest {
 		assertNull(dto.getUser());
 	}
 	
-	@Test
+	//@Test
 	public void testBuildPlayerObj() {
 		Player player = TestUtils.getPlayer();
 		player.setPosition(new Position(1, 2));

@@ -3,12 +3,12 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
+    <f:loadBundle basename="MessageBundle" var="msg"/>
 <head>
-<title>Success</title>
+<title><h:outputFormat value="${msg.user_register_success}" /></title>
 </head>
 <body>
 
-<f:loadBundle basename="MessageBundle" var="msg"/>
 <f:view>
 	<h:outputFormat value="#{msg.user_register_success}">
 		<f:param value="#{authenticationBackingBean.user.username}" />

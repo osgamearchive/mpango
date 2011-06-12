@@ -117,7 +117,7 @@ public class Unit extends AbstractPersistable implements Damageable,Serializable
 		} else if (technology instanceof ShieldTechnology) {
 			applyTechnology((ShieldTechnology) technology);
 		} else {
-			logger.error("Unknown Technology: " + technology);
+			logger.debug("Unknown Technology: " + technology);
 		}
 	}
 	

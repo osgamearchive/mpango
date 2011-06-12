@@ -24,7 +24,7 @@ public class TurnEngine {
 		TurnEvent turnEvent = new TurnEvent(this, currentTurn);
 		gameBoard.passTurn(turnEvent);
 		currentTurn.setTurnFinished(new Date());
-		Long nextTurnNumber = currentTurn.getTurnNumber() + 1;
+		Long nextTurnNumber = currentTurn.getTurnNumber() + Long.valueOf(1l);
 		currentTurn = new Turn(nextTurnNumber, new Date());
 	}
 	
