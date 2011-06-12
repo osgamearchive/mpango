@@ -87,6 +87,15 @@
 				<role>Developer</role>
 			</roles>
 		</developer>
+		<developer>
+			<id>bgutschke</id>
+			<name>Bastian Gutschke</name>
+			<timezone>+1</timezone>
+			<email>bgutschke@users.sourceforge.net</email>
+			<roles>
+				<role>Developer</role>
+			</roles>
+		</developer>
 	</developers>
 	<contributors>
 	</contributors>
