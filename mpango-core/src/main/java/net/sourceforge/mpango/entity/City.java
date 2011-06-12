@@ -67,6 +67,11 @@ public class City extends Construction {
 		resources.put(resource, totalResources);
 	}
 
+	@Override
+	public String toString() {
+		return "City [resources=" + resources + ", units=" + units + "]";
+	}
+
 	/**
 	 * Getter
 	 * @return

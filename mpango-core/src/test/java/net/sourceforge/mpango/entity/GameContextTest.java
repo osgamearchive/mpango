@@ -13,26 +13,24 @@ public class GameContextTest {
 	
 	private GameContext context;
 	private GameConfiguration configuration;
-	private BoardConfiguration boardConfiguration;
+	private BoardConfiguration board;
 	
 	@Before
 	public void setUp() {
 		configuration = createMock(GameConfiguration.class);
-		boardConfiguration = createMock(BoardConfiguration.class);
-		expect(configuration.getBoardConfiguration()).andReturn(boardConfiguration);
-	    expectLastCall().anyTimes();
-		expect(boardConfiguration.getRowNumber()).andReturn(TEST_ROW_SIZE);
-	    expectLastCall().anyTimes();
-		expect(boardConfiguration.getColNumber()).andReturn(TEST_COL_SIZE);
-	    expectLastCall().anyTimes();
+		board = createMock(BoardConfiguration.class);
+		expect(configuration.getBoardConfiguration()).andReturn(board);
+		expectLastCall().times(1);
+		expect(board.getRowNumber()).andReturn(TEST_ROW_SIZE);
+		expect(board.getColNumber()).andReturn(TEST_COL_SIZE);
 		replay(configuration);
-		replay(boardConfiguration);
+		replay(board);
 	}
 	
 	@After
 	public void tearDown() {
+		verify(board);
 		verify(configuration);
-		verify(boardConfiguration);
 	}
 	
 	@Test

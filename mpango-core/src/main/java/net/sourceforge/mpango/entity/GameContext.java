@@ -36,10 +36,9 @@ public class GameContext {
 	}
 
 	private Position generateRandomPosition() {
-		BoardConfiguration boardConfiguration = configuration.getBoardConfiguration();
 		Position position = new Position(
-				RandomUtils.nextInt(boardConfiguration.getColNumber()),
-				RandomUtils.nextInt(boardConfiguration.getRowNumber()));
+				RandomUtils.nextInt(board.getColSize()),
+				RandomUtils.nextInt(board.getRowSize()));
 		return position;
 	}
 
