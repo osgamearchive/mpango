@@ -15,8 +15,10 @@ import net.sourceforge.mpango.entity.City;
 import net.sourceforge.mpango.entity.Construction;
 import net.sourceforge.mpango.entity.GameBoard;
 import net.sourceforge.mpango.entity.Player;
+import net.sourceforge.mpango.entity.Shield;
 import net.sourceforge.mpango.entity.Technology;
 import net.sourceforge.mpango.entity.Unit;
+import net.sourceforge.mpango.entity.Weapon;
 import net.sourceforge.mpango.enums.StateEnum;
 
 import org.junit.Ignore;
@@ -135,8 +137,10 @@ public class TestUtils {
 	}
 	
 	public static Unit getUnit() {
-		return TestUnit.instance();
-	}
-	
+		Unit unit = TestUnit.instance();
+		unit.setWeapon(new Weapon(10f));
+		unit.setShield(new Shield(10f));
+		return unit;
+	}	
 	
 }

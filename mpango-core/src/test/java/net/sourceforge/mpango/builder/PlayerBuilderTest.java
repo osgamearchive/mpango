@@ -11,6 +11,7 @@ import net.sourceforge.mpango.directory.entity.User;
 import net.sourceforge.mpango.dto.PlayerDTO;
 import net.sourceforge.mpango.entity.Player;
 import net.sourceforge.mpango.entity.Position;
+import net.sourceforge.mpango.entity.TestUnit;
 import net.sourceforge.mpango.entity.Unit;
 
 import org.junit.Test;
@@ -34,9 +35,9 @@ public class PlayerBuilderTest {
 		Player player = TestUtils.getPlayer();
 		player.setPosition(new Position(1, 2));
 		List<Unit> unitList = new ArrayList<Unit>();
-		unitList.add(new Unit());
-		unitList.add(new Unit());
-		unitList.add(new Unit());
+		unitList.add(TestUtils.getUnit());
+		unitList.add(TestUtils.getUnit());
+		unitList.add(TestUtils.getUnit());
 		player.setUnits(unitList);
 		player.setUser(new User());
 		PlayerDTO dto = PlayerBuilder.instance().build(player);
