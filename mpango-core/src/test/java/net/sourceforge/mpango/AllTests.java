@@ -4,6 +4,7 @@ import net.sourceforge.mpango.battle.BattleEngineTest;
 import net.sourceforge.mpango.entity.FleetTest;
 import net.sourceforge.mpango.entity.ShieldTest;
 import net.sourceforge.mpango.entity.UnitTest;
+import net.sourceforge.mpango.events.EventChannelTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
@@ -17,6 +18,7 @@ public class AllTests {
 		suite.addTestSuite(UnitTest.class);
 		suite.addTestSuite(FleetTest.class);
 		suite.addTestSuite(BattleEngineTest.class);
+		suite.addTestSuite(EventChannelTest.class);
 		//$JUnit-END$
 		return suite;
 	}
