@@ -1,33 +1,35 @@
 package net.sourceforge.mpango.events.channel;
 
-import net.sourceforge.mpango.events.Event;
+import net.sourceforge.mpango.events.*;
+import net.sourceforge.mpango.exception.EventNotSupportedException;
 
 import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
+import java.util.*;
 
 /**
- * Class EventChannel encapsulates JMS topic session objects and event processing thread. 
+ * Class EventChannel encapsulates ActiveMQ session objects and event processing thread. 
  * @author sol2202
  *
  */
 public class EventChannel{
 	
-	//Make the EventChannel a singleton
 	private static EventChannel instance = new EventChannel();
 	
-	private static final String JMS_TOPIC_NAME = "java:comp/env/mpangoEvents";
-    private static final String MQ_URL = "tcp://localhost:61616";
-
+	private static final String TOPIC_NAME = "java:comp/env/mpangoEvents";
+    private static final String MQ_URL = "vm://localhost?broker.persistent=false";
+    private static HashMap<Class<?>, ArrayList<Listener>> listenersMap = new HashMap< Class<?>, ArrayList<Listener> >();
+    
     private TopicConnectionFactory connFactory = null;
     private Topic eventTopic = null;
     private TopicConnection topicConnection = null;
     private TopicSession topicSession = null;
     private TopicSubscriber topicSubscriber = null;
     private TopicPublisher topicPublisher = null;
-
     private Thread eventDispatchThread = null;
     private EventDispatcher eventDispatchTask = null;
-     
+   
+    
     private EventChannel(){
     	
     }
@@ -36,16 +38,19 @@ public class EventChannel{
     	return instance;
     }
     
+    public HashMap<Class<?>, ArrayList<Listener>> getListeners(){
+    	return listenersMap;   	
+    }
+    
     /**
-     * Create JMS broker connection and start event dispatching thread
+     * Create ActiveMQ broker connection and start event dispatching thread
      */
     public void start(){
         try{
-            System.out.println("Starting JMS Event Channel..");
             connFactory = new ActiveMQConnectionFactory( MQ_URL );
             topicConnection = connFactory.createTopicConnection();
             topicSession = topicConnection.createTopicSession( false, Session.AUTO_ACKNOWLEDGE );
-            eventTopic = topicSession.createTopic( JMS_TOPIC_NAME );
+            eventTopic = topicSession.createTopic( TOPIC_NAME );
             
             topicSubscriber = topicSession.createSubscriber( eventTopic );
             topicPublisher = topicSession.createPublisher( eventTopic );
@@ -58,13 +63,12 @@ public class EventChannel{
             e.printStackTrace();
         }
     }
+    
 
     /**
-     * Cleanup JMS facilities
+     * Stop the event dispatching thread and ActiveMQ facilities
      */
     public void stop(){
-
-        System.out.println("Stopping JMS Event Channel..");
         
         if( eventDispatchTask != null ){
         	eventDispatchTask.shutDown();
@@ -108,11 +112,75 @@ public class EventChannel{
         
     }
     
+    
+    /**
+     * Add event listener
+     * @param eventClass
+     * @param listener
+     */
+    public synchronized void addListener( final Class<?> eventClass, final Listener listener ){
+    	
+    	ArrayList<Listener> listeners = null;
 
+        Class<?> leafCls = getEventLeafInterface( eventClass );
+        
+        if( leafCls == null){
+        	return;
+        }
+        
+        /**
+         * Create a Map record with eventClass and empty listeners list if we
+         * don't have any listeners for this eventClass yet
+         */       
+        if ( listenersMap.get( leafCls ) == null ){
+        	
+        	listeners = new ArrayList<Listener>();
+        	listenersMap.put( leafCls, listeners );
+        }
+        else{
+        	/**
+        	 * Or get existing listeners list for adding new listener
+        	 */
+        	listeners = ( ArrayList<Listener> ) listenersMap.get( leafCls );
+        }
+        
+        /**
+         * Add listener if it is not in the list
+         */
+        if ( listeners.indexOf( listener ) < 0 ){
+        	listeners.add( listener );
+        }
+	
+    }
+    
+    
+    /**
+     * Remove event listener
+     * @param eventClass
+     * @param listener
+     */
+    public synchronized void removeListener( final Class<?> eventClass, final Listener listener ){
+    	
+    	ArrayList<Listener> listeners = listenersMap.get( eventClass );
+    	
+    	if( listeners != null ){
+    		if( listeners.contains( listener ) ){
+    			listeners.remove( listener );
+    		}
+    	}
+    	
+    }
+    
+    /**
+     * Remove all listeners from the channel
+     */
+    public void removeAllListeners(){
+    	
+    }
+    
     /**
      * Publish specified event to the channel
-     * TODO: think about sync
-     * @param event
+     * TODO: probably move method to observers
      */
     public synchronized void publish( final Event event ){
         try{
@@ -126,49 +194,84 @@ public class EventChannel{
 
     }
     
+    
     /**
-     * Event processing thread class reads messages from JMS topic and calls receive() on subscribed
-     * listeners. 
-     * @author michael
-     *
+     * Get 
+     * @param cls
+     * @return
      */
-   static class EventDispatcher implements Runnable{
+	private static Class<?> getEventLeafInterface(Class<?> cls){
+		
+		Class<?> retVal = null;
+		
+		if( Event.class.isAssignableFrom( cls ) ){		
+			retVal = cls;
+			
+			if ( cls.isInterface() ){
+				return retVal;
+			}			
+		}
+	   
+
+	    Class<?>[] interfaces = cls.getInterfaces();
+	    
+	    if ( interfaces != null ){    	
+	       for ( Class<?> iface : interfaces ){	   
+	         if ( Event.class.isAssignableFrom( iface ) ){ 	 
+	        	 
+	        	 retVal = iface;
+	        	 break;
+	         }
+	         
+	         retVal = getEventLeafInterface( iface );
+	       }
+	     }
+
+	     return retVal;
+	   }
+    
+ /**
+ * Event processing thread class reads messages from JMS topic and calls receive() on subscribed
+ * listeners. 
+ * @author sol2202
+ */
+public static class EventDispatcher implements Runnable{
     	
-	   private boolean running = false;
-	   private ActiveMQConnectionFactory connectionFactory = null;
-	   private Connection connection = null;
-	   private Session session = null;
-	   private Destination destination = null;
+	   private boolean running = false;   
+	   private ActiveMQConnectionFactory connectionFactory = null;	   
+	   private Connection connection = null;	   
+	   private Session session = null;   
+	   private Destination destination = null; 
 	   private MessageConsumer consumer = null;
-    	
+	   
+	   /**
+	    * Event processing thread task
+	    */
 	   public void run(){	
 		   try{
-			   //Create JMS topic connection
-			   connectionFactory = new ActiveMQConnectionFactory( MQ_URL );   	        
-			   connection = connectionFactory.createConnection();
+			   
+			   connectionFactory = new ActiveMQConnectionFactory( MQ_URL );			   
+			   connection = connectionFactory.createConnection();			   
 			   connection.start();
     	        
-			   session = connection.createSession( false, Session.AUTO_ACKNOWLEDGE );
-			   destination = session.createTopic( JMS_TOPIC_NAME );
+			   session = connection.createSession( false, Session.AUTO_ACKNOWLEDGE );			   
+			   destination = session.createTopic( TOPIC_NAME );			   
 			   consumer = session.createConsumer( destination );
-
+		   
 			   running = true;
-			   
-			   // Message listening loop
+			   	   
 			   while ( running )
-			   {
-				  // Wait for a message
+			   {				  
 				   Message message = consumer.receive( 1000 );
 
-				   if ( message != null ){
-					   
+				   if ( message != null ){					   
 					   if ( message instanceof ObjectMessage ){
 						   
 						   ObjectMessage objMessage = ( ObjectMessage ) message;
 						   Object object = objMessage.getObject();
 						   
-						   if( object instanceof Event ){
-							   dispatchEvent( (Event)object ); 
+						   if( Event.class.isAssignableFrom( object.getClass() ) ){
+							   dispatchEvent( (Event)object );
 						   } 				   					   
 					   }
 				   }
@@ -176,41 +279,79 @@ public class EventChannel{
     	        
     	      } catch ( Exception e ){
     	    	  e.printStackTrace();
-    	      }		
+    	      	}		
     		
     	}
-	      
+	   
+	   
+	   /**
+	    * Thread shutdown and cleanup
+	    */
 	   public void shutDown(){
 		   
-		   if( consumer != null ){
+		   if( consumer != null ){		   
 			   try{
 				   //This will exit the thread
 				   consumer.close(); 
+				   
 			   } catch ( JMSException e ){
 				   e.printStackTrace();
 			   }
 		   }
 		   
-		   if ( session != null ){
+		   if ( session != null ){			   
 			   try{
 				   session.close();
+				   
 			   } catch ( JMSException e ){
 				   e.printStackTrace();
 			   }
 		   }
 	        
-		   if ( session != null ){
+		   if ( session != null ){			   
 			   try{
 				   connection.close();
+				   
 			   } catch ( JMSException e ){
 				   e.printStackTrace();
 			   }
 		   }
 	   }
 	   
+	   
+	   /**
+	    * Send the event to all listeners of this specific event class
+	    * then send to listeners of superclass
+	    * then to listeners of superclass of superclass etc. through events hierarchy.
+	    * @param event
+	    */
 	   public void dispatchEvent( Event event ){
-    		// Event processing code
+		   
+		   for( Class<?> eventClass = event.getClass();
+		   		Event.class.isAssignableFrom( eventClass );
+		   		eventClass = eventClass.getSuperclass() ){
+			   
+			   if( listenersMap.containsKey(eventClass) ){
+				   
+				   ArrayList<Listener> listeners = listenersMap.get( eventClass );
+				   ArrayList<Listener> received = new ArrayList<Listener>();
+				  
+				   for( Listener listener : listeners ){
+					   					   
+					   if( !received.contains(listener) ){
+						   
+						   try{
+							   received.add(listener);
+							   listener.receive( event );  
+						   } catch (EventNotSupportedException e){
+					   
+						   }  
+					   }			  
+				   } 
+			   }		   				   		
+		   }		   
 	   }
+	   
     }
 
 }
