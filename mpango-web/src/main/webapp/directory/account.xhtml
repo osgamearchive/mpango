@@ -17,17 +17,27 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 				<li><a href="account.jsf" class="active">My Account</a></li>
 			</ul>
 		</ui:define>
-	<ui:define name="content">
-		<div id="normalcontent">
-			<h3>My Account</h3>
-			<div class="contentarea">
-
-				<img src="../resources/images/pic1.jpg" class="left" alt="A chinese lion statue" />
-				<p>Zenlike<sup>1.0</sup> is a free, lightweight, tableless, fluid W3C-compliant website design by <a href="http://www.nodethirtythree.com/">NodeThirtyThree Design</a>. All photos came from <a href="http://www.pdphoto.org/">PDPhoto</a> and the background texture is from <a href="http://www.mayang.com/textures/">Mayang's texture site</a>. You're free to dissect, manipulate and use it to your heart's content. We only ask that you link back to <a href="http://www.nodethirtythree.com/">our site</a> in some way. If you find this design useful, feel free to let us know :)</p>
-				<p>You can find more of our free work at this site or <a href="http://www.nodethirtythree.com/">our site</a>, or some of our commercial work on <a href="http://www.4templates.com/?aff=n33">4Templates.com</a>, a commercial website template site.</p>
-
+		
+		<ui:define name="content">
+			<div id="normalcontent">
+				<h3>My Account</h3>
+				<div class="contentarea">
+				
+					<h:form>
+						<h:outputText value="Email "/>
+						<h:inputText value=""></h:inputText>
+						<br />
+						<h:outputText value="Password "/>
+						<h:inputText value=""></h:inputText>	
+						<br />			
+						<h:commandButton value="Log IN" action="home"></h:commandButton>
+					</h:form>
+	
+					<a href="recover.jsf">Forgot your password?</a>
+					<a href="signup.jsf">Sign Up</a>
+					
+				</div>
 			</div>
-		</div>
 		</ui:define>
 
 	</ui:composition>
