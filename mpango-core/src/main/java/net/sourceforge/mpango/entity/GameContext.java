@@ -3,11 +3,13 @@ package net.sourceforge.mpango.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 import org.apache.commons.lang.math.RandomUtils;
 
-public class GameContext {
+@Entity
+public class GameContext extends AbstractPersistable {
 
 	protected List<Player> players;
 	protected GameBoard board;
@@ -31,7 +33,8 @@ public class GameContext {
 	}
 
 	private List<Unit> generateStartingUnits() {
-		List<Unit> units = null;
+		List<Unit> units = new ArrayList<Unit>();
+        units.add(new Unit());
 		return units;
 	}
 

@@ -15,7 +15,15 @@
 
 	<import resource="classpath:spring-core.xml" />
 
-	<bean id="authenticationBackingBean" class="net.sourceforge.mpango.web.directory.AuthenticationBackingBean"  scope="request">
+	<bean id="authenticationBackingBean"
+          class="net.sourceforge.mpango.web.directory.AuthenticationBackingBean"
+          scope="request">
 		<property name="authFacade" ref="authFacade" />
 	</bean>
+
+    <bean id="gameBackingBean"
+          class="net.sourceforge.mpango.web.GameBackingBean"
+          scope="session">
+        <property name="gameFacade" ref="gameFacade" />
+    </bean>
 </beans>

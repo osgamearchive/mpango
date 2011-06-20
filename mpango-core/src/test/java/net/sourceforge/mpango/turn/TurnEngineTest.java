@@ -4,7 +4,6 @@ import net.sourceforge.mpango.entity.GameBoard;
 import net.sourceforge.mpango.events.TurnEvent;
 import net.sourceforge.mpango.turn.entity.Turn;
 
-import static org.easymock.EasyMock.*;
 import static org.easymock.classextension.EasyMock.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +17,8 @@ public class TurnEngineTest {
 	
 	@Before
 	public void setUp() {
-		engine = new TurnEngine();
+        Timer timer = new Timer();
+		engine = new TurnEngine(timer);
 		gameBoard = createMock(GameBoard.class);
 	}
 	
@@ -27,12 +27,24 @@ public class TurnEngineTest {
 		Turn initialTurn = engine.getCurrentTurn();
 		gameBoard.passTurn(isA(TurnEvent.class));
 		replay(gameBoard);
-		engine.passTurn(gameBoard);
-		Turn currentTurn = engine.getCurrentTurn();
-		assertNotNull(initialTurn.getTurnFinished());
-		assertNotSame(initialTurn.getTurnStarted(), initialTurn.getTurnFinished());
-		assertEquals(currentTurn.getTurnNumber().longValue() - 1, initialTurn.getTurnNumber().longValue());
-		assertNotSame(currentTurn, initialTurn);
+		TurnEvent turnEvent = engine.passTurn(gameBoard);
+        assertEvent(initialTurn, turnEvent);
+        assertTurn(initialTurn);
 		verify(gameBoard);
 	}
+
+    private void assertTurn(Turn initialTurn) {
+        Turn currentTurn = engine.getCurrentTurn();
+        assertNotNull(initialTurn.getTurnFinished());
+        assertNotSame(initialTurn.getTurnStarted(), initialTurn.getTurnFinished());
+        assertEquals(currentTurn.getTurnNumber().longValue() - 1, initialTurn.getTurnNumber().longValue());
+        assertNotSame(currentTurn, initialTurn);
+    }
+
+    private void assertEvent(Turn initialTurn, TurnEvent turnEvent) {
+        assertNotNull(turnEvent);
+        assertNotSame(turnEvent.getTurn(), initialTurn);
+        assertEquals(turnEvent.getSource(), engine);
+        assertNotNull(turnEvent.getTime());
+    }
 }

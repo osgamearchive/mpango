@@ -1,23 +1,34 @@
 package net.sourceforge.mpango.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import net.sourceforge.mpango.directory.entity.User;
 import net.sourceforge.mpango.enums.StateEnum;
 
 /**
- * 
- * @author aplause Entity contains data about {@link Player} connected with
- *         {@link User}
+ * <p>Entity contains data about {@link Player} connecting a {@link User} to a {@link GameContext}.
+ * This class has the following information:
+ * <ol>
+ *     <li><B>Name:</B> Name of the player as introduced when joining the game.</li>
+ *     <li><b>Position:</b> Las position where the player was. So that she can be taken back to it.</li>
+ *     <li><b>Units:</b> Units that belong to the player.</li>
+ *     <li><b>State:</b> The state the player is in. Note that states in the case of players are different than
+ *     in the case of Users:
+ *          <ul>
+ *              <li><b>Created</b>: a player has just joined the game.</li>
+ *              <li><b>Active</b>: a player is online playing the game.</li>
+ *              <li><b>Inactive</b>: a player is offline.</li>
+ *              <li><b>Deleted</b>: the player has been removed from the game.</li>
+ *          </ul>
+ *     </li>
+ *     <li><b>Game context:</b> The game context is the link to the actual game the player is involved in.</li>
+ * </ol>
+ * </p>
+ * @author aplause
+ * @author edvera
  */
 @Entity(name = "Player")
 public class Player {
@@ -28,7 +39,15 @@ public class Player {
 	private List<Unit> units;
 	private StateEnum state;
 	private User user;
+    private GameContext gameContext;
 
+    public Player(String name, User user, GameContext gameContext) {
+        this.name = name;
+        this.units = new ArrayList<Unit>();
+        this.state = StateEnum.CREATED;
+        this.user = user;
+        this.gameContext = gameContext;
+    }
 	/**
 	 * @return
 	 */
@@ -122,4 +141,16 @@ public class Player {
 		this.user = user;
 	}
 
+    public void addUnit(Unit unit) {
+        this.units.add(unit);
+    }
+
+    @OneToOne
+    public GameContext getGameContext() {
+        return gameContext;
+    }
+
+    public void setGameContext(GameContext gameContext) {
+        this.gameContext = gameContext;
+    }
 }

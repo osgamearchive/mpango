@@ -75,4 +75,10 @@
 		<property name="authService" ref="authService" />
 	</bean>
 
+    <bean name="gameService" class="net.sourceforge.mpango.service.GameServiceImpl" />
+
+    <bean name="gameFacade" class="net.sourceforge.mpango.facade.GameFacadeImpl">
+        <property name="gameService" ref="gameService" />
+    </bean>
+
 </beans>

@@ -55,6 +55,16 @@ public abstract class AbstractTaskCommand extends TimerTask implements ITaskComm
 	protected AbstractTaskCommand(Timer timer, Listener...listeners) {
 		this(DEFAULT_MILLIS_PER_TIME_SLICE, timer, listeners);
 	}
+
+    /**
+     * Default implementation for an evaluation of the execution
+     * @throws CommandException in case it is not possible to deal with the command.
+     *
+     */
+    public void evaluateExecution () throws CommandException {
+
+    }
+
 	/**
 	 * Implementation of the execute method of the command. 
 	 * This method schedules the command as a TimerTask that will be called

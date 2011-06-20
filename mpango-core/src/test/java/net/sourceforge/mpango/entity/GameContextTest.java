@@ -41,9 +41,13 @@ public class GameContextTest {
 	@Test
 	public void testPlayerJoins() {
 		Player player = createMock(Player.class);
+        player.setPosition(isA(Position.class));
+        player.setUnits(isA(java.util.List.class));
 		context = new GameContext(configuration);
+        replay(player);
 		context.join(player);
 		assertTrue("The context must contain the player", context.containsPlayer(player));
+        verify(player);
 	}
 	
 }

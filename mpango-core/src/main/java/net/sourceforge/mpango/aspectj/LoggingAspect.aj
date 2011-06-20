@@ -16,7 +16,7 @@ public aspect LoggingAspect {
 							 !call (public * net.sourceforge.mpango..set*(*)) && 	//we don't want setter methods logged.
 							 !call (public * net.sourceforge.mpango..get(*)) &&  	//neither do we want getter methods logged.
 							 !(within(LoggingAspect));								//we definitely don't want endless recursivity.
-	
+
 	before() : methodCall() {
 		if (_logger.isDebugEnabled()) {
 			_logger.debug("thisJoinPointStaticPart.getSignature().getDeclaringTypeName(): "+thisJoinPointStaticPart.getSignature().getDeclaringTypeName());
@@ -39,7 +39,13 @@ public aspect LoggingAspect {
 		Logger logger = Logger.getLogger(getClass(thisJoinPointStaticPart.getSignature()));
 		logger.info(thisJoinPointStaticPart.getSignature().getName()+" done");
 	}
-	
+
+	after() throwing(Throwable ex) : methodCall() {
+	    Signature signature = thisJoinPointStaticPart.getSignature();
+	    Logger logger = Logger.getLogger(getClass(signature));
+	    logger.warn(signature.getName(), ex);
+	}
+
 	private String getClass(Signature signature) {
 		return signature.getDeclaringTypeName();
 	}
