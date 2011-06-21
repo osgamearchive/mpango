@@ -40,6 +40,8 @@ public class Player {
 	private StateEnum state;
 	private User user;
     private GameContext gameContext;
+    
+    public Player() { }
 
     public Player(String name, User user, GameContext gameContext) {
         this.name = name;
