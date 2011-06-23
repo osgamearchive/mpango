@@ -1,5 +1,7 @@
 package net.sourceforge.mpango.directory.factory;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import net.sourceforge.mpango.dto.CellDTO;
@@ -26,16 +28,14 @@ public class GameBoardFactory extends BaseFactory<GameBoardDTO, GameBoard> {
 	 */
 	@Override
 	public GameBoard create(GameBoardDTO dto) {
-		GameBoard board = new GameBoard();
-		board.setColSize(dto.getColSize());
-		board.setRowSize(dto.getRowSize());
+		GameBoard board = new GameBoard(dto.getRowSize(), dto.getColSize());
 		board.setIdentifier(dto.getId());
-		Cell[][] cells = new Cell[board.getRowSize()][board.getColSize()];
+		ArrayList<Cell> cells = new ArrayList<Cell> (board.getRowSize()*board.getColSize());
 		CellDTO[][] dtos = dto.getCells();
 		for (int i = 0; i < dtos.length; i++) { // Iterate over the rows
 			for (int j = 0; j < dtos[i].length; j++) { // Iterate over the cols
 				Cell cell = CellFactory.instance().create(dtos[i][j]);
-				cells[i][j] = cell;
+				cells.add(cell);
 			}
 		}
 		board.setCells(cells);

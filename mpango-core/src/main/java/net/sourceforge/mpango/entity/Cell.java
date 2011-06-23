@@ -6,10 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import net.sourceforge.mpango.enums.Resources;
 import net.sourceforge.mpango.events.AbstractListenerObservable;
@@ -32,10 +29,8 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 	/** generated serial version uid */
 	private static final long serialVersionUID = 2294912901732869716L;
 	private Long identifier;
-	private List<Construction> constructions = new ArrayList<Construction>();
-	
+	private List<Construction> constructions;
 	private Set<Resources> resources;
-	
 	private boolean hasCity;
 	private float defenseBonus;
 	private float attackBonus;
@@ -53,16 +48,23 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 		this.column = colPosition;
 		this.row = rowPosition;
 		this.resources = resources;
+        this.constructions = new ArrayList<Construction>();
 	}
 	
-	public void addResources(Resources resource) {
+	public void addResource(Resources resource) {
 		resources.add(resource);
 	}
-	
+
+    @OneToMany
 	public Set<Resources> getResources() {
 		return resources;
 	}
 
+    public void setResources(Set<Resources> resources) {
+        this.resources = resources;
+    }
+
+    @Transient
 	public boolean isHasCity() {
 		return hasCity;
 	}
@@ -159,13 +161,13 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 		
 	}
 
-
+    @Transient
 	public boolean isCollectable() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-
+    @Transient
 	public int getCollectionPoints() {
 		// TODO Auto-generated method stub
 		return 0;

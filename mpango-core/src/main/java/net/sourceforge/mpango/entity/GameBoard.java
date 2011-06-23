@@ -1,11 +1,9 @@
 package net.sourceforge.mpango.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.Listener;
@@ -30,7 +28,8 @@ public class GameBoard extends AbstractPersistable {
 	private static final Log logger = LogFactory.getLog(GameBoard.class);
 	private int rowSize;
 	private int colSize;
-	private Cell[][] cells;
+    private List<Cell> cells;
+	private Cell[][] arrayOfcells;
 	private List<Listener> listeners;
 	
 	public void passTurn(TurnEvent turnEvent) {
@@ -64,18 +63,21 @@ public class GameBoard extends AbstractPersistable {
 	 * @param rowNumber number of rows for the game board
 	 * @param colNumber number of columns for the game board
 	 */
-	private GameBoard (int rowNumber, int colNumber) {
+	public GameBoard (int rowNumber, int colNumber) {
 		logger.debug("Creating game board with " + rowNumber + " rows and " + colNumber + " columns");
 		this.rowSize = rowNumber;
 		this.colSize = colNumber;
-		this.cells = new Cell[this.rowSize][this.colSize];
+        this.cells = new ArrayList<Cell>(rowSize*colSize);
+		this.arrayOfcells = new Cell[this.rowSize][this.colSize];
 		for (int row=0; row<rowNumber; row++) {
 			for (int col=0; col<colNumber; col++) {
-				this.cells[row][col] = new Cell(row, col);
+                Cell cell = new Cell(row, col);
+                this.cells.add(cell);
+				this.arrayOfcells[row][col] = cell;
 			}
 		}
 	}
-	
+
 	/**
 	 * default constructor
 	 */
@@ -94,7 +96,7 @@ public class GameBoard extends AbstractPersistable {
 		if ((this.rowSize <= rowNumber) || (this.colSize <= colNumber)) {
 			throw new IllegalArgumentException("The specified cell is not found in the game board");
 		}
-		return cells[rowNumber][colNumber];
+		return arrayOfcells[rowNumber][colNumber];
 	}
 	@Column
 	public int getRowSize() {
@@ -110,13 +112,16 @@ public class GameBoard extends AbstractPersistable {
 	public void setColSize(int colSize) {
 		this.colSize = colSize;
 	}
-	@ManyToOne
-	public Cell[][] getCells() {
+	@OneToMany
+	public List<Cell> getCells() {
 		return cells;
 	}
 
-	public void setCells(Cell[][] cells) {
+	public void setCells(List<Cell> cells) {
 		this.cells = cells;
+        for (Cell cell : cells) {
+            this.arrayOfcells[cell.getRow()][cell.getColumn()] = cell;
+        }
 	}
 	
 }

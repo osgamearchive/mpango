@@ -108,6 +108,10 @@ public abstract class Construction implements Damageable, Listener {
 	public int getConstructionTime() {
 		return this.constructionTime;
 	}
+
+    public void setConstructionTime(int constructionTime) {
+        this.constructionTime = constructionTime;
+    }
 	
 	@Override
 	public int hashCode() {
@@ -134,6 +138,8 @@ public abstract class Construction implements Damageable, Listener {
 		return type;
 	}
 	
-	
+	public void setType(ConstructionType type) {
+        this.type = type;
+    }
 	
 }

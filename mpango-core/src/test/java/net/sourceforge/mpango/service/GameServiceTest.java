@@ -1,6 +1,7 @@
 package net.sourceforge.mpango.service;
 
 import net.sourceforge.mpango.directory.entity.User;
+import org.apache.commons.lang.RandomStringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +23,8 @@ public class GameServiceTest {
 
     @Test
     public void testJoin() {
+        String name = RandomStringUtils.random(12);
         User user = new User();
-        service.join(user);
+        service.join(name, user);
     }
 }

@@ -93,22 +93,9 @@ public class TestUtils {
 	}
 
 	public static GameBoard getGameBoard(Long id) {
-
-		GameBoard board = new GameBoard();
-		board.setIdentifier(id);
-		board.setColSize(COLUMN_SIZE);
-		board.setRowSize(ROW_SIZE);
-		board.setCells(new Cell[ROW_SIZE][COLUMN_SIZE]);
-
-		for (Integer row = 0; row < ROW_SIZE; row++) {
-			for (Integer col = 0; col < COLUMN_SIZE; col++) {
-				board.getCells()[row][col] = TestUtils
-						.getCell(new Long(row * col));
-			}
-		}
-
-		return board;
-
+		GameBoard board = new GameBoard(ROW_SIZE, COLUMN_SIZE);
+        board.setIdentifier(id);
+        return board;
 	}
 	
 	public static Player getPlayer() {

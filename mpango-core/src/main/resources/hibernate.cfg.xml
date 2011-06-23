@@ -4,15 +4,14 @@
 
 <hibernate-configuration>
    <session-factory>
-<!--       <mapping class="net.sourceforge.romulan.GameBoard"/> -->
-<!--       <mapping class="net.sourceforge.romulan.Row"/> -->
-<!--       <mapping class="net.sourceforge.romulan.Cell"/> -->
-<!--       <mapping class="net.sourceforge.romulan.Construction"/> -->
-<!--       <mapping class="net.sourceforge.romulan.Unit"/> -->
-<!--       <mapping class="net.sourceforge.romulan.battle.Shield"/> -->
-<!--       <mapping class="net.sourceforge.romulan.battle.Weapon"/> -->
-<!--       <mapping class="net.sourceforge.romulan.Technology"/> -->
 		<mapping class="net.sourceforge.mpango.directory.entity.User" />
 		<mapping class="net.sourceforge.mpango.entity.Player" />
+        <mapping class="net.sourceforge.mpango.entity.GameContext" />
+        <mapping class="net.sourceforge.mpango.entity.GameBoard" />
+        <mapping class="net.sourceforge.mpango.entity.GameConfiguration" />
+        <mapping class="net.sourceforge.mpango.entity.BoardConfiguration" />
+        <mapping class="net.sourceforge.mpango.entity.Cell" />
+        <mapping class="net.sourceforge.mpango.enums.Resources" />
+        <mapping class="net.sourceforge.mpango.entity.Construction" />
    </session-factory>
 </hibernate-configuration>

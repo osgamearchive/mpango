@@ -1,10 +1,13 @@
 package net.sourceforge.mpango.entity;
 
+import javax.persistence.Entity;
+
 /**
  * <p>The board configuration has all the configuration parameters for the board of the game.</p>
  * @author edvera
  */
-public class BoardConfiguration {
+@Entity
+public class BoardConfiguration extends AbstractPersistable {
 
     private static final int MAX_ROW_NUMBER = 10;
     private static final int MAX_COL_NUMBER = 10;
@@ -20,7 +23,15 @@ public class BoardConfiguration {
 		this.colNumber = colNumber;
 	}
 
-	public int getRowNumber() {
+    public void setRowNumber(int rowNumber) {
+        this.rowNumber = rowNumber;
+    }
+
+    public void setColNumber(int colNumber) {
+        this.colNumber = colNumber;
+    }
+
+    public int getRowNumber() {
 		return rowNumber;
 	}
 	

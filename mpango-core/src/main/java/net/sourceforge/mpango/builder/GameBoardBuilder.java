@@ -2,7 +2,9 @@ package net.sourceforge.mpango.builder;
 
 import net.sourceforge.mpango.dto.CellDTO;
 import net.sourceforge.mpango.dto.GameBoardDTO;
+import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.GameBoard;
+import sun.tools.tree.GreaterOrEqualExpression;
 
 public class GameBoardBuilder extends BaseBuilder<GameBoard, GameBoardDTO> {
 
@@ -21,12 +23,10 @@ public class GameBoardBuilder extends BaseBuilder<GameBoard, GameBoardDTO> {
 		dto.setColSize(entity.getColSize());
 		dto.setRowSize(entity.getRowSize());
 		CellDTO[][] cellDTOs = new CellDTO[entity.getRowSize()][entity.getColSize()];
-		for (int i=0;i<entity.getCells().length; i++) {
-			for (int j=0;j<entity.getCells()[i].length; j++) {
-				CellDTO cell = CellBuilder.instance().build(entity.getCells()[i][j]);
-				cellDTOs[i][j] = cell;
-			}
-		}
+        for (Cell cell : entity.getCells()) {
+            CellDTO cellDTO = CellBuilder.instance().build(cell);
+            cellDTOs[cell.getRow()][cell.getColumn()] = cellDTO;
+        }
 		dto.setCells(cellDTOs);
 		return dto;
 	}

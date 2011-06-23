@@ -4,14 +4,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-    <artifactId>mpango</artifactId>
-    <groupId>net.sourceforge.mpango</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+        <artifactId>mpango</artifactId>
+        <groupId>net.sourceforge.mpango</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
     <groupId>net.sourceforge.mpango</groupId>
     <artifactId>mpango-game-web</artifactId>
     <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
+    <name>mPango : Web : Game</name>
 
     <build>
         <defaultGoal>install</defaultGoal>
@@ -40,9 +41,9 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>7.4.0.v20110414</version>
                 <configuration>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
+                    <tmpDirectory>${basedir}/target/work</tmpDirectory>
                     <webAppConfig>
                         <contextPath>/mpango-game-web</contextPath>
                     </webAppConfig>

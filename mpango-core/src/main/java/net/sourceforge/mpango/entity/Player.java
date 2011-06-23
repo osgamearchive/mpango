@@ -147,7 +147,7 @@ public class Player {
         this.units.add(unit);
     }
 
-    @OneToOne
+    @ManyToOne
     public GameContext getGameContext() {
         return gameContext;
     }

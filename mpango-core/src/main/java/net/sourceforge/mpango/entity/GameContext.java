@@ -3,8 +3,7 @@ package net.sourceforge.mpango.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import org.apache.commons.lang.math.RandomUtils;
 
@@ -54,6 +53,7 @@ public class GameContext extends AbstractPersistable {
 		return players.size();
 	}
 
+    @OneToMany
 	public List<Player> getPlayers() {
 		return players;
 	}
@@ -62,6 +62,7 @@ public class GameContext extends AbstractPersistable {
 		this.players = players;
 	}
 
+    @OneToOne
 	public GameBoard getBoard() {
 		return board;
 	}
@@ -69,7 +70,7 @@ public class GameContext extends AbstractPersistable {
 	public void setBoard(GameBoard board) {
 		this.board = board;
 	}
-
+    @OneToOne
 	public GameConfiguration getConfiguration() {
 		return configuration;
 	}
