@@ -47,7 +47,7 @@
 	</jms:listener-container>
 	
 	<bean id="datasource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="java:comp/env/jdbc/datasource" />
+		<property name="jndiName" value="jdbc/datasource" />
 	</bean>
 
 	<bean id="sessionFactory"

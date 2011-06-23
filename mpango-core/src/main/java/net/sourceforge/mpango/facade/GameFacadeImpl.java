@@ -11,6 +11,7 @@ import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.Unit;
 import net.sourceforge.mpango.exception.CommandException;
 import net.sourceforge.mpango.service.GameServiceImpl;
+import net.sourceforge.mpango.service.IGameService;
 
 /**
  * <p>Class that serves as a facade to the {@link net.sourceforge.mpango.service.GameServiceImpl}</p>
@@ -18,26 +19,26 @@ import net.sourceforge.mpango.service.GameServiceImpl;
  */
 public class GameFacadeImpl implements IGameFacade {
 
-    private GameServiceImpl service;
+    private IGameService gameService;
 
     @Override
     public void join(String name, UserDTO userDTO) {
         User user = UserFactory.instance().create(userDTO);
-        service.join(name, user);
+        gameService.join(name, user);
     }
 
     @Override
     public void settleUnit(UnitDTO unitDTO, CellDTO cellDTO) throws CommandException {
         Unit unit = UnitFactory.instance().create(unitDTO);
         Cell cell = CellFactory.instance().create(cellDTO);
-        service.settleUnit(unit, cell);
+        gameService.settleUnit(unit, cell);
     }
 
-    public GameServiceImpl getService() {
-        return service;
+    public IGameService getGameService() {
+        return gameService;
     }
 
-    public void setService(GameServiceImpl service) {
-        this.service = service;
+    public void setGameService(IGameService service) {
+        this.gameService = service;
     }
 }
