@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:body>
+
+	<ui:composition template="../templates/masterLayout.xhtml">
+
+		<ui:define name="menu">
+			<ul>
+				<li><a href="home.jsf">Home</a></li>
+				<li><a href="play.jsf">Play</a></li>
+				<li><a href="wiki.jsf">Game Wiki</a></li>
+				<li><a href="help.jsf">Help</a></li>
+				<li><a href="account.jsf">My Account</a></li>
+				<li><a href="invite.jsf" class="active">Invite Friends</a></li>
+			</ul>
+		</ui:define>
+		
+		<ui:define name="content">
+			<div id="normalcontent">
+				<h3>Invite Friends</h3>
+				<div class="contentarea">
+				
+					<h:form>
+						<h:outputText value="Email "/>
+						<h:inputText value=""></h:inputText>
+						<h:commandButton value="Submit" action="home"></h:commandButton>
+					</h:form>
+					
+				</div>
+			</div>
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>
