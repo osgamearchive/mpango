@@ -112,7 +112,6 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
                     <webAppConfig>
-                        <contextPath>/mpango-game-web</contextPath>
                         <tempDirectory>${basedir}/target/work</tempDirectory>
                     </webAppConfig>
                 </configuration>

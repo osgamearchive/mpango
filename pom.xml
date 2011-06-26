@@ -301,10 +301,10 @@
         <profile>
             <id>web</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
-                <property>
+                <activeByDefault>true</activeByDefault>
+                <!--property>
                     <name>!jetty.webApp</name>
-                </property>
+                </property-->
             </activation>
             <properties>
                 <jetty.contextPath>/${project.artifactId}</jetty.contextPath>
