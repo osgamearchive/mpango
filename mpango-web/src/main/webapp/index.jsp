@@ -1,5 +1,5 @@
 <%@ page session="false"%>
 
 <%
-response.sendRedirect("directory/userRegistration.jsf");
+response.sendRedirect("directory/home.jsf");
 %>
