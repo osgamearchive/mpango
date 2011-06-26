@@ -76,17 +76,18 @@
 	</properties>
 	<build>
 		<plugins>
+
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
 				<configuration>
-					<scanIntervalSeconds>${jetty.scanIntervalSeconds}</scanIntervalSeconds>
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
 					<scanTargets>
 						<scanTarget>${basedir}/src/main/webapp</scanTarget>
 					</scanTargets>
                     <webAppConfig>
-					    <contextPath>${project.parent.artifactId}</contextPath>
-					    <tempDirectory>${basedir}/target/work</tempDirectory>
+                        <contextPath>/${project.parent.artifactId}</contextPath>
+                        <tempDirectory>${basedir}/target/work</tempDirectory>
                     </webAppConfig>
 				</configuration>
 			</plugin>
