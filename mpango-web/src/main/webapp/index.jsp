@@ -1,3 +1,3 @@
 <%
-    response.sendRedirect("directory/home.xhtml");
+    response.sendRedirect("directory/home.jsf");
 %>
