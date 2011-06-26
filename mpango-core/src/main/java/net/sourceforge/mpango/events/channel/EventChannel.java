@@ -16,8 +16,8 @@ public class EventChannel{
 	
 	private static EventChannel instance = new EventChannel();
 	
-	private static final String TOPIC_NAME = "java:comp/env/mpangoEvents";
-    private static final String MQ_URL = "vm://localhost?broker.persistent=false";
+	private static final String TOPIC_NAME = "${eventChannel.jndiTopicName}";
+    private static final String MQ_URL = "${eventChannel.jmsURL}";
     private static HashMap<Class<?>, ArrayList<Listener>> listenersMap = new HashMap< Class<?>, ArrayList<Listener> >();
     
     private TopicConnectionFactory connFactory = null;
@@ -30,9 +30,7 @@ public class EventChannel{
     private EventDispatcher eventDispatchTask = null;
    
     
-    private EventChannel(){
-    	
-    }
+    private EventChannel(){}
     
     public static EventChannel getInstance(){
     	return instance;

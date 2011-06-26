@@ -70,27 +70,54 @@
 			<artifactId>mpango-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>${jetty.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-client</artifactId>
+                </exclusion>
+            </exclusions>
+            <scope>runtime</scope>
+        </dependency>
 	</dependencies>
 	<properties>
 		<jetty.scanIntervalSeconds>10</jetty.scanIntervalSeconds>
 	</properties>
 	<build>
 		<plugins>
-
-			<plugin>
+            <!-- plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-				<configuration>
-                    <scanIntervalSeconds>5</scanIntervalSeconds>
-					<scanTargets>
-						<scanTarget>${basedir}/src/main/webapp</scanTarget>
-					</scanTargets>
+                <configuration>
+                    <scanIntervalSeconds>10</scanIntervalSeconds>
                     <webAppConfig>
-                        <contextPath>/${project.parent.artifactId}</contextPath>
+                        <contextPath>/mpango-game-web</contextPath>
                         <tempDirectory>${basedir}/target/work</tempDirectory>
                     </webAppConfig>
-				</configuration>
-			</plugin>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.mortbay.jetty</groupId>
+                        <artifactId>jetty</artifactId>
+                        <version>${jetty.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin -->
+
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>7.4.2.v20110526</version>
+                <configuration>
+                    <webAppConfig>
+                        <contextPath>/mpango-game-web</contextPath>
+                        <tempDirectory>${basedir}/target/work</tempDirectory>
+                    </webAppConfig>
+                </configuration>
+            </plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>

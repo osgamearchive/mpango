@@ -28,11 +28,13 @@ public class HelloService
     @PostConstruct
     public void init()
     {
+        System.out.print("initializing hello service");
     }
 
     @Listener("/service/hello")
     public void processHello(ServerSession remote, ServerMessage.Mutable message)
     {
+        System.out.println("Message received");
         Map<String, Object> input = message.getDataAsMap();
         String name = (String)input.get("name");
 
