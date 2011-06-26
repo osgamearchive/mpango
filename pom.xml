@@ -125,18 +125,28 @@
 		</mailingList>
 	</mailingLists>
 	<build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.mortbay.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>7.4.2.v20110526</version>
+                    <configuration>
+                        <scanIntervalSeconds>5</scanIntervalSeconds>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
 		<plugins>
 			<plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>7.4.2.v20110526</version>
 				<configuration>
-                    <scanIntervalSeconds>5</scanIntervalSeconds>
                     <webAppConfig>
-                        <contextPath>/${project.artifactId}</contextPath>
-                        <tempDirectory>${basedir}/mpango-web/target/work</tempDirectory>
+                        <contextPath>${jetty.contextPath}</contextPath>
+                        <tempDirectory>${jetty.tempDirectory}</tempDirectory>
                     </webAppConfig>
-					<webApp>${basedir}/mpango-web/target/mpango-web-0.0.1-SNAPSHOT/</webApp>
+					<webApp>${jetty.webApp}</webApp>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -286,5 +296,32 @@
 		<module>mpango-core</module>
 		<module>mpango-web</module>
         <module>mpango-game-web</module>
-  </modules>
+    </modules>
+    <profiles>
+        <profile>
+            <id>web</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <property>
+                    <name>!jetty.webApp</name>
+                </property>
+            </activation>
+            <properties>
+                <jetty.contextPath>/${project.artifactId}</jetty.contextPath>
+                <jetty.tempDirectory>${basedir}/mpango-web/target/temp</jetty.tempDirectory>
+                <jetty.webApp>${basedir}/mpango-web/target/mpango-web-0.0.1-SNAPSHOT/</jetty.webApp>
+            </properties>
+        </profile>
+        <profile>
+            <id>game</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <jetty.contextPath>/${project.artifactId}-game</jetty.contextPath>
+                <jetty.tempDirectory>${basedir}/mpango-game-web/target/temp</jetty.tempDirectory>
+                <jetty.webApp>${basedir}/mpango-game-web/target/mpango-game-web-0.0.1-SNAPSHOT/</jetty.webApp>
+            </properties>
+        </profile>
+    </profiles>
 </project>
