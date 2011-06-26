@@ -21,6 +21,11 @@
 		<property name="authFacade" ref="authFacade" />
 	</bean>
 
+	<bean id="invitationBackingBean"
+          class="net.sourceforge.mpango.web.directory.InvitationBackingBean"
+          scope="request">
+	</bean>
+
     <bean id="gameBackingBean"
           class="net.sourceforge.mpango.web.GameBackingBean"
           scope="session">
