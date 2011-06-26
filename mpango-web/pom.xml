@@ -112,6 +112,7 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <configuration>
                     <webAppConfig>
+                    	<contextPath>/mpango</contextPath>
                         <tempDirectory>${basedir}/target/work</tempDirectory>
                     </webAppConfig>
                 </configuration>
