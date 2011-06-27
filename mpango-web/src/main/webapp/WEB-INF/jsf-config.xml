@@ -2,25 +2,25 @@
 <!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.0//EN"
                               "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
 <faces-config>
- <!-- navigation rules for userRegistration.xhtml -->
- <navigation-rule>
-  <from-view-id>/directory/userRegistration.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>success</from-outcome>
-   <to-view-id>/directory/success.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
- <!-- navigation rules for userRegistration.xhtml -->
- <navigation-rule>
-  <from-view-id>/directory/userRegistration.xhtml</from-view-id>
-  <navigation-case>
-   <from-outcome>failure</from-outcome>
-   <to-view-id>/directory/failure.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
- 
- 
-  	<!-- navigation rules for invite.xhtml -->
+	<!-- navigation rules for userRegistration.xhtml -->
+	<navigation-rule>
+		<from-view-id>/directory/userRegistration.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/directory/success.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<!-- navigation rules for userRegistration.xhtml -->
+	<navigation-rule>
+		<from-view-id>/directory/userRegistration.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/directory/failure.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+
+	<!-- navigation rules for invite.xhtml -->
 	<navigation-rule>
 		<from-view-id>/directory/invite.xhtml</from-view-id>
 		<navigation-case>
@@ -32,19 +32,24 @@
 			<to-view-id>/directory/inviteSuccess.xhtml</to-view-id>
 		</navigation-case>
 	</navigation-rule>
- 
- <!-- navigation rules for page2.jsp -->
- <navigation-rule>
-  <navigation-case>
-   <from-outcome>back</from-outcome>
-   <to-view-id>/directory/userRegistration.xhtml</to-view-id>
-  </navigation-case>
- </navigation-rule>
- <application>
-  <variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
-  <locale-config>
-   <default-locale>en</default-locale>
-  </locale-config>
-  <message-bundle>MessageBundle</message-bundle>
- </application>
+
+	<!-- navigation rules for page2.jsp -->
+	<navigation-rule>
+		<navigation-case>
+			<from-outcome>back</from-outcome>
+			<to-view-id>/directory/userRegistration.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<application>
+		<variable-resolver>org.springframework.web.jsf.DelegatingVariableResolver</variable-resolver>
+		<locale-config>
+			<default-locale>en</default-locale>
+		</locale-config>
+
+		<resource-bundle>
+			<base-name>MessageBundle</base-name>
+			<var>msg</var>
+		</resource-bundle>
+
+	</application>
 </faces-config>
