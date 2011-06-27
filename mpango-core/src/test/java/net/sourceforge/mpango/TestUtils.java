@@ -130,4 +130,12 @@ public class TestUtils {
 		return unit;
 	}	
 	
+	public static Technology getTechnology(Long id, int cost) {
+		Technology tech = new Technology();
+		tech.setIdentifier(id);
+		tech.setTechnologyCost(cost);
+		tech.setRequiredTechnologies((List<Technology>)new ArrayList<Technology>());
+		return tech;
+	}
+	
 }
