@@ -1,5 +1,7 @@
 package net.sourceforge.mpango.web.directory;
 
+import javax.faces.bean.ManagedBean;
+
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
 import org.apache.commons.mail.SimpleEmail;
@@ -7,8 +9,10 @@ import org.apache.commons.mail.SimpleEmail;
 /**
  * Author jaywellings
  */
+@ManagedBean(name="invitationBackingBean")
 public class InvitationBackingBean 
 {
+	private String inviteEmailAddress = ""; 
 
 	//TODO: change from a Quick and dirty implementation, (Create email service, sort out a legit SMTP & domains, add some proper error handling) 
 	public Boolean sendInvitation()
@@ -22,7 +26,7 @@ public class InvitationBackingBean
 			email.setAuthenticator(new DefaultAuthenticator("", ""));
 			email.setTLS(false);
 			email.setFrom("invite@mpango.com");
-			email.setSubject("Invite to the world of mpango");
+			email.setSubject("Invite to the world of mpango for " + this.getInviteEmailAddress());
 			email.setMsg("This is a test mail ... :-)");
 			
 			//hardcoded as per the comment above
@@ -40,6 +44,14 @@ public class InvitationBackingBean
 		}
 
 		
+	}
+
+	public void setInviteEmailAddress(String inviteEmailAddress) {
+		this.inviteEmailAddress = inviteEmailAddress;
+	}
+
+	public String getInviteEmailAddress() {
+		return inviteEmailAddress;
 	}
 	
 }

@@ -10,7 +10,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 
 		<ui:define name="menu">
 			<ul>
-				<li><a href="home.jsf">Home</a></li>
+				<li><a href="home.jsf">eeeesHome</a></li>
 				<li><a href="play.jsf">Play</a></li>
 				<li><a href="wiki.jsf">Game Wiki</a></li>
 				<li><a href="help.jsf">Help</a></li>
@@ -23,10 +23,9 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 			<div id="normalcontent">
 				<h3>Invite Friends</h3>
 				<div class="contentarea">
-				
-					<h:form>
+					<h:form id="inviteform">
 						<h:outputText value="Email "/>
-						<h:inputText value=""></h:inputText>
+						<h:inputText id="inviteEmail" value="#{invitationBackingBean.inviteEmailAddress}"></h:inputText>
 						<h:commandButton value="Submit" action="#{invitationBackingBean.sendInvitation}"></h:commandButton>
 					</h:form>
 					
