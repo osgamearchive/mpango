@@ -33,6 +33,19 @@
 		</navigation-case>
 	</navigation-rule>
 
+	<!-- navigation rules for recover.xhtml -->
+	<navigation-rule>
+		<from-view-id>/directory/recover.xhtml</from-view-id>
+		<navigation-case>
+			<from-outcome>false</from-outcome>
+			<to-view-id>/directory/recover.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>true</from-outcome>
+			<to-view-id>recover.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
 	<!-- navigation rules for page2.jsp -->
 	<navigation-rule>
 		<navigation-case>
