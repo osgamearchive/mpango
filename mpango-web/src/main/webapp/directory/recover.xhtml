@@ -21,14 +21,14 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 		
 		<ui:define name="content">
 			<div id="normalcontent">
-				<h3>Identify Your Account</h3>
+				<h3>Forgot your password?</h3>
+				<p>Enter your email to reset your password.</p>
 				<div class="contentarea">
-				
 					<h:form>
 						<h:outputText value="Email "/>
-						<h:inputText value=""></h:inputText>
+						<h:inputText value="#{resetPasswordBackingBean.email}" size="30" required="true"></h:inputText>
+						<h:commandButton value="Submit" action="#{resetPasswordBackingBean.sendMessage}"></h:commandButton>
 					</h:form>
-					
 				</div>
 			</div>
 		</ui:define>
