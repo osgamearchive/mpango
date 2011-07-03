@@ -93,6 +93,11 @@
 			<artifactId>spring-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-core</artifactId>
+			<version>5.2.0</version>
+		</dependency>
 	</dependencies>
 	
 	<build>
@@ -104,6 +109,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.activemq.tooling</groupId>
+				<artifactId>maven-activemq-plugin</artifactId>
+				<version>5.2.0</version>
 			</plugin>
 		</plugins>
 	</build>
