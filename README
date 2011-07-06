@@ -9,3 +9,6 @@ mvn jetty:run-exploded
 Then, you can access the web application by entering the following URL on the browser:
 
 http://localhost:8080/mpango
+
+In order to run an ActiveMQ broker from maven
+mvn activemq:run
