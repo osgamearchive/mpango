@@ -173,6 +173,11 @@
                 <artifactId>activemq-web</artifactId>
                 <version>${activemq.version}</version>
             </dependency>
+			<dependency>
+				<groupId>org.apache.activemq</groupId>
+				<artifactId>activemq-core</artifactId>
+				<version>5.2.0</version>
+			</dependency>            
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-orm</artifactId>
@@ -540,6 +545,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changelog-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.activemq.tooling</groupId>
+				<artifactId>maven-activemq-plugin</artifactId>
+				<version>5.2.0</version>
+			</plugin>			
 		</plugins>
 		<extensions>
 			<extension>
