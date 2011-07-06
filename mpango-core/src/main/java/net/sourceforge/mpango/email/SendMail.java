@@ -19,8 +19,8 @@ import javax.mail.internet.MimeMessage;
  */
 public class SendMail implements Serializable {
 	
-	private static final String username = ""; // gmail account username
-	private static final String password = ""; // gmail account password
+	private static final String username = "mpango.users"; // gmail account username
+	private static final String password = "mpango12345"; // gmail account password
 
 	private String sender;
 	private String recipient;
