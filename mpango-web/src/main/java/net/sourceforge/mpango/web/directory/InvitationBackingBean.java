@@ -1,57 +1,73 @@
 package net.sourceforge.mpango.web.directory;
 
 import javax.faces.bean.ManagedBean;
-
-import org.apache.commons.mail.DefaultAuthenticator;
-import org.apache.commons.mail.Email;
-import org.apache.commons.mail.SimpleEmail;
+import net.sourceforge.mpango.email.SendMail;
 
 /**
  * Author jaywellings
  */
+
 @ManagedBean(name="invitationBackingBean")
 public class InvitationBackingBean 
 {
 	private String inviteEmailAddress = ""; 
+	private String inviteName = ""; 
+	private boolean isEmailSent = false;
 
-	//TODO: change from a Quick and dirty implementation, (Create email service, sort out a legit SMTP & domains, add some proper error handling) 
-	public Boolean sendInvitation()
+	public String sendInvitation()
 	{
-		try
+		try 
 		{
-			Email email = new SimpleEmail();
-			//This is not a proper solution as this SMTP will only send too @mailinator.com domains. (or so says the interwebs) will work as a POC however. 
-			email.setHostName("smtp.mailinator.com");
-			email.setSmtpPort(25);
-			email.setAuthenticator(new DefaultAuthenticator("", ""));
-			email.setTLS(false);
-			email.setFrom("invite@mpango.com");
-			email.setSubject("Invite to the world of mpango for " + this.getInviteEmailAddress());
-			email.setMsg("This is a test mail ... :-)");
+			String sender = "mpango@gmail.com";
+			String recipients = this.inviteEmailAddress;
+			String subject = "mPango invite";
+			String content = "<p>Hi there,</p><p>You have just been invited to the MMORPG mpango by " + this.inviteName + "!.</p>";
 			
-			//hardcoded as per the comment above
-			//TODO: pass the value from the input box to this
-			email.addTo("mpango@mailinator.com");
-			email.send();
+			SendMail sendMail = new SendMail(sender, recipients, subject, content);
+			sendMail.send();
+			this.setIsEmailSent(true);
 			
-			return true;
-		}
-		catch(Exception e)
+		} 
+		catch (Exception e) 
 		{
-			String bob = "dd";
-			return false;
-			
+			e.printStackTrace();
+			this.setIsEmailSent(false);
 		}
-
 		
+		return this.showSendStatus();
 	}
 
-	public void setInviteEmailAddress(String inviteEmailAddress) {
+	public String showSendStatus() 
+	{
+		return "inviteSendMessage";
+	}
+	
+	public void setInviteEmailAddress(String inviteEmailAddress) 
+	{
 		this.inviteEmailAddress = inviteEmailAddress;
 	}
 
-	public String getInviteEmailAddress() {
+	public String getInviteEmailAddress() 
+	{
 		return inviteEmailAddress;
+	}
+
+	public void setIsEmailSent(boolean isEmailSent) 
+	{
+		this.isEmailSent = isEmailSent;
+	}
+
+	public boolean getIsEmailSent() 
+	{
+		return isEmailSent;
+	}
+
+	public void setInviteName(String inviteName) {
+		this.inviteName = inviteName;
+	}
+
+	public String getInviteName() {
+		return inviteName;
 	}
 	
 }

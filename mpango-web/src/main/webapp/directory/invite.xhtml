@@ -3,7 +3,9 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:h="http://java.sun.com/jsf/html"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:p="http://primefaces.prime.com.tr/ui"
+xmlns:c="http://java.sun.com/jsf/core">
 <h:body>
 
 	<ui:composition template="../templates/masterLayout.xhtml">
@@ -24,9 +26,20 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 				<h3>Invite Friends</h3>
 				<div class="contentarea">
 					<h:form id="inviteform">
-						<h:outputText value="Email "/>
-						<h:inputText id="inviteEmail" value="#{invitationBackingBean.inviteEmailAddress}"></h:inputText>
+					<p:messages showdetail="true"/>
+					<p>
+						<h:outputLabel id="nameLabel" for="inviteName" value="Your name: " />
+						<h:inputText id="inviteName" value="#{invitationBackingBean.inviteName}" required="true"></h:inputText>
+					</p>
+					<p>
+						<h:outputLabel id="emailabel" for="emailInput" value="Invite email address: " />
+						<h:inputText id="emailInput" name="emailInput" value="#{invitationBackingBean.inviteEmailAddress}" required="true">
+							<c:validateRegex pattern=".+@.+\.[a-z]+"/> 
+						</h:inputText>
+					</p>
+					<p>	
 						<h:commandButton value="Submit" action="#{invitationBackingBean.sendInvitation}"></h:commandButton>
+					</p>
 					</h:form>
 					
 				</div>

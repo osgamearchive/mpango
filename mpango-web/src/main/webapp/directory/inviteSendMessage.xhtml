@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core">
+<h:body>
+
+	<ui:composition template="../templates/masterLayout.xhtml">
+
+		<ui:define name="menu">
+			<ul>
+				<li><a href="home.jsf">eeeesHome</a></li>
+				<li><a href="play.jsf">Play</a></li>
+				<li><a href="wiki.jsf">Game Wiki</a></li>
+				<li><a href="help.jsf">Help</a></li>
+				<li><a href="account.jsf">My Account</a></li>
+				<li><a href="invite.jsf" class="active">Invite Friends</a></li>
+			</ul>
+		</ui:define>
+		
+		<ui:define name="content">
+		
+		<c:choose>
+			<c:when test="${invitationBackingBean.isEmailSent}">
+				<p>Your Invite to has been sent to #{invitationBackingBean.inviteEmailAddress}.</p>
+			</c:when>
+			<c:otherwise>
+		  		<p>Your Invite to  has not been sent please try again.</p>
+		  	</c:otherwise>
+		</c:choose>
+		
+		</ui:define>
+
+	</ui:composition>
+</h:body>
+</html>
