@@ -30,6 +30,17 @@ public class UserDAOHibernate implements UserDAO {
 		}
 		return user;
 	}
+	
+	public User lookUpByResetKey(String resetKey) {
+		User user = null;
+		@SuppressWarnings("unchecked")
+		List<User> results = (List<User>) getHibernateTemplate().find(
+				"from User where resetkey= ?", resetKey);
+		if ((results != null) && (results.size() > 0)) {
+			user = (User) results.get(0);
+		}
+		return user;
+	}
 
 	public User save(User user) {
 		Long userId = (Long) getHibernateTemplate().save(user);
