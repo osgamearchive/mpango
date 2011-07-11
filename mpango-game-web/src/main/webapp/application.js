@@ -50,12 +50,14 @@
             {
                 cometd.batch(function()
                 {
-                    cometd.subscribe('/game', function(message)
+                    cometd.subscribe('/gameBoard', function(message)
                     {
                         $('#body').append('<div>Server Says: ' + message.data.greeting + '</div>');
+                        $('#body').append('<div id="'+message.data.event.name+'">Event name: '+
+                        message.data.event.name+'. Event date: '+message.data.event.date+'</div>');
                     });
                     // Publish on a service channel since the message is for the server only
-                    cometd.publish('/service/game', { name: 'Hell' });
+                    cometd.publish('/service/gameBoard', { event: 'JOIN', username: 'eduardo' });
                 });
             }
         }

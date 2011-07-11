@@ -1,5 +1,6 @@
 package net.sourceforge.mpango.web.game;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +41,8 @@ public class HelloService
 
         Map<String, Object> output = new HashMap<String, Object>();
         output.put("greeting", "Hello, " + name);
+        WebEvent event = new WebEvent("Test event", new Date());
+        output.put("event", event);
         remote.deliver(serverSession, "/hello", output, null);
     }
 }
