@@ -21,6 +21,7 @@ public class UserDTO extends BaseDTO {
 	private String firstname;
 	private String surname;
 	private String password;
+	private String resetKey;
 	private Date dateOfBirth;
 	private String gender;
 	private StateEnum state;
@@ -68,6 +69,20 @@ public class UserDTO extends BaseDTO {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	/**
+	 * @return
+	 */
+	public String getResetKey() {
+		return resetKey;
+	}
+
+	/**
+	 * @param resetKey
+	 */
+	public void setResetKey(String resetKey) {
+		this.resetKey = resetKey;
+	}	
 
 	/**
 	 * @return
