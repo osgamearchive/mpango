@@ -74,6 +74,7 @@
         <dependency>
         	<groupId>org.cometd.javascript</groupId>
         	<artifactId>cometd-javascript-jquery</artifactId>
+            <type>war</type>
         </dependency>
     </dependencies>
 
