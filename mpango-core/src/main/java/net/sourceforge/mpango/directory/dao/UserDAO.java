@@ -14,7 +14,9 @@ import net.sourceforge.mpango.entity.Player;
 public interface UserDAO {
 
 	public User load(String email);
-
+	
+	public User lookUpByResetKey(String resetKey);
+	
 	public User save(User user);
 
 	public void update(User user);
