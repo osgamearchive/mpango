@@ -33,11 +33,12 @@ import org.hibernate.annotations.CascadeType;
 @Entity(name = "User")
 @Table(name = "USERS")
 public class User {
-
+	
 	private Long identifier;
 	private String email;
 	private String username;
 	private String password;
+	private String resetKey;
 	private Date dateOfBirth;
 	private String gender;
 	private String nonceToken;
@@ -73,6 +74,21 @@ public class User {
 	 */
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	/**
+	 * @return
+	 */
+	@Column(name = "RESETKEY", nullable = true)
+	public String getResetKey() {
+		return resetKey;
+	}
+
+	/**
+	 * @param key for changing password
+	 */
+	public void setResetKey(String resetKey) {
+		this.resetKey = resetKey;
 	}
 
 	/**
