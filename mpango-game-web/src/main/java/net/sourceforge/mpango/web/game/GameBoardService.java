@@ -2,9 +2,11 @@ package net.sourceforge.mpango.web.game;
 
 import com.sun.corba.se.spi.servicecontext.SendingContextServiceContext;
 import net.sf.json.JSONObject;
+import net.sourceforge.mpango.builder.GameBoardBuilder;
 import net.sourceforge.mpango.dto.CellDTO;
 import net.sourceforge.mpango.dto.GameBoardDTO;
 import net.sourceforge.mpango.entity.Cell;
+import net.sourceforge.mpango.entity.GameBoard;
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
@@ -38,20 +40,8 @@ public class GameBoardService {
     private ServerSession serverSession;
 
     public GameBoardService() {
-        gameBoardDTO = new GameBoardDTO();
-        gameBoardDTO.setColSize(10);
-        gameBoardDTO.setRowSize(10);
-        gameBoardDTO.setCells(new CellDTO[10][10]);
-        CellDTO cell = null;
-        for (int i = 0; i<10; i++) {
-            for (int j=0; j<10; j++) {
-                cell = new CellDTO();
-                cell.setColumn(i);
-                cell.setRow(j);
-                gameBoardDTO.getCells()[i][j] = new CellDTO();
-            }
-        }
-
+        GameBoard board = new GameBoard(10,10);
+        gameBoardDTO = GameBoardBuilder.instance().build(board);
     }
 
     @PostConstruct

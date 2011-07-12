@@ -1,15 +1,19 @@
 package net.sourceforge.mpango.entity;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.*;
 
+import net.sourceforge.mpango.enums.Resources;
 import net.sourceforge.mpango.events.Event;
 import net.sourceforge.mpango.events.Listener;
 import net.sourceforge.mpango.events.TurnEvent;
 import net.sourceforge.mpango.exception.EventNotSupportedException;
 
+import org.apache.commons.lang.math.RandomUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -72,6 +76,10 @@ public class GameBoard extends AbstractPersistable {
 		for (int row=0; row<rowNumber; row++) {
 			for (int col=0; col<colNumber; col++) {
                 Cell cell = new Cell(row, col);
+                cell.setAttackBonus(RandomUtils.nextFloat());
+                cell.setDefenseBonus(RandomUtils.nextFloat());
+                cell.setResources(new HashSet<Resources>());
+                cell.setConstructions(new ArrayList<Construction>());
                 this.cells.add(cell);
 				this.arrayOfcells[row][col] = cell;
 			}
