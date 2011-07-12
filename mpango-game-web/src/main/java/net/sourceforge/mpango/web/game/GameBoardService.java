@@ -39,6 +39,8 @@ public class GameBoardService {
 
     public GameBoardService() {
         gameBoardDTO = new GameBoardDTO();
+        gameBoardDTO.setColSize(10);
+        gameBoardDTO.setRowSize(10);
         gameBoardDTO.setCells(new CellDTO[10][10]);
         CellDTO cell = null;
         for (int i = 0; i<10; i++) {
