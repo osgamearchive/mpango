@@ -28,28 +28,27 @@ import org.apache.activemq.ActiveMQConnectionFactory;
  */
 public class ActiveMQ {
 
-	private static ActiveMQConnectionFactory connectionFactory;
-	private static Connection connection;
-	private static Session session;
-	private static Destination destination;
-	private static boolean transacted = false;
+	private ActiveMQConnectionFactory connectionFactory;
+	private Connection connection;
+	private Session session;
+	private Destination destination;
+	private boolean transacted = false;
 
-	public static void main(String[] args) throws Exception {
-		setUp("TestQueue");
-		TextMessage message = session.createTextMessage("This is a test....");
-		createProducerAndSendAMessage(message);
-		createConsumerAndReceiveAMessage();
+	public ActiveMQ() {
+		
 	}
 	
-	public static void setUp(String queueName) throws JMSException {
+	public Session setUp(String queueName) throws JMSException {
 		connectionFactory = new ActiveMQConnectionFactory(ActiveMQConnection.DEFAULT_USER, ActiveMQConnection.DEFAULT_PASSWORD, ActiveMQConnection.DEFAULT_BROKER_URL);
 		connection = connectionFactory.createConnection();
 		connection.start();
 		session = connection.createSession(transacted, Session.AUTO_ACKNOWLEDGE);
 		destination = session.createQueue(queueName);
+		
+		return session;
 	}
 
-	public static void createProducerAndSendAMessage(Message message) throws JMSException {
+	public void createProducerAndSendAMessage(Message message) throws JMSException {
 		MessageProducer producer = session.createProducer(destination);
 		producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 		
@@ -70,13 +69,13 @@ public class ActiveMQ {
 		producer.send(message);
 	}
 	
-	public static void createConsumerAndReceiveAMessage() throws JMSException {
+	public void createConsumerAndReceiveAMessage() throws JMSException {
 		MessageConsumer consumer = session.createConsumer(destination);
 		MessageListenerImpl messageListenerImpl = new MessageListenerImpl();
 		consumer.setMessageListener(messageListenerImpl);
 	}
 
-	private static class MessageListenerImpl implements MessageListener {
+	private class MessageListenerImpl implements MessageListener {
 
 		public void onMessage(Message message) {
 			
@@ -109,9 +108,5 @@ public class ActiveMQ {
 				}
 			}
 		}
-	}
-	
-	public static Session getSession() {
-		return session;
 	}
 }
