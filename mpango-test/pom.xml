@@ -9,5 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>mpango-test</artifactId>
+    <dependencies>
+    	<dependency>
+    		<groupId>net.sourceforge.mpango</groupId>
+    		<artifactId>mpango-core</artifactId>
+    		<version>0.0.1-SNAPSHOT</version>
+    		<type>jar</type>
+    		<scope>compile</scope>
+    	</dependency>
+    </dependencies>
 
 </project>

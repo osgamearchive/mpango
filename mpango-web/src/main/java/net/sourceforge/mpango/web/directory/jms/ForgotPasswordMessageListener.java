@@ -11,6 +11,7 @@ import net.sourceforge.mpango.directory.service.IAuthenticationService;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 
@@ -26,8 +27,8 @@ public class ForgotPasswordMessageListener implements MessageListener, Applicati
 	private IAuthenticationService authenticationService;
 
 	public void onMessage(Message message) {
+		System.out.println("Received message");
         if (message instanceof TextMessage) {
-            System.out.println("Received message "+message);
             TextMessage textMessage = (TextMessage) message;
             try {
                 SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -45,9 +46,13 @@ public class ForgotPasswordMessageListener implements MessageListener, Applicati
 				System.out.println("Email sent");
 			} catch (JMSException e) {
 				e.printStackTrace();
+			} catch(RuntimeException re) {
+				re.printStackTrace();
+				throw re;
 			}
             
         } else {
+        	System.out.println("Another type of message:"+message);
             throw new IllegalArgumentException("The message expected must be a TextMessage instance");
         }
     }

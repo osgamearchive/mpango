@@ -1,10 +1,7 @@
 package net.sourceforge.mpango.web;
 
 import net.sourceforge.mpango.directory.dto.UserDTO;
-import net.sourceforge.mpango.facade.GameFacadeImpl;
 import net.sourceforge.mpango.facade.IGameFacade;
-
-import java.util.jar.Attributes;
 
 /**
  * Created by IntelliJ IDEA.

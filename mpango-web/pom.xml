@@ -2,16 +2,14 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>mpango</artifactId>
 		<groupId>net.sourceforge.mpango</groupId>
+		<artifactId>mpango</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<groupId>net.sourceforge.mpango</groupId>
 	<artifactId>mpango-web</artifactId>
-	<version>${project.parent.version}</version>
 	<packaging>war</packaging>
 	<name>mPango : Web</name>
-	<description>mPango game web user interface.</description>
+	<description>mPango Administration Web Application.</description>
 	<repositories>
 		<repository>
 			<id>prime-repo</id>
@@ -72,9 +70,26 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-email</artifactId>
         </dependency>
+        <dependency>
+        	<groupId>net.sourceforge.mpango</groupId>
+        	<artifactId>mpango-common</artifactId>
+        </dependency>
 	</dependencies>
 	<build>
 		<plugins>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>aspectj-maven-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<aspectLibraries> -->
+<!-- 						<aspectLibrary>	 -->
+<!-- 							<groupId>net.sourceforge.mpango</groupId> -->
+<!-- 							<artifactId>mpango-common</artifactId> -->
+<!-- 						</aspectLibrary> -->
+<!-- 					</aspectLibraries> -->
+<!-- 					<verbose>true</verbose> -->
+<!-- 				</configuration> -->
+<!-- 			</plugin> -->
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
@@ -105,4 +120,25 @@
 			</plugin>
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<mail.smtp.hostname>smtp.gmail.com</mail.smtp.hostname>
+				<mail.smtp.socketFactory.class>javax.net.ssl.SSLSocketFactory</mail.smtp.socketFactory.class>
+				<mail.smtp.socketFactory.port>465</mail.smtp.socketFactory.port>
+				<mail.smtp.auth>true</mail.smtp.auth>
+				<mail.smtp.port>465</mail.smtp.port>
+				<mail.mpango>mpango.users@gmail.com</mail.mpango>
+				<mail.debug>true</mail.debug>
+				
+				<jetty.contextPath>/${project.artifactId}</jetty.contextPath>
+				<jetty.tempDirectory>${basedir}/target/temp</jetty.tempDirectory>
+				<jetty.webApp>${basedir}/target/mpango-web-0.0.1-SNAPSHOT/</jetty.webApp>
+			</properties>
+		</profile>
+	</profiles>
 </project>

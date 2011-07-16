@@ -32,7 +32,7 @@ public class ResetPasswordBackingBean {
 	public String sendMessage() {
         String result;
         if ((email != null) && (authenticationFacade.load(email) != null)) {
-        	System.out.println("Sending message to queue");
+        	System.out.println("Sending message to queue: "+queueName);
         	Locale locale = getFacesContext().getViewRoot().getLocale();
             jmsTemplate.send(queueName, new ForgotPasswordMessageCreator(email, url, locale.toString()));
             result = RESULT_EMAIL_SENT;

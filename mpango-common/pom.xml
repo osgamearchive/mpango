@@ -19,6 +19,7 @@
 			<artifactId>aspectjrt</artifactId>
 			<scope>compile</scope>
 		</dependency>
+		<!-- Log4J Libraries -->
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>

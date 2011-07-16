@@ -78,7 +78,7 @@ public class AuthenticationServiceTest extends BaseSpringTest {
 		authService.setUserDAO(userDAO);
 		EasyMock.expect(userDAO.load(email)).andReturn(user);
 		user.setResetKey(EasyMock.isA(String.class));
-		EasyMock.expect(userDAO.save(user)).andReturn(user);
+		userDAO.update(user);
 		EasyMock.replay(userDAO);
 		String resetKey = authService.generateResetKey(email);
 		EasyMock.verify(userDAO);

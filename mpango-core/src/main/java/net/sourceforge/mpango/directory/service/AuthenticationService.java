@@ -101,7 +101,7 @@ public class AuthenticationService implements IAuthenticationService {
 		String resetKey = String.valueOf(UUID.randomUUID());
 		User user = getUserDAO().load(email);
 		user.setResetKey(resetKey);
-		getUserDAO().save(user);
+		getUserDAO().update(user);
 		return resetKey;
 	}
 

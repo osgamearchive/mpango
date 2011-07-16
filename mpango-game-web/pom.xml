@@ -32,12 +32,6 @@
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <configuration>
-                    <webAppConfig>
-                        <contextPath>/mpango-game-web</contextPath>
-                        <tempDirectory>${basedir}/target/work</tempDirectory>
-                    </webAppConfig>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -99,4 +93,17 @@
 		</dependency>
     </dependencies>
 
+	<profiles>
+		<profile>
+			<id>development</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<jetty.contextPath>/${project.artifactId}</jetty.contextPath>
+				<jetty.tempDirectory>${basedir}/target/temp</jetty.tempDirectory>
+				<jetty.webApp>${basedir}/target/${project.artifactId}-${project.version}/</jetty.webApp>
+			</properties>
+		</profile>
+	</profiles>
 </project>

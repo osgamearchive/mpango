@@ -39,6 +39,7 @@ public class ForgotPasswordMessageCreator implements MessageCreator {
      * @throws JMSException In case there was an error creating the message.
      */
     public Message createMessage(Session session) throws JMSException {
+    	System.out.println("Creating message");
         TextMessage message = session.createTextMessage();
         message.setStringProperty(JMS_STRING_PROPERTY_RECIPIENTS, recipient);
         message.setStringProperty(JMS_STRING_PROPERTY_LOCALE, locale);

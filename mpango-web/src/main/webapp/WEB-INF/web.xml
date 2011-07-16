@@ -3,6 +3,8 @@
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd " id="WebApp_ID">
 	<description>mPango web application.</description>
+	<display-name>mpango</display-name>
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -19,7 +21,6 @@
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
-	<display-name>mpango</display-name>
 	
 	<!-- JMS  connection factory ref -->
 	<resource-ref>

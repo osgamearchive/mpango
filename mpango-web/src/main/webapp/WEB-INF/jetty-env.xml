@@ -32,13 +32,17 @@
 			<New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
 		    	<Set name="properties">
 					<New class="java.util.Properties">
-						<Put name="mail.smtp.host">${mail.host}</Put>
-						<Put name="mail.from">${mail.from}</Put>
+						<Put name="mail.smtp.host">${mail.smtp.hostname}</Put>
+						<Put name="mail.smtp.socketFactory.port">${mail.smtp.socketFactory.port}</Put>
+						<Put name="mail.smtp.socketFactory.class">${mail.smtp.socketFactory.class}</Put>
+						<Put name="mail.smtp.auth">${mail.smtp.auth}</Put>
+						<Put name="mail.smtp.port">${mail.smtp.port}</Put>
+						<Put name="mail.from">${mail.mpango}</Put>
 						<Put name="mail.debug">${mail.debug}</Put>
 					</New>
 				</Set>
-				<!-- Set name="user">${mail.username}</Set>
-				<Set name="password">${mail.password}</Set -->
+				<Set name="user">${mail.smtp.username}</Set>
+				<Set name="password">${mail.smtp.password}</Set>
 		  </New>
 		</Arg>
 	</New>
