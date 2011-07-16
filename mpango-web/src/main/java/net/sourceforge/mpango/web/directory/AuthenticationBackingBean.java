@@ -6,7 +6,6 @@ import java.util.List;
 import javax.faces.model.SelectItem;
 
 import net.sourceforge.mpango.directory.dto.UserDTO;
-import net.sourceforge.mpango.directory.facade.AuthenticationFacade;
 import net.sourceforge.mpango.directory.facade.IAuthenticationFacade;
 
 /**
@@ -14,7 +13,7 @@ import net.sourceforge.mpango.directory.facade.IAuthenticationFacade;
  */
 public class AuthenticationBackingBean {
 
-	private IAuthenticationFacade authFacade = new AuthenticationFacade();
+	private IAuthenticationFacade authFacade;
 
 	private UserDTO user = new UserDTO();
 	private List<UserDTO> users;

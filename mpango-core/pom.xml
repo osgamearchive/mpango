@@ -40,12 +40,6 @@
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
 		</dependency>
-        <!-- Aspect J Libraries -->
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<scope>compile</scope>
-		</dependency>
         <!-- Active MQ Dependency -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>

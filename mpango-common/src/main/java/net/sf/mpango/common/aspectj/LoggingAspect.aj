@@ -1,4 +1,4 @@
-package net.sourceforge.mpango.aspectj;
+package net.sf.mpango.common.aspectj;
 
 import org.apache.log4j.Logger;
 import org.aspectj.lang.Signature;

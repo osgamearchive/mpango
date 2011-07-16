@@ -1,24 +1,63 @@
 package net.sourceforge.mpango.web.directory;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.jms.JMSException;
-import javax.jms.ObjectMessage;
-import javax.jms.Session;
+import net.sourceforge.mpango.directory.facade.IAuthenticationFacade;
 
-import net.sourceforge.mpango.directory.dto.UserDTO;
-import net.sourceforge.mpango.email.SendMail;
-import net.sourceforge.mpango.jms.ActiveMQ;
+import org.springframework.jms.core.JmsTemplate;
 
-@ManagedBean
-@RequestScoped
+import net.sourceforge.mpango.web.directory.jms.ForgotPasswordMessageCreator;
+
 public class ResetPasswordBackingBean {
 
+    /** Result for the sending of the new password */
+    protected static final String RESULT_EMAIL_SENT = "email_sent";
+    /** Result for user not found when trying to recover the password */
+    protected static final String RESULT_USER_NOT_FOUND = "user_not_found";
+
+    private JmsTemplate jmsTemplate;
+    private IAuthenticationFacade authenticationFacade;
+
 	private String email;
-	private String newPassword;
-	private String retypePassword;
-	private boolean passwordChangedFlag = false;
-	
+    private String queueName;
+    private String url;
+
+    /**
+     * Method that sends the JMS message to the back end in order to send the email message for recovering the password.
+     * @return String Outcome of the situation (email_sent = The email has been sent correctly, user_not_found = No user with that email found).
+     */
+	public String sendMessage() {
+        String result;
+        if ((email != null) && (authenticationFacade.load(email) != null)) {
+        	System.out.println("Sending message to queue");
+            jmsTemplate.send(queueName, new ForgotPasswordMessageCreator(email, url));
+            result = RESULT_EMAIL_SENT;
+        } else {
+        	System.out.println("User not found");
+            result = RESULT_USER_NOT_FOUND;
+
+        }
+        return result;
+	}
+
+    public void setJmsTemplate(JmsTemplate jmsTemplate) {
+        this.jmsTemplate = jmsTemplate;
+    }
+
+    public IAuthenticationFacade getAuthenticationFacade() {
+        return authenticationFacade;
+    }
+
+    public void setAuthenticationFacade(IAuthenticationFacade authenticationFacade) {
+        this.authenticationFacade = authenticationFacade;
+    }
+
+    public String getQueueName() {
+        return queueName;
+    }
+
+    public void setQueueName(String queueName) {
+        this.queueName = queueName;
+    }
+
 	public String getEmail() {
 		return email;
 	}
@@ -26,67 +65,12 @@ public class ResetPasswordBackingBean {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getNewPassword() {
-		return newPassword;
-	}
 
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
+    public String getUrl() {
+        return this.url;
+    }
 
-	public String getRetypePassword() {
-		return retypePassword;
-	}
-
-	public void setRetypePassword(String retypePassword) {
-		this.retypePassword = retypePassword;
-	}
-	
-	public boolean isPasswordChangedFlag() {
-		return passwordChangedFlag;
-	}
-
-	public void setPasswordChangedFlag(boolean passwordChangedFlag) {
-		this.passwordChangedFlag = passwordChangedFlag;
-	}
-
-	public void sendMessage() {
-
-		try {
-			String sender = "mpango@gmail.com";
-			String recipients = email;
-			String subject = "mPango password reset confirmation";
-			String content = "<p>Hi there,</P>" +
-					"<p>There was recently a request to change the password on your account.</P>" +
-					"<p>If you requested this password change, please set a new password by following the link below:</P>" +
-					"<a href='http://localhost:8080/mpango-web/directory/changePassword.jsf?reset_key=123'>http://localhost:8080/mpango-web/directory/recover.jsf</a>" +
-					"<p>If you don't want to change your password, just ignore this message.</P>" +
-					"<p>Thanks</p>";
-			SendMail sendMail = new SendMail(sender, recipients, subject, content);
-			
-			ActiveMQ.setUp("TestQueue");
-			Session session = ActiveMQ.getSession();
-			ObjectMessage message = session.createObjectMessage();
-			message.setObject(sendMail);
-			ActiveMQ.createProducerAndSendAMessage(message);
-			ActiveMQ.createConsumerAndReceiveAMessage();
-		} catch (JMSException e) {
-			e.printStackTrace();
-		} 
-	}
-	
-	public void changePassword() {
-		UserDTO user = new UserDTO();
-		
-		if (newPassword.equalsIgnoreCase(retypePassword)) {
-			user.setPassword(newPassword);
-			passwordChangedFlag = true;
-		}
-	}
-	
-	public static void main(String[] args) {
-		ResetPasswordBackingBean resetPasswordBackingBean = new ResetPasswordBackingBean();
-		resetPasswordBackingBean.sendMessage();
-	}
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }
