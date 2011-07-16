@@ -2,11 +2,11 @@ package net.sourceforge.mpango.directory.factory;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-import net.sourceforge.mpango.TestUtils;
 import net.sourceforge.mpango.dto.CellDTO;
 import net.sourceforge.mpango.dto.GameBoardDTO;
 import net.sourceforge.mpango.entity.Cell;
 import net.sourceforge.mpango.entity.GameBoard;
+import net.sourceforge.mpango.TestUtils;
 
 import org.junit.Test;
 

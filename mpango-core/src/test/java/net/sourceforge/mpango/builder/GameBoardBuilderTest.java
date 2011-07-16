@@ -3,12 +3,11 @@ package net.sourceforge.mpango.builder;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import net.sourceforge.mpango.TestUtils;
 import net.sourceforge.mpango.dto.GameBoardDTO;
 import net.sourceforge.mpango.entity.GameBoard;
+import net.sourceforge.mpango.TestUtils;
 
 import org.junit.Test;
 

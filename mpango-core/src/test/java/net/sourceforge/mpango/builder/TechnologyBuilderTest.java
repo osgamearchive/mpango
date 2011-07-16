@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sourceforge.mpango.TestUtils;
 import net.sourceforge.mpango.dto.TechnologyDTO;
 import net.sourceforge.mpango.entity.Technology;
+import net.sourceforge.mpango.TestUtils;
 
 import org.junit.Test;
 

@@ -5,14 +5,13 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sourceforge.mpango.TestUtils;
 import net.sourceforge.mpango.builder.PlayerBuilder;
 import net.sourceforge.mpango.directory.entity.User;
 import net.sourceforge.mpango.dto.PlayerDTO;
 import net.sourceforge.mpango.entity.Player;
 import net.sourceforge.mpango.entity.Position;
-import net.sourceforge.mpango.entity.TestUnit;
 import net.sourceforge.mpango.entity.Unit;
+import net.sourceforge.mpango.TestUtils;
 
 import org.junit.Test;
 

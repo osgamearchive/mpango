@@ -57,4 +57,10 @@ public interface IAuthenticationService {
 	 * @param player
 	 */
 	public void delete(Player player);
+	
+	/**
+	 * Method that generates a reset key for the user in order to reset the forgotten password.
+	 * @param email
+	 */
+	public String generateResetKey(String email);
 }

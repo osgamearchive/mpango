@@ -3,6 +3,7 @@ package net.sourceforge.mpango.directory.service;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.List;
+import java.util.UUID;
 
 import net.sourceforge.mpango.directory.dao.UserDAO;
 import net.sourceforge.mpango.directory.entity.User;
@@ -93,6 +94,15 @@ public class AuthenticationService implements IAuthenticationService {
 		player.setState(StateEnum.DELETED);
 		userDAO.save(player);
 
+	}
+
+	@Override
+	public String generateResetKey(String email) {
+		String resetKey = String.valueOf(UUID.randomUUID());
+		User user = getUserDAO().load(email);
+		user.setResetKey(resetKey);
+		getUserDAO().save(user);
+		return resetKey;
 	}
 
 }

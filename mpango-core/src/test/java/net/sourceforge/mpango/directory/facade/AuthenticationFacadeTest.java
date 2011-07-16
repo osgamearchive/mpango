@@ -6,11 +6,11 @@ package net.sourceforge.mpango.directory.facade;
 import java.util.Calendar;
 
 import net.sourceforge.mpango.BaseSpringTest;
-import net.sourceforge.mpango.TestUtils;
 import net.sourceforge.mpango.directory.dto.UserDTO;
 import net.sourceforge.mpango.dto.PlayerDTO;
 import net.sourceforge.mpango.enums.StateEnum;
 import net.sourceforge.mpango.exception.PlayerAlreadyExistsException;
+import net.sourceforge.mpango.TestUtils;
 
 import org.junit.Assert;
 import org.junit.Test;

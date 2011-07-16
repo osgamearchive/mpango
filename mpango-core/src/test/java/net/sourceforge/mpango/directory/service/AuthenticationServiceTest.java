@@ -6,11 +6,13 @@ package net.sourceforge.mpango.directory.service;
 import java.util.Calendar;
 
 import net.sourceforge.mpango.BaseSpringTest;
-import net.sourceforge.mpango.TestUtils;
+import net.sourceforge.mpango.directory.dao.UserDAO;
 import net.sourceforge.mpango.directory.entity.User;
 import net.sourceforge.mpango.entity.Player;
 import net.sourceforge.mpango.exception.PlayerAlreadyExistsException;
+import net.sourceforge.mpango.TestUtils;
 
+import org.easymock.classextension.EasyMock;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class AuthenticationServiceTest extends BaseSpringTest {
 
 	@Autowired
-	IAuthenticationService authService;
+	AuthenticationService authService;
 
 	@Test
 	public void authenticationTest() {
@@ -66,6 +68,22 @@ public class AuthenticationServiceTest extends BaseSpringTest {
 		Player player2 = TestUtils.getPlayer();
 		// here exception should be raised 
 		player2 = authService.createPlayer(user, player2);
+	}
+	
+	@Test
+	public void testGenerateResetKey() {
+		String email = "email@domain.com";
+		User user = EasyMock.createMock(User.class);
+		UserDAO userDAO = EasyMock.createMock(UserDAO.class);
+		authService.setUserDAO(userDAO);
+		EasyMock.expect(userDAO.load(email)).andReturn(user);
+		user.setResetKey(EasyMock.isA(String.class));
+		EasyMock.expect(userDAO.save(user)).andReturn(user);
+		EasyMock.replay(userDAO);
+		String resetKey = authService.generateResetKey(email);
+		EasyMock.verify(userDAO);
+		Assert.assertNotNull(resetKey);
+		
 	}
 
 }

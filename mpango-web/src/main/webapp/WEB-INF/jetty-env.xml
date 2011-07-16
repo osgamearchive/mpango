@@ -24,5 +24,23 @@
 			</New>
 		</Arg>
 	</New>
+	
+	<New id="mail" class="org.eclipse.jetty.plus.jndi.Resource">
+		<Arg></Arg>
+		<Arg>mail/Session</Arg>
+		<Arg>
+			<New class="org.eclipse.jetty.jndi.factories.MailSessionReference">
+		    	<Set name="properties">
+					<New class="java.util.Properties">
+						<Put name="mail.smtp.host">${mail.host}</Put>
+						<Put name="mail.from">${mail.from}</Put>
+						<Put name="mail.debug">${mail.debug}</Put>
+					</New>
+				</Set>
+				<!-- Set name="user">${mail.username}</Set>
+				<Set name="password">${mail.password}</Set -->
+		  </New>
+		</Arg>
+	</New>
 	 
 </Configure>

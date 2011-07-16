@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
-import net.sourceforge.mpango.TestUtils;
 import net.sourceforge.mpango.dto.CityDTO;
 import net.sourceforge.mpango.entity.City;
 import net.sourceforge.mpango.enums.ConstructionType;
+import net.sourceforge.mpango.TestUtils;
 
 import org.junit.Assert;
 import org.junit.Test;

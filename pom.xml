@@ -142,6 +142,12 @@
 				<scope>test</scope>
 			</dependency>
 			<dependency>
+				<groupId>javax.el</groupId>
+				<artifactId>el-api</artifactId>
+				<version>1.0</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-annotations</artifactId>
 				<version>3.4.0.GA</version>
@@ -616,7 +622,6 @@
 		<jetty.version>7.4.0.v20110414</jetty.version>
 	</properties>
 	<modules>
-		<module>mpango-test</module>
 		<module>mpango-core</module>
 		<module>mpango-game-web</module>
 		<module>mpango-web</module>

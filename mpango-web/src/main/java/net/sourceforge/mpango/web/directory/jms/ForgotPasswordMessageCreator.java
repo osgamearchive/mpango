@@ -12,31 +12,22 @@ import javax.jms.TextMessage;
  */
 public class ForgotPasswordMessageCreator implements MessageCreator {
 
-    public static final String DEFAULT_SENDER = "mpango@gmail.com";
-    public static final String DEFAULT_SUBJECT = "mPango password reset confirmation";
-    public static final String DEFAULT_TEXT =
-            "<p>Hi there,</P>" +
-            "<p>There was recently a request to change the password on your account.</P>" +
-            "<p>If you requested this password change, please set a new password by following the link below:</P>" +
-            "<a href='http://localhost:8080/mpango-web/directory/changePassword.jsf?reset_key=123'>http://localhost:8080/mpango-web/directory/recover.jsf</a>" +
-            "<p>If you don't want to change your password, just ignore this message.</P>" +
-            "<p>Thanks</p>";
+	public static final String JMS_STRING_PROPERTY_RECIPIENTS = "recipients";
+	public static final String JMS_STRING_PROPERTY_URL = "url";
+	public static final String JMS_STRING_PROPERTY_LOCALE = "locale";
 
-    private String sender;
     private String recipient;
-    private String subject;
-    private String text;
+    private String locale;
     private String url;
 
     /**
      * Message Creator for the Forgot Password use case.
      * @param recipient Email address to send the link.
      * @param url URL on which to introduce the secret key (depending on the environment ir will be different).
+     * @param locale of the user.
      */
-    public ForgotPasswordMessageCreator(String recipient, String url) {
-        this.sender = DEFAULT_SENDER;
-        this.subject = DEFAULT_SUBJECT;
-        this.text = DEFAULT_TEXT;
+    public ForgotPasswordMessageCreator(String recipient, String url, String locale) {
+        this.locale = locale;
         this.recipient = recipient;
         this.url = url;
     }
@@ -49,11 +40,9 @@ public class ForgotPasswordMessageCreator implements MessageCreator {
      */
     public Message createMessage(Session session) throws JMSException {
         TextMessage message = session.createTextMessage();
-        message.setStringProperty("sender", sender);
-        message.setStringProperty("recipients", recipient);
-        message.setStringProperty("subject", subject);
-        message.setStringProperty("url", url);
-        message.setText(text);
+        message.setStringProperty(JMS_STRING_PROPERTY_RECIPIENTS, recipient);
+        message.setStringProperty(JMS_STRING_PROPERTY_LOCALE, locale);
+        message.setStringProperty(JMS_STRING_PROPERTY_URL, url);
         return message;
     }
 }

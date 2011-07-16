@@ -1,5 +1,9 @@
 package net.sourceforge.mpango.web.directory;
 
+import java.util.Locale;
+
+import javax.faces.context.FacesContext;
+
 import net.sourceforge.mpango.directory.facade.IAuthenticationFacade;
 
 import org.springframework.jms.core.JmsTemplate;
@@ -19,6 +23,7 @@ public class ResetPasswordBackingBean {
 	private String email;
     private String queueName;
     private String url;
+	private FacesContext facesContext;
 
     /**
      * Method that sends the JMS message to the back end in order to send the email message for recovering the password.
@@ -28,7 +33,8 @@ public class ResetPasswordBackingBean {
         String result;
         if ((email != null) && (authenticationFacade.load(email) != null)) {
         	System.out.println("Sending message to queue");
-            jmsTemplate.send(queueName, new ForgotPasswordMessageCreator(email, url));
+        	Locale locale = getFacesContext().getViewRoot().getLocale();
+            jmsTemplate.send(queueName, new ForgotPasswordMessageCreator(email, url, locale.toString()));
             result = RESULT_EMAIL_SENT;
         } else {
         	System.out.println("User not found");
@@ -36,6 +42,17 @@ public class ResetPasswordBackingBean {
 
         }
         return result;
+	}
+	
+	public FacesContext getFacesContext() {
+		if (facesContext == null) {
+			facesContext = FacesContext.getCurrentInstance();
+		}
+		return facesContext;
+	}
+	
+	public void setFacesContext(FacesContext facesContext) {
+		this.facesContext = facesContext;
 	}
 
     public void setJmsTemplate(JmsTemplate jmsTemplate) {

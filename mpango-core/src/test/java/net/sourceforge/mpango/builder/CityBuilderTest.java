@@ -5,10 +5,10 @@ package net.sourceforge.mpango.builder;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sourceforge.mpango.TestUtils;
 import net.sourceforge.mpango.builder.CityBuilder;
 import net.sourceforge.mpango.dto.CityDTO;
 import net.sourceforge.mpango.entity.City;
+import net.sourceforge.mpango.TestUtils;
 
 import org.junit.Assert;
 import org.junit.Test;
