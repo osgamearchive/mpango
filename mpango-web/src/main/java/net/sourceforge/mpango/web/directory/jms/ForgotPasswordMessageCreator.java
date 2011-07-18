@@ -1,5 +1,6 @@
 package net.sourceforge.mpango.web.directory.jms;
 
+import org.apache.log4j.Logger;
 import org.springframework.jms.core.MessageCreator;
 
 import javax.jms.JMSException;
@@ -12,6 +13,8 @@ import javax.jms.TextMessage;
  */
 public class ForgotPasswordMessageCreator implements MessageCreator {
 
+	private Logger logger = Logger.getLogger(ForgotPasswordMessageCreator.class);
+	
 	public static final String JMS_STRING_PROPERTY_RECIPIENTS = "recipients";
 	public static final String JMS_STRING_PROPERTY_URL = "url";
 	public static final String JMS_STRING_PROPERTY_LOCALE = "locale";
@@ -27,6 +30,11 @@ public class ForgotPasswordMessageCreator implements MessageCreator {
      * @param locale of the user.
      */
     public ForgotPasswordMessageCreator(String recipient, String url, String locale) {
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("locale: "+locale);
+    		logger.debug("recipient: "+recipient);
+    		logger.debug("url: "+url);
+    	}
         this.locale = locale;
         this.recipient = recipient;
         this.url = url;
@@ -39,11 +47,11 @@ public class ForgotPasswordMessageCreator implements MessageCreator {
      * @throws JMSException In case there was an error creating the message.
      */
     public Message createMessage(Session session) throws JMSException {
-    	System.out.println("Creating message");
         TextMessage message = session.createTextMessage();
         message.setStringProperty(JMS_STRING_PROPERTY_RECIPIENTS, recipient);
         message.setStringProperty(JMS_STRING_PROPERTY_LOCALE, locale);
         message.setStringProperty(JMS_STRING_PROPERTY_URL, url);
+    	logger.debug("Message created:"+message);
         return message;
     }
 }

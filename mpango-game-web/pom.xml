@@ -8,11 +8,9 @@
         <groupId>net.sourceforge.mpango</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <groupId>net.sourceforge.mpango</groupId>
     <artifactId>mpango-game-web</artifactId>
     <packaging>war</packaging>
-    <version>${project.parent.version}</version>
-    <name>mPango : Web : Game</name>
+    <name>mPango : Game : Web</name>
 
     <build>
         <defaultGoal>install</defaultGoal>
@@ -63,7 +61,7 @@
         </dependency>
         <dependency>
             <groupId>net.sourceforge.mpango</groupId>
-            <artifactId>mpango-core</artifactId>
+            <artifactId>mpango-game-core</artifactId>
         </dependency>
         <dependency>
         	<groupId>org.cometd.javascript</groupId>

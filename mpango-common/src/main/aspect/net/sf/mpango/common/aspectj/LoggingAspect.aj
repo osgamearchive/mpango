@@ -12,9 +12,9 @@ public aspect LoggingAspect {
 	
 	private static final Logger _logger = Logger.getLogger(LoggingAspect.class);
 	
-	pointcut methodCall () :  call (public * net.sourceforge.mpango..* (*)) &&
-							 !call (public * net.sourceforge.mpango..set*(*)) && 	//we don't want setter methods logged.
-							 !call (public * net.sourceforge.mpango..get(*)) &&  	//neither do we want getter methods logged.
+	pointcut methodCall () :  call (public * net.sf.mpango..* (*)) &&
+							 !call (public * net.sf.mpango..set*(*)) && 	//we don't want setter methods logged.
+							 !call (public * net.sf.mpango..get(*)) &&  	//neither do we want getter methods logged.
 							 !(within(LoggingAspect));								//we definitely don't want endless recursivity.
 
 	before() : methodCall() {

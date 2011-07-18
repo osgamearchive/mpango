@@ -5,8 +5,8 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
-import net.sourceforge.mpango.directory.dto.UserDTO;
-import net.sourceforge.mpango.directory.facade.IAuthenticationFacade;
+import net.sf.mpango.common.directory.dto.UserDTO;
+import net.sf.mpango.common.directory.facade.IAuthenticationFacade;
 
 /**
  * @author edvera

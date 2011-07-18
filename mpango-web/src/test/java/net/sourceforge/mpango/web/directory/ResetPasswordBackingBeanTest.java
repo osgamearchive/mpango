@@ -2,8 +2,8 @@ package net.sourceforge.mpango.web.directory;
 
 import java.util.Locale;
 
-import net.sourceforge.mpango.directory.dto.UserDTO;
-import net.sourceforge.mpango.directory.facade.AuthenticationFacade;
+import net.sf.mpango.common.directory.dto.UserDTO;
+import net.sf.mpango.common.directory.facade.AuthenticationFacade;
 import net.sourceforge.mpango.web.directory.jms.ForgotPasswordMessageCreator;
 import org.easymock.classextension.EasyMock;
 import org.junit.Before;

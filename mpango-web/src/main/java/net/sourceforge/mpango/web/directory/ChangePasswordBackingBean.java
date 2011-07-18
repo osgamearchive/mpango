@@ -1,27 +1,47 @@
 package net.sourceforge.mpango.web.directory;
 
-import java.util.Map;
-
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 
-import net.sourceforge.mpango.directory.dao.UserDAO;
-import net.sourceforge.mpango.directory.entity.User;
-import net.sourceforge.mpango.directory.service.ApplicationContextService;
-
-import org.springframework.context.ApplicationContext;
+import net.sf.mpango.common.directory.entity.User;
+import net.sf.mpango.common.directory.service.IAuthenticationService;
 
 @ManagedBean(name="changePasswordBackingBean")
 @RequestScoped
 public class ChangePasswordBackingBean {
 
-	private static ApplicationContext appContext = ApplicationContextService.getApplicationContext();
-
+	
 	private String email;
 	private String newPassword;
 	private String retypePassword;
+	private String resetKey;
+	private IAuthenticationService authenticationService;
 	private boolean passwordChangedFlag = false;
+	
+	/**
+	 * Method that first obtains a user based on a reset key and then proceeds changing his password.
+	 */
+	public void changePasswordWithResetKey() {
+		User user = null;
+		if ((user = checkAccount(resetKey)) != null) {
+			if (newPassword.equals(retypePassword)) {
+				authenticationService.changeUserPassword(user, newPassword);
+				setPasswordChangedFlag(true);
+			}
+		}
+	}
+	
+	private User checkAccount(String resetKey) {
+		return authenticationService.getUserByResetKey(resetKey);
+	}
+	
+	public String getResetKey() {
+		return resetKey;
+	}
+
+	public void setResetKey(String resetKey) {
+		this.resetKey = resetKey;
+	}
 
 	public String getEmail() {
 		return email;
@@ -55,31 +75,12 @@ public class ChangePasswordBackingBean {
 		this.passwordChangedFlag = passwordChangedFlag;
 	}
 
-	//get value from "f:param"
-	private String getResetParam(FacesContext fc){
-		Map<String,String> params = fc.getExternalContext().getRequestParameterMap();
-		return params.get("reset_key");
+	public IAuthenticationService getAuthenticationService() {
+		return authenticationService;
 	}
 
-	public void updatePassword() {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		String resetKey = getResetParam(fc);
-		UserDAO userDAO = (UserDAO) appContext.getBean("userDAO");
-		User user = userDAO.lookUpByResetKey(resetKey);
-		System.out.println(user.getPassword());
-		
-		if (user != null) {
-			if (newPassword.equalsIgnoreCase(retypePassword)) {
-				user.setPassword(newPassword);
-				userDAO.update(user);
-				passwordChangedFlag = true;
-
-				System.out.println(user.getPassword());
-			}
-		}
-		
-		// clear properties so that they are not populated on the form
-		newPassword = null;
-		retypePassword = null;
+	public void setAuthenticationService(
+			IAuthenticationService authenticationService) {
+		this.authenticationService = authenticationService;
 	}
 }

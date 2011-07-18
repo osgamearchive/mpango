@@ -1,7 +1,7 @@
 package net.sourceforge.mpango.web.directory;
 
 import javax.faces.bean.ManagedBean;
-import net.sourceforge.mpango.email.SendMail;
+//import net.sourceforge.mpango.email.SendMail;
 
 /**
  * Author jaywellings
@@ -23,8 +23,8 @@ public class InvitationBackingBean
 			String subject = "mPango invite";
 			String content = "<p>Hi there,</p><p>You have just been invited to the MMORPG mpango by " + this.inviteName + "!.</p>";
 			
-			SendMail sendMail = new SendMail(sender, recipients, subject, content);
-			sendMail.send();
+//			SendMail sendMail = new SendMail(sender, recipients, subject, content); 
+//			sendMail.send();
 			this.setIsEmailSent(true);
 			
 		} 

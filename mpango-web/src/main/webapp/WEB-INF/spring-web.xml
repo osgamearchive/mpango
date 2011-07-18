@@ -66,6 +66,12 @@
         <property name="queueName" value="${queue.forgotPassword}" />
         <property name="jmsTemplate" ref="jmsTemplate" />
         <property name="authenticationFacade" ref="authFacade" />
+        <property name="protocol" value="${mpango.protocol}" />
+        <property name="hostname" value="${mpango.hostname}" />
+        <property name="port" value="${mpango.port}" />
+        <property name="context" value="${mpango.context}" />
+        <property name="relativePath" value="${mpango.relativePath}" />
+        <property name="args" value="${mpango.args}" />
     </bean>
 
 	<bean id="authenticationBackingBean"

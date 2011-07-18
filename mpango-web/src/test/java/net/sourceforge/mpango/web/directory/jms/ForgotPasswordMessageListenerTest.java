@@ -7,10 +7,7 @@ import javax.jms.Message;
 import javax.jms.TextMessage;
 
 import junit.framework.Assert;
-
-import net.sourceforge.mpango.directory.dao.UserDAO;
-import net.sourceforge.mpango.directory.entity.User;
-import net.sourceforge.mpango.directory.service.IAuthenticationService;
+import net.sf.mpango.common.directory.service.IAuthenticationService;
 
 import org.easymock.EasyMock;
 import org.junit.Before;
@@ -43,11 +40,10 @@ public class ForgotPasswordMessageListenerTest {
 		 // Data needed for the test
 		 String to = "email@domain.com";
 		 String sLocale = "en_US";
-		 String url = "http://localhost:8080/mpango-web/directory/setNewPassword.jsf";
+		 String url = "http://localhost:8080/mpango-web/directory/setNewPassword.jsf?resetKey=";
 		 String subject = "Subject";
-		 String text = "text";
 		 String resetKey = "resetKey";
-		 User user = new User();
+		 String text = "Click here "+url+resetKey;
 		 Locale locale = new Locale(sLocale);
 		 //JMS Message related behavior
 		 TextMessage message = EasyMock.createMock(TextMessage.class);

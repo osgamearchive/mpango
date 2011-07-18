@@ -128,6 +128,11 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
+				<groupId>org.apache.xbean</groupId>
+				<artifactId>xbean-spring</artifactId>
+				<version>3.7</version>
+			</dependency>
+			<dependency>
 				<groupId>org.easymock</groupId>
 				<artifactId>easymockclassextension</artifactId>
 				<version>2.2</version>
@@ -150,7 +155,13 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-annotations</artifactId>
-				<version>3.4.0.GA</version>
+				<version>${hibernate.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-log4j12</artifactId>
+					</exclusion>
+				</exclusions>
 			</dependency>
 			<dependency>
 				<groupId>hsqldb</groupId>
@@ -165,7 +176,7 @@
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
-				<version>1.4.2</version>
+				<version>1.5.11</version>
 			</dependency>
 			<dependency>
 				<groupId>javassist</groupId>
@@ -180,7 +191,14 @@
 			<dependency>
 				<groupId>org.apache.activemq</groupId>
 				<artifactId>activemq-core</artifactId>
-				<version>5.2.0</version>
+				<version>${activemq.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jms</artifactId>
+				<version>${spring.version}</version>
+				<type>jar</type>
+				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework</groupId>
@@ -203,10 +221,14 @@
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>org.springframework</groupId>
 				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
 			<dependency>
@@ -325,20 +347,20 @@
 			<!-- Project internal dependencies -->
 			<dependency>
 				<groupId>net.sourceforge.mpango</groupId>
-				<artifactId>mpango-core</artifactId>
+				<artifactId>mpango-game-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.mpango</groupId>
 				<artifactId>mpango-common</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>${project.version}</version>
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
 			<dependency>
 				<groupId>net.sourceforge.mpango</groupId>
 				<artifactId>mpango-test</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>${project.version}</version>
 				<type>jar</type>
 				<scope>test</scope>
 			</dependency>
@@ -368,13 +390,13 @@
 					<dependencies>
 						<dependency>
 							<groupId>org.springframework</groupId>
-							<artifactId>spring</artifactId>
-							<version>2.5.5</version>
+							<artifactId>spring-full</artifactId>
+							<version>${spring.version}</version>
 						</dependency>
 						<dependency>
-							<groupId>org.mortbay.jetty</groupId>
+							<groupId>org.eclipse.jetty</groupId>
 							<artifactId>jetty-xbean</artifactId>
-							<version>6.1.11</version>
+							<version>${jetty.version}</version>
 						</dependency>
 						<dependency>
 							<groupId>org.apache.camel</groupId>
@@ -386,7 +408,7 @@
 				<plugin>
 					<groupId>org.mortbay.jetty</groupId>
 					<artifactId>jetty-maven-plugin</artifactId>
-					<version>7.4.2.v20110526</version>
+					<version>${jetty.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -585,15 +607,17 @@
 		<mpango.connection>scm:svn:https://mpango.svn.sourceforge.net/svnroot/mpango/trunk</mpango.connection>
 		<mpango.developerConnection>scm:svn:https://mpango.svn.sourceforge.net/svnroot/mpango/trunk</mpango.developerConnection>
 		<mpango.url>http://mpango.svn.sourceforge.net/viewvc/mpango/trunk</mpango.url>
-		<activemq.version>5.5.0</activemq.version>
+		<activemq.version>5.4.2</activemq.version>
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<jetty.version>7.4.0.v20110414</jetty.version>
+		<hibernate.version>3.4.0.GA</hibernate.version>
 	</properties>
 	<modules>
 		<module>mpango-common</module>
-		<module>mpango-core</module>
+		<module>mpango-game-core</module>
 		<module>mpango-game-web</module>
 		<module>mpango-web</module>
+		<module>mpango-test</module>
 	</modules>
 	<profiles>
 		<profile>
