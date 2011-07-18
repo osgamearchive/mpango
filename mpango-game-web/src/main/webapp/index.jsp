@@ -11,16 +11,11 @@
 	    	.cell {
 	    		background-color: #ffffff;
 	    		border: 1px solid #000;
-	    		font: 11px/15px Arial, sans-serif;
-	    		height: 126px;
+	    		font: 10px/12px Arial, sans-serif;
+	    		height: 122px;
+	    		padding: 2px;
 	    		position: absolute;
-	    		width: 126px;
-	    	}
-	    	.cell:hover {
-	    		transform: scale(1.1);
-			    -moz-transform: scale(1.1);
-			    -ie-transform: scale(1.1);
-			    -webkit-transform: scale(1.1);
+	    		width: 122px;
 	    	}
 	    </style>
 

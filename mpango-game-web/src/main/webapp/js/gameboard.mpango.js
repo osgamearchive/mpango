@@ -34,16 +34,24 @@ Mpango.GameBoard = (function( window, document, jQuery ) {
 		for( var row = 0; row < data.rowSize; row += 1 ) {
 			for( var col = 0; col < data.colSize; col += 1 ) {
 				var $cell = $( "<div class='cell' />" );
+				var info = [];
+				var cell = data.cells[row][col];
+				log( row, col, data.cells[row][col] );
+				for( var key in cell ) {
+					info.push( key + ": " + cell[key]+ "<br />" );
+				}
+				info = info.join("");
 				$cell
 					.css({
 						"left": offset.left,
 						"top": offset.top
 					})
-					.text( ("row: " + row + " col: " + col) );
+					.html( info );
 
 				$container.append( $cell );
 				offset.left += 128;
 			}
+			offset.left = 0;
 			offset.top += 128;
 		}
 	};
