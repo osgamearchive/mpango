@@ -5,13 +5,13 @@
 <hibernate-configuration>
    <session-factory>
 		<mapping class="net.sf.mpango.common.directory.entity.User" />
-		<mapping class="net.sourceforge.mpango.entity.Player" />
-        <mapping class="net.sourceforge.mpango.entity.GameContext" />
-        <mapping class="net.sourceforge.mpango.entity.GameBoard" />
-        <mapping class="net.sourceforge.mpango.entity.GameConfiguration" />
-        <mapping class="net.sourceforge.mpango.entity.BoardConfiguration" />
-        <mapping class="net.sourceforge.mpango.entity.Cell" />
-        <mapping class="net.sourceforge.mpango.enums.Resources" />
-        <mapping class="net.sourceforge.mpango.entity.Construction" />
+		<mapping class="net.sf.mpango.game.core.entity.Player" />
+        <mapping class="net.sf.mpango.game.core.entity.GameContext" />
+        <mapping class="net.sf.mpango.game.core.entity.GameBoard" />
+        <mapping class="net.sf.mpango.game.core.entity.GameConfiguration" />
+        <mapping class="net.sf.mpango.game.core.entity.BoardConfiguration" />
+        <mapping class="net.sf.mpango.game.core.entity.Cell" />
+        <mapping class="net.sf.mpango.game.core.enums.Resources" />
+        <mapping class="net.sf.mpango.game.core.entity.Construction" />
    </session-factory>
 </hibernate-configuration>
