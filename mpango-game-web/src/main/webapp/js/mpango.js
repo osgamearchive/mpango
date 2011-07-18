@@ -3,24 +3,29 @@ window.Mpango = (function( window, document, jQuery ) {
 	var $ = jQuery;
 	var config;
 
-	function constructor( container, options ) {
+	var gameObserver;
+	var gameBoardObserver;
+
+
+	function _constructor( container, options ) {
 		config = $.extend( true, {
-			"contextPath": null
+			"cometd": {
+				"contextPath": null,
+				"logLevel": null
+			}
 		}, options );
 
-		// Expose mpango parent node.
+		// Expose mpango global objects.
 		Mpango.$mpango =  $( container, window.document );
+		Mpango.config = config;
 
-		// cometd: initialize and connect
-		Mpango.CometD.initialize( options.cometd );
-		Mpango.CometD.connect();
-
-		//Mpango.Map.initialize( Mpango.$mpango );
+		// Create gameboard
+		var gameboard = Mpango.GameBoard.getInstance();
 	}
 
 	return {
 		run: function( container, opts ){
-			constructor( container, opts );
+			_constructor( container, opts );
 		}
 	};
 
