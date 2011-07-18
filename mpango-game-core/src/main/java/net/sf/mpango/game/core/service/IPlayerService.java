@@ -15,7 +15,7 @@ public interface IPlayerService {
 	 * Method that registers a player in the game context.
 	 * @param user
 	 * @param context
-	 * @return TODO
+	 * @return Registered {@Player}
 	 */
 	Player register(User user, GameContext context);
 }

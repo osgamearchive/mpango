@@ -1,7 +1,5 @@
 package net.sf.mpango.game.core.dao;
 
-import java.util.List;
-
 import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.game.core.entity.Player;
 
@@ -23,9 +21,9 @@ public interface PlayerDAO {
 	public void update(Player player);
 	
 	/**
-	 * finds list of {@link Player} connected with {@link User} where state!=DELETED
+	 * Finds a {@link Player} connected with {@link User} where state!=DELETED
 	 * @param user {@link User}
-	 * @return {@link List} of {@link Player}
+	 * @return If user has previously joined the game, then return {@link Player} otherwise return null.
 	 */
-	public List<Player> findPlayersByUser(User user);
+	public Player findPlayer(User user);
 }

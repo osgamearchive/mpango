@@ -37,7 +37,6 @@ public class TestCommand implements Command {
 			try {
 				listener.receive(event);
 			} catch (EventNotSupportedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

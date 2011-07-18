@@ -141,6 +141,7 @@ public class TestUtils {
 		return tech;
 	}
 	
+	@SuppressWarnings("serial")
 	private static class TestUnit extends Unit {
 		private TestUnit(List<Technology> technology, List<Command> command) {
 			super(new City(), command, technology, 10f, 100f);

@@ -2,10 +2,8 @@ package net.sf.mpango.game.core.facade;
 
 import net.sf.mpango.common.directory.dto.UserDTO;
 import net.sf.mpango.game.core.dto.CellDTO;
-import net.sf.mpango.game.core.dto.PlayerDTO;
 import net.sf.mpango.game.core.dto.UnitDTO;
 import net.sf.mpango.game.core.exception.CommandException;
-import net.sf.mpango.game.core.exception.PlayerAlreadyExistsException;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,10 +28,5 @@ public interface IGameFacade {
      * @throws net.sf.mpango.game.core.exception.CommandException in case it was impossible to execute the action.
      */
     void settleUnit(UnitDTO unit, CellDTO cell) throws CommandException;
-
-	PlayerDTO createPlayer(UserDTO user, PlayerDTO player)
-			throws PlayerAlreadyExistsException;
-
-	void delete(PlayerDTO player);
 
 }

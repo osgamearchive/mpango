@@ -10,20 +10,9 @@ import org.apache.commons.lang.math.RandomUtils;
 @Entity
 public class GameContext extends AbstractPersistable {
 
-	protected List<Player> players;
+	protected List<Player> players = new ArrayList<Player>();
 	protected GameBoard board;
 	protected GameConfiguration configuration;
-	
-	private GameContext(BoardConfiguration boardConfiguration) {
-		players = new ArrayList<Player>();
-		board = new GameBoard(boardConfiguration);
-	}
-	
-	public GameContext(GameConfiguration configuration) {
-		this(configuration.getBoardConfiguration());
-		this.configuration = configuration;
-		
-	}
 
 	public void join(Player player) {
 		player.setPosition(generateRandomPosition());

@@ -1,7 +1,6 @@
 package net.sf.mpango.game.core.factory;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.sf.mpango.common.factory.BaseFactory;

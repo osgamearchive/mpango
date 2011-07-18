@@ -5,7 +5,6 @@ import net.sf.mpango.game.core.dto.CellDTO;
 import net.sf.mpango.game.core.dto.GameBoardDTO;
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.GameBoard;
-import sun.tools.tree.GreaterOrEqualExpression;
 
 public class GameBoardBuilder extends BaseBuilder<GameBoard, GameBoardDTO> {
 
