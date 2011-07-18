@@ -28,7 +28,7 @@ public class GameFacadeImpl implements IGameFacade {
     @Override
     public void join(String name, UserDTO userDTO) {
         User user = UserFactory.instance().create(userDTO);
-        gameService.join(name, user);
+        gameService.join(user);
     }
 
     @Override

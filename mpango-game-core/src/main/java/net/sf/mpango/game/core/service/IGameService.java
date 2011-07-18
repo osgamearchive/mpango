@@ -15,10 +15,9 @@ public interface IGameService {
 
     /**
      * Method that allows a User to join a game with a particular player name.
-     * @param name Name of the player.
      * @param user User behind the player.
      */
-    void join(String name, User user);
+    void join(User user);
 
     /**
      * Method that allows a User to settle a unit in a particular cell creating a city.

@@ -22,7 +22,6 @@ public class PlayerBuilderTest {
 		Player player = TestUtils.getPlayer();
 		PlayerDTO dto = PlayerBuilder.instance().build(player);
 		assertNotNull(dto);
-		assertEquals(dto.getName(), player.getName());
 		assertEquals(dto.getState(), player.getState());
 		assertNull(dto.getUnits());
 		assertNull(dto.getPosition());

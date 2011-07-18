@@ -34,9 +34,8 @@ public class GameServiceTest {
 
     @Test
     public void testJoin() {
-        String name = RandomStringUtils.random(12);
         User user = new User();
-        service.join(name, user);
+        service.join(user);
     }
     
     @Test

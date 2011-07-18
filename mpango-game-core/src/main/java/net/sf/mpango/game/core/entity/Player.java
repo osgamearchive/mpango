@@ -12,7 +12,6 @@ import net.sf.mpango.common.directory.enums.StateEnum;
  * <p>Entity contains data about {@link Player} connecting a {@link User} to a {@link GameContext}.
  * This class has the following information:
  * <ol>
- *     <li><B>Name:</B> Name of the player as introduced when joining the game.</li>
  *     <li><b>Position:</b> Las position where the player was. So that she can be taken back to it.</li>
  *     <li><b>Units:</b> Units that belong to the player.</li>
  *     <li><b>State:</b> The state the player is in. Note that states in the case of players are different than
@@ -34,7 +33,6 @@ import net.sf.mpango.common.directory.enums.StateEnum;
 public class Player {
 
 	private Long identifier;
-	private String name;
 	private Position position;
 	private List<Unit> units;
 	private StateEnum state;
@@ -43,8 +41,7 @@ public class Player {
     
     public Player() { }
 
-    public Player(String name, User user, GameContext gameContext) {
-        this.name = name;
+    public Player(User user, GameContext gameContext) {
         this.units = new ArrayList<Unit>();
         this.state = StateEnum.CREATED;
         this.user = user;
@@ -65,21 +62,6 @@ public class Player {
 	 */
 	public void setIdentifier(Long identifier) {
 		this.identifier = identifier;
-	}
-
-	/**
-	 * @return
-	 */
-	@Column(unique = true)
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	/**
@@ -161,7 +143,6 @@ public class Player {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -175,11 +156,6 @@ public class Player {
 		if (getClass() != obj.getClass())
 			return false;
 		Player other = (Player) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;

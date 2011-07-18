@@ -19,7 +19,6 @@ public class PlayerBuilder extends BaseBuilder<Player, PlayerDTO> {
 	public PlayerDTO build(Player player) {
 		PlayerDTO dto = new PlayerDTO();
 		dto.setId(player.getIdentifier());
-		dto.setName(player.getName());
 		dto.setState(player.getState());
 
 		if (null != player.getPosition()) {

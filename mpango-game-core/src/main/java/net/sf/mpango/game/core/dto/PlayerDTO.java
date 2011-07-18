@@ -18,26 +18,11 @@ public class PlayerDTO extends BaseDTO {
 	 * 
 	 */
 	private static final long serialVersionUID = -6825923397531823816L;
-
-	private String name;
+	
 	private PositionDTO position;
 	private List<UnitDTO> units;
 	private StateEnum state;
 	private UserDTO user;
-
-	/**
-	 * @return
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * @param name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	/**
 	 * @return
@@ -99,7 +84,6 @@ public class PlayerDTO extends BaseDTO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -113,11 +97,6 @@ public class PlayerDTO extends BaseDTO {
 		if (getClass() != obj.getClass())
 			return false;
 		PlayerDTO other = (PlayerDTO) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
 		if (user == null) {
 			if (other.user != null)
 				return false;

@@ -32,7 +32,6 @@ public class GameFacadeImplTest {
 		UserDTO userDTO = new UserDTO();
 		userDTO.setEmail("email@domain.com");
 		PlayerDTO playerDTO = TestUtils.getPlayerDTO();
-		playerDTO.setName("name");
 		playerDTO.setUser(userDTO);
 		User user = UserFactory.instance().create(userDTO);
 		Player player = PlayerFactory.instance().create(playerDTO);

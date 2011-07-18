@@ -30,7 +30,6 @@ public class PlayerFactory extends BaseFactory<PlayerDTO, Player> {
 	public Player create(PlayerDTO dto) {
 		Player player = new Player();
 		player.setIdentifier(dto.getId());
-		player.setName(dto.getName());
 		player.setState(dto.getState());
 		
 		if (null != dto.getPosition()) {

@@ -98,14 +98,12 @@ public class TestUtils {
 	
 	public static Player getPlayer() {
 		Player player = new Player();
-		player.setName("Bob");
 		player.setState(StateEnum.CREATED);
 		return player;
 	}
 	
 	public static PlayerDTO getPlayerDTO() {
 		PlayerDTO dto = new PlayerDTO();
-		dto.setName("Bob");
 		dto.setState(StateEnum.CREATED);
 		return dto;
 	}

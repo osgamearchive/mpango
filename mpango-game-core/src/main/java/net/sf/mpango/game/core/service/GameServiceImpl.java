@@ -29,8 +29,8 @@ public class GameServiceImpl implements IGameService {
         context = new GameContext(configuration);
     }
 
-    public void join(String name, User user) {
-        Player player = new Player(name, user, context);
+    public void join(User user) {
+        Player player = new Player(user, context);
         context.join(player);
     }
 
