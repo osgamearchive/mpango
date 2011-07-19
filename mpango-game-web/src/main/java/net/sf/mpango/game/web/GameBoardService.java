@@ -1,8 +1,6 @@
 package net.sf.mpango.game.web;
 
 import net.sf.json.JSONObject;
-import net.sf.mpango.game.core.builder.GameBoardBuilder;
-import net.sf.mpango.game.core.dto.GameBoardDTO;
 import net.sf.mpango.game.core.entity.GameBoard;
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.GameBoardEvent;
@@ -35,8 +33,11 @@ public class GameBoardService implements GameListener {
     
     @Inject
     private IGameService gameService;
-    @Inject
+    
+    @SuppressWarnings("unused")
+	@Inject
     private BayeuxServer bayeux;
+    
     @Session
     private ServerSession serverSession;
     
@@ -45,15 +46,9 @@ public class GameBoardService implements GameListener {
     //For communication purposes
     private ServerSession remoteSession;
     private ServerMessage.Mutable message;
-    
-    public GameBoardService() {
-    
-    }
 
     @PostConstruct
-    public void init() {
-    	gameBoard = gameService.getBoard();
-    }
+    public void init() {}
     
     /**
      *
@@ -84,12 +79,20 @@ public class GameBoardService implements GameListener {
 	 * Method that sends the game board to the subscribed clients.
 	 */
 	private void sendBoard() {
+		GameBoard board = getGameBoard();
 		JSONObject jsonObject = JSONObject.fromObject(gameBoard);
-        this.message.setData(jsonObject);
-        this.remoteSession.deliver(serverSession, message);
+        message.setData(jsonObject);
+        remoteSession.deliver(serverSession, message);
 	}
 	
-    /**
+    private GameBoard getGameBoard() {
+		if (gameBoard == null) {
+			gameBoard = gameService.getBoard();
+		}
+		return gameBoard;
+	}
+
+	/**
      * For testing purposes
      * @param serverSession
      */

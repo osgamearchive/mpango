@@ -1,6 +1,5 @@
 package net.sf.mpango.game.web;
 
-import junit.framework.Assert;
 import net.sf.json.JSONObject;
 import net.sf.mpango.game.core.entity.GameBoard;
 import net.sf.mpango.game.core.service.IGameService;
@@ -31,6 +30,7 @@ public class GameBoardServiceTest {
         mockedRemoteSession = EasyMock.createMock(ServerSession.class);
         mockedMessage 		= EasyMock.createMock(ServerMessage.Mutable.class);
         testing 			= new GameBoardService();
+        
         testing.setServerSession(mockedLocalSession);
         testing.setGameService(mockedGameService);
     }
@@ -38,12 +38,17 @@ public class GameBoardServiceTest {
 
     @Test
     public void testGetBoard() {
+    	//Data for the unit test
     	GameBoard board = new GameBoard();
+    	//Expectations
     	EasyMock.expect(mockedGameService.getBoard()).andReturn(board);
         mockedMessage.setData(JSONObject.fromObject(board));
         mockedRemoteSession.deliver(mockedLocalSession, mockedMessage);
+        //Replay
         EasyMock.replay(mockedLocalSession, mockedMessage, mockedRemoteSession, mockedGameService);
+        //Testing
         testing.subscribe(mockedRemoteSession, mockedMessage);
+        //Verifications and assertions
         EasyMock.verify(mockedLocalSession, mockedMessage, mockedRemoteSession, mockedGameService);
     }
 }

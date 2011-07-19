@@ -26,4 +26,9 @@
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/spring-interfaces.xml</param-value>
+	</context-param>
+
 </web-app>
