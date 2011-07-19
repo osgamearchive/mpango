@@ -2,7 +2,7 @@ package net.sf.mpango.common.directory.factory;
 
 import net.sf.mpango.common.directory.dto.UserDTO;
 import net.sf.mpango.common.directory.entity.User;
-import net.sf.mpango.common.entity.BaseFactory;
+import net.sf.mpango.common.factory.BaseFactory;
 
 /**
  * @author aplause

@@ -1,4 +1,4 @@
-package net.sf.mpango.common.entity;
+package net.sf.mpango.common.factory;
 
 import java.util.ArrayList;
 import java.util.List;
