@@ -17,29 +17,10 @@
 	<context:annotation-config />
 	
 	<!-- scans for annotated components -->
-	<context:component-scan base-package="net.sf.mpango.game.core" />
+	<context:component-scan base-package="net.sf.mpango.common" />
 	
 	<!-- Allows replacement in the spring xml configuration -->
 	<context:property-placeholder location="classpath:/system.properties" />
-	
-	<!-- creates an activemq connection factory using the amq namespace -->
-<!-- 	<amq:connectionFactory  -->
-<!-- 		id="amqConnectionFactory"  -->
-<!-- 		brokerURL="${jms.url}"  -->
-<!-- 		userName="${jms.username}"  -->
-<!-- 		password="${jms.password}" /> -->
-	
-	<!-- CachingConnectionFactory Definition, sessionCacheSize property is the number of sessions to cache -->
-<!-- 	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory"> -->
-<!-- 	    <constructor-arg ref="amqConnectionFactory" /> -->
-<!-- 		<property name="exceptionListener" ref="jmsExceptionListener" /> -->
-<!-- 		<property name="sessionCacheSize" value="100" /> -->
-<!-- 	</bean> -->
-
-	<!-- JmsTemplate Definition -->
-<!-- 	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"> -->
-<!-- 	   <constructor-arg ref="connectionFactory"/> -->
-<!-- 	</bean> -->
 	
 	<bean id="datasource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName" value="jdbc/datasource" />

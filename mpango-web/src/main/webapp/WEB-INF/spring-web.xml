@@ -55,6 +55,7 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="session" ref="mailSession" />
 	</bean>
+	
     <!--                                                                                                -->
     <!-- JSF Backing Beans                                                                              -->
     <!--                                                                                                -->

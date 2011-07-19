@@ -14,7 +14,10 @@
 		<dependency>
 			<groupId>net.sourceforge.mpango</groupId>
 			<artifactId>mpango-common</artifactId>
-			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
 		</dependency>
         <!-- Java Mail dependency -->
 		<dependency>

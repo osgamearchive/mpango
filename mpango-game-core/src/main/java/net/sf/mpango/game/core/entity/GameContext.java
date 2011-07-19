@@ -5,8 +5,22 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import net.sf.mpango.common.entity.AbstractPersistable;
+
 import org.apache.commons.lang.math.RandomUtils;
 
+/**
+ * <p>Object that controls the state of the game and offers functionality around it.
+ * By the state of the game, we mean:
+ * <ol>
+ * 	<li>- List of players: that are associated with this context.</li>
+ *  <li>- Game baard: with which the users interact.</li>
+ *  <li>- Game configuration: configuration for the game.</li>
+ * </ol>
+ * </p>
+ * @author etux
+ *
+ */
 @Entity
 public class GameContext extends AbstractPersistable {
 
@@ -14,19 +28,30 @@ public class GameContext extends AbstractPersistable {
 	protected GameBoard board;
 	protected GameConfiguration configuration;
 
+	/**
+	 * Method called when a player joins the game.
+	 * @param player
+	 */
 	public void join(Player player) {
-		player.setPosition(generateRandomPosition());
-		player.setUnits(generateStartingUnits());
 		players.add(player);
 	}
 
-	private List<Unit> generateStartingUnits() {
+	/**
+	 * Method used to generate the starting units for a recently joined player.
+	 * @return List of units for the player to start with.
+	 */
+	public List<Unit> generateStartingUnits() {
 		List<Unit> units = new ArrayList<Unit>();
         units.add(new Unit());
 		return units;
 	}
 
-	private Position generateRandomPosition() {
+	/**
+	 * Method used to generate a random position on the map.
+	 * TODO Ideally this random position should be calculated so that the player gets enough space away from his neighbors.
+	 * @return random position.
+	 */
+	public Position generateRandomPosition() {
 		Position position = new Position(
 				RandomUtils.nextInt(board.getColSize()),
 				RandomUtils.nextInt(board.getRowSize()));

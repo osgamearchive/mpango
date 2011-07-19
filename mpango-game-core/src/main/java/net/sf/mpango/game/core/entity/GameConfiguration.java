@@ -3,6 +3,8 @@ package net.sf.mpango.game.core.entity;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
+import net.sf.mpango.common.entity.AbstractPersistable;
+
 @Entity
 public class GameConfiguration extends AbstractPersistable {
 

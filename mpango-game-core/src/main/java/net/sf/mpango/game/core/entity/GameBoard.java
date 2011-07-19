@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import net.sf.mpango.common.entity.AbstractPersistable;
 import net.sf.mpango.game.core.enums.Resources;
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.Listener;

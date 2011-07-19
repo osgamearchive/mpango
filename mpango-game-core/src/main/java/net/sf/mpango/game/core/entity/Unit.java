@@ -11,6 +11,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
+import net.sf.mpango.common.entity.AbstractPersistable;
 import net.sf.mpango.game.core.action.Command;
 import net.sf.mpango.game.core.action.ConstructCommand;
 import net.sf.mpango.game.core.enums.Resources;

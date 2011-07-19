@@ -17,5 +17,5 @@ public interface IPlayerService {
 	 * @param context
 	 * @return Registered {@Player}
 	 */
-	Player register(User user, GameContext context);
+	Player join(User user, GameContext context);
 }

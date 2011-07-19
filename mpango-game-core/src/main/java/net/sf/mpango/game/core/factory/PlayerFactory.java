@@ -1,7 +1,7 @@
 package net.sf.mpango.game.core.factory;
 
 import net.sf.mpango.common.directory.factory.UserFactory;
-import net.sf.mpango.common.factory.BaseFactory;
+import net.sf.mpango.common.entity.BaseFactory;
 import net.sf.mpango.game.core.dto.PlayerDTO;
 import net.sf.mpango.game.core.entity.Player;
 

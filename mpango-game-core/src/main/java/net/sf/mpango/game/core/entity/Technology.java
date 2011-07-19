@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
+import net.sf.mpango.common.entity.AbstractPersistable;
+
 /**
  * This interface determines the type of technology a player owns.
  * @author etux

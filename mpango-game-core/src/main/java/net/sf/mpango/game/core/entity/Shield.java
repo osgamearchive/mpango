@@ -2,6 +2,7 @@ package net.sf.mpango.game.core.entity;
 
 import javax.persistence.Entity;
 
+import net.sf.mpango.common.entity.AbstractPersistable;
 import net.sf.mpango.game.core.exception.UselessShieldException;
 
 /**

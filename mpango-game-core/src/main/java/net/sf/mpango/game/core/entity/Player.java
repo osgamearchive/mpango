@@ -3,6 +3,7 @@ package net.sf.mpango.game.core.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jms.Queue;
 import javax.persistence.*;
 
 import net.sf.mpango.common.directory.entity.User;
@@ -38,8 +39,10 @@ public class Player {
 	private StateEnum state;
 	private User user;
     private GameContext gameContext;
+	private Queue requestQueue;
+	private Queue responseQueue;
     
-    public Player() { }
+    public Player() {}
 
     public Player(User user, GameContext gameContext) {
         this.units = new ArrayList<Unit>();
@@ -162,6 +165,15 @@ public class Player {
 		} else if (!user.equals(other.user))
 			return false;
 		return true;
+	}
+
+	public void setRequestQueue(Queue requestQueue) {
+		this.requestQueue = requestQueue;
+		
+	}
+	
+	public void setResponseQueue(Queue responseQueue) {
+		this.responseQueue = responseQueue;
 	}
     
     

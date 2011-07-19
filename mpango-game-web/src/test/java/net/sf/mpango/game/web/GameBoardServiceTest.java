@@ -1,9 +1,15 @@
 package net.sf.mpango.game.web;
 
-import net.sf.mpango.game.core.dto.GameBoardDTO;
+import junit.framework.Assert;
+import net.sf.json.JSONObject;
+import net.sf.mpango.game.core.entity.GameBoard;
+import net.sf.mpango.game.core.service.IGameService;
+
 import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerSession;
 import org.easymock.classextension.EasyMock;
+import org.junit.Before;
+import org.junit.Test;
 
 
 /**
@@ -11,27 +17,33 @@ import org.easymock.classextension.EasyMock;
  */
 public class GameBoardServiceTest {
 
-    private GameBoardService gameBoardService;
-    private ServerSession mockedServerSession;
-    private ServerSession mockedRemote;
+    private GameBoardService testing;
+    
+    private ServerSession mockedLocalSession;
+    private ServerSession mockedRemoteSession;
     private ServerMessage.Mutable mockedMessage;
+    private IGameService mockedGameService;
 
-    @org.junit.Before
+    @Before
     public void setUp() {
-        gameBoardService = new GameBoardService();
-        mockedServerSession = EasyMock.createMock(ServerSession.class);
-        mockedRemote = EasyMock.createMock(ServerSession.class);
-        mockedMessage = EasyMock.createMock(ServerMessage.Mutable.class);
-        gameBoardService.setServerSession(mockedServerSession);
+        mockedGameService 	= EasyMock.createMock(IGameService.class);
+        mockedLocalSession 	= EasyMock.createMock(ServerSession.class);
+        mockedRemoteSession = EasyMock.createMock(ServerSession.class);
+        mockedMessage 		= EasyMock.createMock(ServerMessage.Mutable.class);
+        testing 			= new GameBoardService();
+        testing.setServerSession(mockedLocalSession);
+        testing.setGameService(mockedGameService);
     }
 
 
-    //TODO Renable this test!!! @Test
+    @Test
     public void testGetBoard() {
-        mockedMessage.setData(EasyMock.isA(GameBoardDTO.class));
-        mockedRemote.deliver(mockedServerSession, mockedMessage);
-        EasyMock.replay(mockedServerSession, mockedMessage, mockedRemote);
-        gameBoardService.getBoard(mockedRemote, mockedMessage);
-        EasyMock.verify(mockedServerSession, mockedMessage, mockedRemote);
+    	GameBoard board = new GameBoard();
+    	EasyMock.expect(mockedGameService.getBoard()).andReturn(board);
+        mockedMessage.setData(JSONObject.fromObject(board));
+        mockedRemoteSession.deliver(mockedLocalSession, mockedMessage);
+        EasyMock.replay(mockedLocalSession, mockedMessage, mockedRemoteSession, mockedGameService);
+        testing.subscribe(mockedRemoteSession, mockedMessage);
+        EasyMock.verify(mockedLocalSession, mockedMessage, mockedRemoteSession, mockedGameService);
     }
 }

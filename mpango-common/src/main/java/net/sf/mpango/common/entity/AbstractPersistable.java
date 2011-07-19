@@ -1,4 +1,4 @@
-package net.sf.mpango.game.core.entity;
+package net.sf.mpango.common.entity;
 
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
