@@ -39,19 +39,19 @@
 	
 	<build>
 		<plugins>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.codehaus.mojo</groupId> -->
-<!-- 				<artifactId>aspectj-maven-plugin</artifactId> -->
-<!-- 				<configuration> -->
-<!-- 					<aspectLibraries> -->
-<!-- 						<aspectLibrary>	 -->
-<!-- 							<groupId>net.sourceforge.mpango</groupId> -->
-<!-- 							<artifactId>mpango-common</artifactId> -->
-<!-- 						</aspectLibrary> -->
-<!-- 					</aspectLibraries> -->
-<!-- 					<verbose>true</verbose> -->
-<!-- 				</configuration> -->
-<!-- 			</plugin> -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>aspectj-maven-plugin</artifactId>
+				<configuration>
+					<aspectLibraries>
+						<aspectLibrary>	
+							<groupId>net.sourceforge.mpango</groupId>
+							<artifactId>mpango-common</artifactId>
+						</aspectLibrary>
+					</aspectLibraries>
+					<verbose>true</verbose>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>

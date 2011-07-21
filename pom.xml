@@ -26,19 +26,19 @@
 			</roles>
 		</developer>
 		<developer>
-			<id>jaywellings</id>
-			<name>Jay Wellings</name>
-			<timezone>+1</timezone>
-			<email>jaywellings@users.sourceforge.net</email>
+			<id>leonserg</id>
+			<name>Serg Rubtsov</name>
+			<timezone>+4</timezone>
+			<email>leonserg@users.sourceforge.net</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
 		</developer>
 		<developer>
-			<id>gutmox</id>
-			<name>Pablo Gutierrez</name>
+			<id>jaywellings</id>
+			<name>Jay Wellings</name>
 			<timezone>+1</timezone>
-			<email>gutmox@users.sourceforge.net</email>
+			<email>jaywellings@users.sourceforge.net</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -66,24 +66,6 @@
 			<name>Andrzej Paluch</name>
 			<timezone>+2</timezone>
 			<email>aplause@users.sourceforge.net</email>
-			<roles>
-				<role>Developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>shoeksema</id>
-			<name>Steve Hoeksema</name>
-			<timezone>ET</timezone>
-			<email>shoeksema@users.sourceforge.net</email>
-			<roles>
-				<role>Developer</role>
-			</roles>
-		</developer>
-		<developer>
-			<id>sol2202</id>
-			<name>Michael Tsepelev</name>
-			<timezone>+4</timezone>
-			<email>sol2202@users.sourceforge.net</email>
 			<roles>
 				<role>Developer</role>
 			</roles>
@@ -426,12 +408,6 @@
 								<goal>compile</goal>
 							</goals>
 						</execution>
-						<execution>
-							<id>aspectj-test-compile</id>
-							<goals>
-								<goal>test-compile</goal>
-							</goals>
-						</execution>
 					</executions>
 					<configuration>
 						<complianceLevel>1.6</complianceLevel>
@@ -509,6 +485,17 @@
 								<groupId>org.codehaus.mojo</groupId>
 								<artifactId>cobertura-maven-plugin</artifactId>
 								<version>2.5.1</version>
+								<configuration>
+									<instrumentation>
+										<ignores>
+											<ignore>org.aspectj.runtime.*</ignore>
+										</ignores>
+										<excludes>
+											<exclude>**/aspectj/*Aspect.class</exclude>
+											<exclude>**/aspectj/**/*Aspect.class</exclude>
+										</excludes>
+									</instrumentation>
+								</configuration>
 							</plugin>
 							<plugin>
 								<groupId>org.apache.maven.plugins</groupId>
@@ -525,24 +512,16 @@
 				</plugin>
 				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>cobertura-maven-plugin</artifactId>
+					<version>2.5.1</version>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>license-maven-plugin</artifactId>
 					<version>1.0-beta-2</version>
 					<configuration>
 						<licenseName>gpl_v3</licenseName>
 					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>cobertura-maven-plugin</artifactId>
-					<version>2.5.1</version>
-					<executions>
-						<execution>
-							<phase>pre-site</phase>
-							<goals>
-								<goal>cobertura</goal>
-							</goals>
-						</execution>
-					</executions>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -649,6 +628,8 @@
 		<spring.version>3.0.5.RELEASE</spring.version>
 		<jetty.version>7.4.0.v20110414</jetty.version>
 		<hibernate.version>3.4.0.GA</hibernate.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 	<modules>
 		<module>mpango-common</module>
