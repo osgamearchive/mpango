@@ -45,5 +45,5 @@ public class GameBoardServiceListener implements MessageListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}	
+	}
 }

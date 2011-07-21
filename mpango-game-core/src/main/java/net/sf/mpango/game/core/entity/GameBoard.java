@@ -10,6 +10,7 @@ import net.sf.mpango.common.entity.AbstractPersistable;
 import net.sf.mpango.game.core.enums.Resources;
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.Listener;
+import net.sf.mpango.game.core.events.ITurnBasedEntityListener;
 import net.sf.mpango.game.core.events.TurnEvent;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
 
@@ -27,47 +28,39 @@ import org.apache.commons.logging.LogFactory;
  */
 @Entity
 @Table(name="GAME_BOARD")
-public class GameBoard extends AbstractPersistable {
+public class GameBoard extends AbstractPersistable implements ITurnBasedEntityListener {
 	
 	private static final Log logger = LogFactory.getLog(GameBoard.class);
+	private BoardConfiguration configuration;
 	private int rowSize;
 	private int colSize;
     private List<Cell> cells;
 	private Cell[][] arrayOfcells;
 	private List<Listener> listeners;
-	
-	public void passTurn(TurnEvent turnEvent) {
-		notifyAllListeners(turnEvent);
-	}
-	
-	public void notifyAllListeners(Event event) {
-		for (Listener listener : listeners) {
-			try {
-				listener.receive(event);
-			} catch (EventNotSupportedException e) {
-				logger.error("Error on listener [" + listener + "]", e);
-			}
-		}
-	}
-	
-	public void addListener(Listener listener) {
-		this.listeners.add(listener);
-	}
-	
-	public void removeListener(Listener listener) {
-		this.listeners.remove(listener);
-	}
-	
-	public GameBoard(BoardConfiguration configuration) {
-		this(configuration.getRowNumber(), configuration.getColNumber());
+
+	/**
+	 * Default constructor used when loading the entity from the database.
+	 */
+	public GameBoard() {
+		super();
 	}
 	
 	/**
-	 * Constructor to create a GameBoard
+	 * Constructor in order to create the board for the first time.
+	 * @param configuration
+	 */
+	public GameBoard(BoardConfiguration configuration) {
+		this(configuration.getRowNumber(), configuration.getColNumber());
+		this.configuration = configuration;
+	}
+	
+	/**
+	 * <p>Constructor that generates a GameBoard.</p>
+	 * TODO incorporate Serg's code here.
 	 * @param rowNumber number of rows for the game board
 	 * @param colNumber number of columns for the game board
 	 */
-	public GameBoard (int rowNumber, int colNumber) {
+	private GameBoard (int rowNumber, int colNumber) {
 		logger.debug("Creating game board with " + rowNumber + " rows and " + colNumber + " columns");
 		this.rowSize = rowNumber;
 		this.colSize = colNumber;
@@ -87,13 +80,6 @@ public class GameBoard extends AbstractPersistable {
 	}
 
 	/**
-	 * default constructor
-	 */
-	public GameBoard() {
-		super();
-	}
-
-	/**
 	 * Obtains the cell by row and column.
 	 * @param rowNumber
 	 * @param colNumber
@@ -106,6 +92,22 @@ public class GameBoard extends AbstractPersistable {
 		}
 		return arrayOfcells[rowNumber][colNumber];
 	}
+	
+	/**
+	 * Turned based entity.
+	 * @param turnEvent
+	 */
+	public void receiveEvent(TurnEvent turnEvent) {
+		notifyAllListeners(turnEvent);
+	}
+	
+	public void receiveEvent(Event event) throws EventNotSupportedException {
+		throw new EventNotSupportedException(event);
+	}
+	
+	//////////////////////////////////////////////////////////////////////////////////////
+	// Entity relationships																//
+	//////////////////////////////////////////////////////////////////////////////////////
 	@Column
 	public int getRowSize() {
 		return rowSize;
@@ -124,12 +126,41 @@ public class GameBoard extends AbstractPersistable {
 	public List<Cell> getCells() {
 		return cells;
 	}
-
+	
 	public void setCells(List<Cell> cells) {
 		this.cells = cells;
         for (Cell cell : cells) {
             this.arrayOfcells[cell.getRow()][cell.getColumn()] = cell;
         }
+	}
+	@OneToOne
+	public BoardConfiguration getConfiguration() {
+		return configuration;
+	}
+
+	public void setConfiguration(BoardConfiguration configuration) {
+		this.configuration = configuration;
+	}
+
+	//////////////////////////////////////////////////////////////////////////////////////
+	// Listener related methods															//
+	//////////////////////////////////////////////////////////////////////////////////////
+	public void notifyAllListeners(Event event) {
+		for (Listener listener : listeners) {
+			try {
+				listener.receive(event);
+			} catch (EventNotSupportedException e) {
+				logger.error("Error on listener [" + listener + "]", e);
+			}
+		}
+	}
+	
+	public void addListener(Listener listener) {
+		this.listeners.add(listener);
+	}
+	
+	public void removeListener(Listener listener) {
+		this.listeners.remove(listener);
 	}
 	
 }

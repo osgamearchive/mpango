@@ -18,6 +18,7 @@ public class GameServiceImpl implements IGameService {
 	
     private GameContext context;
     private IPlayerService playerService;
+    private IGameBoardService gameBoardService;
     private JmsTemplate jmsTemplate;
 	private String coreToInterfaceTopic;
 	private String interfaceToCoreTopic;

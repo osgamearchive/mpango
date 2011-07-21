@@ -11,6 +11,7 @@ import net.sf.mpango.game.core.dto.CityDTO;
 import net.sf.mpango.game.core.dto.ConstructionDTO;
 import net.sf.mpango.game.core.dto.GameBoardDTO;
 import net.sf.mpango.game.core.dto.PlayerDTO;
+import net.sf.mpango.game.core.entity.BoardConfiguration;
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.City;
 import net.sf.mpango.game.core.entity.Construction;
@@ -91,7 +92,7 @@ public class TestUtils {
 	}
 
 	public static GameBoard getGameBoard(Long id) {
-		GameBoard board = new GameBoard(ROW_SIZE, COLUMN_SIZE);
+		GameBoard board = new GameBoard(new BoardConfiguration(ROW_SIZE, COLUMN_SIZE));
         board.setIdentifier(id);
         return board;
 	}

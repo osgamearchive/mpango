@@ -51,7 +51,7 @@
     <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory" />
         <property name="destination" ref="interface2CoreQueue" />
-        <property name="messageListener" ref="gameService" />
+        <property name="messageListener" ref="gameServiceListener" />
     </bean>
 	
 	<!-- Data source 
@@ -73,7 +73,7 @@
 		</property>
 	</bean>
 	
-	<bean name="playerDAO" class="net.sf.mpango.core.dao.HibernatePlayerDAOImpl">
+	<bean name="playerDAO" class="net.sf.mpango.game.core.dao.HibernatePlayerDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
@@ -81,9 +81,13 @@
 		<property name="playerDAO" ref="playerDAO" />
 	</bean>
 
-    <bean name="gameService" class="net.sf.mpango.game.core.service.GameServiceImpl">
+    <bean name="gameService" class="net.sf.mpango.game.core.service.GameServiceImpl" init-method="init">
     	<property name="playerService" ref="playerService" />
     	<property name="jmsTemplate" ref="jmsTemplate" />
+    </bean>
+    
+    <bean name="gameServiceListener" class="net.sf.mpango.game.core.jms.GameServiceListener">
+    	<property name="gameService" ref="gameService" />
     </bean>
 
 </beans>
