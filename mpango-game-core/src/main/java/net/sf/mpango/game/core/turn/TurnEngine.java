@@ -19,7 +19,7 @@ public class TurnEngine {
 	
 	public TurnEngine(Timer timer) {
 		this.currentTurn = new Turn(0, new Date());
-        this.timer = timer;
+        this.setTimer(timer);
 	}
 	
 	public TurnEvent passTurn(GameBoard gameBoard) {
@@ -38,4 +38,12 @@ public class TurnEngine {
         Long nextTurnNumber = currentTurn.getTurnNumber() + Long.valueOf(1l);
         return nextTurnNumber;
     }
+
+	public Timer getTimer() {
+		return timer;
+	}
+
+	public void setTimer(Timer timer) {
+		this.timer = timer;
+	}
 }

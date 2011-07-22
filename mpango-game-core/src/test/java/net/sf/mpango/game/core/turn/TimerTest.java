@@ -47,7 +47,7 @@ public class TimerTest {
     public void testAddAbstractTaskCommand() throws CommandException {
 
         AbstractTaskCommand command = new AbstractTaskCommand (100l, timer.getInternalTimer()) {
-            public boolean executed = false;
+//            private boolean executed = false;
             @Override
             public int calculateTotalTimeSlices() {
                 return 1;  //To change body of implemented methods use File | Settings | File Templates.
@@ -55,7 +55,7 @@ public class TimerTest {
 
             @Override
             public CommandExecutedEvent runExecute() {
-                executed = true;
+//                executed = true;
                 return null;  //To change body of implemented methods use File | Settings | File Templates.
             }
 

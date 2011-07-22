@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringJUnit4ClassRunner.class)
 public abstract class BaseSpringTest extends AbstractTransactionalJUnit4SpringContextTests {
 
+	@SuppressWarnings("unused")
 	@Autowired
 	private SessionFactory sessionFactory;
 	

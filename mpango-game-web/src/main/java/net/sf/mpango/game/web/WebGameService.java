@@ -27,7 +27,8 @@ public class WebGameService {
     private static final String EVENT_JOIN = "JOIN";
     private static final String EVENT_DEPART = "DEPART";
 
-    @Inject
+    @SuppressWarnings("unused")
+	@Inject
     private BayeuxServer bayeux;
     @Session
     private ServerSession serverSession;

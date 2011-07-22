@@ -79,8 +79,7 @@ public class GameBoardService implements GameListener {
 	 * Method that sends the game board to the subscribed clients.
 	 */
 	private void sendBoard() {
-		GameBoard board = getGameBoard();
-		JSONObject jsonObject = JSONObject.fromObject(gameBoard);
+		JSONObject jsonObject = JSONObject.fromObject(getGameBoard());
         message.setData(jsonObject);
         remoteSession.deliver(serverSession, message);
 	}

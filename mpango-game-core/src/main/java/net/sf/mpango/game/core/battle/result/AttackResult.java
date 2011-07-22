@@ -14,6 +14,7 @@ public class AttackResult {
 	private Float attackersEndingHitPoints;
 	private Float defendersStartingHitPoints;
 	private Float defendersEndingHitpoints;
+
 	private Integer result;
 	
 	public AttackResult(Unit attacker, Unit defender) {
@@ -28,5 +29,40 @@ public class AttackResult {
 		this.attackersEndingHitPoints = attacker.getHitPoints();
 		this.defendersEndingHitpoints = defender.getHitPoints();
 	}
-	
+
+	public Float getAttackersStartingHitPoints() {
+		return attackersStartingHitPoints;
+	}
+
+	public void setAttackersStartingHitPoints(Float attackersStartingHitPoints) {
+		this.attackersStartingHitPoints = attackersStartingHitPoints;
+	}
+
+	public Float getAttackersEndingHitPoints() {
+		return attackersEndingHitPoints;
+	}
+
+	public void setAttackersEndingHitPoints(Float attackersEndingHitPoints) {
+		this.attackersEndingHitPoints = attackersEndingHitPoints;
+	}
+
+	public Float getDefendersStartingHitPoints() {
+		return defendersStartingHitPoints;
+	}
+
+	public void setDefendersStartingHitPoints(Float defendersStartingHitPoints) {
+		this.defendersStartingHitPoints = defendersStartingHitPoints;
+	}
+
+	public Float getDefendersEndingHitpoints() {
+		return defendersEndingHitpoints;
+	}
+
+	public void setDefendersEndingHitpoints(Float defendersEndingHitpoints) {
+		this.defendersEndingHitpoints = defendersEndingHitpoints;
+	}
+
+	public Integer getResult() {
+		return result;
+	}
 }

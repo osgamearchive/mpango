@@ -21,7 +21,8 @@ import org.cometd.java.annotation.Session;
 @Service("helloService")
 public class HelloService
 {
-    @Inject
+    @SuppressWarnings("unused")
+	@Inject
     private BayeuxServer bayeux;
     @Session
     private ServerSession serverSession;

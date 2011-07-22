@@ -43,7 +43,6 @@ public class FightResult {
 	}
 
 	public List<AttackResult> getAttackResults() {
-		// TODO Auto-generated method stub
 		return attackResults;
 	}
 }

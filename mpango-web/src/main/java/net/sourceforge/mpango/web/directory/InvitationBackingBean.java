@@ -18,14 +18,15 @@ public class InvitationBackingBean
 	{
 		try 
 		{
-			String sender = "mpango@gmail.com";
-			String recipients = this.inviteEmailAddress;
-			String subject = "mPango invite";
-			String content = "<p>Hi there,</p><p>You have just been invited to the MMORPG mpango by " + this.inviteName + "!.</p>";
+			throw new RuntimeException("TO BE IMPLEMENTED");
+//			String sender = "mpango@gmail.com";
+//			String recipients = this.inviteEmailAddress;
+//			String subject = "mPango invite";
+//			String content = "<p>Hi there,</p><p>You have just been invited to the MMORPG mpango by " + this.inviteName + "!.</p>";
 			
 //			SendMail sendMail = new SendMail(sender, recipients, subject, content); 
 //			sendMail.send();
-			this.setIsEmailSent(true);
+//			this.setIsEmailSent(true);
 			
 		} 
 		catch (Exception e) 
