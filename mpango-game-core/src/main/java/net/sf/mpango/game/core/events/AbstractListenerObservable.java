@@ -42,7 +42,7 @@ public abstract class AbstractListenerObservable extends AbstractListener implem
 			try {
 				listener.receive(event);
 			} catch (EventNotSupportedException e) {
-				logger.debug("Error on listener: " + listener, e);
+				logger.warn("Listener: " + listener, e);
 			}
 		}
 	}

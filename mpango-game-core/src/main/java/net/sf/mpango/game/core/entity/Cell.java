@@ -115,7 +115,7 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 		if (!this.constructions.contains (construction)) {
 			throw new ConstructionNotFoundException (construction);
 		}
-		this.constructions.remove (construction);
+		this.constructions.remove(construction);
 	}
 	@Id
 	public Long getIdentifier() {

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
-import net.sf.mpango.game.web.GameBoardService;
+import net.sf.mpango.game.web.GameBoardServiceImpl;
 
 /**
  * Game message listener from the game web part.
@@ -21,7 +21,7 @@ import net.sf.mpango.game.web.GameBoardService;
 public class GameBoardServiceListener implements MessageListener {
 
 	@Inject
-	private GameBoardService gameBoardService;
+	private GameBoardServiceImpl gameBoardService;
 	
 	@Override
 	public void onMessage(Message message) {
@@ -34,7 +34,7 @@ public class GameBoardServiceListener implements MessageListener {
 				e.printStackTrace();
 			}
 		} else {
-			
+			throw new RuntimeException("Message not supported: "+message);
 		}
 	}
 
@@ -42,8 +42,7 @@ public class GameBoardServiceListener implements MessageListener {
 		try {
 			gameBoardService.receiveEvent(event);
 		} catch (EventNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("Event not supported: "+e);
 		}
 	}
 }

@@ -16,7 +16,7 @@ import org.junit.Test;
  */
 public class GameBoardServiceTest {
 
-    private GameBoardService testing;
+    private GameBoardServiceImpl testing;
     
     private ServerSession mockedLocalSession;
     private ServerSession mockedRemoteSession;
@@ -29,7 +29,7 @@ public class GameBoardServiceTest {
         mockedLocalSession 	= EasyMock.createMock(ServerSession.class);
         mockedRemoteSession = EasyMock.createMock(ServerSession.class);
         mockedMessage 		= EasyMock.createMock(ServerMessage.Mutable.class);
-        testing 			= new GameBoardService();
+        testing 			= new GameBoardServiceImpl();
         
         testing.setServerSession(mockedLocalSession);
         testing.setGameService(mockedGameService);

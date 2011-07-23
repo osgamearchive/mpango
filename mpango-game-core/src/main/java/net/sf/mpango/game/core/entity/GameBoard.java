@@ -37,7 +37,27 @@ public class GameBoard extends AbstractPersistable implements ITurnBasedEntityLi
     private List<Cell> cells;
 	private Cell[][] arrayOfcells;
 	private List<Listener> listeners;
-
+	
+	/**
+	 * Constructor that generates an instance randomly.
+	 * @param configuration
+	 * @return
+	 */
+	public static GameBoard generateRandomBoard (BoardConfiguration configuration) {
+		System.out.println("Generating a board of size: "+configuration.getRowNumber()+" x "+configuration.getColNumber());
+		GameBoard board = new GameBoard(configuration);
+		List<Cell> cells = new ArrayList<Cell>();
+		Cell cell = null;
+		for (int i=0; i<configuration.getRowNumber(); i++) {
+			for (int j=0; i<configuration.getColNumber(); j++) {
+				cell = new Cell(i, j, null);
+				cells.add(cell);
+			}
+		}
+		board.setCells(cells);
+		return board;
+	}
+	
 	/**
 	 * Default constructor used when loading the entity from the database.
 	 */
@@ -66,15 +86,15 @@ public class GameBoard extends AbstractPersistable implements ITurnBasedEntityLi
 		this.colSize = colNumber;
         this.cells = new ArrayList<Cell>(rowSize*colSize);
 		this.arrayOfcells = new Cell[this.rowSize][this.colSize];
-		for (int row=0; row<rowNumber; row++) {
-			for (int col=0; col<colNumber; col++) {
+		for (int row = 0; row < rowNumber; row++) {
+			for (int col = 0; col < colNumber; col++) {
                 Cell cell = new Cell(row, col);
                 cell.setAttackBonus(RandomUtils.nextFloat());
                 cell.setDefenseBonus(RandomUtils.nextFloat());
                 cell.setResources(new HashSet<Resources>());
                 cell.setConstructions(new ArrayList<Construction>());
-                this.cells.add(cell);
 				this.arrayOfcells[row][col] = cell;
+                this.addCell(cell);
 			}
 		}
 	}
@@ -91,6 +111,10 @@ public class GameBoard extends AbstractPersistable implements ITurnBasedEntityLi
 			throw new IllegalArgumentException("The specified cell is not found in the game board");
 		}
 		return arrayOfcells[rowNumber][colNumber];
+	}
+	
+	public void addCell(Cell cell) {
+		this.cells.add(cell);
 	}
 	
 	/**

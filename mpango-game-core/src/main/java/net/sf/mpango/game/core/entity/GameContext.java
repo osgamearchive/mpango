@@ -28,24 +28,11 @@ public class GameContext extends AbstractPersistable {
 	protected GameBoard board;
 	protected GameConfiguration configuration;
 
-	public GameContext() {}
-	
-	public void initialize() {
-		this.board = generateRandomBoard(configuration.getBoardConfiguration());
+	public GameContext() {
+		configuration = new GameConfiguration(new BoardConfiguration(10, 10));
 	}
 	
-	private GameBoard generateRandomBoard(BoardConfiguration configuration) {
-		GameBoard board = new GameBoard(configuration);
-		List<Cell> cells = new ArrayList<Cell>();
-		Cell cell = null;
-		for (int i=0; i<configuration.getRowNumber(); i++) {
-			for (int j=0; i<configuration.getColNumber(); j++) {
-				cell = new Cell(i, j, null);
-				cells.add(cell);
-			}
-		}
-		return board;
-	}
+	public void initialize() {}
 
 	/**
 	 * Method called when a player joins the game.
@@ -97,6 +84,10 @@ public class GameContext extends AbstractPersistable {
 
     @OneToOne
 	public GameBoard getBoard() {
+    	if (this.board == null) {
+    		BoardConfiguration boardConfiguration = getConfiguration().getBoardConfiguration();
+    		board = GameBoard.generateRandomBoard(boardConfiguration);
+    	}
 		return board;
 	}
 

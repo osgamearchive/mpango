@@ -40,7 +40,6 @@ public class WebGameService {
 
     @Listener("/service/game")
     public void processGame (ServerSession remote, ServerMessage.Mutable message) {
-        System.out.println("Processing event");
 
         Map<String, Object> input = message.getDataAsMap();
         String event = (String) input.get(PARAM_NAME_EVENT);

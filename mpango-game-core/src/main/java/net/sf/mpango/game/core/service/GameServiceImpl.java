@@ -1,5 +1,6 @@
 package net.sf.mpango.game.core.service;
 
+import org.apache.log4j.Logger;
 import org.springframework.jms.core.JmsTemplate;
 
 import net.sf.mpango.common.directory.entity.User;
@@ -98,4 +99,5 @@ public class GameServiceImpl implements IGameService {
 		this.interfaceToCoreQueue = interfaceToCoreQueue;
 	}
 
+	private static final Logger logger = Logger.getLogger(GameServiceImpl.class);
 }

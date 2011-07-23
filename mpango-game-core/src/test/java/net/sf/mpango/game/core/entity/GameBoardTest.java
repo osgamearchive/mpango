@@ -7,10 +7,11 @@ import junit.framework.TestCase;
 
 public class GameBoardTest extends TestCase {
 
+	private static final int ROW_NUMBER = 40;
+	private static final int COL_NUMBER = 60;
+	
 	private GameBoard board;
 	private BoardConfiguration boardConfiguration;
-	private static final int ROW_NUMBER = 4;
-	private static final int COL_NUMBER = 6;
 	
 	public void setUp() {
 		boardConfiguration = new BoardConfiguration(ROW_NUMBER,COL_NUMBER);
@@ -28,7 +29,7 @@ public class GameBoardTest extends TestCase {
 	
 	public void testGetUnexistingCell() {
 		try {
-			board.getCell(7, 6);
+			board.getCell(ROW_NUMBER+1, COL_NUMBER+1);
 			fail("Expected exception not raised");
 		} catch (IllegalArgumentException expected) {
 			//Do nothing

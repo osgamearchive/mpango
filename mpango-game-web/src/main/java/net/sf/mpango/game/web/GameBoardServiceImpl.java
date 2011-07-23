@@ -6,11 +6,17 @@ import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.GameBoardEvent;
 import net.sf.mpango.game.core.events.GameListener;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
+import net.sf.mpango.game.core.service.IGameBoardService;
 import net.sf.mpango.game.core.service.IGameService;
 
+import org.apache.log4j.Logger;
+import org.cometd.bayeux.server.ConfigurableServerChannel;
+import org.cometd.bayeux.server.ServerChannel;
+import org.cometd.bayeux.server.ServerMessage.Mutable;
+import org.cometd.bayeux.server.ServerSession;
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ServerMessage;
-import org.cometd.bayeux.server.ServerSession;
+import org.cometd.java.annotation.Configure;
 import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
@@ -29,12 +35,11 @@ import javax.inject.Singleton;
 @Named
 @Singleton
 @Service("gameBoardService")
-public class GameBoardService implements GameListener {
+public class GameBoardServiceImpl implements GameListener, IGameBoardService {
     
     @Inject
     private IGameService gameService;
     
-    @SuppressWarnings("unused")
 	@Inject
     private BayeuxServer bayeux;
     
@@ -42,13 +47,18 @@ public class GameBoardService implements GameListener {
     private ServerSession serverSession;
     
     private GameBoard gameBoard;
-    
-    //For communication purposes
-    private ServerSession remoteSession;
-    private ServerMessage.Mutable message;
 
     @PostConstruct
-    public void init() {}
+    public void init() {
+    	logger.debug("Initializing service: " + this.getClass().getAnnotation(Service.class).toString());
+    }
+    
+    @Configure("/service/gameBoard")
+    public void configure(ConfigurableServerChannel channel) {
+    	logger.debug("Configuring the /service/gameBoard");
+        channel.setLazy(true);
+        //channel.addAuthorizer(GrantAuthorizer.GRANT_PUBLISH);
+    }
     
     /**
      *
@@ -57,28 +67,37 @@ public class GameBoardService implements GameListener {
      */
     @Listener("/service/gameBoard")
     public void subscribe(ServerSession remoteSession, ServerMessage.Mutable message) {
-        this.remoteSession = remoteSession;
-        this.message = message;
-        sendBoard();
+    	if (logger.isDebugEnabled()) {
+    		logger.debug("New subscription from client: "+remoteSession.getId());
+    	}
+        sendBoard(remoteSession, message);
     }
 
 
 	@Override
 	public void receiveEvent(Event event) throws EventNotSupportedException {
 		if (event instanceof GameBoardEvent) {
+			//Cast the event to a GameEvent
 			GameBoardEvent gameBoardEvent = (GameBoardEvent) event;
-			gameBoard = gameBoardEvent.getBoard();
-			sendBoard();
+			//Create the resources to communicate the event
+			ServerChannel channel = bayeux.getChannel("/service/gameBoard");
+			Mutable message = bayeux.newMessage();
+			//Handle the message
+			message.setData(gameBoardEvent.getBoard());
+			//Publish the message to all subscribers
+			channel.publish (this.serverSession, message);
 		} else {
-			System.err.println("Ignoring event");
+			logger.warn("Ignoring event");
 			throw new EventNotSupportedException(event);
 		}
 	}
 	
 	/**
 	 * Method that sends the game board to the subscribed clients.
+	 * @param message2 
+	 * @param remoteSession 
 	 */
-	private void sendBoard() {
+	private void sendBoard(ServerSession remoteSession, Mutable message) {
 		JSONObject jsonObject = JSONObject.fromObject(getGameBoard());
         message.setData(jsonObject);
         remoteSession.deliver(serverSession, message);
@@ -105,4 +124,11 @@ public class GameBoardService implements GameListener {
 	public void setGameService(IGameService gameService) {
 		this.gameService = gameService;
 	}
+
+	@Override
+	public GameBoard getBoard() {
+		return this.gameBoard;
+	}
+	
+	private static final Logger logger = Logger.getLogger(GameBoardServiceImpl.class);
 }
