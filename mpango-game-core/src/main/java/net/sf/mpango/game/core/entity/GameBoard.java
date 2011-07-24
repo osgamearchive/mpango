@@ -1,22 +1,16 @@
 package net.sf.mpango.game.core.entity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.persistence.*;
 
 import net.sf.mpango.common.entity.AbstractPersistable;
-import net.sf.mpango.game.core.enums.Resources;
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.Listener;
 import net.sf.mpango.game.core.events.ITurnBasedEntityListener;
 import net.sf.mpango.game.core.events.TurnEvent;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
-
-import org.apache.commons.lang.math.RandomUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 
 
@@ -30,7 +24,6 @@ import org.apache.commons.logging.LogFactory;
 @Table(name="GAME_BOARD")
 public class GameBoard extends AbstractPersistable implements ITurnBasedEntityListener {
 	
-	private static final Log logger = LogFactory.getLog(GameBoard.class);
 	private BoardConfiguration configuration;
 	private int rowSize;
 	private int colSize;
@@ -44,17 +37,41 @@ public class GameBoard extends AbstractPersistable implements ITurnBasedEntityLi
 	 * @return
 	 */
 	public static GameBoard generateRandomBoard (BoardConfiguration configuration) {
-		System.out.println("Generating a board of size: "+configuration.getRowNumber()+" x "+configuration.getColNumber());
 		GameBoard board = new GameBoard(configuration);
-		List<Cell> cells = new ArrayList<Cell>();
-		Cell cell = null;
-		for (int i=0; i<configuration.getRowNumber(); i++) {
-			for (int j=0; i<configuration.getColNumber(); j++) {
-				cell = new Cell(i, j, null);
-				cells.add(cell);
+		return generateCells(board);
+	}
+	
+	/**
+	 * Factory method that creates a random board based on the row and column sizes.
+	 * @param rowSize 
+	 * @param colSize
+	 * @return
+	 */
+	public static GameBoard generateRandomBoard(int rowSize, int colSize) {
+		BoardConfiguration configuration = new BoardConfiguration(rowSize, colSize);
+		return generateRandomBoard(configuration);
+	}
+	
+	/**
+	 * Methd that generates the cells for the board (at the moment with dummy random behavior).
+	 * @param board
+	 * @return
+	 */
+	private static GameBoard generateCells(GameBoard board) {
+		List<Cell> result = null;
+		int rowSize = board.getConfiguration().getRowNumber();
+		int colSize = board.getConfiguration().getColNumber();
+		if  ((rowSize != 0) && (colSize != 0)) {
+			result = new ArrayList<Cell>();
+			Cell cell = null;
+			for (int rowPosition=0; rowPosition < rowSize; rowPosition++) {
+				for (int colPosition=0; colPosition < colSize; colPosition++) {
+					cell = new Cell(rowPosition, colPosition, null);
+					result.add(cell);
+				}
 			}
 		}
-		board.setCells(cells);
+		board.setCells(result);
 		return board;
 	}
 	
@@ -66,37 +83,13 @@ public class GameBoard extends AbstractPersistable implements ITurnBasedEntityLi
 	}
 	
 	/**
-	 * Constructor in order to create the board for the first time.
+	 * <p>Constructor that generates a GameBoard based on a GameBoardConfiguration object.</p>
 	 * @param configuration
 	 */
-	public GameBoard(BoardConfiguration configuration) {
-		this(configuration.getRowNumber(), configuration.getColNumber());
+	private GameBoard(BoardConfiguration configuration) {
+		this.rowSize = configuration.getRowNumber();
+		this.colSize = configuration.getColNumber();
 		this.configuration = configuration;
-	}
-	
-	/**
-	 * <p>Constructor that generates a GameBoard.</p>
-	 * TODO incorporate Serg's code here.
-	 * @param rowNumber number of rows for the game board
-	 * @param colNumber number of columns for the game board
-	 */
-	private GameBoard (int rowNumber, int colNumber) {
-		logger.debug("Creating game board with " + rowNumber + " rows and " + colNumber + " columns");
-		this.rowSize = rowNumber;
-		this.colSize = colNumber;
-        this.cells = new ArrayList<Cell>(rowSize*colSize);
-		this.arrayOfcells = new Cell[this.rowSize][this.colSize];
-		for (int row = 0; row < rowNumber; row++) {
-			for (int col = 0; col < colNumber; col++) {
-                Cell cell = new Cell(row, col);
-                cell.setAttackBonus(RandomUtils.nextFloat());
-                cell.setDefenseBonus(RandomUtils.nextFloat());
-                cell.setResources(new HashSet<Resources>());
-                cell.setConstructions(new ArrayList<Construction>());
-				this.arrayOfcells[row][col] = cell;
-                this.addCell(cell);
-			}
-		}
 	}
 
 	/**
@@ -150,9 +143,13 @@ public class GameBoard extends AbstractPersistable implements ITurnBasedEntityLi
 	public List<Cell> getCells() {
 		return cells;
 	}
-	
+	/**
+	 * Method that sets the cells of the board and initializes the array for fast lookup.
+	 * @param cells
+	 */
 	public void setCells(List<Cell> cells) {
 		this.cells = cells;
+		this.arrayOfcells = new Cell[configuration.getRowNumber()][configuration.getColNumber()];
         for (Cell cell : cells) {
             this.arrayOfcells[cell.getRow()][cell.getColumn()] = cell;
         }
@@ -174,7 +171,6 @@ public class GameBoard extends AbstractPersistable implements ITurnBasedEntityLi
 			try {
 				listener.receive(event);
 			} catch (EventNotSupportedException e) {
-				logger.error("Error on listener [" + listener + "]", e);
 			}
 		}
 	}

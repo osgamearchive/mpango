@@ -11,7 +11,6 @@ import net.sf.mpango.game.core.dto.CityDTO;
 import net.sf.mpango.game.core.dto.ConstructionDTO;
 import net.sf.mpango.game.core.dto.GameBoardDTO;
 import net.sf.mpango.game.core.dto.PlayerDTO;
-import net.sf.mpango.game.core.entity.BoardConfiguration;
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.City;
 import net.sf.mpango.game.core.entity.Construction;
@@ -92,7 +91,7 @@ public class TestUtils {
 	}
 
 	public static GameBoard getGameBoard(Long id) {
-		GameBoard board = new GameBoard(new BoardConfiguration(ROW_SIZE, COLUMN_SIZE));
+		GameBoard board = GameBoard.generateRandomBoard(ROW_SIZE, COLUMN_SIZE);
         board.setIdentifier(id);
         return board;
 	}
@@ -117,17 +116,7 @@ public class TestUtils {
 	}	
 
     public static net.sf.mpango.game.core.entity.GameBoard prepareGameBoard (int colSize, int rowSize) {
-        GameBoard gameBoard = new GameBoard();
-        gameBoard.setColSize(colSize);
-        gameBoard.setRowSize(rowSize);
-        List<Cell> cells = new ArrayList<Cell>();
-        for (int i = 0; i<colSize; i++) {
-            for (int j = 0; j<rowSize; j++) {
-                Cell cell = prepareCell(i,j, null);
-                cells.add(cell);
-            }
-        }
-        return gameBoard;
+        return GameBoard.generateRandomBoard(rowSize, colSize);
     }
 
     public static Cell prepareCell(int colPosition, int rowPosition, Set<Resources> resources) {

@@ -7,16 +7,12 @@ import javax.persistence.Transient;
 
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * Class that receives an event, processes it, and propagates it to all the subscribed listeners.
  * @author edvera
  */
 public abstract class AbstractListenerObservable extends AbstractListener implements Observable {
-
-	private static final Log logger = LogFactory.getLog(AbstractListenerObservable.class);
+	
 	protected List<Listener> listeners;
 	private Listener myself;
 	
@@ -26,24 +22,23 @@ public abstract class AbstractListenerObservable extends AbstractListener implem
 	}
 	
 	@Override
-	public void receive(Event event) throws EventNotSupportedException {
+	public final void receive(Event event) throws EventNotSupportedException {
 		try {
 			myself.receive (event);
 		} catch (EventNotSupportedException e) {
-			logger.debug("Unable to handle event", e);
+			
 		} finally {
 			//We make sure the chain is not broken because of the exception
 			notifyListeners(event);
 		}
 	}
+	
 	@Override
 	 public void notifyListeners (Event event) {
 		for (Listener listener : listeners) {
 			try {
 				listener.receive(event);
-			} catch (EventNotSupportedException e) {
-				logger.warn("Listener: " + listener, e);
-			}
+			} catch (EventNotSupportedException e) {}
 		}
 	}
 	@Override

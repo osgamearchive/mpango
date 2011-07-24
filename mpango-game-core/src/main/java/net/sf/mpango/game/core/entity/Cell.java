@@ -10,11 +10,8 @@ import javax.persistence.*;
 
 import net.sf.mpango.game.core.enums.Resources;
 import net.sf.mpango.game.core.events.AbstractListenerObservable;
-import net.sf.mpango.game.core.events.Event;
-import net.sf.mpango.game.core.events.Listener;
 import net.sf.mpango.game.core.exception.ConstructionAlreadyInPlaceException;
 import net.sf.mpango.game.core.exception.ConstructionNotFoundException;
-import net.sf.mpango.game.core.exception.EventNotSupportedException;
 
 
 /**
@@ -41,10 +38,7 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 		this(rowPosition, colPosition, new HashSet<Resources>());
 	}
 	public Cell(int rowPosition, int colPosition, Set<Resources> resources) {
-		super(new Listener() {
-			@Override
-			public void receive(Event event) throws EventNotSupportedException {}
-		});
+		super(null);
 		this.column = colPosition;
 		this.row = rowPosition;
 		this.resources = resources;
@@ -153,12 +147,6 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 
 	public void setAttackBonus(float attackBonus) {
 		this.attackBonus = attackBonus;
-	}
-	
-	@Override
-	public void notifyListeners(Event event) {
-		// TODO Auto-generated method stub
-		
 	}
 
     @Transient

@@ -14,8 +14,8 @@ public class GameBoardTest extends TestCase {
 	private BoardConfiguration boardConfiguration;
 	
 	public void setUp() {
-		boardConfiguration = new BoardConfiguration(ROW_NUMBER,COL_NUMBER);
-		board = new GameBoard(boardConfiguration);
+		boardConfiguration = new BoardConfiguration(ROW_NUMBER, COL_NUMBER);
+		board = GameBoard.generateRandomBoard(boardConfiguration);
 	}
 	
 	public void tearDown() {
