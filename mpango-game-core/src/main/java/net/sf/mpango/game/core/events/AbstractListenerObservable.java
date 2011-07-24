@@ -24,7 +24,9 @@ public abstract class AbstractListenerObservable extends AbstractListener implem
 	@Override
 	public final void receive(Event event) throws EventNotSupportedException {
 		try {
-			myself.receive (event);
+			if (myself != null) {
+				myself.receive (event);
+			}
 		} catch (EventNotSupportedException e) {
 			
 		} finally {

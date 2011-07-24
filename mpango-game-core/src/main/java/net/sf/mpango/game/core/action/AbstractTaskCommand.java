@@ -22,7 +22,7 @@ import net.sf.mpango.game.core.exception.EventNotSupportedException;
 public abstract class AbstractTaskCommand extends TimerTask implements ITaskCommand, Observable  {
 
 	/** Default time milliseconds per time slice. */
-	public static final long DEFAULT_MILLIS_PER_TIME_SLICE = 10;
+	public static final long DEFAULT_MILLIS_PER_TIME_SLICE = 50;
 	
 	/** Timer assigned to this command */
 	private Timer timer;
