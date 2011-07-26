@@ -3,7 +3,8 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" 
 xmlns:h="http://java.sun.com/jsf/html"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+xmlns:ui="http://java.sun.com/jsf/facelets"
+xmlns:c="http://java.sun.com/jsp/jstl/core">
 <h:body>
 
 	<ui:composition template="../templates/masterLayout.xhtml">
@@ -22,28 +23,33 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 		<ui:define name="content">
 			<div id="normalcontent">
 				<h3>My Account</h3>
-				<div class="contentarea">
 				
-					<h:form>
-						<h:outputText value="Email "/>
-						<h:inputText value=""></h:inputText>
-						<br />
-						<h:outputText value="Password "/>
-						<h:inputText value=""></h:inputText>	
-						<br />			
-						<h:commandButton value="Log IN" action="home"></h:commandButton>
-					</h:form>
-	
-					<a href="recover.jsf">Forgot your password?</a>
-					<a href="signup.jsf">Sign Up</a>
+				<p><h:inputText value="#{loginBackingBean.loggedIn}"></h:inputText></p>
+				
+				<c:if test="${!loginBackingBean.loggedIn}">
+					<div class="contentarea">
 					
-				</div>
-				
-				<div class="contentarea">
-					<p>Account information goes here</p>
-					<p>Account information is displayed if a user is logged into an account.</p>
-					<p>If a user is not logged in, log in form is displayed.</p>
-				</div>
+						<h:form>
+							<h:outputText value="#{msg.field_email} "/>
+							<h:inputText value="#{loginBackingBean.email}" size="30" required="true"></h:inputText>
+							<br />
+							<h:outputText value="#{msg.field_password} "/>
+							<h:inputSecret value="#{loginBackingBean.password}" size="30" required="true"></h:inputSecret>	
+							<br />			
+							<h:commandButton value="#{msg.login}" action="#{loginBackingBean.login}"></h:commandButton>
+						</h:form>
+		
+						<a href="recover.jsf">Forgot your password?</a>
+						<a href="signup.jsf">Sign Up</a>
+					</div>
+				</c:if>
+				<c:if test="${loginBackingBean.loggedIn}">
+					<div class="contentarea">
+						<p>Account information goes here</p>
+						<p>Account information is displayed if a user is logged into an account.</p>
+						<p>If a user is not logged in, log in form is displayed.</p>
+					</div>
+				</c:if>
 			</div>
 		</ui:define>
 
