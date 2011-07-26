@@ -86,4 +86,8 @@
           scope="request">
 	</bean>
 
+	<bean id="loginBackingBean"
+          class="net.sourceforge.mpango.web.directory.LoginBackingBean">
+          <property name="authService" ref="authService" />
+	</bean>
 </beans>
