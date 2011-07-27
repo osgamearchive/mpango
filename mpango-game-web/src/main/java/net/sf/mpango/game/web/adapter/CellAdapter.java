@@ -36,11 +36,9 @@ public class CellAdapter extends BaseAdapter<Cell, CellDTO> {
 		dto.setId(cell.getIdentifier());
 		dto.setAttackBonus(cell.getAttackBonus());
 		dto.setColumn(cell.getColumn());
-		dto.setConstructions(ConstructionBuilder.instance().buildList(
-				cell.getConstructions()));
+		dto.setConstructions(ConstructionAdapter.instance().toDTOList(cell.getConstructions()));
 		dto.setDefenseBonus(cell.getDefenseBonus());
 		dto.setRow(cell.getRow());
-
 		return dto;
 	}
 
@@ -51,8 +49,7 @@ public class CellAdapter extends BaseAdapter<Cell, CellDTO> {
 		cell.setRow(dto.getRow());
 		cell.setIdentifier(dto.getId());
 		cell.setAttackBonus(dto.getAttackBonus());
-		cell.setConstructions(ConstructionFactory.instance().createList(
-				dto.getConstructions()));
+		cell.setConstructions(ConstructionAdapter.instance().fromDTOList(dto.getConstructions()));
 		cell.setDefenseBonus(dto.getDefenseBonus());
 
 		return cell;
