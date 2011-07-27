@@ -1,11 +1,15 @@
 package net.sf.mpango.game.web.adapter;
 
 import net.sf.mpango.common.adapter.BaseAdapter;
-import net.sf.mpango.common.directory.builder.UserBuilder;
-import net.sf.mpango.common.directory.factory.UserFactory;
+import net.sf.mpango.common.directory.adapter.UserAdapter;
 import net.sf.mpango.game.core.entity.Player;
 import net.sf.mpango.game.web.dto.PlayerDTO;
 
+/**
+ * 
+ * @author etux
+ *
+ */
 public class PlayerAdapter extends BaseAdapter<Player, PlayerDTO> {
 
 	private PlayerAdapter() {
@@ -24,9 +28,9 @@ public class PlayerAdapter extends BaseAdapter<Player, PlayerDTO> {
 		Player player = new Player();
 		player.setIdentifier(dto.getId());
 		player.setState(dto.getState());
-		player.setPosition(PositionFactory.instance().create(dto.getPosition()));
-		player.setUnits(UnitFactory.instance().createList(dto.getUnits()));
-		player.setUser(UserFactory.instance().create(dto.getUser()));
+		player.setPosition(PositionAdapter.instance().fromDTO(dto.getPosition()));
+		player.setUnits(UnitAdapter.instance().fromDTOList(dto.getUnits()));
+		player.setUser(UserAdapter.getInstance().fromDTO(dto.getUser()));
 		return player;
 	}
 
@@ -38,9 +42,9 @@ public class PlayerAdapter extends BaseAdapter<Player, PlayerDTO> {
 		PlayerDTO dto = new PlayerDTO();
 		dto.setId(player.getIdentifier());
 		dto.setState(player.getState());
-		dto.setPosition(PositionBuilder.instance().build(player.getPosition()));
-		dto.setUnits(UnitBuilder.instance().buildList(player.getUnits())); 
-		dto.setUser(UserBuilder.instance().build(player.getUser()));
+		dto.setPosition(PositionAdapter.instance().toDTO(player.getPosition()));
+		dto.setUnits(UnitAdapter.instance().toDTOList(player.getUnits())); 
+		dto.setUser(UserAdapter.getInstance().toDTO(player.getUser()));
 		return dto;
 	}
 

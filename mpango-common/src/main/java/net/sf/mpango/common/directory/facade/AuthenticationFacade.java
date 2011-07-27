@@ -5,9 +5,8 @@ package net.sf.mpango.common.directory.facade;
 
 import java.util.List;
 
-import net.sf.mpango.common.directory.builder.UserBuilder;
+import net.sf.mpango.common.directory.adapter.UserAdapter;
 import net.sf.mpango.common.directory.dto.UserDTO;
-import net.sf.mpango.common.directory.factory.UserFactory;
 import net.sf.mpango.common.directory.service.IAuthenticationService;
 
 /**
@@ -27,7 +26,7 @@ public class AuthenticationFacade implements IAuthenticationFacade {
 	 */
 	@Override
 	public UserDTO load(String email) {
-		return UserBuilder.instance().build(authService.load(email));
+		return UserAdapter.getInstance().toDTO(authService.load(email));
 	}
 
 	/*
@@ -39,8 +38,8 @@ public class AuthenticationFacade implements IAuthenticationFacade {
 	 */
 	@Override
 	public UserDTO register(UserDTO dto) {
-		return UserBuilder.instance().build(
-				authService.register(UserFactory.instance().create(dto)));
+		return UserAdapter.getInstance().toDTO(
+				authService.register(UserAdapter.getInstance().fromDTO(dto)));
 	}
 
 	public IAuthenticationService getAuthService() {
@@ -54,7 +53,7 @@ public class AuthenticationFacade implements IAuthenticationFacade {
 	@Override
 	public List<UserDTO> list() {
 		List<UserDTO> users = null;
-		users = UserBuilder.instance().buildList(authService.list());
+		users = UserAdapter.getInstance().toDTOList(authService.list());
 		return users;
 	}
 }

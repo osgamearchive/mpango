@@ -5,6 +5,11 @@ import net.sf.mpango.common.adapter.BaseAdapter;
 import net.sf.mpango.game.web.dto.CellDTO;
 import net.sf.mpango.game.core.entity.Cell;
 
+/**
+ * 
+ * @author etux
+ *
+ */
 public class CellAdapter extends BaseAdapter<Cell, CellDTO> {
 	
 	private CellAdapter() {

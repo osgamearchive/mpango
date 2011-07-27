@@ -1,12 +1,16 @@
 package net.sf.mpango.game.web.adapter;
 
 import net.sf.mpango.common.adapter.BaseAdapter;
-import net.sf.mpango.common.builder.BaseBuilder;
 import net.sf.mpango.game.web.dto.CellDTO;
 import net.sf.mpango.game.web.dto.GameBoardDTO;
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.GameBoard;
 
+/**
+ * 
+ * @author etux
+ *
+ */
 public class GameBoardAdapter extends BaseAdapter<GameBoard, GameBoardDTO> {
 
 	private GameBoardAdapter() {

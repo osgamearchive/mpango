@@ -1,8 +1,8 @@
 package net.sf.mpango.game.core.facade;
 
+import net.sf.mpango.common.directory.adapter.UserAdapter;
 import net.sf.mpango.common.directory.dto.UserDTO;
 import net.sf.mpango.common.directory.entity.User;
-import net.sf.mpango.common.directory.factory.UserFactory;
 import net.sf.mpango.game.core.service.IGameService;
 
 /**
@@ -15,7 +15,7 @@ public class GameFacadeImpl implements IGameFacade {
 
     @Override
     public void join(String name, UserDTO userDTO) {
-        User user = UserFactory.instance().create(userDTO);
+        User user = UserAdapter.getInstance().fromDTO(userDTO);
         gameService.join(user);
     }
 

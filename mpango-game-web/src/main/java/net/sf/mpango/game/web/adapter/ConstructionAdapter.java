@@ -6,6 +6,11 @@ import net.sf.mpango.game.core.entity.Construction;
 import net.sf.mpango.game.web.dto.CityDTO;
 import net.sf.mpango.game.web.dto.ConstructionDTO;
 
+/**
+ * 
+ * @author etux
+ *
+ */
 public class ConstructionAdapter extends BaseAdapter<Construction, ConstructionDTO> {
 
 	private ConstructionAdapter() {

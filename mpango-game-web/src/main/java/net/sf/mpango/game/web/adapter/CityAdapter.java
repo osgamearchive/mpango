@@ -4,6 +4,11 @@ import net.sf.mpango.game.core.entity.City;
 import net.sf.mpango.common.adapter.BaseAdapter;
 import net.sf.mpango.game.web.dto.CityDTO;
 
+/**
+ * 
+ * @author etux
+ *
+ */
 public class CityAdapter extends BaseAdapter<City, CityDTO> {
 
 	private CityAdapter() {

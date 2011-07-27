@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.mpango.game.core.entity.Shield;
-import net.sf.mpango.game.web.adapter.ShieldBuilder;
+import net.sf.mpango.game.web.adapter.ShieldAdapter;
 import net.sf.mpango.game.web.dto.ShieldDTO;
 
 import org.junit.Test;
 
-public class ShieldBuilderTest {
+public class ShieldAdapterTest {
 
 	@Test
 	public void testBuildShield() {
 		Shield shield = new Shield(1F);
-		ShieldDTO dto = ShieldBuilder.instance().build(shield);
+		ShieldDTO dto = ShieldAdapter.instance().toDTO(shield);
 		assertNotNull(dto);
 		assertEquals(shield.getIdentifier(), dto.getId());
 		assertEquals(shield.getMaximumHitPoints(), dto.getMaximumHitPoints());
@@ -31,7 +31,7 @@ public class ShieldBuilderTest {
 		shieldList.add(new Shield(3F));
 		shieldList.add(new Shield(4F));
 		shieldList.add(new Shield(5F));
-		List<ShieldDTO> dtoList = ShieldBuilder.instance().buildList(shieldList);
+		List<ShieldDTO> dtoList = ShieldAdapter.instance().toDTOList(shieldList);
 		assertNotNull(dtoList);
 		assertEquals(5, dtoList.size());
 	}

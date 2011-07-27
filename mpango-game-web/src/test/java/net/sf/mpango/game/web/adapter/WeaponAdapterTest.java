@@ -7,16 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.mpango.game.core.entity.Weapon;
-import net.sf.mpango.game.web.adapter.WeaponBuilder;
+import net.sf.mpango.game.web.adapter.WeaponAdapter;
 import net.sf.mpango.game.web.dto.WeaponDTO;
 
 
-public class WeaponBuilderTest {
+public class WeaponAdapterTest {
 	
 	@Test
 	public void TestBuildWeapon() {
 		Weapon weapon = new Weapon(1F);
-		WeaponDTO dto = WeaponBuilder.instance().build(weapon);
+		WeaponDTO dto = WeaponAdapter.instance().toDTO(weapon);
 		
 		assertNotNull(dto);
 		assertEquals(weapon.getIdentifier(), dto.getId());
@@ -31,7 +31,7 @@ public class WeaponBuilderTest {
 		weaponList.add(new Weapon(3F));
 		weaponList.add(new Weapon(4F));
 		weaponList.add(new Weapon(5F));
-		List<WeaponDTO> dtoList = WeaponBuilder.instance().buildList(weaponList);
+		List<WeaponDTO> dtoList = WeaponAdapter.instance().toDTOList(weaponList);
 		assertNotNull(dtoList);
 		assertEquals(5, dtoList.size());
 	}

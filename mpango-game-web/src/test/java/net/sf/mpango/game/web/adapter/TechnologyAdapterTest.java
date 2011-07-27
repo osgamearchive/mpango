@@ -7,17 +7,17 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import net.sf.mpango.game.core.entity.Technology;
-import net.sf.mpango.game.web.adapter.TechnologyBuilder;
+import net.sf.mpango.game.web.adapter.TechnologyAdapter;
 import net.sf.mpango.game.web.dto.TechnologyDTO;
 import net.sf.mpango.game.web.TestUtils;
 
 
-public class TechnologyBuilderTest {
+public class TechnologyAdapterTest {
 
 	@Test
 	public void testBuildTechnology() {
 		Technology tech = TestUtils.getTechnology(1L, 12);
-		TechnologyDTO dto = TechnologyBuilder.instance().build(tech);
+		TechnologyDTO dto = TechnologyAdapter.instance().toDTO(tech);
 		assertNotNull(dto);
 		assertEquals(tech.getIdentifier(), dto.getId());
 		assertEquals(tech.getRequiredTechnologies(), dto.getRequiredTechnologies());
@@ -33,7 +33,7 @@ public class TechnologyBuilderTest {
 		techList.add(TestUtils.getTechnology(4L, 17));
 		techList.add(TestUtils.getTechnology(5L, 25));
 		
-		List<TechnologyDTO> dtoList = TechnologyBuilder.instance().buildList(techList);
+		List<TechnologyDTO> dtoList = TechnologyAdapter.instance().toDTOList(techList);
 		assertNotNull(dtoList);
 		assertEquals(techList.size(), dtoList.size());
 		assertEquals(techList.get(2).getIdentifier(), dtoList.get(2).getId());

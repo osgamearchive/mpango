@@ -5,8 +5,8 @@ import org.apache.commons.lang.math.RandomUtils;
 
 import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.common.directory.enums.StateEnum;
+import net.sf.mpango.common.directory.adapter.UserAdapter;
 import net.sf.mpango.common.directory.dto.UserDTO;
-import net.sf.mpango.common.directory.builder.UserBuilder;
 
 public class CommonTestUtils {
 
@@ -24,6 +24,6 @@ public class CommonTestUtils {
 	}
 	
 	public static UserDTO getUserDTO() {
-		return UserBuilder.instance().build(getUser());
+		return UserAdapter.getInstance().toDTO(getUser());
 	}
 }

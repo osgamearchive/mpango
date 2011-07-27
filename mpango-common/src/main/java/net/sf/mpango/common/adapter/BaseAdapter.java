@@ -27,6 +27,9 @@ public abstract class BaseAdapter <T extends Object, DTO extends BaseDTO> {
 	 * @return {@link List} of {@link BaseDTO}
 	 */
 	public List<DTO> toDTOList (List<T> entities) {
+		if (entities == null) {
+			return null;
+		}
 		List<DTO> dtoList = new ArrayList<DTO>();
 		for (T entity : entities) {
 			dtoList.add(toDTO(entity));
@@ -40,6 +43,9 @@ public abstract class BaseAdapter <T extends Object, DTO extends BaseDTO> {
 	 * @return {@link List} of entities.
 	 */
 	public List<T> fromDTOList(List<DTO> dtos) {
+		if (dtos == null) {
+			return null;
+		}
 		List<T> entityList = new ArrayList<T>();
 		for (DTO dto : dtos) {
 			entityList.add(fromDTO(dto));
