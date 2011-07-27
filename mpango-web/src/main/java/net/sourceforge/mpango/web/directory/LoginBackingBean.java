@@ -13,7 +13,7 @@ import net.sf.mpango.common.directory.service.IAuthenticationService;
 @SessionScoped
 public class LoginBackingBean {
 	
-	private static IAuthenticationService authService;
+	private IAuthenticationService authService;
 	private String email;
 	private String password;
 	private boolean loggedIn = false;
