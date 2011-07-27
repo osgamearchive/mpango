@@ -9,18 +9,18 @@ import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.game.core.entity.Player;
 import net.sf.mpango.game.core.entity.Position;
 import net.sf.mpango.game.core.entity.Unit;
-import net.sf.mpango.game.web.adapter.PlayerBuilder;
+import net.sf.mpango.game.web.adapter.PlayerAdapter;
 import net.sf.mpango.game.web.dto.PlayerDTO;
 import net.sf.mpango.game.web.TestUtils;
 
 import org.junit.Test;
 
-public class PlayerBuilderTest {
+public class PlayerAdapterTest {
 
 	@Test
 	public void testBuildPlayerNullObj() {
 		Player player = TestUtils.getPlayer();
-		PlayerDTO dto = PlayerBuilder.instance().build(player);
+		PlayerDTO dto = PlayerAdapter.instance().toDTO(player);
 		assertNotNull(dto);
 		assertEquals(dto.getState(), player.getState());
 		assertNull(dto.getUnits());
@@ -38,7 +38,7 @@ public class PlayerBuilderTest {
 		unitList.add(TestUtils.getUnit());
 		player.setUnits(unitList);
 		player.setUser(new User());
-		PlayerDTO dto = PlayerBuilder.instance().build(player);
+		PlayerDTO dto = PlayerAdapter.instance().toDTO(player);
 		
 		assertNotNull("dto.getPosition() is null", dto.getPosition());
 		assertEquals(dto.getPosition().getRowNumber(), 1);
@@ -57,7 +57,7 @@ public class PlayerBuilderTest {
 		playerList.add(new Player());
 		playerList.add(new Player());
 		playerList.add(new Player());
-		List<PlayerDTO> dtoList = PlayerBuilder.instance().buildList(playerList);
+		List<PlayerDTO> dtoList = PlayerAdapter.instance().toDTOList(playerList);
 		assertNotNull(dtoList);
 		assertEquals(dtoList.size(), 5);
 	}

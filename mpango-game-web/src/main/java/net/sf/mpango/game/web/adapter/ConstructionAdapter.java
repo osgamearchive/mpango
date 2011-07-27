@@ -24,6 +24,9 @@ public class ConstructionAdapter extends BaseAdapter<Construction, ConstructionD
 
 	@Override
 	public Construction fromDTO(ConstructionDTO dto) {
+		if (dto == null) {
+			return null;
+		}
 		switch (dto.getType()) {
 			case CITY:
 				return CityAdapter.instance().fromDTO((CityDTO) dto);
@@ -35,6 +38,9 @@ public class ConstructionAdapter extends BaseAdapter<Construction, ConstructionD
 
 	@Override
 	public ConstructionDTO toDTO(Construction construction) {
+		if (construction == null) {
+			return null;
+		}
 		switch (construction.getType()) {
 			case CITY:
 				return CityAdapter.instance().toDTO((City) construction);

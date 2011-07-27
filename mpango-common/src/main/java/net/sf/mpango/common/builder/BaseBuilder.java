@@ -22,8 +22,10 @@ public abstract class BaseBuilder<T extends Object, DTO extends BaseDTO> {
 	 * @return {@link List} of {@link BaseDTO}
 	 */
 	public List<DTO> buildList(List<T> entities) {
+		if (entities == null) {
+			return null;
+		}
 		List<DTO> dtoList = new ArrayList<DTO>();
-
 		for (T entity : entities) {
 			dtoList.add(build(entity));
 		}

@@ -1,23 +1,32 @@
 package net.sf.mpango.game.web.adapter;
 
+import net.sf.mpango.common.adapter.BaseAdapter;
 import net.sf.mpango.common.builder.BaseBuilder;
 import net.sf.mpango.game.web.dto.CellDTO;
 import net.sf.mpango.game.web.dto.GameBoardDTO;
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.GameBoard;
 
-public class GameBoardBuilder extends BaseBuilder<GameBoard, GameBoardDTO> {
+public class GameBoardAdapter extends BaseAdapter<GameBoard, GameBoardDTO> {
 
-	private GameBoardBuilder() {
+	private GameBoardAdapter() {
 		super();
 	}
 
-	public static GameBoardBuilder instance() {
-		return new GameBoardBuilder();
+	public static GameBoardAdapter instance() {
+		return new GameBoardAdapter();
 	}
-	
+
 	@Override
-	public GameBoardDTO build(GameBoard entity) {
+	public GameBoard fromDTO(GameBoardDTO dto) {
+		throw new RuntimeException("This operation is not supported and this exception should only occur at development time");
+	}
+
+	@Override
+	public GameBoardDTO toDTO(GameBoard entity) {
+		if (entity == null) {
+			return null;
+		}
 		GameBoardDTO dto = new GameBoardDTO();
 		dto.setId(entity.getIdentifier());
 		dto.setColSize(entity.getColSize());

@@ -7,17 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.mpango.game.core.entity.GameBoard;
-import net.sf.mpango.game.web.adapter.GameBoardBuilder;
+import net.sf.mpango.game.web.adapter.GameBoardAdapter;
 import net.sf.mpango.game.web.dto.GameBoardDTO;
 import net.sf.mpango.game.web.TestUtils;
 
 
-public class GameBoardBuilderTest {
+public class GameBoardAdapterTest {
 
 	@Test
 	public void testBuildGameBoard() {
 		GameBoard gb = TestUtils.getGameBoard(1L);		
-		GameBoardDTO dto = GameBoardBuilder.instance().build(gb);
+		GameBoardDTO dto = GameBoardAdapter.instance().toDTO(gb);
 		
 		assertNotNull(dto);
 		assertEquals(dto.getId(), gb.getIdentifier());
@@ -28,7 +28,7 @@ public class GameBoardBuilderTest {
 	@Test
 	public void testBuildGameBoardFor() {
 		GameBoard gb = TestUtils.getGameBoard(1L);
-		GameBoardDTO dto = GameBoardBuilder.instance().build(gb);
+		GameBoardDTO dto = GameBoardAdapter.instance().toDTO(gb);
 		assertNotNull(dto.getCells());
 		if(dto.getCells().length == 0 || dto.getCells()[0].length == 0) {
 			assertEquals(dto.getCells().length + dto.getCells()[0].length, gb.getCells());
@@ -47,8 +47,7 @@ public class GameBoardBuilderTest {
 		gbList.add(TestUtils.getGameBoard(3L));
 		gbList.add(TestUtils.getGameBoard(4L));
 		gbList.add(TestUtils.getGameBoard(5L));
-		List<GameBoardDTO> dtoList = GameBoardBuilder.instance().buildList(gbList);
-		
+		List<GameBoardDTO> dtoList = GameBoardAdapter.instance().toDTOList(gbList);
 		assertNotNull(dtoList);
 		assertEquals(dtoList.size(), 5);		
 	}

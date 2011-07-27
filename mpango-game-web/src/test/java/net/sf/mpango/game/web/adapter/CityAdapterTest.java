@@ -11,7 +11,7 @@ import net.sf.mpango.game.web.TestUtils;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class CityBuilderTest {
+public class CityAdapterTest {
 
 	@Test
 	public void testCityBuilder() {

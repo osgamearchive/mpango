@@ -44,6 +44,9 @@ public class CellAdapter extends BaseAdapter<Cell, CellDTO> {
 
 	@Override
 	public Cell fromDTO(CellDTO dto) {
+		if (null == dto) {
+			return null;
+		}
 		Cell cell = new Cell(dto.getRow(),dto.getColumn());
 		cell.setColumn(dto.getColumn());
 		cell.setRow(dto.getRow());

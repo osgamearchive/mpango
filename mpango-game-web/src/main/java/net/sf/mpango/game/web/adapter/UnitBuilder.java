@@ -19,8 +19,10 @@ public class UnitBuilder extends BaseBuilder<Unit, UnitDTO> {
 
 	@Override
 	public UnitDTO build(Unit unit) {
-		UnitDTO dto = new UnitDTO();	
-		
+		if (unit == null) {
+			return null;
+		}
+		UnitDTO dto = new UnitDTO();
 		dto.setAttackPoints(unit.getEffectiveAttackPoints());
 		dto.setHitPoints(unit.getHitPoints());		
 		dto.setShield(ShieldBuilder.instance().build(unit.getShield()));		

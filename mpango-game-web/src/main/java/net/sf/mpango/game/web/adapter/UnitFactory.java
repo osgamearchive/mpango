@@ -25,6 +25,9 @@ public class UnitFactory extends BaseFactory<UnitDTO, Unit>{
 
 	@Override
 	public Unit create(UnitDTO dto) {
+		if (dto == null) {
+			return null;
+		}
         Unit unit = new Unit();
         unit.setCity(CityAdapter.instance().fromDTO(dto.getCity()));
         unit.setCollectionSkills((Float)dto.getCollectionSkills());

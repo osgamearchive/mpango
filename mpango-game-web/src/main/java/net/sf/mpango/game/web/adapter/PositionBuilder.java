@@ -14,12 +14,14 @@ import net.sf.mpango.game.core.entity.Position;
 public class PositionBuilder extends BaseBuilder<Position, PositionDTO> {
 
 	public static PositionBuilder instance() {
-		
 		return new PositionBuilder();
 	}
 
 	@Override
 	public PositionDTO build(Position position) {
+		if (position == null) {
+			return null;
+		}
 		PositionDTO dto = new PositionDTO();
 		dto.setColNumber(position.getColNumber());
 		dto.setRowNumber(position.getRowNumber());

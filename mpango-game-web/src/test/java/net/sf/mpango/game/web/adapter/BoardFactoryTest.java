@@ -9,7 +9,6 @@ import net.sf.mpango.game.core.entity.GameBoard;
 import net.sf.mpango.game.web.adapter.CellAdapter;
 import net.sf.mpango.game.web.dto.CellDTO;
 import net.sf.mpango.game.web.dto.GameBoardDTO;
-import net.sf.mpango.game.web.adapter.GameBoardFactory;
 
 import net.sf.mpango.game.web.TestUtils;
 
@@ -21,7 +20,7 @@ public class BoardFactoryTest extends TestCase {
 	public void testGameBoardFactory() {
 		GameBoardDTO dto = TestUtils.getGameBoardDTO(1L);
 		try {
-			GameBoardFactory.instance().create(dto);
+			GameBoardAdapter.instance().fromDTO(dto);
 			fail("A runtime exception should have been thrown as the method is not supported on this version");
 		} catch(RuntimeException expected) {
 			//Factory method not supported at the moment
@@ -31,7 +30,7 @@ public class BoardFactoryTest extends TestCase {
 	// @Test Possible for future use in case of an interface board editor (i.e)
 	public void futureGameBoardFactory() {
 		GameBoardDTO dto = TestUtils.getGameBoardDTO(1L);
-		GameBoard board = GameBoardFactory.instance().create(dto);
+		GameBoard board = GameBoardAdapter.instance().fromDTO(dto);
 		Assert.assertNotNull(board);
 		Assert.assertEquals(board.getIdentifier().longValue(), 1L);
 		Assert.assertNotNull(board.getCells());
