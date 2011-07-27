@@ -5,7 +5,7 @@ import java.util.List;
 
 import net.sf.mpango.game.core.entity.City;
 import net.sf.mpango.game.web.dto.CityDTO;
-import net.sf.mpango.game.web.adapter.CityBuilder;
+import net.sf.mpango.game.web.adapter.CityAdapter;
 import net.sf.mpango.game.web.TestUtils;
 
 import org.junit.Assert;
@@ -16,7 +16,7 @@ public class CityBuilderTest {
 	@Test
 	public void testCityBuilder() {
 		City city = TestUtils.getCity(1L);
-		CityDTO dto = CityBuilder.instance().build(city);
+		CityDTO dto = CityAdapter.instance().toDTO(city);
 		Assert.assertNotNull(dto);
 		Assert.assertEquals(dto.getId(), new Long(city.getIdentifier()));
 		Assert.assertEquals(dto.getAttackBonus(), new Float(city.getAttackBonus()));
@@ -33,7 +33,7 @@ public class CityBuilderTest {
 		cityList.add(TestUtils.getCity(3L));
 		cityList.add(TestUtils.getCity(4L));
 		cityList.add(TestUtils.getCity(5L));
-		List<CityDTO> dtoList = CityBuilder.instance().buildList(cityList);
+		List<CityDTO> dtoList = CityAdapter.instance().toDTOList(cityList);
 		Assert.assertNotNull(dtoList);
 		Assert.assertEquals(dtoList.size(), 5);
 	}

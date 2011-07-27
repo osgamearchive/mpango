@@ -5,18 +5,18 @@ import java.util.List;
 
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.web.dto.CellDTO;
-import net.sf.mpango.game.web.adapter.CellBuilder;
+import net.sf.mpango.game.web.adapter.CellAdapter;
 import net.sf.mpango.game.web.TestUtils;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-public class CellBuilderTest {
+public class CellAdapterTest {
 
 	@Test
 	public void testBuildCell() {
 		Cell cell = TestUtils.getCell(1L);
-		CellDTO dto = CellBuilder.instance().build(cell);
+		CellDTO dto = CellAdapter.instance().toDTO(cell);
 		Assert.assertNotNull(dto);
 		Assert.assertEquals(dto.getId().longValue(), 1L);
 		Assert.assertEquals(dto.getConstructions().size(), 1);
@@ -34,7 +34,7 @@ public class CellBuilderTest {
 		cellList.add(TestUtils.getCell(3L));
 		cellList.add(TestUtils.getCell(4L));
 		cellList.add(TestUtils.getCell(5L));
-		List<CellDTO> dtoList = CellBuilder.instance().buildList(cellList);
+		List<CellDTO> dtoList = CellAdapter.instance().toDTOList(cellList);
 		Assert.assertNotNull(dtoList);
 		Assert.assertEquals(dtoList.size(), 5);
 	}

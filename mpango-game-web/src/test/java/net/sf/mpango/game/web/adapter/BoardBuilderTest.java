@@ -6,7 +6,7 @@ import net.sf.mpango.game.core.entity.GameBoard;
 import net.sf.mpango.game.web.TestUtils;
 import net.sf.mpango.game.web.dto.CellDTO;
 import net.sf.mpango.game.web.dto.GameBoardDTO;
-import net.sf.mpango.game.web.adapter.CellBuilder;
+import net.sf.mpango.game.web.adapter.CellAdapter;
 import net.sf.mpango.game.web.adapter.GameBoardBuilder;
 
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class BoardBuilderTest {
 	@Test
 	public void testCellBuilder() {
 		Cell cell = TestUtils.getCell(1L);
-		CellDTO dto = CellBuilder.instance().build(cell);
+		CellDTO dto = CellAdapter.instance().toDTO(cell);
 		Assert.assertNotNull(dto);
 		Assert.assertEquals(dto.getId().longValue(), 1L);
 		Assert.assertEquals(dto.getConstructions().size(), 1);

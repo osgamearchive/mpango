@@ -29,7 +29,7 @@ public class UnitBuilder extends BaseBuilder<Unit, UnitDTO> {
 		dto.setConstructionSkills(unit.getConstructionSkills());
 		dto.setCollectionSkills(unit.getCollectionSkills());
 		dto.setTimer(unit.getTimer());
-		dto.setCity(CityBuilder.instance().build(unit.getCity()));		
+		dto.setCity(CityAdapter.instance().toDTO(unit.getCity()));		
 		return dto;
 	}
 

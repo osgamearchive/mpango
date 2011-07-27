@@ -7,7 +7,6 @@ import junit.framework.TestCase;
 
 import net.sf.mpango.game.core.entity.City;
 import net.sf.mpango.game.core.enums.ConstructionType;
-import net.sf.mpango.game.web.adapter.CityFactory;
 import net.sf.mpango.game.web.dto.CityDTO;
 import net.sf.mpango.game.web.TestUtils;
 
@@ -21,7 +20,7 @@ public class ConstructionFactoryTest extends TestCase{
 	public void testCityFactory() {
 		CityDTO dto = TestUtils.getCityDTO(1L);
 		
-		City city = CityFactory.instance().create(dto);
+		City city = CityAdapter.instance().fromDTO(dto);
 		Assert.assertNotNull(city);
 		Assert.assertEquals(city.getType(), ConstructionType.CITY);
 	}
@@ -34,7 +33,7 @@ public class ConstructionFactoryTest extends TestCase{
 		dtoList.add(TestUtils.getCityDTO(3L));
 		dtoList.add(TestUtils.getCityDTO(4L));
 		dtoList.add(TestUtils.getCityDTO(5L));
-		List<City> cityList = CityFactory.instance().createList(dtoList);
+		List<City> cityList = CityAdapter.instance().fromDTOList(dtoList);
 		Assert.assertNotNull(cityList);
 		Assert.assertEquals(cityList.size(), 5);
 	}

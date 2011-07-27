@@ -34,7 +34,7 @@ public class ConstructionFactory extends
 
 		switch (dto.getType()) {
 		case CITY:
-			return CityFactory.instance().create((CityDTO) dto);
+			return CityAdapter.instance().fromDTO((CityDTO) dto);
 
 		default:
 			return null;

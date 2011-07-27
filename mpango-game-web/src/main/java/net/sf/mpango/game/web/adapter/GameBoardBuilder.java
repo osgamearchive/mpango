@@ -24,7 +24,7 @@ public class GameBoardBuilder extends BaseBuilder<GameBoard, GameBoardDTO> {
 		dto.setRowSize(entity.getRowSize());
 		CellDTO[][] cellDTOs = new CellDTO[entity.getRowSize()][entity.getColSize()];
         for (Cell cell : entity.getCells()) {
-            CellDTO cellDTO = CellBuilder.instance().build(cell);
+            CellDTO cellDTO = CellAdapter.instance().toDTO(cell);
             cellDTOs[cell.getRow()][cell.getColumn()] = cellDTO;
         }
 		dto.setCells(cellDTOs);

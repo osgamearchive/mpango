@@ -6,9 +6,9 @@ import junit.framework.TestCase;
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.GameBoard;
 
+import net.sf.mpango.game.web.adapter.CellAdapter;
 import net.sf.mpango.game.web.dto.CellDTO;
 import net.sf.mpango.game.web.dto.GameBoardDTO;
-import net.sf.mpango.game.web.adapter.CellFactory;
 import net.sf.mpango.game.web.adapter.GameBoardFactory;
 
 import net.sf.mpango.game.web.TestUtils;
@@ -46,7 +46,7 @@ public class BoardFactoryTest extends TestCase {
 	@Test
 	public void testCellFactory() {
 		CellDTO dto = TestUtils.getCellDTO(1L);
-		Cell cell = CellFactory.instance().create(dto);
+		Cell cell = CellAdapter.instance().fromDTO(dto);
 		Assert.assertNotNull(cell);
 		Assert.assertEquals(cell.getIdentifier().longValue(), 1L);
 		Assert.assertEquals(cell.getConstructions().size(), 1);

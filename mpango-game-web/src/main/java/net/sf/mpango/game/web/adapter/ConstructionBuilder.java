@@ -35,11 +35,10 @@ public class ConstructionBuilder extends
 	public ConstructionDTO build(Construction construction) {
 
 		switch (construction.getType()) {
-		case CITY:
-			return CityBuilder.instance().build((City) construction);
-
-		default:
-			return null;
+			case CITY:
+				return CityAdapter.instance().toDTO((City) construction);
+			default:
+				return null;
 		}
 	}
 
