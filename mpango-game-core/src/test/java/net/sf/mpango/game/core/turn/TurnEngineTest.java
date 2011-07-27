@@ -27,7 +27,7 @@ public class TurnEngineTest {
 	@Test
 	public void testRollTurn() {
 		Turn initialTurn = engine.getCurrentTurn();
-		gameBoard.receiveEvent(isA(TurnEvent.class));
+		gameBoard.receive(isA(TurnEvent.class));
 		replay(gameBoard);
 		TurnEvent turnEvent = engine.passTurn(gameBoard);
         assertEvent(initialTurn, turnEvent);

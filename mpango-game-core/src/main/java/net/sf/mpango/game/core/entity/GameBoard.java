@@ -114,11 +114,11 @@ public class GameBoard extends AbstractPersistable implements ITurnBasedEntityLi
 	 * Turned based entity.
 	 * @param turnEvent
 	 */
-	public void receiveEvent(TurnEvent turnEvent) {
+	public void receive(TurnEvent turnEvent) {
 		notifyAllListeners(turnEvent);
 	}
 	
-	public void receiveEvent(Event event) throws EventNotSupportedException {
+	public void receive(Event event) throws EventNotSupportedException {
 		throw new EventNotSupportedException(event);
 	}
 	

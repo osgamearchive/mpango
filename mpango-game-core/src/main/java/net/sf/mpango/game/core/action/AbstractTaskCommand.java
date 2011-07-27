@@ -7,7 +7,6 @@ import java.util.TimerTask;
 
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.Listener;
-import net.sf.mpango.game.core.events.Observable;
 import net.sf.mpango.game.core.exception.CommandException;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
 
@@ -19,7 +18,7 @@ import net.sf.mpango.game.core.exception.EventNotSupportedException;
  * @author etux
  *
  */
-public abstract class AbstractTaskCommand extends TimerTask implements ITaskCommand, Observable  {
+public abstract class AbstractTaskCommand extends TimerTask implements ITaskCommand  {
 
 	/** Default time milliseconds per time slice. */
 	public static final long DEFAULT_MILLIS_PER_TIME_SLICE = 50;

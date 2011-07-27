@@ -7,6 +7,7 @@ package net.sf.mpango.game.core.events;
  *
  */
 public interface Observable {
+	
 	/**
 	 * Method iterates over all subscribed listeners and notifies then of an event.
 	 * @param event

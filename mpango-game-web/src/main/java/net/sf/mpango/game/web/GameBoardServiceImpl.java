@@ -75,7 +75,7 @@ public class GameBoardServiceImpl implements GameListener, IGameBoardService {
 
 
 	@Override
-	public void receiveEvent(Event event) throws EventNotSupportedException {
+	public void receive (Event event) throws EventNotSupportedException {
 		if (event instanceof GameBoardEvent) {
 			//Cast the event to a GameEvent
 			GameBoardEvent gameBoardEvent = (GameBoardEvent) event;
@@ -94,7 +94,7 @@ public class GameBoardServiceImpl implements GameListener, IGameBoardService {
 	
 	/**
 	 * Method that sends the game board to the subscribed clients.
-	 * @param message2 
+	 * @param message
 	 * @param remoteSession 
 	 */
 	private void sendBoard(ServerSession remoteSession, Mutable message) {

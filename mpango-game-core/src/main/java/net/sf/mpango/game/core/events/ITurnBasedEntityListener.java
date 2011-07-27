@@ -11,5 +11,5 @@ public interface ITurnBasedEntityListener extends GameListener {
 	 * Method to tell the entity to react on a turn pass event.
 	 * @param turnEvent
 	 */
-	void receiveEvent(TurnEvent turnEvent);
+	void receive(TurnEvent turnEvent);
 }

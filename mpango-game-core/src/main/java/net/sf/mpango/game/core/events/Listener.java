@@ -4,7 +4,8 @@ import net.sf.mpango.game.core.exception.EventNotSupportedException;
 
 /**
  * Listener interface.
- * It contains the method receive with a event as parameter that will 
+ * It contains the method receive with a event as parameter. All the classes that implement this interface can be potentially registered
+ * as observers of another class. 
  * @author edvera
  *
  */

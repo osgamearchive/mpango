@@ -26,7 +26,7 @@ public class TurnEngine {
         this.currentTurn.setTurnFinished(new Date());
 		this.currentTurn = new Turn(getNextTurn(this.currentTurn), new Date());
 		TurnEvent turnEvent = new TurnEvent(this, this.currentTurn);
-		gameBoard.receiveEvent(turnEvent);
+		gameBoard.receive(turnEvent);
         return turnEvent;
 	}
 	

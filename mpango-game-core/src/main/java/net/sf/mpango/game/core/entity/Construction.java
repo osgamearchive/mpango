@@ -76,7 +76,7 @@ public abstract class Construction implements Damageable, Listener {
 		this.hitPoints = hitPoints;
 	}
 	@Column
-	public Float getMaximumHitPoints() {
+	public float getMaximumHitPoints() {
 		return maximumHitPoints;
 	}
 	public void setMaximumHitPoints(float maximumHitPoints) {
@@ -112,6 +112,14 @@ public abstract class Construction implements Damageable, Listener {
     public void setConstructionTime(int constructionTime) {
         this.constructionTime = constructionTime;
     }
+
+	public ConstructionType getType() {
+		return type;
+	}
+	
+	public void setType(ConstructionType type) {
+        this.type = type;
+    }
 	
 	@Override
 	public int hashCode() {
@@ -133,13 +141,5 @@ public abstract class Construction implements Damageable, Listener {
 			return false;
 		return true;
 	}
-
-	public ConstructionType getType() {
-		return type;
-	}
-	
-	public void setType(ConstructionType type) {
-        this.type = type;
-    }
 	
 }

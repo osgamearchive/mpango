@@ -24,16 +24,16 @@ public interface ITaskCommand extends Command {
 	 * Method that calculates the total amount of Time Slices needed to complete the command.
 	 * @return
 	 */
-	public int calculateTotalTimeSlices();
+	int calculateTotalTimeSlices();
 	/**
 	 * Method that contains the logic of the command.
 	 * @returns The event produced by the execution of this method.
 	 */
-	public CommandExecutedEvent runExecute();
+	CommandExecutedEvent runExecute();
 	/**
 	 * Method that evaluates if the execution is possible before adding the command to the queue.
 	 * @throws CommandException In case it is not possible to run the Command for different reasons.
 	 */
-	public abstract void evaluateExecution() throws CommandException;
+	abstract void evaluateExecution() throws CommandException;
 
 }
