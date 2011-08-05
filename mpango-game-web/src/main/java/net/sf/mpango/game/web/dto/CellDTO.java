@@ -17,6 +17,8 @@ public class CellDTO extends BaseDTO {
 	private Float attackBonus;
 	private Integer column;
 	private Integer row;
+	private Integer altitude;
+	private Terrain terrain;	
 
 	public List<ConstructionDTO> getConstructions() {
 		return constructions;
@@ -57,5 +59,21 @@ public class CellDTO extends BaseDTO {
 	public void setRow(Integer row) {
 		this.row = row;
 	}
+    
+	public int getAltitude() {
+		return altitude;
+	}
+	
+	public void setAltitude(Integer altitude) {
+		this.altitude = altitude;
+	}
+	
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }	
 
 }
