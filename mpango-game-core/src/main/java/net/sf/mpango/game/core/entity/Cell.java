@@ -163,9 +163,11 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+    
 	public int getAltitude() {
 		return altitude;
 	}
+	
 	public void setAltitude(int altitude) {
 		this.altitude = altitude;
 	}
