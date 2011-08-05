@@ -12,6 +12,7 @@ import net.sf.mpango.game.core.enums.Resources;
 import net.sf.mpango.game.core.events.AbstractListenerObservable;
 import net.sf.mpango.game.core.exception.ConstructionAlreadyInPlaceException;
 import net.sf.mpango.game.core.exception.ConstructionNotFoundException;
+import net.sf.mpango.game.core.terrains.Terrain;
 
 
 /**
@@ -33,6 +34,8 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 	private float attackBonus;
 	private int column;
 	private int row;
+	private int altitude;
+	private Terrain terrain;
 	
 	public Cell(int rowPosition, int colPosition) {
 		this(rowPosition, colPosition, new HashSet<Resources>());
@@ -160,4 +163,19 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	public int getAltitude() {
+		return altitude;
+	}
+	public void setAltitude(int altitude) {
+		this.altitude = altitude;
+	}
+	
+    public Terrain getTerrain() {
+        return terrain;
+    }
+
+    public void setTerrain(Terrain terrain) {
+        this.terrain = terrain;
+    }	
+    
 }
