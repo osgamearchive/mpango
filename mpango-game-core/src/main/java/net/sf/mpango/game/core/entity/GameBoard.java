@@ -91,90 +91,48 @@ public class GameBoard extends AbstractPersistable implements ITurnBasedEntityLi
 		this.configuration = configuration;
 	}
 
-    /**
-     * Obtains the cell by row and column.
-     *
-     * @param rowNumber
-     * @param colNumber
-     * @return in case the row or the column are out of range, converts it and avoid exception.
-     *         This method is needed to rotate the view around the board and find the shortest path.
-     */
-    public Cell getCell(int rowNumber, int colNumber) {
-        rowNumber = convertCoordToValidRange(rowNumber, this.rowSize);
-        colNumber = convertCoordToValidRange(colNumber, this.colSize);
-        return arrayOfcells[rowNumber][colNumber];
-    }
-
-    public int isLarger(int a, int b) {
-        if (a > b) {
-            return 1;
-        } else return -1;
-    }
-
-    public ArrayList<Cell> getWay(Cell start, Cell goal) {
-        return getWay(start, goal, true);
-    }
-
-    public ArrayList<Cell> getWay(Cell start, Cell goal, boolean shortest) {
-        ArrayList<Cell> cells = new ArrayList<Cell>();
-        int startRow = start.getRow();
-        int startCol = start.getColumn();
-        int goalRow;
-        int goalCol;
-        if (shortest) {
-            goalRow = obtainCorrectDirection(startRow, goal.getRow(), this.rowSize);
-            goalCol = obtainCorrectDirection(startCol, goal.getColumn(), this.colSize);
-        } else {
-            goalRow = goal.getRow();
-            goalCol = goal.getColumn();
-        }
-        int colSign = isLarger(goalCol, startCol);
-        int rowSign = isLarger(goalRow, startRow);
-
-        int rows = goalRow - startRow;
-        int cols = goalCol - startCol;
-        double direction = (double) rows / cols;
-        int pointsNumber = Math.abs(rows) + Math.abs(cols);
-
-        for (int i = 0; i < pointsNumber; i++) {
-            if (goalCol == startCol) {
-                startRow = startRow + rowSign;
-                cells.add(getCell(startCol, startRow));
-            } else if (goalRow == startRow) {
-                startCol = startCol + colSign;
-                cells.add(getCell(startCol, startRow));
-            } else {
-                double d1 = direction - (double) (goalRow - startRow + rowSign) / (goalCol - startCol);
-                double d2 = direction - (double) (goalRow - startRow) / (goalCol - startCol + colSign);
-                if (Math.abs(d1) > Math.abs(d2)) {
-                    startRow = startRow + rowSign;
-                } else {
-                    startCol = startCol + colSign;
-                }
-                cells.add(getCell(startCol, startRow));
+    public GameBoard(int rowNumber, int colNumber) {
+        this.rowSize = rowNumber;
+        this.colSize = colNumber;
+        this.cells = new ArrayList<Cell>(rowSize * colSize);
+        this.arrayOfcells = new Cell[this.rowSize][this.colSize];
+        for (int row = 0; row < rowNumber; row++) {
+            for (int col = 0; col < colNumber; col++) {
+                Cell cell = new Cell(row, col);
+                this.cells.add(cell);
+                this.arrayOfcells[row][col] = cell;
             }
         }
-        return cells;
     }
 
-    public int obtainCorrectDirection(int start, int goal, int maxSize) {
-        if (maxSize - goal + start < goal - start) {
-            goal = -maxSize + goal;
-        } else if (start - goal > maxSize - (start - goal)) {
-            goal = maxSize + goal;
+	/**
+	 * Obtains the cell by row and column.
+	 * @param rowNumber
+	 * @param colNumber
+	 * @throws java.lang.IllegalArgumentException in case the row or the column are not in a valid range.
+	 * @return
+	 */
+	public Cell getCell (int rowNumber, int colNumber) {
+		if ((this.rowSize <= rowNumber) || (this.colSize <= colNumber)) {
+			throw new IllegalArgumentException("The specified cell is not found in the game board");
+		}
+		return arrayOfcells[rowNumber][colNumber];
+	}
+
+    public Cell getCell(Position position) {
+        int rowNumber = convertCoordinateToValidRange(position.getRowNumber(), this.rowSize);
+        int colNumber = convertCoordinateToValidRange(position.getColNumber(), this.colSize);
+        return getCell(rowNumber, colNumber);
+    }
+
+    public static int convertCoordinateToValidRange(int value, int maxSize) {
+        if (value < 0) {
+            value = (((-value / maxSize) + 1) * maxSize) + value;
+        } else if (value >= maxSize) {
+            value = (value - ((value / maxSize) * maxSize));
         }
-        return goal;
+        return value;
     }
-
-    public int convertCoordToValidRange(int coord, int maxSize) {
-        if (coord < 0) {
-            coord = (((-coord / maxSize) + 1) * maxSize) + coord;
-        } else if (coord >= maxSize) {
-            coord = (coord - ((coord / maxSize) * maxSize));
-        }
-        return coord;
-    }
-
 	
 	public void addCell(Cell cell) {
 		this.cells.add(cell);
