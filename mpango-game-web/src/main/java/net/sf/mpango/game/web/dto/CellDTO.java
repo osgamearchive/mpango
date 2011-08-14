@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.mpango.common.dto.BaseDTO;
+import net.sf.mpango.game.core.terrains.Terrain;
 
 public class CellDTO extends BaseDTO {
 
