@@ -2,173 +2,105 @@ package net.sf.mpango.game.core.entity;
 
 import java.util.ArrayList;
 import java.util.Random;
+import javax.persistence.Entity;
 
 /**
- * Created by IntelliJ IDEA.
  * User: leonserg
  * Date: 28.06.11
  * Time: 15:28
- * This class creates an ArrayList containing a cluster of cells. 
+ * This class creates an ArrayList containing a points.
  */
-public class Continent extends ArrayList<Cell> {
+@Entity
+public class Continent extends ArrayList<Position> {
 
-	private GameBoard board;
+    private class Lay extends ArrayList<Position> {
+        @Override
+        public boolean add(Position point) {
+            for (int i = 0; i < size(); i++) {
+                if (get(i).overlies(point)) {
+                    return false;
+                }
+            }
+            return super.add(point);
+        }
+    }
+
+    private GameBoard board;
     private Random rand;
     private String name;
+    private Position center;
 
-    public enum Type {ROCK, PLATO, VOLCANO}
+    public Continent(GameBoard board, int row, int col, int size) {
+        this(board, new Position(row, col), size);
+    }
 
-    public Continent(GameBoard board) {
+    public Continent(GameBoard board, Position center, int size) {
         this.board = board;
         this.rand = new Random();
-    }
-
-    public Continent(GameBoard board, int row, int col, int size, Type type) {
-        this(board);
-        switch (type) {
-            case ROCK:
-                createRock(row, col, size);
-                break;
-            case PLATO:
-                createPlato(row, col, size);
-                break;
-            case VOLCANO:
-                createVolcano(row, col, size);
-                break;
-            default:
-                createPlato(row, col, size);
-                break;
+        this.center = center;
+        ArrayList<Position> points = createPolygonPoints(center, size);
+        points = commitPoints(points);
+        ArrayList<DirectWay> roughLay = fillFrame(points);
+        ArrayList<Lay> lays = createBlankLaysList(roughLay, size);
+        for (int i = 0; i < lays.size(); i++) {
+            for (int j = 0; j < lays.get(i).size(); j++)
+            this.add(lays.get(i).get(j));
         }
-    }
-
-    public Continent() {
-    }
-
-    public void createRock(int row, int col, int size) {
-        int radius = radius(size);
-        ArrayList<Cell> frame = getRandomPoints(row, col, radius, radius + 8, 2);
-        ArrayList<ArrayList<Cell>> rock = getClustersList(frame, board.getCell(row, col));
-        rock = trimToSize(rock, size);
-        this.addAll(lay(rock));
-    }
-
-    public void createVolcano(int row, int col, int size) {
-
-    }
-
-    public void createPlato(int row, int col, int size) {
-
-    }
-
-    public ArrayList<Cell> lay(ArrayList<ArrayList<Cell>> layers) {
-        ArrayList<Cell> surface = layers.get(0);
-        for (int i = 0; i < layers.size(); i++) {
-            for (int j = 0; j < layers.get(i).size(); j++) {
-                int alt = layers.get(i).get(j).getAltitude();
-                alt++;
-                layers.get(i).get(j).setAltitude(alt);
-            }
-        }
-        return surface;
     }
 
     public ArrayList<Cell> getBorder() {
         return null;
     }
 
-    // TODO very expensive and failed method, need remake it
-    public ArrayList<ArrayList<Cell>> trimToSize(ArrayList<ArrayList<Cell>> list, int size) {
-        ArrayList<ArrayList<Cell>> internal = new ArrayList<ArrayList<Cell>>();
-        ArrayList<ArrayList<Cell>> external = new ArrayList<ArrayList<Cell>>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).size() > size) {
-                external.add(list.get(i));
-            } else {
-                internal.add(list.get(i));
-            }
-        }
-        ArrayList<Cell> border = internal.get(0);
-        for (int i = 0; i < external.get(external.size() - 1).size(); i++) {
-            border.add(external.get(external.size() - 1).get(i));
-            if (border.size() >= size) break;
-        }
-        internal.add(border);
-        return internal;
-    }
-
     public static int radius(int square) {
         return (int) Math.floor(Math.sqrt(square / Math.PI));
     }
 
-    // TODO very expensive and failed method, need remake it
-    public ArrayList<ArrayList<Cell>> getClustersList(ArrayList<Cell> points, Cell center) {
-        ArrayList<ArrayList<Cell>> clasters = new ArrayList<ArrayList<Cell>>();
-        ArrayList<ArrayList<Cell>> rays = new ArrayList<ArrayList<Cell>>();
-        int max = this.board.getWay(points.get(0), center).size();
-        for (Cell point : points) {
-            rays.add(this.board.getWay(point, center));
-            int current = this.board.getWay(point, center).size();
-            if (max < current) max = current;
-        }
-        for (int i = 0; i < max; i++) {
-            ArrayList<Cell> contour = new ArrayList<Cell>();
-            for (int j = 0; j < rays.size(); j++) {
-                if (i < rays.get(j).size()) {
-                    contour.add(rays.get(j).get(i));
-                } else {
-                    contour.add(rays.get(j).get(rays.get(j).size() - 1));
-                }
-            }
-            clasters.add(getCluster(contour, center));
-        }
-        return clasters;
+    public Position getNeighboringRandomPoint(Position point, int size, int angle, int delta) {
+        int rRand = rand.nextInt(delta) - delta / 2;
+        int cRand = rand.nextInt(delta) - delta / 2;
+        int radius = radius(size) * 12 / 10;
+        int x = (int) Math.floor(Math.sin(Math.toRadians(angle)) * radius) + point.getRowNumber() + rRand;
+        int y = (int) Math.floor(Math.cos(Math.toRadians(angle)) * radius) + point.getColNumber() + cRand;
+        return new Position(x, y);
     }
 
-    //This method selects a random cell around the center
-    public ArrayList<Cell> getRandomPoints(int row, int col, int radius, int pointsNumber, int delta) {
-        ArrayList<Cell> cells = new ArrayList<Cell>();
+    public ArrayList<Position> createPolygonPoints(Position center, int size) {
+        return createPolygonPoints(center, size, 3 + size / 15);
+    }
+
+    public ArrayList<Position> createPolygonPoints(Position center, int size, int pointsNumber) {
+        ArrayList<Position> points = new ArrayList<Position>();
         int angle = 360 / pointsNumber;
-        int x;
-        int y;
-        int randRow;
-        int randCol;
-        for (int i = 0; i < pointsNumber; i++) {
-            if (delta > 0) {
-                randRow = rand.nextInt(delta) - delta / 2;
-                randCol = rand.nextInt(delta) - delta / 2;
-            } else {
-                randRow = 0;
-                randCol = 0;
-            }
-            x = (int) Math.floor(Math.sin(Math.toRadians(angle * i)) * radius) + row + randRow;
-            y = (int) Math.floor(Math.cos(Math.toRadians(angle * i)) * radius) + col + randCol;
-            cells.add(this.board.getCell(x, y));
+        points.add(getNeighboringRandomPoint(center, size, 0, 6));
+        for (int i = 1; i < pointsNumber; i++) {
+            int iAngle = angle * i;
+            Position c = getNeighboringRandomPoint(center, size, iAngle, 6);
+            points.add(c);
         }
-        return cells;
+        return points;
     }
 
-    //This method combines a cell, successively arranged in an array and creates a frame
-    private ArrayList<Cell> commitPoints(ArrayList<Cell> cells) {
-        ArrayList<Cell> sides = new ArrayList<Cell>();
-        for (int i = 0; i < cells.size() - 1; i++) {
-            sides.addAll(this.board.getWay(cells.get(i), cells.get(i + 1)));
-        }
-        sides.addAll(this.board.getWay(cells.get(cells.size() - 1), cells.get(0)));
-        return sides;
+    public int areaOfTriangle(Position a, Position b, Position c) {
+        return Math.abs((a.getRowNumber() - c.getRowNumber()) * (b.getColNumber() - a.getColNumber())
+                - (a.getRowNumber() - b.getRowNumber()) * (c.getColNumber() - a.getColNumber())) / 2;
     }
 
-
-    public ArrayList<Cell> getCluster(ArrayList<Cell> frame, Cell center) {
-        ArrayList<Cell> cluster = new ArrayList<Cell>();
-        ArrayList<Cell> cells = new ArrayList<Cell>();
-        frame = commitPoints(frame);
-        for (int i = 0; i < frame.size(); i++) {
-            ArrayList<Cell> ray = this.board.getWay(center, frame.get(i));
-            for (int j = 0; j < ray.size(); j++) cells.add(ray.get(j));
+    private void setNewCenter(ArrayList<Position> points) {
+        int centerRow = 0;
+        int centerCol = 0;
+        for (Position point : points) {
+            centerRow = centerRow + point.getRowNumber();
+            centerCol = centerCol + point.getColNumber();
         }
-        for (int i = 0; i < cells.size(); i++) cluster.add(cells.get(i));
-        cluster.add(center);
-        return cluster;
+        centerRow = centerRow / points.size();
+        centerCol = centerCol / points.size();
+        this.center.setRowNumber(centerRow);
+        this.center.setColNumber(centerCol);
+    }
+
+    public Position getCenter() {
+        return center;
     }
 
     public String getName() {
@@ -178,4 +110,60 @@ public class Continent extends ArrayList<Cell> {
     public void setName(String name) {
         this.name = name;
     }
+
+    private ArrayList<Position> commitPoints(ArrayList<Position> points) {
+        ArrayList<Position> sides = new ArrayList<Position>();
+        for (int i = 0; i < points.size() - 1; i++) {
+            sides.addAll(new DirectWay(this.board, points.get(i), points.get(i + 1)));
+        }
+        sides.addAll(new DirectWay(this.board, points.get(points.size() - 1), points.get(0)));
+        return sides;
+    }
+
+    public ArrayList<DirectWay> fillFrame(ArrayList<Position> frame) {
+        ArrayList<DirectWay> blankLay = new ArrayList<DirectWay>();
+        for (int i = 0; i < frame.size(); i++) {
+            blankLay.add(new DirectWay(this.board, frame.get(i), center));
+        }
+        return blankLay;
+    }
+
+    public Lay convertToLay(ArrayList<DirectWay> blankLay) {
+        Lay lay = new Lay();
+        for (int i = 0; i < blankLay.size(); i++) {
+            for (int j = 0; j < blankLay.get(i).size(); j++) {
+                lay.add(blankLay.get(i).get(j));
+            }
+        }
+        return lay;
+    }
+
+    public int maxLength(ArrayList<ArrayList> list) {
+        int maxLength = 1;
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = 0; j < list.get(i).size(); j++) {
+                if (maxLength < list.get(i).size()) maxLength = list.get(i).size();
+            }
+        }
+        return maxLength;
+    }
+
+    public ArrayList<Lay> createBlankLaysList(ArrayList<DirectWay> blankLay, int maxSize) {
+        ArrayList<Lay> lays = new ArrayList<Lay>();
+        int maxLength = maxLength((ArrayList)blankLay);
+        for (int i = 0; i < maxLength; i++) {
+            int k;
+            Lay lay = new Lay();
+            for (int j = 0; j < blankLay.size(); j++) {
+                if (i >= blankLay.get(j).size() - 1) {
+                    k = blankLay.get(j).size() - 1;
+                } else k = i;
+                Position point = blankLay.get(j).get(k);
+                lay.add(point);
+            }
+            lays.add(lay);
+        }
+        return lays;
+    }
+
 }
