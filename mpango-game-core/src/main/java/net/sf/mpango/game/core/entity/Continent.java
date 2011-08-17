@@ -1,5 +1,6 @@
 package net.sf.mpango.game.core.entity;
 
+import net.sf.mpango.game.core.ai.DirectWay;
 import java.util.ArrayList;
 import java.util.Random;
 import javax.persistence.Entity;
@@ -8,7 +9,8 @@ import javax.persistence.Entity;
  * User: leonserg
  * Date: 28.06.11
  * Time: 15:28
- * This class creates an ArrayList containing a points.
+ * The class contains positions belonging to the continent.
+ * Method getCells() returns the corresponding position of the cell from the board.
  */
 @Entity
 public class Continent extends ArrayList<Position> {
@@ -40,16 +42,18 @@ public class Continent extends ArrayList<Position> {
         this.center = center;
         ArrayList<Position> points = createPolygonPoints(center, size);
         points = commitPoints(points);
-        ArrayList<DirectWay> roughLay = fillFrame(points);
-        ArrayList<Lay> lays = createBlankLaysList(roughLay, size);
-        for (int i = 0; i < lays.size(); i++) {
-            for (int j = 0; j < lays.get(i).size(); j++)
-            this.add(lays.get(i).get(j));
-        }
+        ArrayList<DirectWay> blank = fillFrame(points);
+        ArrayList<Lay> lays = createBlankLaysList(blank);
+        Lay foundation = getFoundation(lays, size);
+        this.addAll(foundation);
     }
 
-    public ArrayList<Cell> getBorder() {
-        return null;
+    public ArrayList<Cell> getCells() {
+        ArrayList<Cell> cells = new ArrayList<Cell>();
+        for (int i = 0; i < this.size(); i++) {
+            cells.add(this.board.getCell(this.get(i)));
+        }
+        return cells;
     }
 
     public static int radius(int square) {
@@ -120,7 +124,7 @@ public class Continent extends ArrayList<Position> {
         return sides;
     }
 
-    public ArrayList<DirectWay> fillFrame(ArrayList<Position> frame) {
+    private ArrayList<DirectWay> fillFrame(ArrayList<Position> frame) {
         ArrayList<DirectWay> blankLay = new ArrayList<DirectWay>();
         for (int i = 0; i < frame.size(); i++) {
             blankLay.add(new DirectWay(this.board, frame.get(i), center));
@@ -128,7 +132,7 @@ public class Continent extends ArrayList<Position> {
         return blankLay;
     }
 
-    public Lay convertToLay(ArrayList<DirectWay> blankLay) {
+    private Lay convertToLay(ArrayList<DirectWay> blankLay) {
         Lay lay = new Lay();
         for (int i = 0; i < blankLay.size(); i++) {
             for (int j = 0; j < blankLay.get(i).size(); j++) {
@@ -138,7 +142,7 @@ public class Continent extends ArrayList<Position> {
         return lay;
     }
 
-    public int maxLength(ArrayList<ArrayList> list) {
+    private int maxLength(ArrayList<ArrayList> list) {
         int maxLength = 1;
         for (int i = 0; i < list.size(); i++) {
             for (int j = 0; j < list.get(i).size(); j++) {
@@ -148,7 +152,7 @@ public class Continent extends ArrayList<Position> {
         return maxLength;
     }
 
-    public ArrayList<Lay> createBlankLaysList(ArrayList<DirectWay> blankLay, int maxSize) {
+    private ArrayList<Lay> createBlankLaysList(ArrayList<DirectWay> blankLay) {
         ArrayList<Lay> lays = new ArrayList<Lay>();
         int maxLength = maxLength((ArrayList)blankLay);
         for (int i = 0; i < maxLength; i++) {
@@ -164,6 +168,17 @@ public class Continent extends ArrayList<Position> {
             lays.add(lay);
         }
         return lays;
+    }
+
+    private Lay getFoundation(ArrayList<Lay> blank, int size) {
+        Lay foundation = new Lay();
+        for (int i = blank.size() - 1; i > 0; i--) {
+            for (int j = 0; j < blank.get(i).size(); j++) {
+                if (foundation.size() >= size) break;
+                foundation.add(blank.get(i).get(j));
+            }
+        }
+        return foundation;
     }
 
 }
