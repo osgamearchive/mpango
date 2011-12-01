@@ -11,7 +11,11 @@ import java.util.ArrayList;
  * Time: 18:42
  */
 public class DirectWay extends ArrayList<Position> implements Path {
-    private int rowSize;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -2291086943507768547L;
+	private int rowSize;
     private int colSize;
     private Position difference;
     private Position start;

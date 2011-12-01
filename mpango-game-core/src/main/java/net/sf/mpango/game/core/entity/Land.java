@@ -89,7 +89,7 @@ public class Land extends ArrayList<Continent> {
         sizes = shuffle(sizes);
 
         for (int i = 0; i < continents; i++) {
-            this.add(new Continent(board, row[i], col[i], sizes[i], Continent.Type.ROCK));
+            this.add(new Continent(board, row[i], col[i], sizes[i]));
         }
         initTerrain();
         return this;

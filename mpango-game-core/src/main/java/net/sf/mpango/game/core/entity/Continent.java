@@ -19,7 +19,7 @@ public class Continent extends ArrayList<Position> {
         @Override
         public boolean add(Position point) {
             for (int i = 0; i < size(); i++) {
-                if (get(i).overlies(point)) {
+                if (get(i).getColNumber() == point.getColNumber() && get(i).getRowNumber() == point.getRowNumber()) {
                     return false;
                 }
             }
