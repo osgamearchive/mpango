@@ -7,7 +7,6 @@ import java.util.Calendar;
 
 import net.sf.mpango.common.directory.dao.UserDAO;
 import net.sf.mpango.common.directory.entity.User;
-import net.sf.mpango.common.directory.service.AuthenticationService;
 import net.sf.mpango.common.test.BaseSpringTest;
 
 import org.easymock.classextension.EasyMock;
@@ -29,12 +28,12 @@ public class AuthenticationServiceTest extends BaseSpringTest {
 		User user = new User();
 		user.setDateOfBirth(Calendar.getInstance().getTime());
 		user.setEmail("User@company.com");
-		user.setGender("male");
+		user.setGender(User.Gender.MALE);
 		user.setPassword("pwd");
 		user.setUsername("user");
 		user = authService.register(user);
 		Assert.assertNotNull(user);
-		Assert.assertNotNull(user.getIdentifier());
+		Assert.assertNotNull(user.getId());
 
 		User userFound = authService.load("nonexisted@email.com");
 		Assert.assertNull(userFound);

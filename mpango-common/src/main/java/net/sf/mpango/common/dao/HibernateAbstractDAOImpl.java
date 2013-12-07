@@ -1,5 +1,7 @@
 package net.sf.mpango.common.dao;
 
+import java.io.Serializable;
+
 import org.hibernate.SessionFactory;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
@@ -9,10 +11,15 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @author etux
  *
  */
-public abstract class HibernateAbstractDAOImpl {
+public abstract class HibernateAbstractDAOImpl<T extends Identified> implements DAO<T> {
 
 	private HibernateTemplate hibernateTemplate;
 	private SessionFactory sessionFactory;
+    private Class<T> clazz;
+
+    public HibernateAbstractDAOImpl(Class<T> clazz) {
+        this.clazz = clazz;
+    }
 
 	/**
 	 * Method that returns the existing {@link HibernateTemplate}. 
@@ -50,4 +57,19 @@ public abstract class HibernateAbstractDAOImpl {
 		this.sessionFactory = sessionFactory;
 	}
 
+    @Override
+    public T load(Serializable identifier) {
+        return hibernateTemplate.load(clazz, identifier);
+    }
+
+    @Override
+    public T save(T entity) {
+        hibernateTemplate.save(entity);
+        return entity;
+    }
+
+    @Override
+    public void update(T entity) {
+        hibernateTemplate.update(entity);
+    }
 }

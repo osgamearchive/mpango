@@ -1,18 +1,29 @@
 package net.sf.mpango.game.core.entity;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
+import net.sf.mpango.common.entity.AbstractPersistable;
 import net.sf.mpango.game.core.enums.Resources;
-import net.sf.mpango.game.core.events.AbstractListenerObservable;
+import net.sf.mpango.game.core.events.Event;
+import net.sf.mpango.game.core.events.Listener;
+import net.sf.mpango.game.core.events.Observable;
+import net.sf.mpango.game.core.events.ObservableBaseListener;
 import net.sf.mpango.game.core.exception.ConstructionAlreadyInPlaceException;
 import net.sf.mpango.game.core.exception.ConstructionNotFoundException;
+import net.sf.mpango.game.core.exception.EventNotSupportedException;
 import net.sf.mpango.game.core.terrains.Terrain;
+import org.hibernate.annotations.CollectionOfElements;
 
 
 /**
@@ -22,7 +33,7 @@ import net.sf.mpango.game.core.terrains.Terrain;
  *
  */
 @Entity
-public class Cell extends AbstractListenerObservable implements Serializable {
+public class Cell extends AbstractPersistable<Long> implements Observable,Listener {
 
 	/** generated serial version uid */
 	private static final long serialVersionUID = 2294912901732869716L;
@@ -36,23 +47,30 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 	private int row;
 	private int altitude;
 	private Terrain terrain;
-	
-	public Cell(int rowPosition, int colPosition) {
-		this(rowPosition, colPosition, new HashSet<Resources>());
+
+    private ObservableBaseListener observableBaseListener;
+
+    public Cell() {
+        observableBaseListener = new ObservableBaseListener(this);
+    }
+
+    public Cell(final int rowPosition, final int colPosition, final Set<Resources> resources) {
+        this();
+        this.column = colPosition;
+        this.row = rowPosition;
+        this.resources = resources;
+        this.constructions = new LinkedList<Construction>();
+    }
+    public Cell(int rowPosition, int colPosition) {
+        this(rowPosition, colPosition, new HashSet<Resources>());
 	}
-	public Cell(int rowPosition, int colPosition, Set<Resources> resources) {
-		super(null);
-		this.column = colPosition;
-		this.row = rowPosition;
-		this.resources = resources;
-        this.constructions = new ArrayList<Construction>();
-	}
-	
+
 	public void addResource(Resources resource) {
 		resources.add(resource);
 	}
 
-    @OneToMany
+    @CollectionOfElements
+    @Enumerated(EnumType.ORDINAL)
 	public Set<Resources> getResources() {
 		return resources;
 	}
@@ -62,7 +80,7 @@ public class Cell extends AbstractListenerObservable implements Serializable {
     }
 
     @Transient
-	public boolean isHasCity() {
+	public boolean hasCity() {
 		return hasCity;
 	}
 
@@ -178,6 +196,25 @@ public class Cell extends AbstractListenerObservable implements Serializable {
 
     public void setTerrain(Terrain terrain) {
         this.terrain = terrain;
-    }	
-    
+    }
+
+    @Override
+    public void receive(Event event) throws EventNotSupportedException {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void notifyListeners(Event event) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void addListener(Listener listener) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void removeListener(Listener listener) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

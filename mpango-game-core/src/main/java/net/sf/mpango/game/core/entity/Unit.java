@@ -8,6 +8,8 @@ import java.util.Timer;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
@@ -16,6 +18,7 @@ import net.sf.mpango.common.entity.AbstractPersistable;
 import net.sf.mpango.game.core.action.Command;
 import net.sf.mpango.game.core.action.ConstructCommand;
 import net.sf.mpango.game.core.enums.Resources;
+import net.sf.mpango.game.core.events.BaseListener;
 import net.sf.mpango.game.core.events.CommandEvent;
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.Listener;
@@ -35,12 +38,11 @@ import net.sf.mpango.game.core.technology.entity.WeaponTechnology;
  *
  */
 @Entity
-public class Unit extends AbstractPersistable implements Damageable, Listener, Serializable {
-
-
-	/** */
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class Unit extends AbstractPersistable<Long> implements Damageable, Listener, Serializable {
+    
 	private static final long serialVersionUID = -3825620941652893699L;
-	private final float maximumHitPoints;
+	private float maximumHitPoints;
 	private Float attackPoints;
 	private Float hitPoints;
 	private Shield shield;
@@ -51,13 +53,13 @@ public class Unit extends AbstractPersistable implements Damageable, Listener, S
 	private List<Command> commands;
 	private Timer timer;
 	private City city;
+
+    private BaseListener baseListener;
 	
 	/**
 	 * At the beginning of the game the Unit can not belong to a city.
 	 */
-	public Unit() {
-		this(null);
-	}
+	public Unit() {}
 	
 	/**
 	 * <p>Every time a unit is created it is done by assigning it a city.
@@ -65,25 +67,22 @@ public class Unit extends AbstractPersistable implements Damageable, Listener, S
 	 * The only exception to this are the initial units, which don't belong to a city until the first city is founded.</p>
 	 * @param city where the unit is born or has moved.
 	 */
-	public Unit(City city) {
-		this (
-				city,
-				new ArrayList<Command>(),
-				new ArrayList<Technology>(),
-				0f,
-				0f
-			);
+	protected Unit(final City city) {
+		this (city, new ArrayList<Command>(), new ArrayList<Technology>(), 0f, 0f);
 	}
 	
 	/**
 	 * Convenient constructor for test classes.
 	 * @param city
 	 * @param commands
-	 * @param technologies
 	 * @param attackPoints
 	 * @param maximumHitPoints
 	 */
-	protected Unit (City city, List<Command> commands, List<Technology> technologies, float attackPoints, float maximumHitPoints) {
+	protected Unit (final City city,
+                  final List<Command> commands,
+                  final List<Technology> technologies,
+                  final float attackPoints,
+                  final float maximumHitPoints) {
 		this.city = city;
 		this.commands = commands;
 		this.setTechnologies(technologies);
@@ -91,6 +90,7 @@ public class Unit extends AbstractPersistable implements Damageable, Listener, S
 		this.maximumHitPoints = maximumHitPoints;
 		this.attackPoints = attackPoints;
 		this.timer = new Timer();
+        this.baseListener = new BaseListener();
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class Unit extends AbstractPersistable implements Damageable, Listener, S
 	/**
 	 * Method that switches WeaponTechnology or ShieldTechnology. 
 	 * @param technology
-	 * @throws UnknownTecnologyException in case the technology to apply is aplicable to the unit.
+	 * @throws UnknownTechnologyException in case the technology to apply is aplicable to the unit.
 	 */
 	private void applyTechnology(Technology technology) throws UnknownTechnologyException {
 		if (technology instanceof WeaponTechnology) {
@@ -263,6 +263,10 @@ public class Unit extends AbstractPersistable implements Damageable, Listener, S
 		return maximumHitPoints;
 	}
 
+    public void setMaximumHitPoints(float maximumHitPoints) {
+        this.maximumHitPoints = maximumHitPoints;
+    }
+
 	@OneToOne
 	public Weapon getWeapon() {
 		return this.weapon;
@@ -333,11 +337,11 @@ public class Unit extends AbstractPersistable implements Damageable, Listener, S
 	public void improveCollectionSkills(float skillsUpgrade) {
 		this.collectionSkills += skillsUpgrade;
 	}
+    public City getCity() {
+   		return city;
+   	}
 	public void setCity(City city) {
 		this.city = city;
-	}
-	public City getCity() {
-		return city;
 	}
 
 	/**

@@ -1,9 +1,10 @@
 package net.sf.mpango.game.core.ai;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import net.sf.mpango.game.core.entity.GameBoard;
 import net.sf.mpango.game.core.entity.Position;
-
-import java.util.ArrayList;
 
 /**
  * User: leonserg
@@ -15,28 +16,26 @@ public class DirectWay extends ArrayList<Position> implements Path {
 	 * 
 	 */
 	private static final long serialVersionUID = -2291086943507768547L;
-	private int rowSize;
-    private int colSize;
+    private final GameBoard gameBoard;
     private Position difference;
     private Position start;
     private Position goal;
     private double direction;
 
-    public DirectWay() {
-    }
-
-    public DirectWay(GameBoard board, Position start, Position goal) {
-        this(board.getRowSize(), board.getColSize(), start, goal);
-    }
-
-    public DirectWay(int rowSize, int colSize, Position start, Position goal) {
-        this.rowSize = rowSize;
-        this.colSize = colSize;
-        this.difference = new Position(0, 0);
+    /**
+     * Constructor that takes a game board, a starting position and a goal position.
+     * @param gameBoard
+     * @param start
+     * @param goal
+     */
+    public DirectWay(final GameBoard gameBoard, final Position start, final Position goal) {
+        this.gameBoard = gameBoard;
         this.start = start;
-        this.goal = obtainCorrectCoordinates(start, goal);
+        this.goal = goal;
         this.direction = defineDirection(start, goal);
+        this.difference = new Position(0,0);
         getPath(start, goal);
+
     }
 
     public int isLarger(int a, int b) {
@@ -46,9 +45,9 @@ public class DirectWay extends ArrayList<Position> implements Path {
         return diff;
     }
 
-    private void defineDifference(Position start, Position goal) {
-        this.difference.setRowNumber(isLarger(goal.getRowNumber(), start.getRowNumber()));
-        this.difference.setColNumber(isLarger(goal.getColNumber(), start.getColNumber()));
+    private void defineDifference(final Position start, final Position goal) {
+        difference.setRowNumber(isLarger(goal.getRowNumber(), start.getRowNumber()));
+        difference.setColNumber(isLarger(goal.getColNumber(), start.getColNumber()));
     }
 
     private Position makeDifference(Position start) {
@@ -92,8 +91,7 @@ public class DirectWay extends ArrayList<Position> implements Path {
     }
 
     public void getPath(Position start, Position goal) {
-        int length = Math.abs(goal.getRowNumber() - start.getRowNumber()) +
-        Math.abs(goal.getColNumber() - start.getColNumber());
+        int length = Math.abs(goal.getRowNumber() - start.getRowNumber()) + Math.abs(goal.getColNumber() - start.getColNumber());
         this.add(start);
         defineDifference(start, goal);
         for (int i = 0; i < length; i++) {
@@ -103,8 +101,8 @@ public class DirectWay extends ArrayList<Position> implements Path {
     }
 
     public Position obtainCorrectCoordinates(Position start, Position goal) {
-        goal.setRowNumber(obtainCorrectDirection(start.getRowNumber(), goal.getRowNumber(), this.rowSize));
-        goal.setColNumber(obtainCorrectDirection(start.getColNumber(), goal.getColNumber(), this.colSize));
+        goal.setRowNumber(obtainCorrectDirection(start.getRowNumber(), goal.getRowNumber(), gameBoard.getConfiguration().getRowNumber()));
+        goal.setColNumber(obtainCorrectDirection(start.getColNumber(), goal.getColNumber(), gameBoard.getConfiguration().getColNumber()));
         return goal;
     }
 
@@ -129,7 +127,7 @@ public class DirectWay extends ArrayList<Position> implements Path {
     }
 
     @Override
-    public ArrayList<Position> getParallelPath(Position start) {
+    public List<Position> getParallelPath(Position start) {
         start = difference(start, this.start);
         ArrayList<Position> path = new ArrayList<Position>();
         for (Position point : this) {
@@ -155,7 +153,7 @@ public class DirectWay extends ArrayList<Position> implements Path {
             times = 1;
         }
         for (int i = 0; i < times; i++) {
-            ArrayList<Position> extra = getParallelPath(this.goal);
+            List<Position> extra = getParallelPath(this.goal);
             for (int j = 1; j < extra.size(); j++) {
                 if (points > 0) this.add(extra.get(j));
                 points--;

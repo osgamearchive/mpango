@@ -14,7 +14,7 @@ public class HibernateGameContextDAOImpl implements IGameContextDAO {
 	@Override
 	public GameContext save(GameContext context) {
 		Long identifier = (Long) hibernateTemplate.save(context);
-		context.setIdentifier(identifier);
+		context.setId(identifier);
 		return context;
 	}
 

@@ -11,7 +11,11 @@ import net.sf.mpango.common.directory.entity.User;
  * @author etux
  * 
  */
-public class HibernateUserDAOImpl extends HibernateAbstractDAOImpl implements UserDAO{
+public class HibernateUserDAOImpl extends HibernateAbstractDAOImpl implements UserDAO {
+
+    public HibernateUserDAOImpl() {
+        super(User.class);
+    }
 
 	public User load(Long id) {
 		return (User) getHibernateTemplate().load(User.class, id);
@@ -19,7 +23,6 @@ public class HibernateUserDAOImpl extends HibernateAbstractDAOImpl implements Us
 	
 	public User load(String email) {
 		User user = null;
-		@SuppressWarnings("unchecked")
 		List<User> results = (List<User>) getHibernateTemplate().find("from User where email= ?", email);
 		if ((results != null) && (results.size() > 0)) {
 			user = (User) results.get(0);
@@ -39,7 +42,7 @@ public class HibernateUserDAOImpl extends HibernateAbstractDAOImpl implements Us
 
 	public User save(User user) {
 		Long userId = (Long) getHibernateTemplate().save(user);
-		user.setIdentifier(userId);
+		user.setId(userId);
 		return user;
 	}
 

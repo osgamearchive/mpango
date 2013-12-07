@@ -29,7 +29,7 @@ public class HibernateGameContextDAOImplTest {
 		EasyMock.expect(hibernateTemplate.save(context)).andReturn(new Long(1));
 		EasyMock.replay(hibernateTemplate);
 		GameContext returnedContext = testing.save(context);
-		Assert.assertEquals(new Long(1), returnedContext.getIdentifier());
+		Assert.assertEquals(new Long(1), returnedContext.getId());
 		Assert.assertEquals(context, returnedContext);
 		EasyMock.verify(hibernateTemplate);
 	}

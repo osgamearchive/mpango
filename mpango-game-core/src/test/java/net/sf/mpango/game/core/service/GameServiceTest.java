@@ -6,7 +6,6 @@ import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.game.core.entity.GameContext;
 import net.sf.mpango.game.core.entity.Player;
 import net.sf.mpango.game.core.jms.EventBasedMessageCreator;
-import net.sf.mpango.game.core.service.GameServiceImpl;
 
 import org.easymock.classextension.EasyMock;
 import org.junit.Assert;
@@ -48,7 +47,7 @@ public class GameServiceTest {
     public void testJoin() throws JMSException {
 		//Initializing data
         User user = new User();
-        user.setIdentifier(new Long(1));
+        user.setId(new Long(1));
         Player player = new Player(user, context);
 		//Recording behavior
         EasyMock.expect(playerService.join(user, context)).andReturn(player);

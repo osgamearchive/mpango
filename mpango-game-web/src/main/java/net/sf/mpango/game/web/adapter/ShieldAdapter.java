@@ -20,7 +20,7 @@ public class ShieldAdapter extends BaseAdapter<Shield, ShieldDTO>{
 			return null;
 		}
 		ShieldDTO dto = new ShieldDTO();
-		dto.setId(shield.getIdentifier());
+		dto.setId(shield.getId());
 		dto.setHitPoints(shield.getRemainingHitPoints());
 		dto.setMaximumHitPoints(shield.getMaximumHitPoints());
 		return dto;

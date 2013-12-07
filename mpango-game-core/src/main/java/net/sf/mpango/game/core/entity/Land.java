@@ -1,9 +1,9 @@
 package net.sf.mpango.game.core.entity;
 
-import net.sf.mpango.game.core.terrains.*;
-
 import java.util.ArrayList;
 import java.util.Random;
+
+import net.sf.mpango.game.core.terrains.Terrain;
 
 /**
  * User: leoserg
@@ -26,15 +26,15 @@ public class Land extends ArrayList<Continent> {
     }
 
     public Land(GameBoard board, double ratio) {
-        this(board, (int) Math.ceil(ratio * board.getRowSize() * board.getColSize()));
+        this(board, (int) Math.ceil(ratio * board.getConfiguration().getRowNumber() * board.getConfiguration().getColNumber()));
     }
 
     /**
      * Ratio of land to the sea should be in the range of 0.05 to 0.95
      */
     public Land(GameBoard board, int size) {
-        this.rowSize = board.getRowSize();
-        this.colSize = board.getColSize();
+        this.rowSize = board.getConfiguration().getRowNumber();
+        this.colSize = board.getConfiguration().getColNumber();
         this.rand = new Random();
         this.board = board;
         setSize(size);
@@ -110,32 +110,11 @@ public class Land extends ArrayList<Continent> {
     }
 
     public void initTerrain() {
-        int altitude;
-        for (int i = 0; i < board.getRowSize(); i++) {
-            for (int j = 0; j < board.getColSize(); j++) {
-                altitude = board.getCell(j, i).getAltitude();
-                boolean polar = (i < board.getRowSize() / 20 || i > board.getRowSize() * 19 / 20);
-                boolean subPolar = ((i < board.getRowSize() / 11 || i > board.getRowSize() * 10 / 11) &&
-                        rand.nextInt(Math.abs(i - board.getRowSize() / 2)) < board.getRowSize() / 10);
-                if (polar || subPolar || altitude >= 100) {
-                    Terrain terrain = new IceTerrain();
-                    board.getCell(j, i).setTerrain(terrain);
-                } else if (100 >= altitude && altitude > 20) {
-                    Terrain terrain = new MountainTerrain();
-                    board.getCell(j, i).setTerrain(terrain);
-                } else if (20 >= altitude && altitude > 1) {
-                    Terrain terrain = new FieldTerrain();
-                    board.getCell(j, i).setTerrain(terrain);
-                } else if (altitude == 1) {
-                    Terrain terrain = new DesertTerrain();
-                    board.getCell(j, i).setTerrain(terrain);
-                } else if (altitude <= 0) {
-                    Terrain terrain = new WaterTerrain();
-                    board.getCell(j, i).setTerrain(terrain);
-                } else {
-                    Terrain terrain = new WaterTerrain();
-                    board.getCell(j, i).setTerrain(terrain);
-                }
+        for (int rowNumber = 0; rowNumber < rowSize; rowNumber++) {
+            for (int colNumber = 0; colNumber < colSize; colNumber++) {
+                Position position = new Position(rowNumber, colNumber);
+                Cell cell = board.getCell(position);
+                cell.setTerrain(Terrain.createTerrain(cell, rowNumber));
             }
         }
     }
@@ -146,9 +125,10 @@ public class Land extends ArrayList<Continent> {
         System.out.println("\u2591" + " - 1 >= altitude && altitude > 0");
         System.out.println("\u2593" + " - 6 >= altitude && altitude > 1");
         System.out.println("\u2588" + " - altitude > 6");        
-        for (int i = 0; i < board.getRowSize(); i++) {
-            for (int j = 0; j < board.getColSize(); j++) {
-                altitude = board.getCell(j, i).getAltitude();
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+                Position position = new Position(i,j);
+                altitude = board.getCell(position).getAltitude();
                 if (altitude > 6) {
                     System.out.print("\u2588");
                 } else if (6 >= altitude && altitude >= 2) {
@@ -166,34 +146,45 @@ public class Land extends ArrayList<Continent> {
     }
 
     public void demoPrintTerrain() {
-        Terrain terrain;
         System.out.println("\u2248" + " - sea");
         System.out.println("\u2593" + " - field");
         System.out.println("\u2591" + " - desert");
         System.out.println("\u2588" + " - mountains");
         System.out.println("\u263C" + " or * - ice");        
-        for (int i = 0; i < board.getRowSize(); i++) {
-            for (int j = 0; j < board.getColSize(); j++) {
-                terrain = board.getCell(j, i).getTerrain();
-                if (terrain.getClass().equals(new MountainTerrain().getClass())) {
-                    System.out.print("\u2588");
-                } else if (terrain.getClass().equals(new FieldTerrain().getClass())) {
-                    System.out.print("\u2593");
-                } else if (terrain.getClass().equals(new DesertTerrain().getClass())) {
-                    System.out.print("\u2591");
-                } else if (terrain.getClass().equals(new WaterTerrain().getClass())) {
-                    System.out.print("\u2248");
-                } else if (terrain.getClass().equals(new IceTerrain().getClass())) {
-                    if (board.getCell(j, i).getAltitude() >= 100) {
-                        System.out.print("*");
-                    } else {
-                        System.out.print("\u263C");
-                    }
-                } else {
-                    System.out.print(" ");
+        for (int i = 0; i < rowSize; i++) {
+            for (int j = 0; j < colSize; j++) {
+
+                Position position = new Position(i,j);
+                Cell cell = board.getCell(position);
+                Terrain terrain = cell.getTerrain();
+                int altitude = cell.getAltitude();
+
+                switch (terrain) {
+                    case MOUNTAIN:
+                        System.out.print("\u2588");
+                        break;
+                    case FIELD:
+                        System.out.print("\u2593");
+                        break;
+                    case DESERT:
+                        System.out.print("\u2591");
+                        break;
+                    case WATER:
+                        System.out.print("\u2248");
+                        break;
+                    case ICE:
+                        if (altitude >= 100) {
+                            System.out.print("*");
+                        } else {
+                            System.out.print("\u263C");
+                        }
+                        break;
+                    default:
+                        System.out.print(" ");
+                        break;
                 }
             }
-            System.out.println("");
+            System.out.println();
         }
     }
 }

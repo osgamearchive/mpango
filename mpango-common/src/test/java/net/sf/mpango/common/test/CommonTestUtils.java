@@ -8,13 +8,27 @@ import net.sf.mpango.common.directory.enums.StateEnum;
 import net.sf.mpango.common.directory.adapter.UserAdapter;
 import net.sf.mpango.common.directory.dto.UserDTO;
 
+/**
+ * This is a utility class bringing static methods for testing purposes.
+ *
+ * @author etux
+ */
 public class CommonTestUtils {
 
-	public static User getUser() {
+
+    protected static final String TEST_DEFAULT_EMAIL_ADDRESS = "name@domain.com";
+
+    private CommonTestUtils() {}
+
+    public static User createRandomUser() {
+        return createRandomUser(TEST_DEFAULT_EMAIL_ADDRESS);
+    }
+
+	public static User createRandomUser(final String email) {
 		User user = new User();
-		user.setEmail("email@domain.com");
-		user.setGender("F");
-		user.setIdentifier(RandomUtils.nextLong());
+        user.setEmail(email);
+		user.setGender(User.Gender.MALE);
+		user.setId(RandomUtils.nextLong());
 		user.setNonceToken(RandomStringUtils.random(16));
 		user.setPassword(RandomStringUtils.random(8));
 		user.setResetKey(RandomStringUtils.random(16));
@@ -24,6 +38,10 @@ public class CommonTestUtils {
 	}
 	
 	public static UserDTO getUserDTO() {
-		return UserAdapter.getInstance().toDTO(getUser());
+		return UserAdapter.getInstance().toDTO(createRandomUser());
 	}
+
+    public static UserDTO getUserDTO(final String email) {
+        return UserAdapter.getInstance().toDTO(createRandomUser(email));
+    }
 }

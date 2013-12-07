@@ -36,8 +36,12 @@
 		<param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
 		<param-value>true</param-value>
 	</context-param>
+    <context-param>
+        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
+        <param-value>${primefaces.recaptcha.publicKey}</param-value>
+    </context-param>
 	<context-param>
-    	<param-name>org.primefaces.component.captcha.PRIVATE_KEY</param-name>
+    	<param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
     	<param-value>${primefaces.recaptcha.privateKey}</param-value>
 	</context-param>
 

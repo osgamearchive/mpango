@@ -6,6 +6,7 @@ import java.util.Set;
 
 import net.sf.mpango.common.directory.enums.StateEnum;
 import net.sf.mpango.game.core.action.Command;
+import net.sf.mpango.game.core.entity.BoardConfiguration;
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.City;
 import net.sf.mpango.game.core.entity.Construction;
@@ -29,7 +30,7 @@ public class TestUtils {
 
 	public static City getCity(Long id) {
 		City city = new City();
-		city.setIdentifier(id);
+		city.setId(id);
 		city.setAttackBonus(1.0f);
 		city.setDefenseBonus(1f);
 		city.setHitPoints(1f);
@@ -50,8 +51,8 @@ public class TestUtils {
 	}
 
 	public static GameBoard getGameBoard(Long id) {
-		GameBoard board = GameBoard.generateRandomBoard(ROW_SIZE, COLUMN_SIZE);
-        board.setIdentifier(id);
+		GameBoard board = prepareGameBoard(ROW_SIZE, COLUMN_SIZE);
+        board.setId(id);
         return board;
 	}
 	
@@ -67,10 +68,15 @@ public class TestUtils {
 		unit.setWeapon(new Weapon(10f));
 		unit.setShield(new Shield(10f));
 		return unit;
-	}	
+	}
 
-    public static net.sf.mpango.game.core.entity.GameBoard prepareGameBoard (int colSize, int rowSize) {
-        return GameBoard.generateRandomBoard(rowSize, colSize);
+    public static GameBoard prepareGameBoard() {
+        return prepareGameBoard(ROW_SIZE, COLUMN_SIZE);
+    }
+
+    public static net.sf.mpango.game.core.entity.GameBoard prepareGameBoard (int rowSize, int colSize) {
+        BoardConfiguration boardConfiguration = new BoardConfiguration(rowSize, colSize);
+        return GameBoard.generateRandomBoard(boardConfiguration);
     }
 
     public static Cell prepareCell(int colPosition, int rowPosition, Set<Resources> resources) {
@@ -79,7 +85,7 @@ public class TestUtils {
 	
 	public static Technology getTechnology(Long id, int cost) {
 		Technology tech = new Technology();
-		tech.setIdentifier(id);
+		tech.setId(id);
 		tech.setTechnologyCost(cost);
 		tech.setRequiredTechnologies((List<Technology>)new ArrayList<Technology>());
 		return tech;
@@ -111,6 +117,7 @@ public class TestUtils {
 	public static CellDTO getCellDTO(Long id) {
 		CellDTO dto = new CellDTO();
 		dto.setId(id);
+        dto.setAltitude(1);
 		dto.setAttackBonus(1f);
 		dto.setColumn(1);
 		dto.setDefenseBonus(1f);

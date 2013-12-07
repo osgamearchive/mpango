@@ -1,15 +1,14 @@
 package net.sf.mpango.game.web.adapter;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.mpango.game.core.entity.Shield;
-import net.sf.mpango.game.web.adapter.ShieldAdapter;
 import net.sf.mpango.game.web.dto.ShieldDTO;
-
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class ShieldAdapterTest {
 
@@ -18,9 +17,9 @@ public class ShieldAdapterTest {
 		Shield shield = new Shield(1F);
 		ShieldDTO dto = ShieldAdapter.instance().toDTO(shield);
 		assertNotNull(dto);
-		assertEquals(shield.getIdentifier(), dto.getId());
-		assertEquals(shield.getMaximumHitPoints(), dto.getMaximumHitPoints());
-		assertEquals(shield.getRemainingHitPoints(), dto.getHitPoints());				
+		assertEquals(shield.getId(), dto.getId());
+		assertEquals(shield.getMaximumHitPoints(), dto.getMaximumHitPoints(), 0.001);
+		assertEquals(shield.getRemainingHitPoints(), dto.getHitPoints(), 0.001);
 	}
 
 	@Test

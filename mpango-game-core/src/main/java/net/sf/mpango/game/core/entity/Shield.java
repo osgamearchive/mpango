@@ -1,6 +1,6 @@
 package net.sf.mpango.game.core.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 
 import net.sf.mpango.common.entity.AbstractPersistable;
 import net.sf.mpango.game.core.exception.UselessShieldException;
@@ -10,18 +10,20 @@ import net.sf.mpango.game.core.exception.UselessShieldException;
  * @author etux
  *
  */
-@Entity
-public class Shield extends AbstractPersistable {
+@Embeddable
+public class Shield extends AbstractPersistable<Long> {
 	
-	public static final Float REPAIR_COST_PER_HITPOINT = 0.1f;
-	private Float maximumHitPoints;
-	private Float hitPoints;
-	
+	public static final float REPAIR_COST_PER_HITPOINT = 0.1f;
+	private float maximumHitPoints;
+	private float hitPoints;
+
+    public Shield() {}
+
 	/**
 	 * This constructor gives us a brand new shield with all hitPoints available.
-	 * @param hitPoints
+	 * @param maximumHitPoints
 	 */
-	public Shield(Float maximumHitPoints) {
+	public Shield(float maximumHitPoints) {
 		this.maximumHitPoints = maximumHitPoints;
 		this.hitPoints = maximumHitPoints;
 	}
@@ -31,7 +33,7 @@ public class Shield extends AbstractPersistable {
 	 * @param attackPoints represents the strength of the attack.
 	 * @return in case the shield could not take all the attack, returns the attackPoints that the shield could not take. In other case, returns 0.
 	 */
-	public Float receiveDamage(Float attackPoints) throws UselessShieldException {
+	public Float receiveDamage(float attackPoints) throws UselessShieldException {
 		if (this.hitPoints <= 0) {
 			//This shield has been destroyed
 			throw new UselessShieldException();
@@ -48,7 +50,7 @@ public class Shield extends AbstractPersistable {
 	 * This method will restore the hitPoints the shield can take to the maximum.
 	 * @return the cost of the repair.
 	 */
-	public Float repair() {
+	public float repair() {
 		Float cost = (maximumHitPoints - hitPoints) * REPAIR_COST_PER_HITPOINT;
 		this.hitPoints = maximumHitPoints;
 		return cost;
@@ -58,16 +60,18 @@ public class Shield extends AbstractPersistable {
 	 * Returns the remaining hit points the shield can still get.
 	 * @return
 	 */
-	public Float getRemainingHitPoints() {
+	public float getRemainingHitPoints() {
 		return hitPoints;
 	}
-	public void setRemainingHitPoints(Float hitPoints) {
+	public void setRemainingHitPoints(float hitPoints) {
 		this.hitPoints = hitPoints;
 	}
 
-	public Float getMaximumHitPoints() {
+	public float getMaximumHitPoints() {
 		return maximumHitPoints;
 	}
 	
-	
+	public void setMaximumHitPoints(float maximumHitPoints) {
+        this.maximumHitPoints = maximumHitPoints;
+    }
 }

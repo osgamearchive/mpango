@@ -11,17 +11,19 @@ import net.sf.mpango.common.entity.AbstractPersistable;
  *
  */
 @Entity
-public class Weapon extends AbstractPersistable {
+public class Weapon extends AbstractPersistable<Long> {
 
-	private Float attackBonus;
-	
-	public Weapon (Float attackPoints) {
+	private float attackBonus;
+
+    public Weapon() {}
+
+	public Weapon (float attackPoints) {
 		this.attackBonus = attackPoints;	
 	}
-	public Float getAttackBonus() {
+	public float getAttackBonus() {
 		return this.attackBonus;
 	}
-	public void setAttackBonus(Float attackBonus) {
+	public void setAttackBonus(float attackBonus) {
 		this.attackBonus = attackBonus;
 	}
 

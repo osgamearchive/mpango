@@ -6,13 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import net.sf.mpango.common.directory.enums.StateEnum;
+import net.sf.mpango.common.entity.AbstractPersistable;
 
 
 /**
@@ -23,25 +21,33 @@ import net.sf.mpango.common.directory.enums.StateEnum;
  * @author etux
  * 
  */
-@Entity(name = "User")
-@Table(name = "USERS")
-public class User {
-	
-	private Long identifier;
+@Entity
+public class User extends AbstractPersistable<Long> {
+
+    public enum Gender {
+        UNDEFINED,
+        MALE,
+        FEMALE;
+    }
+
 	private String email;
 	private String username;
 	private String password;
 	private String resetKey;
 	private Date dateOfBirth;
-	private String gender;
+	private Gender gender;
 	private String nonceToken;
 	private StateEnum state;
+
+    public User() {
+        this.gender = Gender.UNDEFINED;
+    }
 
 	/**
 	 * @return
 	 */
 	@Enumerated(EnumType.ORDINAL)
-	@Column(name = "STATE", columnDefinition = "numeric(3,0)", nullable = false)
+	@Column(nullable = false)
 	public StateEnum getState() {
 		return state;
 	}
@@ -56,7 +62,7 @@ public class User {
 	/**
 	 * @return
 	 */
-	@Column(name = "PASSWORD", nullable = false)
+	@Column(nullable = false)
 	public String getPassword() {
 		return password;
 	}
@@ -71,13 +77,13 @@ public class User {
 	/**
 	 * @return
 	 */
-	@Column(name = "RESETKEY", nullable = true)
+	@Column(nullable = true)
 	public String getResetKey() {
 		return resetKey;
 	}
 
 	/**
-	 * @param key for changing password
+	 * @param resetKey for changing password
 	 */
 	public void setResetKey(String resetKey) {
 		this.resetKey = resetKey;
@@ -87,7 +93,6 @@ public class User {
 	 * @return
 	 */
 	@Temporal(TemporalType.DATE)
-	@Column(name = "BIRTH_DATE")
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
@@ -102,15 +107,15 @@ public class User {
 	/**
 	 * @return
 	 */
-	@Column(name = "GENDER")
-	public String getGender() {
+    @Enumerated(EnumType.ORDINAL)
+	public Gender getGender() {
 		return gender;
 	}
 
 	/**
 	 * @param gender
 	 */
-	public void setGender(String gender) {
+	public void setGender(Gender gender) {
 		this.gender = gender;
 	}
 
@@ -124,7 +129,7 @@ public class User {
 	/**
 	 * @return
 	 */
-	@Column(name = "USERNAME", nullable = false)
+	@Column(nullable = false)
 	public String getUsername() {
 		return username;
 	}
@@ -145,23 +150,6 @@ public class User {
 	}
 
 	/**
-	 * @param identifier
-	 */
-	public void setIdentifier(Long identifier) {
-		this.identifier = identifier;
-	}
-
-	/**
-	 * @return
-	 */
-	@Id
-	@GeneratedValue
-	@Column(name = "ID")
-	public Long getIdentifier() {
-		return identifier;
-	}
-
-	/**
 	 * @param nonceToken
 	 */
 	public void setNonceToken(String nonceToken) {
@@ -171,7 +159,7 @@ public class User {
 	/**
 	 * @return
 	 */
-	@Column(name = "NONCE", unique = true)
+	@Column(unique = true)
 	public String getNonceToken() {
 		return nonceToken;
 	}
@@ -183,7 +171,7 @@ public class User {
 	 */
 	@Override
 	public String toString() {
-		return "User [identifier=" + identifier + ", email=" + email
+		return "User [identifier=" + getId() + ", email=" + email
 				+ ", username=" + username + "]";
 	}
 

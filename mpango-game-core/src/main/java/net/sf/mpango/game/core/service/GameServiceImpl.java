@@ -25,6 +25,7 @@ public class GameServiceImpl implements IGameService {
 	private String interfaceToCoreQueue;
 
     public void init() {
+        //Implement the loading of a game.
     	context = new GameContext();
     }
     

@@ -48,7 +48,7 @@ public class UnitAdapter extends BaseAdapter <Unit, UnitDTO> {
         unit.setCollectionSkills((Float)dto.getCollectionSkills());
         unit.setConstructionSkills((Float)dto.getConstructionSkills());
         unit.setHitPoints(dto.getHitPoints());
-        unit.setIdentifier(dto.getId());
+        unit.setId(dto.getId());
         unit.setShield(ShieldAdapter.instance().fromDTO(dto.getShield()));
         unit.setTechnologies(TechnologyAdapter.instance().fromDTOList(dto.getTechnologies()));
         unit.setWeapon(WeaponAdapter.instance().fromDTO(dto.getWeapon()));		

@@ -9,9 +9,9 @@ public class WeaponDTO extends BaseDTO {
 	 */
 	private static final long serialVersionUID = -6959755504908661439L;
 
-	private Float attackBonus;
+	private float attackBonus;
 
-	public Float getAttackBonus() {
+	public float getAttackBonus() {
 		return attackBonus;
 	}
 

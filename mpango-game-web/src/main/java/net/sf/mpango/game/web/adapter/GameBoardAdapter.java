@@ -32,10 +32,10 @@ public class GameBoardAdapter extends BaseAdapter<GameBoard, GameBoardDTO> {
 			return null;
 		}
 		GameBoardDTO dto = new GameBoardDTO();
-		dto.setId(entity.getIdentifier());
-		dto.setColSize(entity.getColSize());
-		dto.setRowSize(entity.getRowSize());
-		CellDTO[][] cellDTOs = new CellDTO[entity.getRowSize()][entity.getColSize()];
+		dto.setId(entity.getId());
+		dto.setColSize(entity.getConfiguration().getColNumber());
+		dto.setRowSize(entity.getConfiguration().getRowNumber());
+		CellDTO[][] cellDTOs = new CellDTO[entity.getConfiguration().getRowNumber()][entity.getConfiguration().getColNumber()];
         for (Cell cell : entity.getCells()) {
             CellDTO cellDTO = CellAdapter.instance().toDTO(cell);
             cellDTOs[cell.getRow()][cell.getColumn()] = cellDTO;

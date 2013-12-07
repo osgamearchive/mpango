@@ -13,20 +13,20 @@ import net.sf.mpango.common.entity.AbstractPersistable;
  *
  */
 @Entity
-public class Technology extends AbstractPersistable {
+public class Technology extends AbstractPersistable<Long> {
 
-	private Integer technologyCost;
+	private int technologyCost;
 	private List<Technology> requiredTechnologies;
 	/**
 	 * Method that returns the number of science units to be produced to achieve
 	 * this technology.
 	 * @return
 	 */
-	public Integer getTechnologyCost() {
+	public int getTechnologyCost() {
 		return technologyCost;
 	}
 
-	public void setTechnologyCost(Integer technologyCost) {
+	public void setTechnologyCost(int technologyCost) {
 		this.technologyCost = technologyCost;
 	}
 	

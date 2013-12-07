@@ -11,12 +11,12 @@ import net.sf.mpango.game.core.exception.EventNotSupportedException;
  * Class that receives an event, processes it, and propagates it to all the subscribed listeners.
  * @author edvera
  */
-public abstract class AbstractListenerObservable extends AbstractListener implements Observable {
+public class ObservableBaseListener extends BaseListener implements Observable {
 	
 	protected List<Listener> listeners;
 	private Listener myself;
 	
-	public AbstractListenerObservable(Listener yourself) {
+	public ObservableBaseListener(Listener yourself) {
 		this.myself = yourself;
 		listeners = new ArrayList<Listener>();
 	}

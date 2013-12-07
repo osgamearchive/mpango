@@ -3,10 +3,14 @@ package net.sf.mpango.game.core.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 
 import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.common.directory.enums.StateEnum;
+import net.sf.mpango.common.entity.AbstractPersistable;
 
 /**
  * <p>Entity contains data about {@link Player} connecting a {@link User} to a {@link GameContext}.
@@ -30,9 +34,9 @@ import net.sf.mpango.common.directory.enums.StateEnum;
  * @author edvera
  */
 @Entity(name = "Player")
-public class Player {
+@NamedQuery(name="find_player_with_state", query="from Player p where p.state!=? and p.user.id=?")
+public class Player extends AbstractPersistable<Long> {
 
-	private Long identifier;
 	private Position position;
 	private List<Unit> units;
 	private StateEnum state;
@@ -47,22 +51,6 @@ public class Player {
         this.user = user;
         this.gameContext = gameContext;
     }
-	/**
-	 * @return
-	 */
-	@Id
-	@GeneratedValue
-	@Column(name = "ID")
-	public Long getIdentifier() {
-		return identifier;
-	}
-
-	/**
-	 * @param identifier
-	 */
-	public void setIdentifier(Long identifier) {
-		this.identifier = identifier;
-	}
 
 	/**
 	 * @return
@@ -113,8 +101,7 @@ public class Player {
 	/**
 	 * @return
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "USER_ID", nullable = false)
+	@ManyToOne
 	public User getUser() {
 		return user;
 	}

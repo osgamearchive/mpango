@@ -2,8 +2,6 @@ package net.sf.mpango.game.core.events;
 
 import org.junit.Test;
 
-import net.sf.mpango.game.core.events.AbstractEvent;
-import net.sf.mpango.game.core.events.AbstractListener;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
 import junit.framework.TestCase;
 
@@ -13,7 +11,7 @@ public class AbstractListenerTest extends TestCase {
 	@Test
 	public void testDefaultReceiveEvent() {
 		AbstractEvent event = new AbstractEvent(this) {};
-		AbstractListener listener = new AbstractListener() {};
+		BaseListener listener = new BaseListener() {};
 		try {
 			listener.receive(event);
 			fail("Exception exception not raised");
@@ -41,7 +39,7 @@ public class AbstractListenerTest extends TestCase {
 	@Test
 	public void testReceiveSupportedEventInUnsupportedReference() throws EventNotSupportedException {
 		SupportedEvent event = new SupportedEvent(this);
-		AbstractListener listener = new SupportedListener();
+		BaseListener listener = new SupportedListener();
 		listener.receive(event);
 		SupportedListener.assertListener((SupportedListener) listener);
 	}

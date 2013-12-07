@@ -9,22 +9,22 @@ public class ShieldDTO extends BaseDTO {
 	 */
 	private static final long serialVersionUID = -625113707525711808L;
 
-	private Float maximumHitPoints;
-	private Float hitPoints;
+	private float maximumHitPoints;
+	private float hitPoints;
 
-	public Float getMaximumHitPoints() {
+	public float getMaximumHitPoints() {
 		return maximumHitPoints;
 	}
 
-	public void setMaximumHitPoints(Float maximumHitPoints) {
+	public void setMaximumHitPoints(float maximumHitPoints) {
 		this.maximumHitPoints = maximumHitPoints;
 	}
 
-	public Float getHitPoints() {
+	public float getHitPoints() {
 		return hitPoints;
 	}
 
-	public void setHitPoints(Float hitPoints) {
+	public void setHitPoints(float hitPoints) {
 		this.hitPoints = hitPoints;
 	}
 

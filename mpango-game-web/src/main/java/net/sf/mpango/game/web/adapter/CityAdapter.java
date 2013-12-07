@@ -38,7 +38,7 @@ public class CityAdapter extends BaseAdapter<City, CityDTO> {
 			return null;
 		}
 		CityDTO dto = new CityDTO();
-		dto.setId(city.getIdentifier());
+		dto.setId(city.getId());
 		dto.setAttackBonus(city.getAttackBonus());
 		dto.setConstructionTime(city.getConstructionTime());
 		dto.setDefenseBonus(city.getDefenseBonus());
@@ -54,7 +54,7 @@ public class CityAdapter extends BaseAdapter<City, CityDTO> {
 			return null;
 		}
 		City city = new City();
-		city.setIdentifier(dto.getId());
+		city.setId(dto.getId());
 		city.setAttackBonus(dto.getAttackBonus());
 		city.setDefenseBonus(dto.getDefenseBonus());
 		city.setHitPoints(dto.getHitPoints());

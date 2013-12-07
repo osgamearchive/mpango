@@ -20,7 +20,7 @@ public class WeaponAdapter extends BaseAdapter<Weapon, WeaponDTO>{
 			return null;
 		}
 		WeaponDTO dto = new WeaponDTO();
-		dto.setId(weapon.getIdentifier());
+		dto.setId(weapon.getId());
 		dto.setAttackBonus(weapon.getAttackBonus());		
 		return dto;
 	}

@@ -3,13 +3,13 @@ package net.sf.mpango.game.web.adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import net.sf.mpango.game.core.entity.Technology;
+import net.sf.mpango.game.web.TestUtils;
+import net.sf.mpango.game.web.dto.TechnologyDTO;
 import org.junit.Test;
 
-import net.sf.mpango.game.core.entity.Technology;
-import net.sf.mpango.game.web.adapter.TechnologyAdapter;
-import net.sf.mpango.game.web.dto.TechnologyDTO;
-import net.sf.mpango.game.web.TestUtils;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class TechnologyAdapterTest {
@@ -19,7 +19,7 @@ public class TechnologyAdapterTest {
 		Technology tech = TestUtils.getTechnology(1L, 12);
 		TechnologyDTO dto = TechnologyAdapter.instance().toDTO(tech);
 		assertNotNull(dto);
-		assertEquals(tech.getIdentifier(), dto.getId());
+		assertEquals(tech.getId(), dto.getId());
 		assertEquals(tech.getRequiredTechnologies(), dto.getRequiredTechnologies());
 		assertEquals(tech.getTechnologyCost(), dto.getTechnologyCost());		
 	}
@@ -36,7 +36,7 @@ public class TechnologyAdapterTest {
 		List<TechnologyDTO> dtoList = TechnologyAdapter.instance().toDTOList(techList);
 		assertNotNull(dtoList);
 		assertEquals(techList.size(), dtoList.size());
-		assertEquals(techList.get(2).getIdentifier(), dtoList.get(2).getId());
+		assertEquals(techList.get(2).getId(), dtoList.get(2).getId());
 		assertEquals(techList.get(4).getTechnologyCost(), dtoList.get(4).getTechnologyCost());
 	}
 

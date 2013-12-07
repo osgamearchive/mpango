@@ -25,7 +25,7 @@ public class TechnologyAdapter extends BaseAdapter<Technology, TechnologyDTO>{
 			return null;
 		}
 		TechnologyDTO t = new TechnologyDTO();
-		t.setId(tech.getIdentifier());
+		t.setId(tech.getId());
 		t.setRequiredTechnologies(TechnologyAdapter.instance().toDTOList(tech.getRequiredTechnologies()));
 		t.setTechnologyCost(tech.getTechnologyCost());
 		return t;
@@ -37,7 +37,7 @@ public class TechnologyAdapter extends BaseAdapter<Technology, TechnologyDTO>{
 			return null;
 		}
         Technology tech = new Technology();
-        tech.setIdentifier(dto.getId());
+        tech.setId(dto.getId());
         tech.setRequiredTechnologies(TechnologyAdapter.instance().fromDTOList(dto.getRequiredTechnologies()));
         tech.setTechnologyCost(dto.getTechnologyCost());
         return tech;

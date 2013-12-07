@@ -23,6 +23,7 @@
                         <overlay>
                             <groupId>org.cometd.javascript</groupId>
                             <artifactId>cometd-javascript-jquery</artifactId>
+                            <targetPath>${project.build.directory}</targetPath>
                         </overlay>
                     </overlays>
                 </configuration>

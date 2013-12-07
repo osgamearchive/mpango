@@ -1,12 +1,11 @@
 package net.sf.mpango.game.core.entity;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 
 import net.sf.mpango.common.entity.AbstractPersistable;
 
 @Entity
-public class GameConfiguration extends AbstractPersistable {
+public class GameConfiguration extends AbstractPersistable<Long> {
 
     private static final long DEFAULT_MILLIS_PER_SLICE = 100l;
     private static final int DEFAULT_MAX_NUMBER_OF_PLAYERS = 10;
@@ -15,13 +14,14 @@ public class GameConfiguration extends AbstractPersistable {
     private int maxNumberOfPlayers;
 	private BoardConfiguration boardConfiguration;
 
+    public GameConfiguration() {}
+
     public GameConfiguration (BoardConfiguration configuration) {
         this.millisPerSlice = DEFAULT_MILLIS_PER_SLICE;
         this.maxNumberOfPlayers = DEFAULT_MAX_NUMBER_OF_PLAYERS;
         this.boardConfiguration = configuration;
     }
 
-    @OneToOne
 	public BoardConfiguration getBoardConfiguration() {
 		return boardConfiguration;
 	}

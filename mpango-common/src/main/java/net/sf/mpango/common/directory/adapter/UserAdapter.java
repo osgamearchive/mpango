@@ -14,15 +14,17 @@ public class UserAdapter extends BaseAdapter<User, UserDTO>{
 	
 	@Override
 	public User fromDTO(UserDTO dto) {
+        assert dto != null;
+
 		if (dto == null) {
 			return null;
 		}
 		User user = new User();
-		user.setIdentifier(dto.getId());
+		user.setId(dto.getId());
 		user.setUsername(dto.getUsername());
 		user.setEmail(dto.getEmail());
 		user.setDateOfBirth(dto.getDateOfBirth());
-		user.setGender(dto.getGender());
+		user.setGender(User.Gender.valueOf(dto.getGender()));
 		user.setPassword(dto.getPassword());
 		user.setState(dto.getState());
 		return user;
@@ -34,12 +36,12 @@ public class UserAdapter extends BaseAdapter<User, UserDTO>{
 			return null;
 		}
 		UserDTO dto = new UserDTO();
-		dto.setId(user.getIdentifier());
+		dto.setId(user.getId());
 		dto.setUsername(user.getUsername());
 		dto.setPassword(user.getPassword());
 		dto.setEmail(user.getEmail());
 		dto.setDateOfBirth(user.getDateOfBirth());
-		dto.setGender(user.getGender());
+		dto.setGender(user.getGender().name());
 		dto.setState(user.getState());
 		return dto;
 	}

@@ -2,8 +2,6 @@ package net.sf.mpango.game.core.entity;
 
 import java.util.List;
 
-import net.sf.mpango.game.core.entity.Technology;
-import net.sf.mpango.game.core.entity.Weapon;
 import net.sf.mpango.game.core.technology.entity.WeaponTechnology;
 
 public class TestWeaponTechnology extends WeaponTechnology {
@@ -19,9 +17,9 @@ public class TestWeaponTechnology extends WeaponTechnology {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public Integer getTechnologyCost() {
+	public int getTechnologyCost() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 	
 }

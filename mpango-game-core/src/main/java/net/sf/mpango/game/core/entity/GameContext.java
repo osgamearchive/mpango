@@ -3,10 +3,12 @@ package net.sf.mpango.game.core.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 
 import net.sf.mpango.common.entity.AbstractPersistable;
-
 import org.apache.commons.lang.math.RandomUtils;
 
 /**
@@ -22,7 +24,7 @@ import org.apache.commons.lang.math.RandomUtils;
  *
  */
 @Entity
-public class GameContext extends AbstractPersistable {
+public class GameContext extends AbstractPersistable<Long> {
 
 	protected List<Player> players = new ArrayList<Player>();
 	protected GameBoard board;
@@ -59,8 +61,9 @@ public class GameContext extends AbstractPersistable {
 	 */
 	public Position generateRandomPosition() {
 		Position position = new Position(
-				RandomUtils.nextInt(board.getColSize()),
-				RandomUtils.nextInt(board.getRowSize()));
+				RandomUtils.nextInt(board.getConfiguration().getRowNumber()),
+				RandomUtils.nextInt(board.getConfiguration().getColNumber())
+        );
 		return position;
 	}
 

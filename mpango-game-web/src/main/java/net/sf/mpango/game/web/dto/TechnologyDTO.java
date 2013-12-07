@@ -11,10 +11,10 @@ public class TechnologyDTO extends BaseDTO {
 	 */
 	private static final long serialVersionUID = -494436229358238932L;
 
-	private Integer technologyCost;
+	private int technologyCost;
 	private List<TechnologyDTO> requiredTechnologies;
 
-	public Integer getTechnologyCost() {
+	public int getTechnologyCost() {
 		return technologyCost;
 	}
 

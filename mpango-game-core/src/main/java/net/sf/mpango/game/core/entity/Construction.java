@@ -2,9 +2,11 @@ package net.sf.mpango.game.core.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Transient;
 
+import net.sf.mpango.common.entity.AbstractPersistable;
 import net.sf.mpango.game.core.enums.ConstructionType;
 import net.sf.mpango.game.core.events.Listener;
 
@@ -24,9 +26,9 @@ import net.sf.mpango.game.core.events.Listener;
  *
  */
 @Entity
-public abstract class Construction implements Damageable, Listener {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Construction extends AbstractPersistable<Long> implements Damageable, Listener {
 
-	private Long identifier;
 	private float maximumHitPoints;
 	private float hitPoints;
 	private float defenseBonus;
@@ -35,9 +37,9 @@ public abstract class Construction implements Damageable, Listener {
 	private int constructionTime;
 	private ConstructionType type;
 	
+	public Construction() {}
 	
-	
-	public Construction (ConstructionType type, float maximumHitPoints, int constructionTime) {
+	public Construction (final ConstructionType type, final float maximumHitPoints, final int constructionTime) {
 		this.maximumHitPoints = maximumHitPoints;
 		this.type = type;
 		this.constructionTime = constructionTime;
@@ -96,13 +98,6 @@ public abstract class Construction implements Damageable, Listener {
 	}
 	public void setAttackBonus(float attackBonus) {
 		this.attackBonus = attackBonus;
-	}
-	@Id
-	public Long getIdentifier() {
-		return identifier;
-	}
-	public void setIdentifier(Long identifier) {
-		this.identifier = identifier;
 	}
 	
 	public int getConstructionTime() {

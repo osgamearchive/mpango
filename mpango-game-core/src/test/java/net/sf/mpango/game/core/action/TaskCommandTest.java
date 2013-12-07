@@ -4,7 +4,6 @@ import java.util.Timer;
 
 import junit.framework.Assert;
 
-import net.sf.mpango.game.core.action.AbstractTaskCommand;
 import net.sf.mpango.game.core.events.CommandExecutedEvent;
 import net.sf.mpango.game.core.events.Listener;
 import net.sf.mpango.game.core.exception.CommandException;
@@ -73,8 +72,7 @@ public class TaskCommandTest {
 
 		@Override
 		public int calculateTotalTimeSlices() {
-			// TODO Auto-generated method stub
-			return 1;
+			return 5;
 		}
 		
 	}

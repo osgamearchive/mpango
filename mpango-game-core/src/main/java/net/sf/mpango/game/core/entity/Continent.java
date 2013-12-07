@@ -1,9 +1,9 @@
 package net.sf.mpango.game.core.entity;
 
-import net.sf.mpango.game.core.ai.DirectWay;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.persistence.Entity;
+
+import net.sf.mpango.game.core.ai.DirectWay;
 
 /**
  * User: leonserg
@@ -12,7 +12,6 @@ import javax.persistence.Entity;
  * The class contains positions belonging to the continent.
  * Method getCells() returns the corresponding position of the cell from the board.
  */
-@Entity
 public class Continent extends ArrayList<Position> {
 
     private class Lay extends ArrayList<Position> {
@@ -31,6 +30,8 @@ public class Continent extends ArrayList<Position> {
     private Random rand;
     private String name;
     private Position center;
+
+    public Continent() {}
 
     public Continent(GameBoard board, int row, int col, int size) {
         this(board, new Position(row, col), size);

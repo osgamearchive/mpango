@@ -12,7 +12,7 @@ import net.sf.mpango.game.core.exception.EventNotSupportedException;
 
 /**
  * <p>The purpose of this class is to execute tasks that need time to be executed.
- * The time it takes to execute the {@link Command#execute()} is determined by the {@link TaskCommand.calculateTotalTimeSlices()} method which returns milliseconds.
+ * The time it takes to execute the {@link Command#execute()} is determined by the {@link ITaskCommand#calculateTotalTimeSlices()} method which returns milliseconds.
  * This class receives {@link Timer} as part of the constructor, a timer which will be responsible for executing the {@link Command}.
  * This class is responsible for the {@link Thread} created by the {@link Timer} creates at scheduling time.</p>
  * @author etux
@@ -24,34 +24,34 @@ public abstract class AbstractTaskCommand extends TimerTask implements ITaskComm
 	public static final long DEFAULT_MILLIS_PER_TIME_SLICE = 50;
 	
 	/** Timer assigned to this command */
-	private Timer timer;
-	protected List<Listener> listeners;
-	private long millisPerSlice;
+	private final Timer timer;
+	protected final List<Listener> listeners;
+	private final long millisPerSlice;
 	
 	/**
 	 * Constructor that needs to be called by all extending classes.
 	 * @param timer
 	 * @param listeners
 	 */
-	protected AbstractTaskCommand(long millisPerSlice, Timer timer, List<Listener> listeners) {
+	protected AbstractTaskCommand(final long millisPerSlice, final Timer timer, final List<Listener> listeners) {
 		this.timer = timer;
 		this.listeners = listeners;
 		this.millisPerSlice = millisPerSlice;
 	}
 	/**
 	 * Commodity method to ease up developer from constructing the {@link List}.
-	 * Uses {@link Arrays#asList()} to construct the list.
+	 * Uses {@link Arrays#asList(Object[])} asList()} to construct the list.
 	 * @param timer
 	 * @param listeners
 	 */
-	protected AbstractTaskCommand(long millisPerSlice, Timer timer, Listener...listeners) {
+	protected AbstractTaskCommand(final long millisPerSlice, final Timer timer, final Listener...listeners) {
 		this(millisPerSlice, timer, Arrays.asList(listeners));
 	}
 	/**
 	 * Constructor that uses the default time milliseconds per time slice.
 	 * @param timer to schedule the command.
 	 */
-	protected AbstractTaskCommand(Timer timer, Listener...listeners) {
+	protected AbstractTaskCommand(final Timer timer, final Listener...listeners) {
 		this(DEFAULT_MILLIS_PER_TIME_SLICE, timer, listeners);
 	}
 
@@ -79,7 +79,7 @@ public abstract class AbstractTaskCommand extends TimerTask implements ITaskComm
 	 * @param timeMillisPerTimeSlice factor multiplying the time slices of the command.
 	 * @return total amount of time the command will take to execute.
 	 */
-	public long calculateTotalTimeMillis(long timeMillisPerTimeSlice) {
+	public long calculateTotalTimeMillis(final long timeMillisPerTimeSlice) {
 		return (timeMillisPerTimeSlice * calculateTotalTimeSlices()); //Basic time calculation that will fit most of the cases.
 	}
 	/**
@@ -95,7 +95,7 @@ public abstract class AbstractTaskCommand extends TimerTask implements ITaskComm
 	 * Method that notifies all listeners for the {@link Command}.
 	 */
 	@Override
-	public void notifyListeners(Event event) {
+	public void notifyListeners(final Event event) {
 		for(Listener listener : listeners) {
 			try {
 				listener.receive(event);
@@ -109,11 +109,11 @@ public abstract class AbstractTaskCommand extends TimerTask implements ITaskComm
 	 * @param listener
 	 */
 	@Override
-	public void addListener(Listener listener) {
+	public void addListener(final Listener listener) {
 		this.listeners.add(listener);
 	}
 	@Override
-	public void removeListener(Listener listener) {
+	public void removeListener(final Listener listener) {
 		this.listeners.remove(listener);
 	}
 }

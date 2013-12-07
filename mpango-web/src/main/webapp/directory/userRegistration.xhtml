@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../css/blueprint/print.css" type="text/css" media="print"/>
     <!--[if lt IE 8]><link rel="stylesheet" href="../css/blueprint/ie.css" type="text/css" media="screen, projection"><![endif]-->
     <script type="text/javascript" src="../javascript/jquery-validation-1.8.1/jquery.validate.min.js"></script>
-    <script>
+    <script type="text/javascript">
     
     
     jQuery.noConflict();
@@ -147,7 +147,7 @@
 						</h:selectOneRadio>
 					</p>
 					<p>
-					    <p:captcha label="captcha" publickey="${primefaces.recaptcha.publickey}"/>  
+					    <p:captcha label="captcha" publickey="${primefaces.recaptcha.publicKey}"/>
 					    <p:commandButton value="Register User" ajax="false" action="#{authenticationBackingBean.send}" />
 					</p>
 				</h:form>

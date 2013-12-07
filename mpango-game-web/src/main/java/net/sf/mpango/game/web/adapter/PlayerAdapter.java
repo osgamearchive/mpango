@@ -26,7 +26,7 @@ public class PlayerAdapter extends BaseAdapter<Player, PlayerDTO> {
 			return null;
 		}
 		Player player = new Player();
-		player.setIdentifier(dto.getId());
+		player.setId(dto.getId());
 		player.setState(dto.getState());
 		player.setPosition(PositionAdapter.instance().fromDTO(dto.getPosition()));
 		player.setUnits(UnitAdapter.instance().fromDTOList(dto.getUnits()));
@@ -40,7 +40,7 @@ public class PlayerAdapter extends BaseAdapter<Player, PlayerDTO> {
 			return null;
 		}
 		PlayerDTO dto = new PlayerDTO();
-		dto.setId(player.getIdentifier());
+		dto.setId(player.getId());
 		dto.setState(player.getState());
 		dto.setPosition(PositionAdapter.instance().toDTO(player.getPosition()));
 		dto.setUnits(UnitAdapter.instance().toDTOList(player.getUnits())); 

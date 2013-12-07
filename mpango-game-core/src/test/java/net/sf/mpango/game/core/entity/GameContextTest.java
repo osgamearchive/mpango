@@ -2,16 +2,16 @@ package net.sf.mpango.game.core.entity;
 
 import java.util.List;
 
-import net.sf.mpango.game.core.entity.GameConfiguration;
-import net.sf.mpango.game.core.entity.GameContext;
-import net.sf.mpango.game.core.entity.Player;
-import net.sf.mpango.game.core.entity.Position;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.easymock.classextension.EasyMock.*;
+
+import static org.easymock.classextension.EasyMock.createMock;
+import static org.easymock.classextension.EasyMock.expect;
+import static org.easymock.classextension.EasyMock.replay;
+import static org.easymock.classextension.EasyMock.verify;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class GameContextTest {
 
@@ -21,12 +21,14 @@ public class GameContextTest {
 	private GameContext testing;
 	private GameConfiguration gameConfiguration;
 	private GameBoard gameBoard;
-	
-	@Before
+    private BoardConfiguration boardConfiguration;
+
+    @Before
 	public void setUp() {
 		testing = new GameContext();
 		gameConfiguration = createMock(GameConfiguration.class);
 		gameBoard = createMock(GameBoard.class);
+        boardConfiguration = createMock(BoardConfiguration.class);
 		testing.setConfiguration(gameConfiguration);
 		testing.setBoard(gameBoard);
 	}
@@ -44,10 +46,12 @@ public class GameContextTest {
 	
 	@Test
 	public void testGenerateRandomPosition() {
-		expect(gameBoard.getRowSize()).andReturn(TEST_ROW_SIZE);
-		expect(gameBoard.getColSize()).andReturn(TEST_COL_SIZE);
+        expect(gameBoard.getConfiguration()).andReturn(boardConfiguration).anyTimes();
+		expect(boardConfiguration.getRowNumber()).andReturn(TEST_ROW_SIZE);
+		expect(boardConfiguration.getColNumber()).andReturn(TEST_COL_SIZE);
 		replay(gameConfiguration);
 		replay(gameBoard);
+        replay(boardConfiguration);
 		Position position = testing.generateRandomPosition();
 		assertNotNull(position.getColNumber());
 		assertNotNull(position.getRowNumber());
@@ -55,6 +59,7 @@ public class GameContextTest {
 		assertTrue("There should be as many as m rows, starting from 0 and ending with m-1", position.getRowNumber() < TEST_ROW_SIZE);
 		verify(gameBoard);
 		verify(gameConfiguration);
+        verify(boardConfiguration);
 	}
 	
 	@Test

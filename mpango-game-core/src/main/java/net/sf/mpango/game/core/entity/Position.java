@@ -1,13 +1,15 @@
 package net.sf.mpango.game.core.entity;
 
-import javax.persistence.Entity;
+import javax.persistence.Embeddable;
 
-@Entity
+@Embeddable
 public class Position {
 
 	private int rowNumber;
 	private int colNumber;
-	
+
+    public Position() {}
+    
 	public Position(int rowNumber, int colNumber) {
 		this.setRowNumber(rowNumber);
 		this.setColNumber(colNumber);

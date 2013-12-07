@@ -2,16 +2,12 @@ package net.sf.mpango.game.web.adapter;
 
 import junit.framework.Assert;
 import junit.framework.TestCase;
-
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.GameBoard;
-
-import net.sf.mpango.game.web.adapter.CellAdapter;
+import net.sf.mpango.game.core.entity.Position;
+import net.sf.mpango.game.web.TestUtils;
 import net.sf.mpango.game.web.dto.CellDTO;
 import net.sf.mpango.game.web.dto.GameBoardDTO;
-
-import net.sf.mpango.game.web.TestUtils;
-
 import org.junit.Test;
 
 public class BoardFactoryTest extends TestCase {
@@ -32,12 +28,13 @@ public class BoardFactoryTest extends TestCase {
 		GameBoardDTO dto = TestUtils.getGameBoardDTO(1L);
 		GameBoard board = GameBoardAdapter.instance().fromDTO(dto);
 		Assert.assertNotNull(board);
-		Assert.assertEquals(board.getIdentifier().longValue(), 1L);
+		Assert.assertEquals(board.getId().longValue(), 1L);
 		Assert.assertNotNull(board.getCells());
 
-		for (int i = 0; i < board.getRowSize(); i++) {
-			for (int j = 0; j < board.getColSize(); j++) {
-				Assert.assertNotNull(board.getCell(i, j));
+		for (int i = 0; i < board.getConfiguration().getRowNumber(); i++) {
+			for (int j = 0; j < board.getConfiguration().getColNumber(); j++) {
+                Position position = new Position(i,j);
+				Assert.assertNotNull(board.getCell(position));
 			}
 		}
 	}

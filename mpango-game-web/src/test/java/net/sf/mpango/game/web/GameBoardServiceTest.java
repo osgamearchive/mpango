@@ -39,7 +39,7 @@ public class GameBoardServiceTest {
     @Test
     public void testGetBoard() {
     	//Data for the unit test
-    	GameBoard board = new GameBoard();
+        GameBoard board = TestUtils.prepareGameBoard();
     	//Expectations
     	EasyMock.expect(mockedGameService.getBoard()).andReturn(board);
         mockedMessage.setData(JSONObject.fromObject(board));

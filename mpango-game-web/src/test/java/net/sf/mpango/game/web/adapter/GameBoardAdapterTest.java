@@ -1,15 +1,15 @@
 package net.sf.mpango.game.web.adapter;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import net.sf.mpango.game.core.entity.GameBoard;
-import net.sf.mpango.game.web.adapter.GameBoardAdapter;
-import net.sf.mpango.game.web.dto.GameBoardDTO;
 import net.sf.mpango.game.web.TestUtils;
+import net.sf.mpango.game.web.dto.GameBoardDTO;
+import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 public class GameBoardAdapterTest {
@@ -20,9 +20,9 @@ public class GameBoardAdapterTest {
 		GameBoardDTO dto = GameBoardAdapter.instance().toDTO(gb);
 		
 		assertNotNull(dto);
-		assertEquals(dto.getId(), gb.getIdentifier());
-		assertEquals(dto.getColSize(), (Integer)gb.getColSize());
-		assertEquals(dto.getRowSize(), (Integer)gb.getRowSize());		
+		assertEquals(dto.getId(), gb.getId());
+		assertEquals(dto.getColSize(), (Integer)gb.getConfiguration().getColNumber());
+		assertEquals(dto.getRowSize(), (Integer)gb.getConfiguration().getRowNumber());
 	}
 	
 	@Test

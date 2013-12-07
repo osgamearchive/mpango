@@ -1,5 +1,10 @@
 package net.sf.mpango.game.web;
 
+import javax.annotation.PostConstruct;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import net.sf.json.JSONObject;
 import net.sf.mpango.game.core.entity.GameBoard;
 import net.sf.mpango.game.core.events.Event;
@@ -8,23 +13,17 @@ import net.sf.mpango.game.core.events.GameListener;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
 import net.sf.mpango.game.core.service.IGameBoardService;
 import net.sf.mpango.game.core.service.IGameService;
-
 import org.apache.log4j.Logger;
+import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ConfigurableServerChannel;
 import org.cometd.bayeux.server.ServerChannel;
+import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.bayeux.server.ServerMessage.Mutable;
 import org.cometd.bayeux.server.ServerSession;
-import org.cometd.bayeux.server.BayeuxServer;
-import org.cometd.bayeux.server.ServerMessage;
 import org.cometd.java.annotation.Configure;
 import org.cometd.java.annotation.Listener;
 import org.cometd.java.annotation.Service;
 import org.cometd.java.annotation.Session;
-
-import javax.annotation.PostConstruct;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.inject.Singleton;
 
 /**
  * Service that takes care of the game board information.
@@ -54,7 +53,7 @@ public class GameBoardServiceImpl implements GameListener, IGameBoardService {
     }
     
     @Configure("/service/gameBoard")
-    public void configure(ConfigurableServerChannel channel) {
+    public void configure(final ConfigurableServerChannel channel) {
     	logger.debug("Configuring the /service/gameBoard");
         channel.setLazy(true);
         //channel.addAuthorizer(GrantAuthorizer.GRANT_PUBLISH);
@@ -62,11 +61,11 @@ public class GameBoardServiceImpl implements GameListener, IGameBoardService {
     
     /**
      *
-     * @param remote
+     * @param remoteSession
      * @param message
      */
     @Listener("/service/gameBoard")
-    public void subscribe(ServerSession remoteSession, ServerMessage.Mutable message) {
+    public void subscribe(final ServerSession remoteSession, final ServerMessage.Mutable message) {
     	if (logger.isDebugEnabled()) {
     		logger.debug("New subscription from client: "+remoteSession.getId());
     	}
@@ -75,7 +74,7 @@ public class GameBoardServiceImpl implements GameListener, IGameBoardService {
 
 
 	@Override
-	public void receive (Event event) throws EventNotSupportedException {
+	public void receive (final Event event) throws EventNotSupportedException {
 		if (event instanceof GameBoardEvent) {
 			//Cast the event to a GameEvent
 			GameBoardEvent gameBoardEvent = (GameBoardEvent) event;
@@ -97,7 +96,7 @@ public class GameBoardServiceImpl implements GameListener, IGameBoardService {
 	 * @param message
 	 * @param remoteSession 
 	 */
-	private void sendBoard(ServerSession remoteSession, Mutable message) {
+	private void sendBoard(final ServerSession remoteSession, final Mutable message) {
 		JSONObject jsonObject = JSONObject.fromObject(getGameBoard());
         message.setData(jsonObject);
         remoteSession.deliver(serverSession, message);
@@ -114,14 +113,14 @@ public class GameBoardServiceImpl implements GameListener, IGameBoardService {
      * For testing purposes
      * @param serverSession
      */
-    protected void setServerSession(ServerSession serverSession) {
+    protected void setServerSession(final ServerSession serverSession) {
         this.serverSession = serverSession;
     }
     /**
      * For testing purposes
      * @param gameService
      */
-	public void setGameService(IGameService gameService) {
+	public void setGameService(final IGameService gameService) {
 		this.gameService = gameService;
 	}
 

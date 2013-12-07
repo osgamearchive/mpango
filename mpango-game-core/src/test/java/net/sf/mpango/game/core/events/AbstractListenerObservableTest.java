@@ -1,14 +1,11 @@
 package net.sf.mpango.game.core.events;
 
-import static org.junit.Assert.*;
-
+import net.sf.mpango.game.core.exception.EventNotSupportedException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import net.sf.mpango.game.core.events.AbstractListenerObservable;
-import net.sf.mpango.game.core.events.Listener;
-import net.sf.mpango.game.core.exception.EventNotSupportedException;
+import static org.junit.Assert.assertEquals;
 
 public class AbstractListenerObservableTest {
 
@@ -62,7 +59,7 @@ public class AbstractListenerObservableTest {
 		assertEquals("The must not be any listeners present", 0, listenerBroadcaster.getListeners().size());
 	}
 	
-	class SupportedListenerBroadcaster extends AbstractListenerObservable {
+	class SupportedListenerBroadcaster extends ObservableBaseListener {
 		
 		public SupportedListenerBroadcaster(Listener yourself) {
 			super(yourself);

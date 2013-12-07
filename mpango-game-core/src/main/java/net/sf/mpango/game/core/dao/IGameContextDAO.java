@@ -1,8 +1,6 @@
 package net.sf.mpango.game.core.dao;
 
-import java.io.Serializable;
-import java.util.List;
-
+import net.sf.mpango.common.dao.DAO;
 import net.sf.mpango.game.core.entity.GameContext;
 
 /**
@@ -10,10 +8,6 @@ import net.sf.mpango.game.core.entity.GameContext;
  * @author etux
  *
  */
-public interface IGameContextDAO {
+public interface IGameContextDAO extends DAO<GameContext> {
 
-	GameContext save(GameContext context);
-	void update(GameContext context);
-	GameContext load(Serializable identifier);
-	List<GameContext> list();
 }

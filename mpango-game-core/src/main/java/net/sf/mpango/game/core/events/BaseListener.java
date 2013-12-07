@@ -7,7 +7,7 @@ import net.sf.mpango.game.core.exception.EventNotSupportedException;
  * @author etux
  *
  */
-public abstract class AbstractListener implements Listener {
+public class BaseListener implements Listener {
 	
 	/**
 	 * Basic implementation of the method in order to identify the unsupported events

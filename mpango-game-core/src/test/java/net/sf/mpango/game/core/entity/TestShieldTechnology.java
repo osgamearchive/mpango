@@ -2,8 +2,6 @@ package net.sf.mpango.game.core.entity;
 
 import java.util.List;
 
-import net.sf.mpango.game.core.entity.Shield;
-import net.sf.mpango.game.core.entity.Technology;
 import net.sf.mpango.game.core.technology.entity.ShieldTechnology;
 
 public class TestShieldTechnology extends ShieldTechnology {
@@ -19,9 +17,9 @@ public class TestShieldTechnology extends ShieldTechnology {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public Integer getTechnologyCost() {
+	public int getTechnologyCost() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
 	
 }
