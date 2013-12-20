@@ -21,7 +21,7 @@
 			<email>edvera@users.sourceforge.net</email>
 			<roles>
 				<role>Project Manager</role>
-				<role>Game Desingner</role>
+				<role>Game Designer</role>
 				<role>Developer</role>
 			</roles>
 		</developer>
@@ -628,8 +628,12 @@
 				<artifactId>maven-activemq-plugin</artifactId>
 			</plugin>
             <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
+                <groupId>com.atlassian.maven.plugins</groupId>
+                <artifactId>maven-jgitflow-plugin</artifactId>
+                <version>1.0-alpha26</version>
+                <configuration>
+                    <enableSshAgent>true</enableSshAgent>
+                </configuration>
             </plugin>
 		</plugins>
 		<extensions>
@@ -689,5 +693,32 @@
 				<jetty.webApp>${basedir}/mpango-game-web/target/mpango-game-web-0.0.1-SNAPSHOT/</jetty.webApp>
 			</properties>
 		</profile>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.jdbc.url>jdbc:mysql://localhost:3306/sonar?useUnicode=true&amp;characterEncoding=utf8&amp;rewriteBatchedStatements=true</sonar.jdbc.url>
+                <sonar.jdbc.username>sonar</sonar.jdbc.username>
+                <sonar.jdbc.password>welcome</sonar.jdbc.password>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>sonar-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sonar</id>
+                                <goals>
+                                    <goal>sonar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
 	</profiles>
 </project>
