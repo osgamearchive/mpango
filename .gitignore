@@ -2,6 +2,10 @@
 #######################
 **/overlays/**/*
 
+# Vagrant Specific Files #
+##########################
+.vagrant
+
 # IDE Specific Files #
 ######################
 *.iml
