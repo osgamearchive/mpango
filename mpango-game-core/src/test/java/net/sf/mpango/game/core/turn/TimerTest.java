@@ -2,16 +2,15 @@ package net.sf.mpango.game.core.turn;
 
 import net.sf.mpango.game.core.action.AbstractTaskCommand;
 import net.sf.mpango.game.core.action.Command;
+import net.sf.mpango.game.core.action.ITaskCommand;
 import net.sf.mpango.game.core.events.CommandExecutedEvent;
 import net.sf.mpango.game.core.exception.CommandException;
-import net.sf.mpango.game.core.turn.Timer;
-
 import org.easymock.classextension.EasyMock;
-import static org.easymock.classextension.EasyMock.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.easymock.classextension.EasyMock.replay;
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by IntelliJ IDEA.
@@ -38,7 +37,7 @@ public class TimerTest {
         assertEquals(timer.getCommandSize(),1);
         timer.addCommand(command);
         assertEquals(timer.getCommandSize(), 1);
-        AbstractTaskCommand command2 = EasyMock.createMock(AbstractTaskCommand.class);
+        ITaskCommand command2 = EasyMock.createMock(ITaskCommand.class);
         timer.addCommand(command2);
         assertEquals(timer.getCommandSize(), 2);
     }

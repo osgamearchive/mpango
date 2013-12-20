@@ -5,41 +5,35 @@ import java.util.List;
 
 import javax.faces.model.SelectItem;
 
-import net.sf.mpango.common.directory.dto.UserDTO;
-import net.sf.mpango.common.directory.facade.IAuthenticationFacade;
+import net.sf.mpango.common.directory.entity.User;
+import net.sf.mpango.common.directory.service.AuthenticationException;
+import net.sf.mpango.common.directory.service.IAuthenticationService;
 
 /**
  * @author edvera
  */
 public class AuthenticationBackingBean {
 
-	private IAuthenticationFacade authFacade;
+    protected static final String SEND_ACTION_SUCCESS = "success";
+    protected static final String SEND_ACTION_FAILURE = "failure";
+    private IAuthenticationService authService;
 
-	private UserDTO user = new UserDTO();
-	private List<UserDTO> users;
-	
-	public List<UserDTO> getUsers() {
+    private User user = new User();
+    private List<User> users;
+    private ArrayList<SelectItem> countries;
+
+	public List<User> getUsers() {
 		if (users == null)  {
-			users = authFacade.list();
+			users = authService.list();
 		}
 		return users;
 	}
 
-	private ArrayList<SelectItem> countries;
-
-	public IAuthenticationFacade getAuthFacade() {
-		return authFacade;
-	}
-
-	public void setAuthFacade(IAuthenticationFacade authFacade) {
-		this.authFacade = authFacade;
-	}
-
-	public UserDTO getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserDTO user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -47,15 +41,12 @@ public class AuthenticationBackingBean {
 	 * Method that is backed to a submit button of a form.
 	 */
 	public String send() {
-		UserDTO userFound = authFacade.load(user.getEmail());
-		if (userFound != null) {
-			user = userFound;
-			return "failure";
-		} else {
-			user = authFacade.register(user);
-			return "success";
-		}
-
+        try {
+            authService.register(user);
+            return SEND_ACTION_SUCCESS;
+        } catch (AuthenticationException e) {
+            return SEND_ACTION_FAILURE;
+        }
 	}
 
 	public ArrayList<SelectItem> getCountries() {
@@ -66,5 +57,13 @@ public class AuthenticationBackingBean {
 		countries.add(new SelectItem("Country4", "Country 4", ""));
 		return countries;
 	}
+
+    public IAuthenticationService getAuthService() {
+        return authService;
+    }
+
+    public void setAuthService(IAuthenticationService authService) {
+        this.authService = authService;
+    }
 
 }

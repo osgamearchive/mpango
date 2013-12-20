@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.mpango.common.directory.enums.StateEnum;
+import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.game.core.action.Command;
 import net.sf.mpango.game.core.entity.BoardConfiguration;
 import net.sf.mpango.game.core.entity.Cell;
@@ -59,7 +59,7 @@ public class TestUtils {
 
     	public static Player getPlayer() {
     		Player player = new Player();
-    		player.setState(StateEnum.CREATED);
+    		player.setState(User.State.CREATED);
     		return player;
     	}
 

@@ -8,6 +8,6 @@ import net.sf.mpango.game.core.entity.GameContext;
  * @author etux
  *
  */
-public interface IGameContextDAO extends DAO<GameContext> {
+public interface IGameContextDAO extends DAO<GameContext, Long> {
 
 }

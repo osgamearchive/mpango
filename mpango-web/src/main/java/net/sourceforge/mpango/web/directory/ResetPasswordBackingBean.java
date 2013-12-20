@@ -4,12 +4,11 @@ import java.util.Locale;
 
 import javax.faces.context.FacesContext;
 
-import net.sf.mpango.common.directory.facade.IAuthenticationFacade;
-
+import net.sf.mpango.common.directory.service.AuthenticationException;
+import net.sf.mpango.common.directory.service.IAuthenticationService;
+import net.sourceforge.mpango.web.directory.jms.ForgotPasswordMessageCreator;
 import org.apache.log4j.Logger;
 import org.springframework.jms.core.JmsTemplate;
-
-import net.sourceforge.mpango.web.directory.jms.ForgotPasswordMessageCreator;
 
 public class ResetPasswordBackingBean {
 
@@ -21,7 +20,7 @@ public class ResetPasswordBackingBean {
     protected static final String RESULT_USER_NOT_FOUND = "user_not_found";
 
     private JmsTemplate jmsTemplate;
-    private IAuthenticationFacade authenticationFacade;
+    private IAuthenticationService authService;
 	private FacesContext facesContext;
 
 	private String email;
@@ -38,16 +37,19 @@ public class ResetPasswordBackingBean {
      * @return String Outcome of the situation (email_sent = The email has been sent correctly, user_not_found = No user with that email found).
      */
 	public String sendMessage() {
-        String result;
-        if ((email != null) && (authenticationFacade.load(email) != null)) {
-        	logger.debug("Sending message to user with email: "+email);
-        	Locale locale = getFacesContext().getViewRoot().getLocale();
+        assert email != null;
+        assert authService != null;
+
+        String result = null;
+        try {
+            authService.generateResetKey(email);
+            logger.debug("Sending message to user with email: "+email);
+            Locale locale = getFacesContext().getViewRoot().getLocale();
             jmsTemplate.send(queueName, new ForgotPasswordMessageCreator(email, calculateUrl(), locale.toString()));
             result = RESULT_EMAIL_SENT;
-        } else {
-        	logger.info("User not found with email: "+email);
+        } catch (AuthenticationException e) {
+            logger.info("User not found with email: "+email);
             result = RESULT_USER_NOT_FOUND;
-
         }
         return result;
 	}
@@ -85,12 +87,12 @@ public class ResetPasswordBackingBean {
         this.jmsTemplate = jmsTemplate;
     }
 
-    public IAuthenticationFacade getAuthenticationFacade() {
-        return authenticationFacade;
+    public IAuthenticationService getAuthService() {
+        return authService;
     }
 
-    public void setAuthenticationFacade(IAuthenticationFacade authenticationFacade) {
-        this.authenticationFacade = authenticationFacade;
+    public void setAuthService(IAuthenticationService authService) {
+        this.authService = authService;
     }
 
     public String getQueueName() {

@@ -11,7 +11,7 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @author etux
  *
  */
-public abstract class HibernateAbstractDAOImpl<T extends Identified> implements DAO<T> {
+public abstract class HibernateAbstractDAOImpl<T extends Identified<K>, K extends Serializable> implements DAO<T,K> {
 
 	private HibernateTemplate hibernateTemplate;
 	private SessionFactory sessionFactory;
@@ -58,7 +58,7 @@ public abstract class HibernateAbstractDAOImpl<T extends Identified> implements 
 	}
 
     @Override
-    public T load(Serializable identifier) {
+    public T load(K identifier) throws NotFoundException{
         return hibernateTemplate.load(clazz, identifier);
     }
 

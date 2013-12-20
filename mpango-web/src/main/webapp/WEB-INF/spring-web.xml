@@ -66,7 +66,7 @@
         scope="request">
         <property name="queueName" value="${queue.forgotPassword}" />
         <property name="jmsTemplate" ref="jmsTemplate" />
-        <property name="authenticationFacade" ref="authFacade" />
+        <property name="authService" ref="authFacade" />
         <property name="protocol" value="${mpango.protocol}" />
         <property name="hostname" value="${mpango.hostname}" />
         <property name="port" value="${mpango.port}" />

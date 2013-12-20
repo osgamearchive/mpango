@@ -1,30 +1,34 @@
 package net.sf.mpango.game.core.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.orm.hibernate3.HibernateTemplate;
-
+import net.sf.mpango.common.dao.NotFoundException;
 import net.sf.mpango.game.core.entity.GameContext;
+import org.springframework.orm.hibernate3.HibernateTemplate;
 
 public class HibernateGameContextDAOImpl implements IGameContextDAO {
 	
 	private HibernateTemplate hibernateTemplate;
 
 	@Override
-	public GameContext save(GameContext context) {
-		Long identifier = (Long) hibernateTemplate.save(context);
+	public GameContext save(final GameContext context) {
+		final Long identifier = (Long) hibernateTemplate.save(context);
 		context.setId(identifier);
 		return context;
 	}
 
 	@Override
-	public void update(GameContext context) {
+	public void update(final GameContext context) {
 		hibernateTemplate.update(context);
 	}
 
-	@Override
-	public GameContext load(Serializable identifier) {
+    @Override
+    public void delete(final GameContext entity) throws NotFoundException {
+        hibernateTemplate.delete(entity);
+    }
+
+    @Override
+	public GameContext load(Long identifier) {
 		return hibernateTemplate.load(GameContext.class, identifier);
 	}
 

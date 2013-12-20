@@ -7,6 +7,7 @@ import javax.jms.Message;
 import javax.jms.TextMessage;
 
 import junit.framework.Assert;
+import net.sf.mpango.common.directory.service.AuthenticationException;
 import net.sf.mpango.common.directory.service.IAuthenticationService;
 
 import org.easymock.EasyMock;
@@ -36,7 +37,7 @@ public class ForgotPasswordMessageListenerTest {
 	 }
 	 
 	 @Test
-	 public void testOnTextMessage() throws JMSException {
+	 public void testOnTextMessage() throws JMSException, AuthenticationException {
 		 // Data needed for the test
 		 String to = "email@domain.com";
 		 String sLocale = "en_US";

@@ -7,8 +7,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
+import net.sf.mpango.common.directory.service.AuthenticationException;
 import net.sf.mpango.common.directory.service.IAuthenticationService;
-
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -57,7 +57,9 @@ public class ForgotPasswordMessageListener implements MessageListener, Applicati
 				logger.info("Email sent to address:"+to);
 			} catch (JMSException e) {
 				logger.error("Error sending email", e);
-			}
+			} catch (AuthenticationException e) {
+                logger.warn("Error while trying to send an email to a user", e);
+            }
         } else {
         	logger.warn("Messages different from TextMessage are not intented for this queue at the moment."+message);
             throw new IllegalArgumentException("The message expected must be a TextMessage instance");

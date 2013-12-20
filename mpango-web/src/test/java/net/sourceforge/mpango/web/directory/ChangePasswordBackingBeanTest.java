@@ -1,6 +1,7 @@
 package net.sourceforge.mpango.web.directory;
 
 import net.sf.mpango.common.directory.entity.User;
+import net.sf.mpango.common.directory.service.AuthenticationException;
 import net.sf.mpango.common.directory.service.IAuthenticationService;
 
 import org.apache.commons.lang.RandomStringUtils;
@@ -21,7 +22,7 @@ public class ChangePasswordBackingBeanTest {
 	}
 	
 	@Test
-	public void testChangePassword() {
+	public void testChangePassword() throws AuthenticationException {
 		String resetKey = RandomStringUtils.random(12);
 		String newPassword = RandomStringUtils.random(12);
 		String email = "email@domain.com";

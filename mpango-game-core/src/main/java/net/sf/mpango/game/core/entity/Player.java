@@ -9,7 +9,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import net.sf.mpango.common.directory.entity.User;
-import net.sf.mpango.common.directory.enums.StateEnum;
 import net.sf.mpango.common.entity.AbstractPersistable;
 
 /**
@@ -39,7 +38,7 @@ public class Player extends AbstractPersistable<Long> {
 
 	private Position position;
 	private List<Unit> units;
-	private StateEnum state;
+	private User.State state;
 	private User user;
     private GameContext gameContext;
     
@@ -47,7 +46,7 @@ public class Player extends AbstractPersistable<Long> {
 
     public Player(User user, GameContext gameContext) {
         this.units = new ArrayList<Unit>();
-        this.state = StateEnum.CREATED;
+        this.state = User.State.CREATED;
         this.user = user;
         this.gameContext = gameContext;
     }
@@ -55,14 +54,14 @@ public class Player extends AbstractPersistable<Long> {
 	/**
 	 * @return
 	 */
-	public StateEnum getState() {
+	public User.State getState() {
 		return state;
 	}
 
 	/**
 	 * @param state
 	 */
-	public void setState(StateEnum state) {
+	public void setState(User.State state) {
 		this.state = state;
 	}
 

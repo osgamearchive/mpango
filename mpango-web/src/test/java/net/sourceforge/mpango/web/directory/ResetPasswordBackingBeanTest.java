@@ -1,73 +1,81 @@
 package net.sourceforge.mpango.web.directory;
 
 import java.util.Locale;
-
-import net.sf.mpango.common.directory.dto.UserDTO;
-import net.sf.mpango.common.directory.facade.AuthenticationFacade;
-import net.sourceforge.mpango.web.directory.jms.ForgotPasswordMessageCreator;
-import org.easymock.classextension.EasyMock;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.jms.core.JmsTemplate;
+import java.util.UUID;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
-import javax.jms.JMSException;
+
+import net.sf.mpango.common.directory.service.AuthenticationException;
+import net.sf.mpango.common.directory.service.IAuthenticationService;
+import net.sourceforge.mpango.web.directory.jms.ForgotPasswordMessageCreator;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.jms.core.JmsTemplate;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 
 /**
  * @author etux
  */
 public class ResetPasswordBackingBeanTest {
 
-    private AuthenticationFacade authFacade;
-    private JmsTemplate jmsTemplate;
-    private FacesContext facesContext;
-    private UIViewRoot viewRoot;
-    private ResetPasswordBackingBean testing;
     private static final String TEST_EMAIL = "email@domain.com";
     private static final String TEST_DESTINATION_QUEUE = "test.queue";
 
+    @Mock
+    private IAuthenticationService authentitationService;
+    @Mock
+    private JmsTemplate jmsTemplate;
+    @Mock
+    private FacesContext facesContext;
+    @Mock
+    private UIViewRoot viewRoot;
+
+    private ResetPasswordBackingBean testing;
+
 
     @Before
-    public void setUp() {
-        authFacade = EasyMock.createMock(AuthenticationFacade.class);
-        jmsTemplate = EasyMock.createMock(JmsTemplate.class);
-        facesContext = EasyMock.createMock(FacesContext.class);
-        viewRoot = EasyMock.createMock(UIViewRoot.class);
+    public void setUp() throws AuthenticationException {
+        MockitoAnnotations.initMocks(this);
         testing = new ResetPasswordBackingBean();
         testing.setQueueName(TEST_DESTINATION_QUEUE);
         testing.setEmail(TEST_EMAIL);
         testing.setJmsTemplate(jmsTemplate);
-        testing.setAuthenticationFacade(authFacade);
+        testing.setAuthService(authentitationService);
         testing.setFacesContext(facesContext);
+        when(facesContext.getViewRoot()).thenReturn(viewRoot);
+        when(viewRoot.getLocale()).thenReturn(Locale.getDefault());
+        when(authentitationService.generateResetKey(TEST_EMAIL)).thenReturn(UUID.randomUUID().toString());
+        doNothing().when(jmsTemplate).send(eq(TEST_DESTINATION_QUEUE), isA(ForgotPasswordMessageCreator.class));
     }
 
     @Test
-    public void testSendMessageSuccessfull() throws JMSException {
-    	EasyMock.expect(facesContext.getViewRoot()).andReturn(viewRoot);
-    	EasyMock.expect(viewRoot.getLocale()).andReturn(Locale.getDefault());
-        EasyMock.expect(authFacade.load(TEST_EMAIL)).andReturn(new UserDTO());
-        jmsTemplate.send(EasyMock.eq(TEST_DESTINATION_QUEUE), EasyMock.isA(ForgotPasswordMessageCreator.class));
-        EasyMock.replay(jmsTemplate);
-        EasyMock.replay(authFacade);
-        EasyMock.replay(facesContext);
-        EasyMock.replay(viewRoot);
+    public void testSendMessageSuccessfull() throws AuthenticationException {
         String result = testing.sendMessage();
         org.junit.Assert.assertEquals("Result should be expected", ResetPasswordBackingBean.RESULT_EMAIL_SENT, result);
-        EasyMock.verify(jmsTemplate);
-        EasyMock.verify(authFacade);
-        EasyMock.verify(facesContext);
-        EasyMock.verify(viewRoot);
+        verify(facesContext).getViewRoot();
+        verify(viewRoot).getLocale();
+        verify(jmsTemplate).send(eq(TEST_DESTINATION_QUEUE), isA(ForgotPasswordMessageCreator.class));
+        verify(authentitationService).generateResetKey(TEST_EMAIL);
     }
 
     @Test
-     public void testSendMessageUnsuccessfull() throws JMSException {
-        EasyMock.expect(authFacade.load(TEST_EMAIL)).andReturn(null);
-        EasyMock.replay(jmsTemplate);
-        EasyMock.replay(authFacade);
+     public void testSendMessageUnsuccessfull() throws AuthenticationException {
+        when(authentitationService.generateResetKey(TEST_EMAIL)).thenThrow(new AuthenticationException("authentication exception"));
         String result = testing.sendMessage();
-        org.junit.Assert.assertEquals("Result should be expected", ResetPasswordBackingBean.RESULT_USER_NOT_FOUND, result);
-        EasyMock.verify(jmsTemplate);
-        EasyMock.verify(authFacade);
+        assertThat("Result should be expected", result, is(equalTo(ResetPasswordBackingBean.RESULT_USER_NOT_FOUND)));
+        verify(authentitationService).generateResetKey(TEST_EMAIL);
+        verifyZeroInteractions(jmsTemplate);
     }
 }

@@ -15,7 +15,7 @@ public abstract class AbstractPersistable<T extends Serializable> implements Ide
 	private T identifier;
 
 	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.TABLE)
 	public T getId() {
 		return identifier;
 	}

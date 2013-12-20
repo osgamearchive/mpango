@@ -15,8 +15,8 @@ import static org.junit.Assert.assertTrue;
 
 public class GameContextTest {
 
-	private static final Integer TEST_ROW_SIZE = 5;
-	private static final Integer TEST_COL_SIZE = 5;
+	private static final int TEST_ROW_SIZE = 5;
+	private static final int TEST_COL_SIZE = 5;
 	
 	private GameContext testing;
 	private GameConfiguration gameConfiguration;
@@ -39,7 +39,7 @@ public class GameContextTest {
 	
 	@Test
 	public void testPlayerJoins() {
-		Player player = new Player();
+		final Player player = new Player();
 		testing.join(player);
 		assertTrue("The context must contain the player", testing.containsPlayer(player));
 	}

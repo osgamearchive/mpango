@@ -2,6 +2,7 @@ package net.sf.mpango.game.core.service;
 
 import java.util.Arrays;
 
+import net.sf.mpango.common.dao.AlreadyExistsException;
 import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.game.core.dao.PlayerDAO;
 import net.sf.mpango.game.core.entity.GameContext;
@@ -26,13 +27,13 @@ public class PlayerServiceImplTest {
 	}
 	
 	@Test
-	public void testUserJoinsFirstTime() {
+	public void testUserJoinsFirstTime() throws AlreadyExistsException {
 		User user = new User();
 		GameContext context = EasyMock.createMock(GameContext.class);
 		Player player = new Player(user, context);
 		Position position = new Position(0,0);
 		EasyMock.expect(context.generateRandomPosition()).andReturn(position);
-		EasyMock.expect(context.generateStartingUnits()).andReturn(Arrays.asList(new Unit[]{new Unit()}));
+		EasyMock.expect(context.generateStartingUnits()).andReturn(Arrays.asList(new Unit[] {new Unit()} ));
 		EasyMock.expect(playerDAO.findPlayer(user)).andReturn(null);
 		EasyMock.expect(playerDAO.save(player)).andReturn(player);
 		context.join(player);
@@ -44,12 +45,12 @@ public class PlayerServiceImplTest {
 	}
 	
 	@Test
-	public void testUserJoinsSecondTime() {
+	public void testUserJoinsSecondTime() throws AlreadyExistsException {
 		User user = new User();
 		GameContext context = EasyMock.createMock(GameContext.class);
 		Player player = new Player(user, context);
 		EasyMock.expect(playerDAO.findPlayer(user)).andReturn(player);
-		EasyMock.expect(playerDAO.save(player)).andReturn(player);
+		//EasyMock.expect(playerDAO.save(player)).andReturn(player);
 		context.join(player);
 		EasyMock.replay(playerDAO);
 		EasyMock.replay(context);

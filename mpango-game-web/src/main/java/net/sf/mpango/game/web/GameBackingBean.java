@@ -1,26 +1,35 @@
 package net.sf.mpango.game.web;
 
-import net.sf.mpango.common.directory.dto.UserDTO;
-import net.sf.mpango.game.core.facade.IGameFacade;
+import net.sf.mpango.common.directory.entity.User;
+import net.sf.mpango.game.core.service.IGameService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author etux
  */
 public class GameBackingBean {
 
-    private IGameFacade gameFacade;
-    private UserDTO user;
-    private String name;
+    @Autowired
+    private IGameService gameService;
+    private User user;
 
     public void join() {
-        gameFacade.join(name, user);
+        gameService.join(user);
     }
 
-    public IGameFacade getGameFacade() {
-        return gameFacade;
+    public IGameService getGameService() {
+        return gameService;
     }
 
-    public void setGameFacade(IGameFacade gameFacade) {
-        this.gameFacade = gameFacade;
+    public void setGameService(IGameService gameService) {
+        this.gameService = gameService;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

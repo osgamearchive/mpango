@@ -405,7 +405,7 @@
 
             // Handle when the DOM is ready
             ready: function (wait) {
-                // Either a released hold or an DOMready/load event and not yet ready
+                // Either a released hold or an DOMready/login event and not yet ready
                 if ((wait === true && !--jQuery.readyWait) || (wait !== true && !jQuery.isReady)) {
                     // Make sure body exists, at least, in case IE gets a little overzealous (ticket #5443).
                     if (!document.body) {
@@ -3632,7 +3632,7 @@
         return (type && type !== "*" ? type + "." : "") + selector.replace(rperiod, "`").replace(rspaces, "&");
     }
 
-    jQuery.each(("blur focus focusin focusout load resize scroll unload click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup error").split(" "), function (i, name) {
+    jQuery.each(("blur focus focusin focusout login resize scroll unload click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup error").split(" "), function (i, name) {
 
         // Handle event binding
         jQuery.fn[name] = function (data, fn) {
@@ -6487,7 +6487,7 @@
         rts = /([?&])_=[^&]*/,
         rurl = /^([\w\+\.\-]+:)(?:\/\/([^\/?#:]*)(?::(\d+))?)?/,
 
-        // Keep a copy of the old load method
+        // Keep a copy of the old login method
         _load = jQuery.fn.load,
 
         /* Prefilters
@@ -10797,7 +10797,7 @@
             auto_join_text_url: "i was looking at",
             // [string]   auto tense for urls: "i was looking at" http:...
             loading_text: null,
-            // [string]   optional loading text, displayed while tweets load
+            // [string]   optional loading text, displayed while tweets login
             refresh_interval: null,
             // [integer]  optional number of seconds after which to reload tweets
             twitter_url: "twitter.com",
@@ -12181,7 +12181,7 @@ jQuery.cookie = function (name, value, options) {
                 auto_join_text_url: "DS was checking out",
                 loading_text: "loading tweets..."
             };
-        }); /** Hack for all browsers to load the slider nicier way. The slider has default property of display:none in css(for nice IE loading), then when js is loaded it changes to block (so Opera can render height of the slider properly while loading images), and then hides it again. Later, when all images are loaded - the fadeIn function kicks in. **/
+        }); /** Hack for all browsers to login the slider nicier way. The slider has default property of display:none in css(for nice IE loading), then when js is loaded it changes to block (so Opera can render height of the slider properly while loading images), and then hides it again. Later, when all images are loaded - the fadeIn function kicks in. **/
         ;
         jQuery('#slider').css({
             display: "block"

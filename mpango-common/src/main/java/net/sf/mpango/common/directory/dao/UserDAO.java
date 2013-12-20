@@ -2,6 +2,7 @@ package net.sf.mpango.common.directory.dao;
 
 import java.util.List;
 
+import net.sf.mpango.common.dao.DAO;
 import net.sf.mpango.common.directory.entity.User;
 
 /**
@@ -10,45 +11,50 @@ import net.sf.mpango.common.directory.entity.User;
  * @author etux
  * 
  */
-public interface UserDAO {
+public interface UserDAO extends DAO<User, Long> {
 
-	/**
-	 * Method that loads the user using its identifier.
-	 * @param id
-	 * @return User with the id.
-	 */
-	public User load(Long id);
 	/**
 	 * Method that loads the user using its email address.
 	 * @param email
 	 * @return
 	 */
-	public User load(String email);
+	User load(String email) throws UserNotFoundException;
 	/**
 	 * Method that loads the user using its reset key.
 	 * @param resetKey
 	 * @return
 	 */
-	public User lookUpByResetKey(String resetKey);
-	/**
+	User lookUpByResetKey(String resetKey) throws UserNotFoundException;
+
+    /**
+     * Method that loads the user using its identifier.
+     * @param id
+     * @return User with the id.
+     */
+    @Override
+    User load(Long id) throws UserNotFoundException;
+    /**
 	 * Method that saves the user and returns it with the identifier assigned.
 	 * @param user
 	 * @return
 	 */
-	public User save(User user);
+    @Override
+	User save(User user) throws UserAlreadyExistsException;
 	/**
 	 * Method that updates the user.
 	 * @param user
 	 */
-	public void update(User user);
+    @Override
+	void update(User user) throws UserNotFoundException;
 	/**
 	 * Method that deletes the user.
 	 * @param user
 	 */
-	public void delete(User user);
+    @Override
+	void delete(User user) throws UserNotFoundException;
 	/**
 	 * Method that lists all users.
 	 * @return
 	 */
-	public List<User> list();
+	List<User> list();
 }

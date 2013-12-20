@@ -46,8 +46,8 @@
 	<bean 
 		id="datasource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-		<property name="url" value="jdbc:hsqldb:mem:sample" />
+		<property name="driverClassName" value="org.h2.Driver" />
+		<property name="url" value="jdbc:h2:mem:test;DB_CLOSE_DELAY=-1" />
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 	</bean>
@@ -60,7 +60,7 @@
 		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
 			</props>
 		</property>
@@ -76,12 +76,8 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean name="authService" class="net.sf.mpango.common.directory.service.AuthenticationService">
+	<bean name="authService" class="net.sf.mpango.common.directory.service.AuthenticationServiceImpl">
 		<property name="userDAO" ref="userDAO" />
-	</bean>
-	
-	<bean name="authFacade" class="net.sf.mpango.common.directory.facade.AuthenticationFacade">
-		<property name="authService" ref="authService" />
 	</bean>
 
 </beans>

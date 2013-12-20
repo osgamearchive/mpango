@@ -24,8 +24,11 @@ import net.sf.mpango.game.core.exception.EventNotSupportedException;
  */
 @Entity
 public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEntityListener {
-	
-	private BoardConfiguration configuration;
+
+    private static final int DEFAULT_COL_NUMBER = 10;
+    private static final int DEFAULT_ROW_NUMBER = 10;
+
+    private BoardConfiguration configuration;
     private List<Cell> cells;
 	private List<Listener> listeners;
 	
@@ -44,7 +47,7 @@ public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEn
 	 * @return
 	 */
 	private void generateCells() {
-		if  ((configuration.getRowNumber() != 0) && (configuration.getColNumber() != 0)) {
+		if  ((configuration != null) && (configuration.getRowNumber() != 0) && (configuration.getColNumber() != 0)) {
 			Cell cell = null;
 			for (int rowPosition=0; rowPosition < configuration.getRowNumber(); rowPosition++) {
 				for (int colPosition=0; colPosition < configuration.getColNumber(); colPosition++) {
@@ -59,7 +62,7 @@ public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEn
 	 * Default constructor used when loading the entity from the database.
 	 */
 	public GameBoard() {
-        this(null);
+        this(new BoardConfiguration(DEFAULT_ROW_NUMBER, DEFAULT_COL_NUMBER));
     }
 
 	/**
@@ -70,8 +73,8 @@ public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEn
         assert configuration != null;
 
         this.configuration = configuration;
-        cells = new ArrayList<Cell>();
-        listeners = new LinkedList<Listener>();
+        cells = new ArrayList<>(configuration.getColNumber() * configuration.getRowNumber());
+        listeners = new LinkedList<>();
         generateCells();
 	}
 
@@ -82,7 +85,7 @@ public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEn
 	 * @throws java.lang.IllegalArgumentException in case the row or the column are not in a valid range.
 	 * @return
 	 */
-	private Cell getCell (int rowNumber, int colNumber) {
+	private Cell getCell (final int rowNumber, final int colNumber) {
 		if ((configuration.getRowNumber() <= rowNumber) || (configuration.getColNumber() <= colNumber)) {
 			throw new IllegalArgumentException("The specified cell is not found in the game board");
 		}
@@ -90,7 +93,7 @@ public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEn
 	}
 
     @Transient
-    public Cell getCell(Position position) {
+    public Cell getCell(final Position position) {
         return getCell(position.getRowNumber(), position.getColNumber());
     }
 	
@@ -98,11 +101,11 @@ public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEn
 	 * Turned based entity.
 	 * @param turnEvent
 	 */
-	public void receive(TurnEvent turnEvent) {
+	public void receive(final TurnEvent turnEvent) {
 		notifyAllListeners(turnEvent);
 	}
 	
-	public void receive(Event event) throws EventNotSupportedException {
+	public void receive(final Event event) throws EventNotSupportedException {
 		throw new EventNotSupportedException(event);
 	}
 	@OneToMany
@@ -121,14 +124,14 @@ public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEn
 		return configuration;
 	}
 
-	public void setConfiguration(BoardConfiguration configuration) {
+	public void setConfiguration(final BoardConfiguration configuration) {
 		this.configuration = configuration;
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
 	// Listener related methods															//
 	//////////////////////////////////////////////////////////////////////////////////////
-	public void notifyAllListeners(Event event) {
+	public void notifyAllListeners(final Event event) {
 		for (Listener listener : listeners) {
 			try {
 				listener.receive(event);
@@ -137,11 +140,11 @@ public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEn
 		}
 	}
 	
-	public void addListener(Listener listener) {
+	public void addListener(final Listener listener) {
 		this.listeners.add(listener);
 	}
 	
-	public void removeListener(Listener listener) {
+	public void removeListener(final Listener listener) {
 		this.listeners.remove(listener);
 	}
 	

@@ -10,6 +10,7 @@ import net.sf.mpango.game.core.jms.EventBasedMessageCreator;
 import org.easymock.classextension.EasyMock;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.jms.core.JmsTemplate;
 
@@ -44,6 +45,7 @@ public class GameServiceTest {
     }
 
     @Test
+    @Ignore
     public void testJoin() throws JMSException {
 		//Initializing data
         User user = new User();

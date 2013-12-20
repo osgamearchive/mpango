@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.mpango.common.directory.enums.StateEnum;
+import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.game.core.action.Command;
 import net.sf.mpango.game.core.entity.BoardConfiguration;
 import net.sf.mpango.game.core.entity.Cell;
@@ -17,11 +17,6 @@ import net.sf.mpango.game.core.entity.Technology;
 import net.sf.mpango.game.core.entity.Unit;
 import net.sf.mpango.game.core.entity.Weapon;
 import net.sf.mpango.game.core.enums.Resources;
-import net.sf.mpango.game.web.dto.CellDTO;
-import net.sf.mpango.game.web.dto.CityDTO;
-import net.sf.mpango.game.web.dto.ConstructionDTO;
-import net.sf.mpango.game.web.dto.GameBoardDTO;
-import net.sf.mpango.game.web.dto.PlayerDTO;
 
 public class TestUtils {
 	
@@ -58,7 +53,7 @@ public class TestUtils {
 	
 	public static Player getPlayer() {
 		Player player = new Player();
-		player.setState(StateEnum.CREATED);
+		player.setState(User.State.CREATED);
 		return player;
 	}
 	
@@ -101,55 +96,6 @@ public class TestUtils {
 			List<Command> com = new ArrayList<Command>();
 			return new TestUnit(tech, com);
 		}
-	}
-	
-	public static CityDTO getCityDTO(Long id) {
-		CityDTO dto = new CityDTO();
-		dto.setId(id);
-		dto.setAttackBonus(1.0f);
-		dto.setConstructionTime(1);
-		dto.setDefenseBonus(1f);
-		dto.setHitPoints(1f);
-		dto.setMaximumHitPoints(1f);
-		return dto;
-	}
-	
-	public static CellDTO getCellDTO(Long id) {
-		CellDTO dto = new CellDTO();
-		dto.setId(id);
-        dto.setAltitude(1);
-		dto.setAttackBonus(1f);
-		dto.setColumn(1);
-		dto.setDefenseBonus(1f);
-		dto.setRow(1);
-		dto.setConstructions(new ArrayList<ConstructionDTO>());
-		dto.getConstructions().add(getCityDTO(1L));
-		return dto;
-	}
-
-	public static GameBoardDTO getGameBoardDTO(Long id) {
-
-		GameBoardDTO dto = new GameBoardDTO();
-		dto.setId(id);
-		dto.setColSize(COLUMN_SIZE);
-		dto.setRowSize(ROW_SIZE);
-		dto.setCells(new CellDTO[ROW_SIZE][COLUMN_SIZE]);
-
-		for (Integer row = 0; row < ROW_SIZE; row++) {
-			for (Integer col = 0; col < COLUMN_SIZE; col++) {
-				dto.getCells()[row][col] = TestUtils.getCellDTO(new Long(row
-						* col));
-			}
-		}
-
-		return dto;
-
-	}
-
-	public static PlayerDTO getPlayerDTO() {
-		PlayerDTO dto = new PlayerDTO();
-		dto.setState(StateEnum.CREATED);
-		return dto;
 	}
 	
 }

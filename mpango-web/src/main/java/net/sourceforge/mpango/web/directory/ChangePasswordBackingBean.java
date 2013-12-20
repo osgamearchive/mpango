@@ -4,6 +4,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import net.sf.mpango.common.directory.entity.User;
+import net.sf.mpango.common.directory.service.AuthenticationException;
 import net.sf.mpango.common.directory.service.IAuthenticationService;
 
 @ManagedBean(name="changePasswordBackingBean")
@@ -25,14 +26,23 @@ public class ChangePasswordBackingBean {
 		User user = null;
 		if ((user = checkAccount(resetKey)) != null) {
 			if (newPassword.equals(retypePassword)) {
-				authenticationService.changeUserPassword(user, newPassword);
-				setPasswordChangedFlag(true);
+                try {
+                    authenticationService.changeUserPassword(user, newPassword);
+                    setPasswordChangedFlag(true);
+                } catch (AuthenticationException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
 			}
 		}
 	}
 	
-	private User checkAccount(String resetKey) {
-		return authenticationService.getUserByResetKey(resetKey);
+	private User checkAccount(final String resetKey) {
+        try {
+            return authenticationService.getUserByResetKey(resetKey);
+        } catch (final AuthenticationException exception) {
+            return null;
+        }
+
 	}
 	
 	public String getResetKey() {

@@ -43,12 +43,8 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean name="authService" class="net.sf.mpango.common.directory.service.AuthenticationService">
+	<bean name="authService" class="net.sf.mpango.common.directory.service.AuthenticationServiceImpl">
 		<property name="userDAO" ref="userDAO" />
-	</bean>
-	
-	<bean name="authFacade" class="net.sf.mpango.common.directory.facade.AuthenticationFacade">
-		<property name="authService" ref="authService" />
 	</bean>
 
 </beans>

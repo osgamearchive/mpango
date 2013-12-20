@@ -4,7 +4,7 @@ import net.sf.mpango.common.dao.DAO;
 import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.game.core.entity.Player;
 
-public interface PlayerDAO extends DAO<Player> {
+public interface PlayerDAO extends DAO<Player, Long> {
 
 
     /**

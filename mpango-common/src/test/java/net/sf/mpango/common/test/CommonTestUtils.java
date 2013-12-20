@@ -1,12 +1,6 @@
 package net.sf.mpango.common.test;
 
-import org.apache.commons.lang.RandomStringUtils;
-import org.apache.commons.lang.math.RandomUtils;
-
 import net.sf.mpango.common.directory.entity.User;
-import net.sf.mpango.common.directory.enums.StateEnum;
-import net.sf.mpango.common.directory.adapter.UserAdapter;
-import net.sf.mpango.common.directory.dto.UserDTO;
 
 /**
  * This is a utility class bringing static methods for testing purposes.
@@ -15,33 +9,32 @@ import net.sf.mpango.common.directory.dto.UserDTO;
  */
 public class CommonTestUtils {
 
-
-    protected static final String TEST_DEFAULT_EMAIL_ADDRESS = "name@domain.com";
+    public static final String VALID_EMAIL = "email@domain.com";
+    public static final String VALID_USERNAME = "username1999";
+    public static final String VALID_PASSWORD = "password";
 
     private CommonTestUtils() {}
 
     public static User createRandomUser() {
-        return createRandomUser(TEST_DEFAULT_EMAIL_ADDRESS);
+        return createRandomUser(VALID_EMAIL);
     }
 
 	public static User createRandomUser(final String email) {
-		User user = new User();
-        user.setEmail(email);
-		user.setGender(User.Gender.MALE);
-		user.setId(RandomUtils.nextLong());
-		user.setNonceToken(RandomStringUtils.random(16));
-		user.setPassword(RandomStringUtils.random(8));
-		user.setResetKey(RandomStringUtils.random(16));
-		user.setState(RandomUtils.nextBoolean() ? StateEnum.ACTIVE : StateEnum.DELETED);
-		user.setUsername(RandomStringUtils.random(8));
-		return user;
-	}
-	
-	public static UserDTO getUserDTO() {
-		return UserAdapter.getInstance().toDTO(createRandomUser());
+        return createUser(email, VALID_USERNAME, VALID_PASSWORD, null, null);
 	}
 
-    public static UserDTO getUserDTO(final String email) {
-        return UserAdapter.getInstance().toDTO(createRandomUser(email));
+    public static User createUser(final String email, final String username, final String password) {
+        return createUser(email, username, password, null, null);
+    }
+
+    public static User createUser(final String email, final String username, final String password, final User.Gender gender, final User.State state) {
+        return User.UserBuilder.createUser(email, username, password)
+                .setGender(gender != null ? gender : User.Gender.UNDEFINED)
+                .setState(state != null ? state : User.State.CREATED)
+                .build();
+    }
+
+    public static User createValidUser() {
+        return createUser(VALID_EMAIL, VALID_USERNAME, VALID_PASSWORD);
     }
 }
