@@ -631,9 +631,6 @@
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>maven-jgitflow-plugin</artifactId>
                 <version>1.0-alpha26</version>
-                <configuration>
-                    <enableSshAgent>true</enableSshAgent>
-                </configuration>
             </plugin>
 		</plugins>
 		<extensions>
