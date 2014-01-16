@@ -7696,7 +7696,7 @@
                             }
                         } catch (_) {}
 
-                        // Do send the request
+                        // Do end the request
                         // This may raise an exception which is actually
                         // handled in jQuery.ajax (so no try/catch here)
                         xhr.send((s.hasContent && s.data) || null);

@@ -11,13 +11,13 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @author etux
  *
  */
-public abstract class HibernateAbstractDAOImpl<T extends Identified<K>, K extends Serializable> implements DAO<T,K> {
+public abstract class HibernateAbstractDAO<T extends Identified<K>, K extends Serializable> implements DAO<T,K> {
 
 	private HibernateTemplate hibernateTemplate;
 	private SessionFactory sessionFactory;
     private Class<T> clazz;
 
-    public HibernateAbstractDAOImpl(Class<T> clazz) {
+    public HibernateAbstractDAO(Class<T> clazz) {
         this.clazz = clazz;
     }
 
@@ -37,7 +37,7 @@ public abstract class HibernateAbstractDAOImpl<T extends Identified<K>, K extend
 	 * Method that sets the hibernateTemplate to use. Specially interesting for Unit Testing.
 	 * @param template
 	 */
-	public void setHibernateTemplate(HibernateTemplate template) {
+	public void setHibernateTemplate(final HibernateTemplate template) {
 		this.hibernateTemplate = template;
 	}
 	
@@ -53,23 +53,23 @@ public abstract class HibernateAbstractDAOImpl<T extends Identified<K>, K extend
 	 * Method that sets the {@link SessionFactory}. Used to inject the Spring available one.
 	 * @param sessionFactory
 	 */
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setSessionFactory(final SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
     @Override
-    public T load(K identifier) throws NotFoundException{
+    public T load(final K identifier) throws NotFoundException{
         return hibernateTemplate.load(clazz, identifier);
     }
 
     @Override
-    public T save(T entity) {
+    public T save(final T entity) {
         hibernateTemplate.save(entity);
         return entity;
     }
 
     @Override
-    public void update(T entity) {
+    public void update(final T entity) {
         hibernateTemplate.update(entity);
     }
 }

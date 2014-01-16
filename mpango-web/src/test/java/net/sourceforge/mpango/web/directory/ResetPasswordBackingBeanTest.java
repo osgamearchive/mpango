@@ -8,7 +8,6 @@ import javax.faces.context.FacesContext;
 
 import net.sf.mpango.common.directory.service.AuthenticationException;
 import net.sf.mpango.common.directory.service.IAuthenticationService;
-import net.sourceforge.mpango.web.directory.jms.ForgotPasswordMessageCreator;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

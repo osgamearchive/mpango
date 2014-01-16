@@ -2,17 +2,19 @@ package net.sf.mpango.common.directory.service;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-import java.text.MessageFormat;
 import java.util.List;
-import java.util.Locale;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import net.sf.mpango.common.ConfigurationException;
 import net.sf.mpango.common.directory.dao.UserAlreadyExistsException;
 import net.sf.mpango.common.directory.dao.UserDAO;
 import net.sf.mpango.common.directory.dao.UserNotFoundException;
 import net.sf.mpango.common.directory.entity.User;
+import net.sf.mpango.common.utils.LocalizedMessageBuilder;
+
+import static net.sf.mpango.common.directory.service.MessageConstants.*;
 
 /**
  * Basic Authentication Service implementation.
@@ -22,11 +24,27 @@ import net.sf.mpango.common.directory.entity.User;
  */
 public class AuthenticationService implements IAuthenticationService {
 
-    private static final MessageFormat MSG_FORMAT = new MessageFormat("messages", Locale.getDefault());
     private static final Logger LOGGER = Logger.getLogger(AuthenticationService.class.getName());
-    protected static final String SHA_1_PRNG = "SHA1PRNG";
+    private static final String SHA_1_PRNG = "SHA1PRNG";
 
     private UserDAO userDAO;
+    private SecureRandom secureRandom;
+
+    public AuthenticationService() {
+        try {
+   			// Create a secure random number generator
+            secureRandom = SecureRandom.getInstance(SHA_1_PRNG);
+            LOGGER.log(
+                    Level.INFO,
+                    LocalizedMessageBuilder.getSystemMessage(this, MessageConstants.USER_SERVICE_INITIALIZED, SHA_1_PRNG));
+        } catch (final NoSuchAlgorithmException exception) {
+            throw new ConfigurationException(
+                                LocalizedMessageBuilder.getSystemMessage(
+                                        this,
+                                        USER_GENERATE_NONCE_FAILURE_RNG_NOT_FOUND
+                                ), exception);
+        }
+    }
 
 	/*
 	 * (non-Javadoc)
@@ -38,17 +56,25 @@ public class AuthenticationService implements IAuthenticationService {
 	public User login(final String email, final String password) throws AuthenticationException {
         assert email != null;
         assert password != null;
+
         final User user;
 
         try {
             user = userDAO.load(email);
             if ((user.getPassword() == null) || !(user.getPassword().equals(password))) {
-                throw new AuthenticationException(MessageFormat.format("user.wrong_credentials", email));
+                throw new AuthenticationException(
+                        LocalizedMessageBuilder.getSystemMessage(this, USER_WRONG_CREDENTIALS, email));
             }
-            LOGGER.log(Level.INFO, MessageFormat.format("User {0} successfully logged in", user.getEmail()));
+            LOGGER.log(Level.INFO,
+                    LocalizedMessageBuilder.getSystemMessage(this, USER_LOGIN_SUCCESSFUL, user.getEmail()));
             return user;
         } catch (UserNotFoundException e) {
-            throw new AuthenticationException( MSG_FORMAT.format("user.wrong_credentials", email), e);
+            throw new AuthenticationException(
+                    LocalizedMessageBuilder.getSystemMessage(
+                            this,
+                            USER_WRONG_CREDENTIALS,
+                            email
+                    ), e);
         }
 	}
 
@@ -66,8 +92,12 @@ public class AuthenticationService implements IAuthenticationService {
             user.setNonceToken(nonce);
             user.setState(User.State.CREATED);
             return userDAO.save(user);
-        } catch (UserAlreadyExistsException e) {
-            throw new AuthenticationException(e);
+        } catch (final UserAlreadyExistsException e) {
+            throw new AuthenticationException(
+                    LocalizedMessageBuilder.getSystemMessage(
+                            this,
+                            USER_REGISTRATION_FAILURE_USER_ALREADY_EXISTS
+                    ), e);
         }
 	}
 
@@ -84,7 +114,12 @@ public class AuthenticationService implements IAuthenticationService {
             getUserDAO().update(user);
             return user.getResetKey();
         } catch (final UserNotFoundException e) {
-            throw new AuthenticationException(e);
+            throw new AuthenticationException(
+                    LocalizedMessageBuilder.getSystemMessage(
+                            this,
+                            USER_GENERATE_RESET_KEY_FAILURE_USER_NOT_FOUND,
+                            email
+                    ), e);
         }
 	}
 
@@ -93,36 +128,40 @@ public class AuthenticationService implements IAuthenticationService {
         try {
             return userDAO.lookUpByResetKey(resetKey);
         } catch (final UserNotFoundException e) {
-            throw new AuthenticationException(e);
+            throw new AuthenticationException(
+                    LocalizedMessageBuilder.getSystemMessage(
+                            this,
+                            USER_GET_USER_BY_RESET_KEY_FAILURE_USER_NOT_FOUND,
+                            resetKey
+                    ), e);
         }
 
 	}
 
 	@Override
 	public void changeUserPassword(final User user, final String newPassword) throws AuthenticationException {
+        assert user != null;
+        assert newPassword != newPassword;
+
         try {
             user.setPassword(newPassword);
             getUserDAO().update(user);
-        } catch (UserNotFoundException e) {
-            throw new AuthenticationException(e);
+        } catch (final UserNotFoundException e) {
+            throw new AuthenticationException(
+                    LocalizedMessageBuilder.getSystemMessage(
+                            this,
+                            USER_CHANGE_PASSWORD_FAILURE_USER_NOT_FOUND,
+                            user.getEmail()
+                    ), e);
         }
 	}
 
     private String generateNonce() {
-   		// Create two secure number generators with the same seed
-   		int seedByteCount = 24;
-   		byte[] seed = new byte[seedByteCount];
-   		try {
-   			// Create a secure random number generator
-   			SecureRandom sr = SecureRandom.getInstance(SHA_1_PRNG);
-   			// Get 1024 random bits
-   			byte[] bytes = new byte[1024 / 8];
-   			sr.nextBytes(bytes);
-   			seed = sr.generateSeed(seedByteCount);
-   		} catch (NoSuchAlgorithmException e) {
-   			e.printStackTrace();
-   		}
-   		return new String(seed);
+   		final int seedByteCount = 24;
+        // Get 1024 random bits
+        final byte[] bytes = new byte[1024 / 8];
+        secureRandom.nextBytes(bytes);
+        return new String (secureRandom.generateSeed(seedByteCount));
    	}
 
     public UserDAO getUserDAO() {

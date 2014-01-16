@@ -7,7 +7,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import net.sf.mpango.common.dao.HibernateAbstractDAOImpl;
+import net.sf.mpango.common.dao.HibernateAbstractDAO;
 import net.sf.mpango.common.directory.entity.User;
 
 import static net.sf.mpango.common.directory.entity.User.NAMED_QUERY_FIND_USER_BY_EMAIL;
@@ -20,11 +20,11 @@ import static net.sf.mpango.common.directory.entity.User.NAMED_QUERY_LIST_ALL_US
  * @author etux
  * 
  */
-public class HibernateUserDAOImpl extends HibernateAbstractDAOImpl<User, Long> implements UserDAO {
+public class HibernateUserDAO extends HibernateAbstractDAO<User, Long> implements UserDAO {
 
     private static final ResourceBundle MSG_BUNDLE = ResourceBundle.getBundle("net/sf/mpango/common/dao/messages", Locale.getDefault());
 
-    public HibernateUserDAOImpl() {
+    public HibernateUserDAO() {
         super(User.class);
     }
 
@@ -89,5 +89,5 @@ public class HibernateUserDAOImpl extends HibernateAbstractDAOImpl<User, Long> i
 		getHibernateTemplate().delete(user);
 	}
 
-    private static final Logger LOGGER = Logger.getLogger(HibernateUserDAOImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(HibernateUserDAO.class.getName());
 }

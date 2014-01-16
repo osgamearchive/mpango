@@ -72,11 +72,11 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean name="userDAO" class="net.sf.mpango.common.directory.dao.HibernateUserDAOImpl">
+	<bean name="userDAO" class="net.sf.mpango.common.directory.dao.HibernateUserDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean name="authService" class="net.sf.mpango.common.directory.service.AuthenticationServiceImpl">
+	<bean name="authService" class="net.sf.mpango.common.directory.service.AuthenticationService">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 

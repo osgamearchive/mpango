@@ -1,74 +1,76 @@
 package net.sourceforge.mpango.web.directory;
 
 import javax.faces.bean.ManagedBean;
-//import net.sourceforge.mpango.email.SendMail;
-
+import javax.faces.bean.RequestScoped;
 /**
  * Author jaywellings
  */
 
 @ManagedBean(name="invitationBackingBean")
-public class InvitationBackingBean 
+@RequestScoped
+public class InvitationBackingBean
 {
-	private String inviteEmailAddress = ""; 
-	private String inviteName = ""; 
-	private boolean isEmailSent = false;
+    private String inviteEmailAddress = "";
+    private String inviteName = "";
+    private boolean isEmailSent = false;
 
-	public String sendInvitation()
-	{
-		try 
-		{
-			throw new RuntimeException("TO BE IMPLEMENTED");
+    public String sendInvitation()
+    {
+        try
+        {
+            throw new RuntimeException("TO BE IMPLEMENTED");
 //			String sender = "mpango@gmail.com";
 //			String recipients = this.inviteEmailAddress;
 //			String subject = "mPango invite";
 //			String content = "<p>Hi there,</p><p>You have just been invited to the MMORPG mpango by " + this.inviteName + "!.</p>";
-			
-//			SendMail sendMail = new SendMail(sender, recipients, subject, content); 
-//			sendMail.send();
+
+//			SendMail sendMail = new SendMail(sender, recipients, subject, content);
+//			sendMail.registerUser();
 //			this.setIsEmailSent(true);
-			
-		} 
-		catch (Exception e) 
-		{
-			e.printStackTrace();
-			this.setIsEmailSent(false);
-		}
-		
-		return this.showSendStatus();
-	}
 
-	public String showSendStatus() 
-	{
-		return "inviteSendMessage";
-	}
-	
-	public void setInviteEmailAddress(String inviteEmailAddress) 
-	{
-		this.inviteEmailAddress = inviteEmailAddress;
-	}
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            this.setIsEmailSent(false);
+        }
 
-	public String getInviteEmailAddress() 
-	{
-		return inviteEmailAddress;
-	}
+        return this.showSendStatus();
+    }
 
-	public void setIsEmailSent(boolean isEmailSent) 
-	{
-		this.isEmailSent = isEmailSent;
-	}
+    public String showSendStatus()
+    {
+        return "inviteSendMessage";
+    }
 
-	public boolean getIsEmailSent() 
-	{
-		return isEmailSent;
-	}
+    public void setInviteEmailAddress(String inviteEmailAddress)
+    {
+        this.inviteEmailAddress = inviteEmailAddress;
+    }
 
-	public void setInviteName(String inviteName) {
-		this.inviteName = inviteName;
-	}
+    public String getInviteEmailAddress()
+    {
+        return inviteEmailAddress;
+    }
 
-	public String getInviteName() {
-		return inviteName;
-	}
-	
+    public void setIsEmailSent(boolean isEmailSent)
+    {
+        this.isEmailSent = isEmailSent;
+    }
+
+    public boolean getIsEmailSent()
+    {
+        return isEmailSent;
+    }
+
+    public void setInviteName(String inviteName) {
+        this.inviteName = inviteName;
+    }
+
+    public String getInviteName() {
+        return inviteName;
+    }
+
 }
+
+//import net.sourceforge.mpango.email.SendMail;

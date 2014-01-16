@@ -8,8 +8,8 @@
 		<Arg>jdbc/datasource</Arg>
 		<Arg>
 			<New class="org.apache.commons.dbcp.BasicDataSource">
-				<Set name="driverClassName">org.hsqldb.jdbcDriver</Set>
-				<Set name="url">jdbc:hsqldb:mem:mpango</Set>
+				<Set name="driverClassName">org.h2.Driver</Set>
+				<Set name="url">jdbc:h2:mem:mpango;DB_CLOSE_DELAY=-1</Set>
 				<Set name="username">sa</Set>
 				<Set name="password"></Set>
 			</New>

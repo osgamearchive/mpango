@@ -139,11 +139,11 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<filters>
-						<filter>${basedir}/src/main/filters/web.properties</filter>
+						<filter>${project.basedir}/src/main/filters/web.properties</filter>
 					</filters>
 					<webResources>
 						<resource>
-							<directory>${basedir}/src/main/webapp</directory>
+							<directory>${project.basedir}/src/main/webapp</directory>
 							<filtering>true</filtering>
 							<includes>
 								<include>**/*.xhtml</include>
@@ -155,6 +155,11 @@
 			</plugin>
 		</plugins>
 	</build>
+    <properties>
+        <jetty.contextPath>/${project.artifactId}</jetty.contextPath>
+        <jetty.tempDirectory>${project.basedir}/target/temp</jetty.tempDirectory>
+        <jetty.webApp>${project.basedir}/target/mpango-web-${project.version}</jetty.webApp>
+    </properties>
 	<profiles>
 		<profile>
 			<id>development</id>
@@ -169,9 +174,6 @@
 				<mail.smtp.port>465</mail.smtp.port>
 				<mail.mpango>mpango.users@gmail.com</mail.mpango>
 				<mail.debug>true</mail.debug>
-				<jetty.contextPath>/${project.artifactId}</jetty.contextPath>
-				<jetty.tempDirectory>${basedir}/target/temp</jetty.tempDirectory>
-				<jetty.webApp>${basedir}/target/mpango-web-0.0.1-SNAPSHOT/</jetty.webApp>
 			</properties>
 		</profile>
 	</profiles>

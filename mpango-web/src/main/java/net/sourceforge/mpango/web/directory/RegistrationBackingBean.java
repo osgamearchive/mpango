@@ -2,6 +2,7 @@ package net.sourceforge.mpango.web.directory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.faces.model.SelectItem;
 
@@ -12,7 +13,9 @@ import net.sf.mpango.common.directory.service.IAuthenticationService;
 /**
  * @author edvera
  */
-public class AuthenticationBackingBean {
+public class RegistrationBackingBean {
+
+    private Logger LOGGER = Logger.getLogger(RegistrationBackingBean.class.getName());
 
     protected static final String SEND_ACTION_SUCCESS = "success";
     protected static final String SEND_ACTION_FAILURE = "failure";
@@ -20,7 +23,7 @@ public class AuthenticationBackingBean {
 
     private User user = new User();
     private List<User> users;
-    private ArrayList<SelectItem> countries;
+    private List<SelectItem> countries;
 
 	public List<User> getUsers() {
 		if (users == null)  {
@@ -40,7 +43,7 @@ public class AuthenticationBackingBean {
 	/**
 	 * Method that is backed to a submit button of a form.
 	 */
-	public String send() {
+	public String registerUser() {
         try {
             authService.register(user);
             return SEND_ACTION_SUCCESS;
@@ -49,8 +52,8 @@ public class AuthenticationBackingBean {
         }
 	}
 
-	public ArrayList<SelectItem> getCountries() {
-		countries = new ArrayList<SelectItem>();
+	public List<SelectItem> getCountries() {
+		countries = new ArrayList<>();
 		countries.add(new SelectItem("Country1", "Country 1"));
 		countries.add(new SelectItem("Country2", "Country 2", ""));
 		countries.add(new SelectItem("Country3", "Country 3", ""));

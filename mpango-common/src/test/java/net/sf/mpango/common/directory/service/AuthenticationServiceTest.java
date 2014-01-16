@@ -25,8 +25,9 @@ public class AuthenticationServiceTest extends BaseSpringTest {
     protected static final String TEST_USER_EMAIL = "user@company.com";
     protected static final String TEST_USER_USERNAME = "username";
     protected static final String TEST_USER_PASSWORD = "password";
+
     @Autowired
-	private AuthenticationServiceImpl authService;
+	private AuthenticationService authService;
 
     private User user;
 

@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 
-import net.sf.mpango.common.dao.HibernateAbstractDAOImpl;
+import net.sf.mpango.common.dao.HibernateAbstractDAO;
 import net.sf.mpango.common.dao.NotFoundException;
 import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.game.core.entity.Player;
@@ -17,19 +17,19 @@ import net.sf.mpango.game.core.entity.Player;
  */
 @NamedQueries(
         {
-                @NamedQuery(name= HibernatePlayerDAOImpl.FIND_PLAYER_WITH_STATE, query="from Player p where p.state!=? and p.user.identifier=?"),
-                @NamedQuery(name= HibernatePlayerDAOImpl.FIND_PLAYER, query ="select player from Player player where player.user.identifier=?"),
-                @NamedQuery(name= HibernatePlayerDAOImpl.FIND_ALL_PLAYERS, query ="select player from Player player")
+                @NamedQuery(name= HibernatePlayerDAO.FIND_PLAYER_WITH_STATE, query="from Player p where p.state!=? and p.user.identifier=?"),
+                @NamedQuery(name= HibernatePlayerDAO.FIND_PLAYER, query ="select player from Player player where player.user.identifier=?"),
+                @NamedQuery(name= HibernatePlayerDAO.FIND_ALL_PLAYERS, query ="select player from Player player")
         }
 )
 
-public class HibernatePlayerDAOImpl extends HibernateAbstractDAOImpl<Player, Long> implements PlayerDAO {
+public class HibernatePlayerDAO extends HibernateAbstractDAO<Player, Long> implements PlayerDAO {
 
     protected static final String FIND_ALL_PLAYERS = "find_all_players";
     protected static final String FIND_PLAYER = "find_player";
     protected static final String FIND_PLAYER_WITH_STATE = "find_player_with_state";
 
-    public HibernatePlayerDAOImpl() {
+    public HibernatePlayerDAO() {
         super(Player.class);
     }
 

@@ -73,7 +73,7 @@
 		</property>
 	</bean>
 	
-	<bean name="playerDAO" class="net.sf.mpango.game.core.dao.HibernatePlayerDAOImpl">
+	<bean name="playerDAO" class="net.sf.mpango.game.core.dao.HibernatePlayerDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 

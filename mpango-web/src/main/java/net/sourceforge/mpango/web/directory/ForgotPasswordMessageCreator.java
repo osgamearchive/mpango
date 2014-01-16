@@ -1,12 +1,12 @@
-package net.sourceforge.mpango.web.directory.jms;
-
-import org.apache.log4j.Logger;
-import org.springframework.jms.core.MessageCreator;
+package net.sourceforge.mpango.web.directory;
 
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 import javax.jms.TextMessage;
+
+import org.apache.log4j.Logger;
+import org.springframework.jms.core.MessageCreator;
 
 /**
  * @author etux
@@ -25,7 +25,7 @@ public class ForgotPasswordMessageCreator implements MessageCreator {
 
     /**
      * Message Creator for the Forgot Password use case.
-     * @param recipient Email address to send the link.
+     * @param recipient Email address to registerUser the link.
      * @param url URL on which to introduce the secret key (depending on the environment ir will be different).
      * @param locale of the user.
      */

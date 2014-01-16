@@ -13,10 +13,10 @@
 	<bean id="datasource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName">
-			<value>org.hsqldb.jdbcDriver</value>
+			<value>org.h2.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:hsqldb:mem:sample</value>
+			<value>jdbc:h2:mem:sample;DB_CLOSE_DELAY=-1</value>
 		</property>
 		<property name="username">
 			<value>sa</value>
@@ -44,18 +44,13 @@
 		</property>
 	</bean>
 
-	<bean name="userDAO" class="net.sf.mpango.common.directory.dao.HibernateUserDAOImpl">
+	<bean name="userDAO" class="net.sf.mpango.common.directory.dao.HibernateUserDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<bean name="authService"
 		class="net.sf.mpango.common.directory.service.AuthenticationService">
 		<property name="userDAO" ref="userDAO" />
-	</bean>
-
-	<bean name="authFacade"
-		class="net.sf.mpango.common.directory.facade.AuthenticationFacade">
-		<property name="authService" ref="authService" />
 	</bean>
 
 </beans>

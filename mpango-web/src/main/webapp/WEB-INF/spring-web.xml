@@ -34,7 +34,7 @@
     <amq:queue id="forgotPasswordQueue" physicalName="${queue.forgotPassword}"/>
 
     <!-- this is the Message Driven POJO (MDP) -->
-    <bean id="forgotPasswordMessageListener" class="net.sourceforge.mpango.web.directory.jms.ForgotPasswordMessageListener">
+    <bean id="forgotPasswordMessageListener" class="net.sourceforge.mpango.web.directory.ForgotPasswordMessageListener">
     	<property name="authenticationService" ref="authService" />
     	<property name="mailSender" ref="mailSender" />
     </bean>
@@ -66,7 +66,7 @@
         scope="request">
         <property name="queueName" value="${queue.forgotPassword}" />
         <property name="jmsTemplate" ref="jmsTemplate" />
-        <property name="authService" ref="authFacade" />
+        <property name="authService" ref="authService" />
         <property name="protocol" value="${mpango.protocol}" />
         <property name="hostname" value="${mpango.hostname}" />
         <property name="port" value="${mpango.port}" />
@@ -76,9 +76,9 @@
     </bean>
 
 	<bean id="authenticationBackingBean"
-          class="net.sourceforge.mpango.web.directory.AuthenticationBackingBean"
+          class="net.sourceforge.mpango.web.directory.RegistrationBackingBean"
           scope="request">
-		<property name="authFacade" ref="authFacade" />
+		<property name="authService" ref="authService" />
 	</bean>
 
 	<bean id="invitationBackingBean"

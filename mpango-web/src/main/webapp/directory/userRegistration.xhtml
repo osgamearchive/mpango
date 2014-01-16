@@ -102,14 +102,6 @@
 						<h:inputText id="usernameInput" name="usernameInput" value="#{authenticationBackingBean.user.username}" required="true" />
 					</p>
 					<p>
-						<h:outputLabel id="firstnameLabel" for="firstnameInput" value="#{msg.field_firstname}: " />
-						<h:inputText id="firstnameInput" name="firstnameInput" value="#{authenticationBackingBean.user.firstname}" required="true" />
-					</p>
-					<p>
-						<h:outputLabel id="surnameLabel" for="surnameInput" value="#{msg.field_surname}: " />
-						<h:inputText id="surnameInput" name="surnameInput" value="#{authenticationBackingBean.user.surname}" required="true" />
-					</p>
-					<p>
 						<h:outputLabel id="emailabel" for="emailInput" value="#{msg.field_email}: " />
 						<h:inputText id="emailInput" name="emailInput"  value="#{authenticationBackingBean.user.email}" required="true">
 							<f:validateRegex pattern=".+@.+\.[a-z]+"/> 
@@ -148,7 +140,7 @@
 					</p>
 					<p>
 					    <p:captcha label="captcha" publickey="${primefaces.recaptcha.publicKey}"/>
-					    <p:commandButton value="Register User" ajax="false" action="#{authenticationBackingBean.send}" />
+					    <p:commandButton value="Register User" ajax="false" action="#{authenticationBackingBean.registerUser}" />
 					</p>
 				</h:form>
 			</div>

@@ -5,16 +5,11 @@ import java.util.List;
 
 /**
  * @author <a href="mailto:eduardo.devera@gmail.com">Eduardo de Vera</a>
- *         Date: 27/11/13
- *         Time: 20:03
  *
  */
 public interface DAO<T extends Identified<K>, K extends Serializable> {
     /**
      * Saves data to database
-     *
-     * @param entity
-     * @return
      */
     T save(T entity) throws AlreadyExistsException;
 

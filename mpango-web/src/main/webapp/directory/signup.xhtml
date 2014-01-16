@@ -5,9 +5,7 @@
 xmlns:h="http://java.sun.com/jsf/html"
 xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:body>
-
 	<ui:composition template="../templates/masterLayout.xhtml">
-
 		<ui:define name="menu">
 			<ul>
 				<li><a href="home.jsf">Home</a></li>
@@ -18,26 +16,22 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 				<li><a href="invite.jsf">Invite Friends</a></li>
 			</ul>
 		</ui:define>
-		
 		<ui:define name="content">
 			<div id="normalcontent">
 				<h3>Sign Up</h3>
 				<div class="contentarea">
-				
 					<h:form>
 						<h:outputText value="Email "/>
-						<h:inputText value=""></h:inputText>
+						<h:inputText value="" />
 						<br />
 						<h:outputText value="Password "/>
-						<h:inputText value=""></h:inputText>	
+						<h:inputText value="" />
 						<br />			
-						<h:commandButton value="Log IN" action="home"></h:commandButton>
+						<h:commandButton value="Log IN" action="home" />
 					</h:form>
-					
 				</div>
 			</div>
 		</ui:define>
-
 	</ui:composition>
 </h:body>
 </html>

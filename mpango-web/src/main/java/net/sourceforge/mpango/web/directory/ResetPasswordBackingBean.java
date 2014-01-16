@@ -1,18 +1,19 @@
 package net.sourceforge.mpango.web.directory;
 
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.faces.context.FacesContext;
 
 import net.sf.mpango.common.directory.service.AuthenticationException;
 import net.sf.mpango.common.directory.service.IAuthenticationService;
-import net.sourceforge.mpango.web.directory.jms.ForgotPasswordMessageCreator;
-import org.apache.log4j.Logger;
+import net.sf.mpango.common.utils.LocalizedMessageBuilder;
 import org.springframework.jms.core.JmsTemplate;
 
 public class ResetPasswordBackingBean {
 
-	private static final Logger logger = Logger.getLogger(ResetPasswordBackingBean.class);
+	private static final Logger LOGGER = Logger.getLogger(ResetPasswordBackingBean.class.getName());
 	
     /** Result for the sending of the new password */
     protected static final String RESULT_EMAIL_SENT = "email_sent";
@@ -33,25 +34,32 @@ public class ResetPasswordBackingBean {
 	private String args;
 
     /**
-     * Method that sends the JMS message to the back end in order to send the email message for recovering the password.
+     * Method that sends the JMS message to the back end in order to registerUser the email message for recovering the password.
      * @return String Outcome of the situation (email_sent = The email has been sent correctly, user_not_found = No user with that email found).
      */
 	public String sendMessage() {
         assert email != null;
         assert authService != null;
 
-        String result = null;
+        final Locale locale = getFacesContext().getViewRoot().getLocale();
+
         try {
             authService.generateResetKey(email);
-            logger.debug("Sending message to user with email: "+email);
-            Locale locale = getFacesContext().getViewRoot().getLocale();
             jmsTemplate.send(queueName, new ForgotPasswordMessageCreator(email, calculateUrl(), locale.toString()));
-            result = RESULT_EMAIL_SENT;
-        } catch (AuthenticationException e) {
-            logger.info("User not found with email: "+email);
-            result = RESULT_USER_NOT_FOUND;
+            LOGGER.log(Level.INFO,
+                    LocalizedMessageBuilder.getSystemMessage(
+                            this,
+                            MessageConstants.USER_SEND_MESSAGE_SUCCESS,
+                            email));
+            return RESULT_EMAIL_SENT;
+        } catch (final AuthenticationException e) {
+            LOGGER.log(Level.INFO,
+                    LocalizedMessageBuilder.getSystemMessage(
+                            this,
+                            MessageConstants.USER_SEND_MESSAGSE_FAILURE_USER_NOT_FOUND,
+                            email));
+            return RESULT_USER_NOT_FOUND;
         }
-        return result;
 	}
 	
 	private String calculateUrl() {
