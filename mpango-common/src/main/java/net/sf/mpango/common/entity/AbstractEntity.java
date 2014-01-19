@@ -10,7 +10,7 @@ import javax.persistence.MappedSuperclass;
 import net.sf.mpango.common.dao.Identified;
 
 @MappedSuperclass
-public abstract class AbstractPersistable<T extends Serializable> implements Identified<T>{
+public abstract class AbstractEntity<T extends Serializable> implements Identified<T>{
 
 	private T identifier;
 

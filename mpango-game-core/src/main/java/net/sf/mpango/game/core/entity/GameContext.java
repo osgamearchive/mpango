@@ -8,7 +8,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 import org.apache.commons.lang.math.RandomUtils;
 
 /**
@@ -24,7 +24,7 @@ import org.apache.commons.lang.math.RandomUtils;
  *
  */
 @Entity
-public class GameContext extends AbstractPersistable<Long> {
+public class GameContext extends AbstractEntity<Long> {
 
 	protected List<Player> players = new ArrayList<Player>();
 	protected GameBoard board;

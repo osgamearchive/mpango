@@ -44,12 +44,12 @@
 		</property>
 	</bean>
 
-	<bean name="userDAO" class="net.sf.mpango.common.directory.dao.HibernateUserDAO">
+	<bean name="userDAO" class="net.sf.mpango.common.directory.dao.hibernate.HibernateUserDAO">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 
 	<bean name="authService"
-		class="net.sf.mpango.common.directory.service.AuthenticationService">
+		class="net.sf.mpango.common.directory.service.spring.AuthenticationService">
 		<property name="userDAO" ref="userDAO" />
 	</bean>
 

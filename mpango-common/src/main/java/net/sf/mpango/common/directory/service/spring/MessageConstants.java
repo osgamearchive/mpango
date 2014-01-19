@@ -1,4 +1,4 @@
-package net.sf.mpango.common.directory.service;
+package net.sf.mpango.common.directory.service.spring;
 
 /**
  * @author <a href="mailto:eduardo.devera@gmail.com">Eduardo de Vera</a>

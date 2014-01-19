@@ -18,4 +18,6 @@ public class UserNotFoundException extends NotFoundException {
     public UserNotFoundException(final Exception causedBy) {
         super(causedBy);
     }
+
+    public UserNotFoundException() {}
 }

@@ -1,4 +1,4 @@
-package net.sf.mpango.common.directory.dao;
+package net.sf.mpango.common.directory.dao.hibernate;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -8,7 +8,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import net.sf.mpango.common.dao.HibernateAbstractDAO;
+import net.sf.mpango.common.directory.dao.UserDAO;
+import net.sf.mpango.common.directory.dao.UserNotFoundException;
 import net.sf.mpango.common.directory.entity.User;
+import net.sf.mpango.common.qualifiers.SpringBased;
 
 import static net.sf.mpango.common.directory.entity.User.NAMED_QUERY_FIND_USER_BY_EMAIL;
 import static net.sf.mpango.common.directory.entity.User.NAMED_QUERY_FIND_USER_BY_RESET_KEY;
@@ -20,6 +23,7 @@ import static net.sf.mpango.common.directory.entity.User.NAMED_QUERY_LIST_ALL_US
  * @author etux
  * 
  */
+@SpringBased
 public class HibernateUserDAO extends HibernateAbstractDAO<User, Long> implements UserDAO {
 
     private static final ResourceBundle MSG_BUNDLE = ResourceBundle.getBundle("net/sf/mpango/common/dao/messages", Locale.getDefault());
@@ -41,7 +45,7 @@ public class HibernateUserDAO extends HibernateAbstractDAO<User, Long> implement
         return user;
 	}
 
-	public User load(final String email) throws UserNotFoundException {
+	public User loadByEmail(final String email) throws UserNotFoundException {
 		final List<User> results = (List<User>) getHibernateTemplate().findByNamedQuery(NAMED_QUERY_FIND_USER_BY_EMAIL, email);
 		if ((results != null) && (results.size() > 0)) {
             final String pattern = MSG_BUNDLE.getString("user.success_message.user_found");

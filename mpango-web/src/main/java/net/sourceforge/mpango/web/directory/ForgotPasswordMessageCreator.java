@@ -1,11 +1,14 @@
 package net.sourceforge.mpango.web.directory;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
-import org.apache.log4j.Logger;
+import net.sf.mpango.common.utils.LocalizedMessageBuilder;
 import org.springframework.jms.core.MessageCreator;
 
 /**
@@ -13,7 +16,7 @@ import org.springframework.jms.core.MessageCreator;
  */
 public class ForgotPasswordMessageCreator implements MessageCreator {
 
-	private Logger logger = Logger.getLogger(ForgotPasswordMessageCreator.class);
+	private Logger LOGGER = Logger.getLogger(ForgotPasswordMessageCreator.class.getName());
 	
 	public static final String JMS_STRING_PROPERTY_RECIPIENTS = "recipients";
 	public static final String JMS_STRING_PROPERTY_URL = "url";
@@ -29,12 +32,14 @@ public class ForgotPasswordMessageCreator implements MessageCreator {
      * @param url URL on which to introduce the secret key (depending on the environment ir will be different).
      * @param locale of the user.
      */
-    public ForgotPasswordMessageCreator(String recipient, String url, String locale) {
-    	if (logger.isDebugEnabled()) {
-    		logger.debug("locale: "+locale);
-    		logger.debug("recipient: "+recipient);
-    		logger.debug("url: "+url);
-    	}
+    public ForgotPasswordMessageCreator(final String recipient, final String url, final String locale) {
+        LOGGER.log(Level.FINEST,
+                LocalizedMessageBuilder.getSystemMessage(
+                        this,
+                        MessageConstants.FORGOT_MSG_CREATOR_INSTANTIATION,
+                        locale,
+                        recipient,
+                        url));
         this.locale = locale;
         this.recipient = recipient;
         this.url = url;
@@ -46,12 +51,14 @@ public class ForgotPasswordMessageCreator implements MessageCreator {
      * @return Constructed message.
      * @throws JMSException In case there was an error creating the message.
      */
-    public Message createMessage(Session session) throws JMSException {
-        TextMessage message = session.createTextMessage();
+    public Message createMessage(final Session session) throws JMSException {
+        final TextMessage message = session.createTextMessage();
         message.setStringProperty(JMS_STRING_PROPERTY_RECIPIENTS, recipient);
         message.setStringProperty(JMS_STRING_PROPERTY_LOCALE, locale);
         message.setStringProperty(JMS_STRING_PROPERTY_URL, url);
-    	logger.debug("Message created:"+message);
+    	LOGGER.log(
+                Level.FINEST,
+                MessageConstants.FORGOT_MSG_CREATOR_MSG_CREATED, message);
         return message;
     }
 }

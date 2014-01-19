@@ -102,8 +102,7 @@ public class ChangePasswordBackingBean {
 		return authenticationService;
 	}
 
-	public void setAuthenticationService(
-			IAuthenticationService authenticationService) {
+	public void setAuthenticationService(IAuthenticationService authenticationService) {
 		this.authenticationService = authenticationService;
 	}
 }

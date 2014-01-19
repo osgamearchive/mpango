@@ -13,7 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 import net.sf.mpango.game.core.enums.Resources;
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.Listener;
@@ -33,7 +33,7 @@ import org.hibernate.annotations.CollectionOfElements;
  *
  */
 @Entity
-public class Cell extends AbstractPersistable<Long> implements Observable,Listener {
+public class Cell extends AbstractEntity<Long> implements Observable,Listener {
 
 	/** generated serial version uid */
 	private static final long serialVersionUID = 2294912901732869716L;

@@ -90,9 +90,9 @@ Vagrant.configure("2") do |config|
 
 
   config.vm.define "jenkins"  do |jenkins|
-    jenkins.vm.box = "centos6_4"
+    jenkins.vm.box = "base"
     jenkins.vm.network :forwarded_port, guest: 80, host: 20080
-    jenkins.vm.provision :shell, path: "init.sh"
+    #jenkins.vm.provision :shell, path: "init.sh"
     jenkins.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "/Users/edevera/Documents/SysAdmin/chef/cookbooks"
       chef.add_recipe "apt"
@@ -107,8 +107,8 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "sonar" do |sonar|
-    sonar.vm.box = "centos6_4"
-    sonar.vm.provision :shell, path: "init.sh"
+    sonar.vm.box = "base""
+    #sonar.vm.provision :shell, path: "init.sh"
     sonar.vm.network :forwarded_port, guest: 8080, host: 21080
     sonar.vm.provision :chef_solo do |chef|
       chef.cookbooks_path = "/Users/edevera/Documents/SysAdmin/chef/cookbooks"

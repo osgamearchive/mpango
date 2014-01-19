@@ -2,7 +2,7 @@ package net.sf.mpango.game.core.entity;
 
 import javax.persistence.Embeddable;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 import net.sf.mpango.game.core.exception.UselessShieldException;
 
 /**
@@ -11,7 +11,7 @@ import net.sf.mpango.game.core.exception.UselessShieldException;
  *
  */
 @Embeddable
-public class Shield extends AbstractPersistable<Long> {
+public class Shield extends AbstractEntity<Long> {
 	
 	public static final float REPAIR_COST_PER_HITPOINT = 0.1f;
 	private float maximumHitPoints;

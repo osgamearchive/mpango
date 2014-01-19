@@ -23,7 +23,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 import org.hibernate.validator.constraints.Email;
 
 
@@ -50,7 +50,7 @@ import org.hibernate.validator.constraints.Email;
                 @NamedQuery(name = User.NAMED_QUERY_FIND_USER_BY_EMAIL, query = "from User where emaiL= ?")
         }
 )
-public class User extends AbstractPersistable<Long> {
+public class User extends AbstractEntity<Long> {
 
     /** Named query to find all users without any filtering. */
     public static final String NAMED_QUERY_LIST_ALL_USERS = "list_all_users";

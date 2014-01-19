@@ -2,7 +2,7 @@ package net.sf.mpango.game.core.entity;
 
 import javax.persistence.Entity;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 
 
 /**
@@ -11,7 +11,7 @@ import net.sf.mpango.common.entity.AbstractPersistable;
  *
  */
 @Entity
-public class Weapon extends AbstractPersistable<Long> {
+public class Weapon extends AbstractEntity<Long> {
 
 	private float attackBonus;
 

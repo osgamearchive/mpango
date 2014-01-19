@@ -2,10 +2,10 @@ package net.sf.mpango.game.core.entity;
 
 import javax.persistence.Entity;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 
 @Entity
-public class GameConfiguration extends AbstractPersistable<Long> {
+public class GameConfiguration extends AbstractEntity<Long> {
 
     private static final long DEFAULT_MILLIS_PER_SLICE = 100l;
     private static final int DEFAULT_MAX_NUMBER_OF_PLAYERS = 10;

@@ -9,7 +9,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
 import net.sf.mpango.common.directory.entity.User;
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 
 /**
  * <p>Entity contains data about {@link Player} connecting a {@link User} to a {@link GameContext}.
@@ -34,7 +34,7 @@ import net.sf.mpango.common.entity.AbstractPersistable;
  */
 @Entity(name = "Player")
 @NamedQuery(name="find_player_with_state", query="from Player p where p.state!=? and p.user.id=?")
-public class Player extends AbstractPersistable<Long> {
+public class Player extends AbstractEntity<Long> {
 
 	private Position position;
 	private List<Unit> units;

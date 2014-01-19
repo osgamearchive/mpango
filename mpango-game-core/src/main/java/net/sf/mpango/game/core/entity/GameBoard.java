@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.ITurnBasedEntityListener;
 import net.sf.mpango.game.core.events.Listener;
@@ -23,7 +23,7 @@ import net.sf.mpango.game.core.exception.EventNotSupportedException;
  *
  */
 @Entity
-public class GameBoard extends AbstractPersistable<Long> implements ITurnBasedEntityListener {
+public class GameBoard extends AbstractEntity<Long> implements ITurnBasedEntityListener {
 
     private static final int DEFAULT_COL_NUMBER = 10;
     private static final int DEFAULT_ROW_NUMBER = 10;

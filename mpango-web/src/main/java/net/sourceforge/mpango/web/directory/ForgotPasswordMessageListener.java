@@ -89,7 +89,7 @@ public class ForgotPasswordMessageListener implements MessageListener, Applicati
         }
     }
 
-    private void sendEmail(String to, String subject, String text) {
+    private void sendEmail(final String to, final String subject, final String text) {
         SimpleMailMessage mailMessage = new SimpleMailMessage();
         mailMessage.setTo(to);
         mailMessage.setSubject(subject);

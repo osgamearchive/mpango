@@ -2,6 +2,7 @@ package net.sourceforge.mpango.web.directory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.faces.model.SelectItem;
@@ -9,6 +10,7 @@ import javax.faces.model.SelectItem;
 import net.sf.mpango.common.directory.entity.User;
 import net.sf.mpango.common.directory.service.AuthenticationException;
 import net.sf.mpango.common.directory.service.IAuthenticationService;
+import net.sf.mpango.common.utils.LocalizedMessageBuilder;
 
 /**
  * @author edvera
@@ -46,8 +48,15 @@ public class RegistrationBackingBean {
 	public String registerUser() {
         try {
             authService.register(user);
+            LOGGER.log(
+                    Level.FINEST,
+                    LocalizedMessageBuilder.getSystemMessage(this, MessageConstants.USER_REGISTRATION_SUCCESSFUL),
+                    user.getEmail());
             return SEND_ACTION_SUCCESS;
-        } catch (AuthenticationException e) {
+        } catch (final AuthenticationException e) {
+            LOGGER.log(
+                    Level.INFO,
+                    LocalizedMessageBuilder.getSystemMessage(this, MessageConstants.USER_REGISTRATION_UNSUCCESFUL), e);
             return SEND_ACTION_FAILURE;
         }
 	}

@@ -6,7 +6,7 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Transient;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 import net.sf.mpango.game.core.enums.ConstructionType;
 import net.sf.mpango.game.core.events.Listener;
 
@@ -27,7 +27,7 @@ import net.sf.mpango.game.core.events.Listener;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Construction extends AbstractPersistable<Long> implements Damageable, Listener {
+public abstract class Construction extends AbstractEntity<Long> implements Damageable, Listener {
 
 	private float maximumHitPoints;
 	private float hitPoints;

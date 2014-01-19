@@ -63,7 +63,7 @@ public class ResetPasswordBackingBean {
 	}
 	
 	private String calculateUrl() {
-		StringBuffer buffer = new StringBuffer();
+		final StringBuffer buffer = new StringBuffer();
 		buffer.append(protocol).append("://").append(hostname);
 		if ((port != null) && (port.length() > 0)) {
 			buffer.append(":").append(port);

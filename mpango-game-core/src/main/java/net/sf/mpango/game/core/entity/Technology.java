@@ -5,7 +5,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 
 /**
  * This interface determines the type of technology a player owns.
@@ -13,7 +13,7 @@ import net.sf.mpango.common.entity.AbstractPersistable;
  *
  */
 @Entity
-public class Technology extends AbstractPersistable<Long> {
+public class Technology extends AbstractEntity<Long> {
 
 	private int technologyCost;
 	private List<Technology> requiredTechnologies;

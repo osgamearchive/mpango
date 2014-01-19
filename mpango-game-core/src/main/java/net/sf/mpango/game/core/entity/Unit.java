@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
-import net.sf.mpango.common.entity.AbstractPersistable;
+import net.sf.mpango.common.entity.AbstractEntity;
 import net.sf.mpango.game.core.action.Command;
 import net.sf.mpango.game.core.action.ConstructCommand;
 import net.sf.mpango.game.core.enums.Resources;
@@ -39,7 +39,7 @@ import net.sf.mpango.game.core.technology.entity.WeaponTechnology;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Unit extends AbstractPersistable<Long> implements Damageable, Listener, Serializable {
+public class Unit extends AbstractEntity<Long> implements Damageable, Listener, Serializable {
     
 	private static final long serialVersionUID = -3825620941652893699L;
 	private float maximumHitPoints;
