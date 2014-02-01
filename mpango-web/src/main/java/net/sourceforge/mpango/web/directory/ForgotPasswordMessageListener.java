@@ -9,8 +9,8 @@ import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
-import net.sf.mpango.common.directory.service.AuthenticationException;
-import net.sf.mpango.common.directory.service.IAuthenticationService;
+import net.sf.mpango.directory.service.AuthenticationException;
+import net.sf.mpango.directory.service.IAuthenticationService;
 import net.sf.mpango.common.utils.LocalizedMessageBuilder;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

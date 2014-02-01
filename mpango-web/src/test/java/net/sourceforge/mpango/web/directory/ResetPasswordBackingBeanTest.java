@@ -6,8 +6,8 @@ import java.util.UUID;
 import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 
-import net.sf.mpango.common.directory.service.AuthenticationException;
-import net.sf.mpango.common.directory.service.IAuthenticationService;
+import net.sf.mpango.directory.service.AuthenticationException;
+import net.sf.mpango.directory.service.IAuthenticationService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;

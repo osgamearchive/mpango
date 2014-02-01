@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mpango-directory-parent</artifactId>
+        <groupId>net.sourceforge.mpango</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.sourceforge.mpango</groupId>
+    <artifactId>mpango-directory-cdi</artifactId>
+
+    <name>mPango : Directory : CDI</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.sourceforge.mpango</groupId>
+            <artifactId>mpango-common-cdi</artifactId>
+            <version>${mpango-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.mpango</groupId>
+            <artifactId>mpango-directory-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.spec.javax.ejb</groupId>
+            <artifactId>jboss-ejb-api_3.1_spec</artifactId>
+            <version>1.0.2.Final</version>
+        </dependency>
+    </dependencies>
+
+</project>

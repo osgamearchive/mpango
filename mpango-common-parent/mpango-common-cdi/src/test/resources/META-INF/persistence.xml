@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence
+        xmlns="http://java.sun.com/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+        version="2.0">
+    <persistence-unit name="${persistence.persistence-unit}">
+        <provider>${persistence.provider}</provider>
+        <class>net.sf.mpango.common.entity.Name</class>
+        <class>net.sf.mpango.common.entity.Locale</class>
+        <class>net.sf.mpango.common.entity.NamedEntityTest$NamedEntity</class>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="${persistence.properties.driver}"/>
+            <property name="javax.persistence.jdbc.url" value="${persistence.properties.url}"/>
+            <property name="javax.persistence.jdbc.user" value="${persistence.properties.username}"/>
+            <property name="javax.persistence.jdbc.password" value="${persistence.properties.password}"/>
+            <property name="hibernate.dialect" value="${persistence.hibernate.dialect}"/>
+            <property name="hibernate.hbm2ddl.auto" value="${persistence.hibernate.hbm2ddl.auto}"/>
+        </properties>
+    </persistence-unit>
+</persistence>

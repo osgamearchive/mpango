@@ -6,9 +6,9 @@ import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
-import net.sf.mpango.common.directory.entity.User;
-import net.sf.mpango.common.directory.service.AuthenticationException;
-import net.sf.mpango.common.directory.service.IAuthenticationService;
+import net.sf.mpango.directory.entity.User;
+import net.sf.mpango.directory.service.AuthenticationException;
+import net.sf.mpango.directory.service.IAuthenticationService;
 import net.sf.mpango.common.utils.LocalizedMessageBuilder;
 
 @ManagedBean(name="changePasswordBackingBean")

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mpango</artifactId>
+        <groupId>net.sourceforge.mpango</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.sourceforge.mpango</groupId>
+    <artifactId>mpango-game-parent</artifactId>
+    <packaging>pom</packaging>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>net.sourceforge.mpango</groupId>
+                <artifactId>mpango-common-spring</artifactId>
+                <version>${mpango-common-spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.mpango</groupId>
+                <artifactId>mpango-directory-spring</artifactId>
+                <version>${mpango-directory-spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.mpango</groupId>
+                <artifactId>mpango-game-core</artifactId>
+                <version>0.0.1-SNAPSHOT</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <properties>
+        <mpango-common-spring.version>0.0.1-SNAPSHOT</mpango-common-spring.version>
+        <mpango-directory-spring.version>0.0.1-SNAPSHOT</mpango-directory-spring.version>
+    </properties>
+
+    <modules>
+        <module>mpango-game-core</module>
+        <module>mpango-game-web</module>
+    </modules>
+</project>

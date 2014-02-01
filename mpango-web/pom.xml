@@ -22,7 +22,13 @@
         <!-- Project related dependencies -->
         <dependency>
         	<groupId>net.sourceforge.mpango</groupId>
-        	<artifactId>mpango-common</artifactId>
+        	<artifactId>mpango-common-spring</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.mpango</groupId>
+            <artifactId>mpango-directory-spring</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
         </dependency>
 		<dependency>
 			<groupId>net.sourceforge.mpango</groupId>

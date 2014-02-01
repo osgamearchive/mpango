@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mpango-directory-parent</artifactId>
+        <groupId>net.sourceforge.mpango</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.sourceforge.mpango</groupId>
+    <artifactId>mpango-directory-spring</artifactId>
+
+    <name>mPango : Directory : Spring</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>net.sourceforge.mpango</groupId>
+            <artifactId>mpango-directory-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.mpango</groupId>
+            <artifactId>mpango-directory-api</artifactId>
+            <type>test-jar</type>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.mpango</groupId>
+            <artifactId>mpango-common-spring</artifactId>
+            <version>${mpango-common.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+            <profile>
+                <id>development</id>
+                <activation>
+                    <activeByDefault>true</activeByDefault>
+                </activation>
+                <properties>
+                    <!-- Spring related properties -->
+                    <spring.context.property-placeholder.location>classpath:/system.properties</spring.context.property-placeholder.location>
+                    <spring.datasource.jndi-name>jdbc/datasource</spring.datasource.jndi-name>
+                    <spring.sessionFactory.configLocation>classpath:hibernate.cfg.xml</spring.sessionFactory.configLocation>
+                    <spring.sessionFactory.hibernate.dialect>org.hibernate.dialect.HSQLDialect
+                    </spring.sessionFactory.hibernate.dialect>
+                    <spring.sessionFactory.hibernate.hbm2ddl.auto>create-drop</spring.sessionFactory.hibernate.hbm2ddl.auto>
+                    <!-- CDI related properties -->
+                    <persistence.persistence-unit>common-persistence-unit</persistence.persistence-unit>
+                    <persistence.provider>org.hibernate.ejb.HibernatePersistence</persistence.provider>
+                    <persistence.jta-data-source>java:/DefaultDS</persistence.jta-data-source>
+                    <persistence.hibernate.dialect>org.hibernate.dialect.HSQLDialect</persistence.hibernate.dialect>
+                    <persistence.hibernate.hbm2ddl.auto>create-drop</persistence.hibernate.hbm2ddl.auto>
+                </properties>
+            </profile>
+            <profile>
+                <id>testing</id>
+                <activation>
+                    <activeByDefault>false</activeByDefault>
+                </activation>
+                <properties>
+                    <!-- Spring related properties -->
+                    <spring.context.property-placeholder.location>classpath:/system.properties</spring.context.property-placeholder.location>
+                    <spring.datasource.jndi-name>jdbc/mpango-common</spring.datasource.jndi-name>
+                    <spring.sessionFactory.configLocation>classpath:hibernate.cfg.xml</spring.sessionFactory.configLocation>
+                    <spring.sessionFactory.hibernate.dialect>org.hibernate.dialect.MySQL5Dialect
+                    </spring.sessionFactory.hibernate.dialect>
+                    <spring.sessionFactory.hibernate.hbm2ddl.auto>create-drop</spring.sessionFactory.hibernate.hbm2ddl.auto>
+                    <!-- CDI related properties -->
+                    <persistence.persistence-unit>common-persistence-unit</persistence.persistence-unit>
+                    <persistence.provider>org.hibernate.ejb.HibernatePersistence</persistence.provider>
+                    <persistence.jta-data-source>java:/mpango-common</persistence.jta-data-source>
+                    <persistence.hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</persistence.hibernate.dialect>
+                    <persistence.hibernate.hbm2ddl.auto>create-drop</persistence.hibernate.hbm2ddl.auto>
+                </properties>
+            </profile>
+            <profile>
+                <id>release</id>
+                <activation>
+                    <activeByDefault>false</activeByDefault>
+                </activation>
+                <properties>
+                    <!-- Spring related properties -->
+                    <spring.context.property-placeholder.location>classpath:/system.properties</spring.context.property-placeholder.location>
+                    <spring.datasource.jndi-name>jdbc/mpango-common</spring.datasource.jndi-name>
+                    <spring.sessionFactory.configLocation>classpath:hibernate.cfg.xml</spring.sessionFactory.configLocation>
+                    <spring.sessionFactory.hibernate.dialect>org.hibernate.dialect.MySQL5Dialect
+                    </spring.sessionFactory.hibernate.dialect>
+                    <spring.sessionFactory.hibernate.hbm2ddl.auto>validate</spring.sessionFactory.hibernate.hbm2ddl.auto>
+                    <!-- CDI related properties -->
+                    <persistence.persistence-unit>common-persistence-unit</persistence.persistence-unit>
+                    <persistence.provider>org.hibernate.ejb.HibernatePersistence</persistence.provider>
+                    <persistence.jta-data-source>java:/mpango-common</persistence.jta-data-source>
+                    <persistence.hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</persistence.hibernate.dialect>
+                    <persistence.hibernate.hbm2ddl.auto>validate</persistence.hibernate.hbm2ddl.auto>
+                </properties>
+            </profile>
+    </profiles>
+</project>

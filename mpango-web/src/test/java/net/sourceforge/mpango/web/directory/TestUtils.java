@@ -1,6 +1,6 @@
 package net.sourceforge.mpango.web.directory;
 
-import net.sf.mpango.common.directory.entity.User;
+import net.sf.mpango.directory.entity.User;
 
 /**
  * @author <a href="mailto:eduardo.devera@gmail.com">Eduardo de Vera</a>

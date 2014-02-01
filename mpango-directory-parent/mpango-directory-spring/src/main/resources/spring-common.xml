@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:amq="http://activemq.apache.org/schema/core"
+	xmlns:jms="http://www.springframework.org/schema/jms"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.5.0.xsd
+		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+	<!-- Enables annotation based configuration -->
+	<context:annotation-config />
+	
+	<!-- scans for annotated components -->
+	<context:component-scan base-package="net.sf.mpango.common" />
+	
+	<!-- Allows replacement in the spring xml configuration -->
+	<context:property-placeholder location="${spring.context.property-placeholder.location}"/>
+	
+	<bean id="datasource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="${spring.datasource.jndi-name}" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="datasource" />
+		<property name="configLocation" value="${spring.sessionFactory.configLocation}"/>
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${spring.sessionFactory.hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${spring.sessionFactory.hibernate.hbm2ddl.auto}</prop>
+			</props>
+		</property>
+	</bean>
+
+	<bean name="userDAO" class="net.sf.mpango.directory.spring.dao.HibernateUserDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	
+	<bean name="authService" class="net.sf.mpango.directory.spring.service.AuthenticationService">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+
+</beans>

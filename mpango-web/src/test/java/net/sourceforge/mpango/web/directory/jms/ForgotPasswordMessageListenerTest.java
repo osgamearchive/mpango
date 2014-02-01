@@ -6,8 +6,8 @@ import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.TextMessage;
 
-import net.sf.mpango.common.directory.service.AuthenticationException;
-import net.sf.mpango.common.directory.service.IAuthenticationService;
+import net.sf.mpango.directory.service.AuthenticationException;
+import net.sf.mpango.directory.service.IAuthenticationService;
 import net.sourceforge.mpango.web.directory.ForgotPasswordMessageCreator;
 import net.sourceforge.mpango.web.directory.ForgotPasswordMessageListener;
 import org.junit.Before;

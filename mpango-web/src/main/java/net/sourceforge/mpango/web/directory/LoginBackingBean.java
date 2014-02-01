@@ -9,9 +9,9 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import net.sf.mpango.common.directory.entity.User;
-import net.sf.mpango.common.directory.service.AuthenticationException;
-import net.sf.mpango.common.directory.service.IAuthenticationService;
+import net.sf.mpango.directory.entity.User;
+import net.sf.mpango.directory.service.AuthenticationException;
+import net.sf.mpango.directory.service.IAuthenticationService;
 import net.sf.mpango.common.utils.LocalizedMessageBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 

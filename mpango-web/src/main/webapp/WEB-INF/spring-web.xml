@@ -13,7 +13,7 @@
 		http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.5.0.xsd
 		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
 
-	<import resource="classpath:spring-common.xml" />
+	<import resource="classpath:src/main/spring-resources/spring-common.xml" />
 	
 	<!-- Application messages. Internationalization support provided by Spring. -->
 	<bean name="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

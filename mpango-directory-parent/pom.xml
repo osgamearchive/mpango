@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>mpango</artifactId>
+        <groupId>net.sourceforge.mpango</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.sourceforge.mpango</groupId>
+    <artifactId>mpango-directory-parent</artifactId>
+    <packaging>pom</packaging>
+    <name>mPango : Directory</name>
+
+    <modules>
+        <module>mpango-directory-api</module>
+        <module>mpango-directory-spring</module>
+        <module>mpango-directory-cdi</module>
+    </modules>
+
+    <properties>
+        <mpango-common.version>0.0.1-SNAPSHOT</mpango-common.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>net.sourceforge.mpango</groupId>
+                <artifactId>mpango-directory-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.mpango</groupId>
+                <artifactId>mpango-directory-api</artifactId>
+                <version>${project.version}</version>
+                <type>test-jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.mpango</groupId>
+                <artifactId>mpango-common</artifactId>
+                <version>${mpango-common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.mpango</groupId>
+                <artifactId>mpango-common-spring</artifactId>
+                <version>${mpango-common.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>
