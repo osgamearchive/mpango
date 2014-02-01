@@ -11,6 +11,7 @@
 
     <groupId>net.sourceforge.mpango</groupId>
     <artifactId>mpango-game-parent</artifactId>
+    <name>mPango : Game</name>
     <packaging>pom</packaging>
 
     <dependencyManagement>

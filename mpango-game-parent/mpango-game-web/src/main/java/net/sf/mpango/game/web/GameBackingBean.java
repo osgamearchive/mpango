@@ -11,6 +11,7 @@ public class GameBackingBean {
 
     @Autowired
     private IGameService gameService;
+
     private User user;
 
     public void join() {

@@ -1,20 +1,23 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-	<modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
+    <properties>
+        <scala-maven-plugin.version>3.1.6</scala-maven-plugin.version>
+    </properties>
 
-	<parent>
+    <parent>
         <groupId>net.sourceforge.mpango</groupId>
         <artifactId>mpango-game-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-	</parent>
+    </parent>
 
-	<artifactId>mpango-game-core</artifactId>
-	<name>mPango : Game : Core</name>
-	<description>mPango game core functionality.</description>
+    <artifactId>mpango-game-core</artifactId>
+    <name>mPango : Game : Core</name>
+    <description>mPango game core functionality.</description>
 
-	<dependencies>
-		<!-- mPango Common -->
+    <dependencies>
+        <!-- mPango Common -->
         <dependency>
             <groupId>net.sourceforge.mpango</groupId>
             <artifactId>mpango-common-spring</artifactId>
@@ -23,51 +26,114 @@
             <groupId>net.sourceforge.mpango</groupId>
             <artifactId>mpango-directory-spring</artifactId>
         </dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jms</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jms</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.scala-lang</groupId>
+            <artifactId>scala-library</artifactId>
+            <version>2.10.3</version>
+        </dependency>
         <!-- Java Mail dependency -->
-		<dependency>
-			<groupId>javax.mail</groupId>
-			<artifactId>mail</artifactId>
-		</dependency>
-		<!-- ActiveMQ Dependencies. -->
-		<dependency>
-			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-core</artifactId>
-		</dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+        </dependency>
+        <!-- ActiveMQ Dependencies. -->
+        <dependency>
+            <groupId>org.apache.activemq</groupId>
+            <artifactId>activemq-core</artifactId>
+        </dependency>
         <!-- Testing libraries -->
-		<dependency>
-			<groupId>net.sourceforge.mpango</groupId>
-			<artifactId>mpango-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>aspectj-maven-plugin</artifactId>
-				<configuration>
-					<aspectLibraries>
-						<aspectLibrary>	
-							<groupId>net.sourceforge.mpango</groupId>
-							<artifactId>mpango-common-core</artifactId>
-						</aspectLibrary>
-					</aspectLibraries>
-					<verbose>true</verbose>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-eclipse-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.activemq.tooling</groupId>
-				<artifactId>maven-activemq-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
+        <dependency>
+            <groupId>net.sourceforge.mpango</groupId>
+            <artifactId>mpango-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>aspectj-maven-plugin</artifactId>
+                <configuration>
+                    <aspectLibraries>
+                        <aspectLibrary>
+                            <groupId>net.sourceforge.mpango</groupId>
+                            <artifactId>mpango-common-core</artifactId>
+                        </aspectLibrary>
+                    </aspectLibraries>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+                <version>${scala-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <recompileMode>incremental</recompileMode>
+                    <launchers>
+                        <launcher>
+                            <mainClass>net.sourceforge.mpango.game.core.scala.GameActor</mainClass>
+                        </launcher>
+                    </launchers>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-eclipse-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.activemq.tooling</groupId>
+                <artifactId>maven-activemq-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <profiles>
+        <profile>
+            <id>development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.import.resource.mpango-directory>classpath:/spring-directory.xml</spring.import.resource.mpango-directory>
+                <spring.context.property-placeholder.location>classpath:/game.properties</spring.context.property-placeholder.location>
+                <spring.gameSessionFactory.configLocation>classpath:/gameHibernate.cfg.xml</spring.gameSessionFactory.configLocation>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <spring.import.resource.mpango-directory>classpath:/spring-directory.xml</spring.import.resource.mpango-directory>
+                <spring.context.property-placeholder.location>classpath:/game.properties</spring.context.property-placeholder.location>
+                <spring.gameSessionFactory.configLocation>classpath:/gameHibernate.cfg.xml</spring.gameSessionFactory.configLocation>
+            </properties>
+        </profile>
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <spring.import.resource.mpango-directory>classpath:/spring-directory.xml</spring.import.resource.mpango-directory>
+                <spring.context.property-placeholder.location>classpath:/game.properties</spring.context.property-placeholder.location>
+                <spring.gameSessionFactory.configLocation>classpath:/gameHibernate.cfg.xml</spring.gameSessionFactory.configLocation>
+            </properties>
+        </profile>
+    </profiles>
 </project>

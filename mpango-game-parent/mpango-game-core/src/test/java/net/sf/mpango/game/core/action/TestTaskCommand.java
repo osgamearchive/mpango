@@ -7,7 +7,9 @@ import net.sf.mpango.game.core.events.Listener;
 import net.sf.mpango.game.core.exception.CommandException;
 
 public class TestTaskCommand extends AbstractTaskCommand  {
+
 	private String name;
+
 	public TestTaskCommand(Timer timer, String name, Listener... listeners) {
 		super(timer, listeners);
 		this.name = name;

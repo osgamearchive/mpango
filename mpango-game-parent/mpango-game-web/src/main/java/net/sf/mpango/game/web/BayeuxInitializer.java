@@ -15,59 +15,48 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
 @Component
-public class BayeuxInitializer implements DestructionAwareBeanPostProcessor, ServletContextAware
-{
+public class BayeuxInitializer implements DestructionAwareBeanPostProcessor, ServletContextAware {
+
     private BayeuxServer bayeuxServer;
     private ServerAnnotationProcessor processor;
 
-    @SuppressWarnings("unused")
-	@Inject
-    private void setBayeuxServer(BayeuxServer bayeuxServer)
-    {
+    @Inject
+    private void setBayeuxServer(BayeuxServer bayeuxServer) {
         this.bayeuxServer = bayeuxServer;
     }
 
-    @SuppressWarnings("unused")
-	@PostConstruct
-    private void init()
-    {
+    @PostConstruct
+    private void init() {
         this.processor = new ServerAnnotationProcessor(bayeuxServer);
     }
 
-    @SuppressWarnings("unused")
-	@PreDestroy
-    private void destroy()
-    {
+    @PreDestroy
+    private void destroy() {
     }
 
-    public Object postProcessBeforeInitialization(Object bean, String name) throws BeansException
-    {
+    public Object postProcessBeforeInitialization(Object bean, String name) throws BeansException {
         processor.processDependencies(bean);
         processor.processConfigurations(bean);
         processor.processCallbacks(bean);
         return bean;
     }
 
-    public Object postProcessAfterInitialization(Object bean, String name) throws BeansException
-    {
+    public Object postProcessAfterInitialization(Object bean, String name) throws BeansException {
         return bean;
     }
 
-    public void postProcessBeforeDestruction(Object bean, String name) throws BeansException
-    {
+    public void postProcessBeforeDestruction(Object bean, String name) throws BeansException {
         processor.deprocessCallbacks(bean);
     }
 
     @Bean(initMethod = "start", destroyMethod = "stop")
-    public BayeuxServer bayeuxServer()
-    {
-        BayeuxServerImpl bean = new BayeuxServerImpl();
-        bean.setOption(BayeuxServerImpl.LOG_LEVEL, "3");
+    public BayeuxServer bayeuxServer() {
+        final BayeuxServerImpl bean = new BayeuxServerImpl();
+        bean.setOption(BayeuxServerImpl.LOG_LEVEL, BayeuxServerImpl.INFO_LOG_LEVEL);
         return bean;
     }
 
-    public void setServletContext(ServletContext servletContext)
-    {
+    public void setServletContext(ServletContext servletContext) {
         servletContext.setAttribute(BayeuxServer.ATTRIBUTE, bayeuxServer);
     }
 }

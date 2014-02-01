@@ -35,4 +35,48 @@
         </dependency>
     </dependencies>
 
+    <profiles>
+        <profile>
+            <id>development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <!-- CDI related properties -->
+                <persistence.persistence-unit>common-persistence-unit</persistence.persistence-unit>
+                <persistence.provider>org.hibernate.ejb.HibernatePersistence</persistence.provider>
+                <persistence.jta-data-source>java:/DefaultDS</persistence.jta-data-source>
+                <persistence.hibernate.dialect>org.hibernate.dialect.HSQLDialect</persistence.hibernate.dialect>
+                <persistence.hibernate.hbm2ddl.auto>create-drop</persistence.hibernate.hbm2ddl.auto>
+            </properties>
+        </profile>
+        <profile>
+            <id>testing</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!-- CDI related properties -->
+                <persistence.persistence-unit>common-persistence-unit</persistence.persistence-unit>
+                <persistence.provider>org.hibernate.ejb.HibernatePersistence</persistence.provider>
+                <persistence.jta-data-source>java:/mpango-common</persistence.jta-data-source>
+                <persistence.hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</persistence.hibernate.dialect>
+                <persistence.hibernate.hbm2ddl.auto>create-drop</persistence.hibernate.hbm2ddl.auto>
+            </properties>
+        </profile>
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <!-- CDI related properties -->
+                <persistence.persistence-unit>common-persistence-unit</persistence.persistence-unit>
+                <persistence.provider>org.hibernate.ejb.HibernatePersistence</persistence.provider>
+                <persistence.jta-data-source>java:/mpango-common</persistence.jta-data-source>
+                <persistence.hibernate.dialect>org.hibernate.dialect.MySQL5Dialect</persistence.hibernate.dialect>
+                <persistence.hibernate.hbm2ddl.auto>validate</persistence.hibernate.hbm2ddl.auto>
+            </properties>
+        </profile>
+    </profiles>
 </project>

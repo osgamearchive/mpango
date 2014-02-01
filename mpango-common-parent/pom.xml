@@ -37,7 +37,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>mpango-common</module>
+        <module>mpango-common-core</module>
         <module>mpango-common-cdi</module>
         <module>mpango-common-spring</module>
     </modules>

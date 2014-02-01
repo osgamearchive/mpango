@@ -13,7 +13,7 @@
 		http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core-5.5.0.xsd
 		http://www.springframework.org/schema/jms http://www.springframework.org/schema/jms/spring-jms.xsd">
 
-	<import resource="classpath:src/main/spring-resources/spring-common.xml" />
+	<import resource="${spring.import.resource.mpango-directory}" />
 
 	<!-- Enables annotation based configuration -->
 	<context:annotation-config />
@@ -22,25 +22,24 @@
 	<context:component-scan base-package="net.sf.mpango.game.core" />
 	
 	<!-- Allows replacement in the spring xml configuration -->
-	<context:property-placeholder location="classpath:/system.properties" />
+	<context:property-placeholder location="${spring.context.property-placeholder.location}" />
 	
 	<!-- creates an activemq connection factory using the amq namespace -->
-	<amq:connectionFactory 
-		id="amqConnectionFactory" 
-		brokerURL="${jms.url}" 
-		userName="${jms.username}" 
-		password="${jms.password}" />
+	<amq:connectionFactory id="amqConnectionFactory"
+                           brokerURL="${amq.connectionFactory.brokerUrl}"
+                           userName="${amq.connectionFactory.username}"
+                           password="${amq.connectionFactory.password}" />
 	
 	<!-- CachingConnectionFactory Definition, sessionCacheSize property is the number of sessions to cache -->
 	<bean id="connectionFactory" class="org.springframework.jms.connection.CachingConnectionFactory">
 	    <constructor-arg ref="amqConnectionFactory" />
 		<property name="exceptionListener" ref="jmsExceptionListener" />
-		<property name="sessionCacheSize" value="100" />
+		<property name="sessionCacheSize" value="${connectionFactory.sessionCacheSize}" />
 	</bean>
 
 	<!-- Queue for dealing with messages from users that forgot their password -->
-    <amq:queue id="core2interfaceQueue" physicalName="${queue.core2interface}" />
-    <amq:queue id="interface2CoreQueue" physicalName="${queue.interface2core}" />
+    <amq:queue id="core2interfaceQueue" physicalName="${amq.queue.core2interface}" />
+    <amq:queue id="interface2CoreQueue" physicalName="${amq.queue.interface2core}" />
 
 	<!-- JmsTemplate Definition -->
 	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
@@ -54,27 +53,26 @@
         <property name="messageListener" ref="gameServiceListener" />
     </bean>
 	
-	<!-- Data source 
-	     TODO change this to a non jndi data source -->
+	<!-- Data source -->
 	<bean id="gameDataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="jdbc/datasource" />
+		<property name="jndiName" value="${gameDataSource.jndiName}" />
 	</bean>
 
 	<bean id="gameSessionFactory"
 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
 		<property name="dataSource" ref="gameDataSource" />
-		<property name="configLocation" value="classpath:src/main/spring-resources/hibernate.cfg.xml" />
+		<property name="configLocation" value="${spring.gameSessionFactory.configLocation}" />
 		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.HSQLDialect</prop>
-				<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				<prop key="hibernate.dialect">${gameSessionFactory.hibernateProperties.hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${gameSessionFactory.hibernateProperties.hibernate.hbm2ddl.auto}</prop>
 			</props>
 		</property>
 	</bean>
 	
 	<bean name="playerDAO" class="net.sf.mpango.game.core.dao.HibernatePlayerDAO">
-		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="sessionFactory" ref="gameSessionFactory" />
 	</bean>
 
 	<bean name="playerService" class="net.sf.mpango.game.core.service.PlayerServiceImpl">
@@ -88,6 +86,10 @@
     
     <bean name="gameServiceListener" class="net.sf.mpango.game.core.jms.GameServiceListener">
     	<property name="gameService" ref="gameService" />
+    </bean>
+
+    <bean name="playerActorBean" class="net.sourceforge.mpango.game.core.scala.GameActor">
+        <constructor-arg name="gameService" ref="gameService" />
     </bean>
 
 </beans>

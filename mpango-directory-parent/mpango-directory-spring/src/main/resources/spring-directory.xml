@@ -23,7 +23,7 @@
 	<context:property-placeholder location="${spring.context.property-placeholder.location}"/>
 	
 	<bean id="datasource" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName" value="${spring.datasource.jndi-name}" />
+		<property name="jndiName" value="${datasource.jndi-name}" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -33,8 +33,8 @@
 		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">${spring.sessionFactory.hibernate.dialect}</prop>
-				<prop key="hibernate.hbm2ddl.auto">${spring.sessionFactory.hibernate.hbm2ddl.auto}</prop>
+				<prop key="hibernate.dialect">${sessionFactory.hibernate.dialect}</prop>
+				<prop key="hibernate.hbm2ddl.auto">${sessionFactory.hibernate.hbm2ddl.auto}</prop>
 			</props>
 		</property>
 	</bean>

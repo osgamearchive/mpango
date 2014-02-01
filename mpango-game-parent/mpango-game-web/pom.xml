@@ -14,38 +14,32 @@
     <name>mPango : Game : Web</name>
 
     <build>
-        <defaultGoal>install</defaultGoal>
         <plugins>
             <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <overlays>
-                        <overlay />
                         <overlay>
                             <groupId>org.cometd.javascript</groupId>
                             <artifactId>cometd-javascript-jquery</artifactId>
-                            <targetPath>${project.build.directory}</targetPath>
                         </overlay>
                     </overlays>
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/src/main/webapp</directory>
+                            <filtering>true</filtering>
+                            <includes>
+                                <include>**/*.xhtml</include>
+                                <include>**/*.xml</include>
+                            </includes>
+                        </resource>
+                    </webResources>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.mortbay.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
             </plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>aspectj-maven-plugin</artifactId>
-				<configuration>
-					<aspectLibraries>
-						<aspectLibrary>	
-							<groupId>net.sourceforge.mpango</groupId>
-							<artifactId>mpango-common</artifactId>
-						</aspectLibrary>
-					</aspectLibraries>
-					<verbose>true</verbose>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
@@ -92,10 +86,6 @@
             <artifactId>spring-web</artifactId>
         </dependency>
         <dependency>
-            <groupId>net.sourceforge.mpango</groupId>
-            <artifactId>mpango-game-core</artifactId>
-        </dependency>
-        <dependency>
         	<groupId>org.cometd.javascript</groupId>
         	<artifactId>cometd-javascript-jquery</artifactId>
             <type>war</type>
@@ -126,7 +116,36 @@
     <properties>
         <jetty.contextPath>/${project.artifactId}</jetty.contextPath>
         <jetty.tempDirectory>${project.build.outputDirectory}/temp</jetty.tempDirectory>
-        <jetty.webApp>${project.build.outputDirectory}/${project.build.finalName}</jetty.webApp>
+        <jetty.webApp>${project.build.directory}/${project.build.finalName}</jetty.webApp>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>development</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring.import.resource.mpango-game-core>classpath:spring-game-core.xml</spring.import.resource.mpango-game-core>
+            </properties>
+        </profile>
+        <profile>
+            <id>test</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <spring.import.resource.mpango-game-core>classpath:spring-game-core.xml</spring.import.resource.mpango-game-core>
+            </properties>
+        </profile>
+        <profile>
+            <id>release</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <spring.import.resource.mpango-game-core>classpath:spring-game-core.xml</spring.import.resource.mpango-game-core>
+            </properties>
+        </profile>
+    </profiles>
 </project>
