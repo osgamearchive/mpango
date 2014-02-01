@@ -5,13 +5,13 @@
 
     <parent>
         <groupId>net.sourceforge.mpango</groupId>
-        <artifactId>mpango</artifactId>
+        <artifactId>mpango-common-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
     <description>Project containing the common objects of mPango systems.</description>
-    <artifactId>mpango-common</artifactId>
+    <artifactId>mpango-common-core</artifactId>
 
     <name>mPango : Common : Core</name>
 

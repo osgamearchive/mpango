@@ -46,7 +46,7 @@
     <dependencies>
         <dependency>
             <groupId>net.sourceforge.mpango</groupId>
-            <artifactId>mpango-common</artifactId>
+            <artifactId>mpango-common-core</artifactId>
         </dependency>
         <dependency>
            <groupId>javax.enterprise</groupId>

@@ -5,7 +5,7 @@
 
     <parent>
         <groupId>net.sourceforge.mpango</groupId>
-        <artifactId>mpango</artifactId>
+        <artifactId>mpango-common-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
@@ -17,8 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>net.sourceforge.mpango</groupId>
-            <artifactId>mpango-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <artifactId>mpango-common-core</artifactId>
         </dependency>
         <!-- General purpose libraries -->
         <dependency>

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>net.sourceforge.mpango</groupId>
-		<artifactId>mpango</artifactId>
+		<artifactId>mpango-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>mpango-web</artifactId>
@@ -125,7 +125,7 @@
 					<aspectLibraries>
 						<aspectLibrary>	
 							<groupId>net.sourceforge.mpango</groupId>
-							<artifactId>mpango-common</artifactId>
+							<artifactId>mpango-common-core</artifactId>
 						</aspectLibrary>
 					</aspectLibraries>
 					<verbose>true</verbose>

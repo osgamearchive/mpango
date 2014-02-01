@@ -54,7 +54,7 @@
 					<aspectLibraries>
 						<aspectLibrary>	
 							<groupId>net.sourceforge.mpango</groupId>
-							<artifactId>mpango-common</artifactId>
+							<artifactId>mpango-common-core</artifactId>
 						</aspectLibrary>
 					</aspectLibraries>
 					<verbose>true</verbose>
