@@ -30,11 +30,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jms</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.scala-lang</groupId>
-            <artifactId>scala-library</artifactId>
-            <version>2.10.3</version>
-        </dependency>
         <!-- Java Mail dependency -->
         <dependency>
             <groupId>javax.mail</groupId>
@@ -66,27 +61,6 @@
                         </aspectLibrary>
                     </aspectLibraries>
                     <verbose>true</verbose>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>${scala-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>compile</goal>
-                            <goal>testCompile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <recompileMode>incremental</recompileMode>
-                    <launchers>
-                        <launcher>
-                            <mainClass>net.sourceforge.mpango.game.core.scala.GameActor</mainClass>
-                        </launcher>
-                    </launchers>
                 </configuration>
             </plugin>
             <plugin>
