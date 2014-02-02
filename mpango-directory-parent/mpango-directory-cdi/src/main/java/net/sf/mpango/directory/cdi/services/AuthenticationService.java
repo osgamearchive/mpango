@@ -20,12 +20,12 @@ public class AuthenticationService implements IAuthenticationService {
     private UserDAO userDAO;
 
     @Override
-    public User login(String email, String password) throws AuthenticationException {
+    public User login(final String email, final String password) throws AuthenticationException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public User register(User user) throws AuthenticationException {
+    public User register(final User user) throws AuthenticationException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
@@ -35,17 +35,17 @@ public class AuthenticationService implements IAuthenticationService {
     }
 
     @Override
-    public String generateResetKey(String email) throws AuthenticationException {
+    public String generateResetKey(final String email) throws AuthenticationException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public User getUserByResetKey(String resetKey) throws AuthenticationException {
+    public User getUserByResetKey(final String resetKey) throws AuthenticationException {
         return null;  //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void changeUserPassword(User user, String newPassword) throws AuthenticationException {
+    public void changeUserPassword(final User user, final String newPassword) throws AuthenticationException {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

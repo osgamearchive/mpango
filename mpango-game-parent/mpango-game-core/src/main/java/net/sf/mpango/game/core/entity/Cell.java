@@ -9,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 
@@ -132,16 +131,12 @@ public class Cell extends AbstractEntity<Long> implements Observable,Listener {
 		}
 		this.constructions.remove(construction);
 	}
-	@Id
-	public Long getIdentifier() {
-		return identifier;
-	}
-	public void setIdentifier(Long identifier) {
-		this.identifier = identifier;
-	}
+
 	@Column
 	public int getColumn() {
-		return column;
+
+
+        return column;
 	}
 	public void setColumn(int column) {
 		this.column = column;
@@ -157,7 +152,6 @@ public class Cell extends AbstractEntity<Long> implements Observable,Listener {
 	public float getDefenseBonus() {
 		return defenseBonus;
 	}
-
 	public void setDefenseBonus(float defenseBonus) {
 		this.defenseBonus = defenseBonus;
 	}
@@ -165,7 +159,6 @@ public class Cell extends AbstractEntity<Long> implements Observable,Listener {
 	public float getAttackBonus() {
 		return attackBonus;
 	}
-
 	public void setAttackBonus(float attackBonus) {
 		this.attackBonus = attackBonus;
 	}

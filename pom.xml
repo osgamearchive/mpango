@@ -680,7 +680,6 @@
         <module>mpango-common-parent</module>
         <module>mpango-directory-parent</module>
         <module>mpango-web</module>
-        <module>mpango-test</module>
         <module>mpango-game-parent</module>
     </modules>
 
