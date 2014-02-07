@@ -3,8 +3,6 @@ package net.sf.mpango.game.core.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.mpango.game.core.action.Command;
-
 @SuppressWarnings("serial")
 public class TestUnit extends Unit {
 
@@ -14,8 +12,7 @@ public class TestUnit extends Unit {
 	
 	public TestUnit() {
 		super(
-				new City(), 
-				new ArrayList<Command>(), 
+				new City(),
 				createTechnologies(), 
 				UNIT_ATTACK_POINTS, 
 				UNIT_HIT_POINTS

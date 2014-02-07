@@ -1,7 +1,7 @@
 package net.sf.mpango.game.core.entity;
 
 /**
- * Every entity that can receive damage should implement this interface.
+ * Every entity that can observe damage should implement this interface.
  * @author etux
  *
  */
@@ -10,9 +10,11 @@ public interface Damageable {
 	/**
 	 * Method called when the unit is attacked. It first directs the attack to the possible shield and then, in case of resting hit points, it will
 	 * target them to the unit.
-	 * @param attackPoints Number of attack points of the attack (how strong the attack is)
+	 * @param attacker Number of attack points of the attack (how strong the attack is)
+     * @param attackingBonus
+     * @param defensiveBonus
 	 */
-	public void receiveDamage(float attackPoints);
+	public void receiveDamage(Unit attacker, float attackingBonus, float defensiveBonus);
 	/**
 	 * Method that repairs the entity setting its hit points to the maximum.
 	 * @return the cost of the repair in terms of units.

@@ -5,6 +5,6 @@ package net.sf.mpango.game.core.events;
  * @author etux
  *
  */
-public interface GameListener extends Listener {
+public interface GameObserver extends Observer {
 	
 }

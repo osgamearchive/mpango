@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.sf.mpango.directory.entity.User;
-import net.sf.mpango.game.core.action.Command;
+import net.sf.mpango.game.core.commands.Command;
 import net.sf.mpango.game.core.entity.BoardConfiguration;
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.City;
@@ -41,7 +41,6 @@ public class TestUtils {
 
     	public static Cell getCell(Long id) {
     		Cell cell = new Cell(1,1);
-    		cell.setIdentifier(id);
     		cell.setAttackBonus(1f);
     		cell.setColumn(1);
     		cell.setDefenseBonus(1f);
@@ -89,13 +88,13 @@ public class TestUtils {
     	}
 
     	private static class TestUnit extends Unit {
-    		private TestUnit(List<Technology> technology, List<Command> command) {
-    			super(new City(), command, technology, 10f, 100f);
+    		private TestUnit(List<Technology> technology) {
+    			super(new City(), technology, 10f, 100f);
     		}
     		public static Unit instance() {
     			List<Technology> tech = new ArrayList<Technology>();
     			List<Command> com = new ArrayList<Command>();
-    			return new TestUnit(tech, com);
+    			return new TestUnit(tech);
     		}
     	}
 }

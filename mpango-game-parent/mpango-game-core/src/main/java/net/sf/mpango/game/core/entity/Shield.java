@@ -14,6 +14,7 @@ import net.sf.mpango.game.core.exception.UselessShieldException;
 public class Shield extends AbstractEntity<Long> {
 	
 	public static final float REPAIR_COST_PER_HITPOINT = 0.1f;
+
 	private float maximumHitPoints;
 	private float hitPoints;
 
@@ -29,19 +30,21 @@ public class Shield extends AbstractEntity<Long> {
 	}
 
 	/**
-	 * When a unit that owns the shield is attacked, the first one to receive the damage is the shield.
+	 * When a unit that owns the shield is attacked, the first one to observe the damage is the shield.
 	 * @param attackPoints represents the strength of the attack.
 	 * @return in case the shield could not take all the attack, returns the attackPoints that the shield could not take. In other case, returns 0.
 	 */
-	public Float receiveDamage(float attackPoints) throws UselessShieldException {
+	public float receiveDamage(float attackPoints) throws UselessShieldException {
 		if (this.hitPoints <= 0) {
 			//This shield has been destroyed
 			throw new UselessShieldException();
 		}
 		this.hitPoints -= attackPoints;
-		if (this.hitPoints < 0) { //Shield can not take more damage
+		if (this.hitPoints < 0) {
+		    //Shield can not take more damage, resting points are returned.
 			return -this.hitPoints;
-		} else { // Shield has taken all the damage
+		} else {
+		    //Shield has taken all the damage, no resting points to be returned.
 			return 0f;
 		}
 	}

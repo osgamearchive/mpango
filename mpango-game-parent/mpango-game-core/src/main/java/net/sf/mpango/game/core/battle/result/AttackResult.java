@@ -3,66 +3,58 @@ package net.sf.mpango.game.core.battle.result;
 import net.sf.mpango.game.core.entity.Unit;
 
 public class AttackResult {
-	
-	public static final Integer DEFENDER_DIED_RESULT = 1;
-	public static final Integer ATTACKER_DIED_RESULT = 2;
-	public static final Integer NONE_DIED_RESULT = 3;
-	
-	private Unit attacker;
-	private Unit defender;
-	private Float attackersStartingHitPoints;
-	private Float attackersEndingHitPoints;
-	private Float defendersStartingHitPoints;
-	private Float defendersEndingHitpoints;
 
-	private Integer result;
+	public static final int DEFENDER_DIED_RESULT = 1;
+	public static final int ATTACKER_DIED_RESULT = 2;
+	public static final int NONE_DIED_RESULT = 3;
 	
-	public AttackResult(Unit attacker, Unit defender) {
+	private final Unit attacker;
+	private final Unit defender;
+	private final float attackersStartingHitPoints;
+	private float attackersEndingHitPoints;
+	private final float defendersStartingHitPoints;
+	private float defendersEndingHitpoints;
+
+	private int result;
+	
+	public AttackResult(final Unit attacker, final Unit defender) {
 		this.attacker = attacker;
 		this.defender = defender;
 		this.attackersStartingHitPoints = attacker.getHitPoints();
 		this.defendersStartingHitPoints = defender.getHitPoints();
 	}
 
-	public void setResult (Integer result) {
+    public int getResult() {
+   		return result;
+   	}
+
+	public void setResult (int result) {
 		this.result = result;
 		this.attackersEndingHitPoints = attacker.getHitPoints();
 		this.defendersEndingHitpoints = defender.getHitPoints();
 	}
 
-	public Float getAttackersStartingHitPoints() {
+	public float getAttackersStartingHitPoints() {
 		return attackersStartingHitPoints;
 	}
 
-	public void setAttackersStartingHitPoints(Float attackersStartingHitPoints) {
-		this.attackersStartingHitPoints = attackersStartingHitPoints;
-	}
-
-	public Float getAttackersEndingHitPoints() {
+	public float getAttackersEndingHitPoints() {
 		return attackersEndingHitPoints;
 	}
 
-	public void setAttackersEndingHitPoints(Float attackersEndingHitPoints) {
+	public void setAttackersEndingHitPoints(float attackersEndingHitPoints) {
 		this.attackersEndingHitPoints = attackersEndingHitPoints;
 	}
 
-	public Float getDefendersStartingHitPoints() {
+	public float getDefendersStartingHitPoints() {
 		return defendersStartingHitPoints;
 	}
 
-	public void setDefendersStartingHitPoints(Float defendersStartingHitPoints) {
-		this.defendersStartingHitPoints = defendersStartingHitPoints;
-	}
-
-	public Float getDefendersEndingHitpoints() {
+	public float getDefendersEndingHitpoints() {
 		return defendersEndingHitpoints;
 	}
 
-	public void setDefendersEndingHitpoints(Float defendersEndingHitpoints) {
+	public void setDefendersEndingHitpoints(float defendersEndingHitpoints) {
 		this.defendersEndingHitpoints = defendersEndingHitpoints;
-	}
-
-	public Integer getResult() {
-		return result;
 	}
 }

@@ -1,24 +1,24 @@
 package net.sf.mpango.game.core.events;
 
-import static org.junit.Assert.assertEquals;
-
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Test class that proves how event support is implemented.
- * It overrides the BaseListener class that by default doesn't support any events and adds support to the SupportedEvent class.
+ * It overrides the BaseObserver class that by default listens to all events silently and adds support to the SupportedEvent class.
  * @author edvera
  *
  */
-class SupportedListener extends BaseListener {
+class SupportedObserver extends BaseObserver {
 	protected int numberOfEvents = 0;
 	
 	@Override
-	public void receive(Event event) throws EventNotSupportedException {
+	public void observe(Event event) throws EventNotSupportedException {
 		if (event instanceof SupportedEvent)
 			receive((SupportedEvent) event);
 		else
-			super.receive(event);
+			super.observe(event);
 	}
 	
 	public void receive(SupportedEvent event) {
@@ -26,7 +26,7 @@ class SupportedListener extends BaseListener {
 		numberOfEvents++;
 	}
 	
-	protected static void assertListener(SupportedListener listener) {
+	protected static void assertListener(SupportedObserver listener) {
 		assertEquals(listener.numberOfEvents, 1);
 	}
 }

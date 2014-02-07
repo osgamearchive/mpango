@@ -40,7 +40,7 @@ public class GameBoardServiceListener implements MessageListener {
 
 	private void receive(Event event) {
 		try {
-			gameBoardService.receive(event);
+			gameBoardService.observe(event);
 		} catch (EventNotSupportedException e) {
 			throw new RuntimeException("Event not supported: "+e);
 		}

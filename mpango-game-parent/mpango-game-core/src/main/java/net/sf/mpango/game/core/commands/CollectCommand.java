@@ -1,6 +1,6 @@
-package net.sf.mpango.game.core.action;
+package net.sf.mpango.game.core.commands;
 
-import java.util.Timer;
+import java.util.concurrent.ExecutorService;
 
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.Unit;
@@ -24,12 +24,12 @@ public class CollectCommand extends AbstractTaskCommand {
 	/**
 	 * Constructor for the Collect Command.
 	 * @param millisPerSlice configuration parameter
-	 * @param timer used to schedule the execution of the task
+	 * @param executorService used to schedule the execution of the task
 	 * @param cell Cell on which the collection is taking place.
 	 * @param unit that executes the task.
 	 */
-	public CollectCommand(long millisPerSlice, Timer timer, Cell cell, Unit unit) {
-		super(millisPerSlice, timer, cell, unit);
+	public CollectCommand(final long millisPerSlice, final ExecutorService executorService, final Cell cell, final Unit unit) {
+		super(millisPerSlice, executorService, cell, unit);
 		this.cell = cell;
 		this.unit = unit;
 	}
@@ -49,7 +49,7 @@ public class CollectCommand extends AbstractTaskCommand {
 	 * @return CommandExecutedEvent Event representing the execution of the command.
 	 */
 	@Override
-	public CommandExecutedEvent runExecute() {
+	public CommandExecutedEvent execute() {
 		int foodCollected = (int) (unit.getCollectionSkills() * cell.getCollectionPoints());
 		this.unit.putResources(Resources.FOOD, foodCollected);
 		CommandExecutedEvent event = new CommandExecutedEvent(this);

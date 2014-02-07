@@ -25,7 +25,7 @@ public class BattleEngine {
 		BattleResult result = new BattleResult();
 		FightResult fightResult = defender.fight (attacker, terrain.calculateDefenseBonus(), terrain.calculateAttackBonus());
 		result.setWinner(fightResult.getWinners());
-		result.setLooser(fightResult.getLoosers());
+		result.setLooser(fightResult.getLosers());
 		result.setTerrain(terrain);
 		return result;
 	}

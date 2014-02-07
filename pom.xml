@@ -93,8 +93,14 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.8.2</version>
+                <version>4.10</version>
                 <type>jar</type>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-core</artifactId>
+                <version>1.3</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -321,27 +327,20 @@
                 <type>jar</type>
                 <scope>compile</scope>
             </dependency>
-            <dependency>
-                <groupId>net.sourceforge.mpango</groupId>
-                <artifactId>mpango-test</artifactId>
-                <version>${project.version}</version>
-                <type>jar</type>
-                <scope>test</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-core</artifactId>
-            <version>1.3</version>
-            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easymock</groupId>
+            <artifactId>easymockclassextension</artifactId>
         </dependency>
     </dependencies>
     <build>
@@ -396,23 +395,6 @@
                             </property>
                         </systemProperties>
                     </configuration>
-                    <!--<dependencies>-->
-                    <!--<dependency>-->
-                    <!--<groupId>org.springframework</groupId>-->
-                    <!--<artifactId>spring-full</artifactId>-->
-                    <!--<version>${spring.version}</version>-->
-                    <!--</dependency>-->
-                    <!--<dependency>-->
-                    <!--<groupId>org.eclipse.jetty</groupId>-->
-                    <!--<artifactId>jetty-xbean</artifactId>-->
-                    <!--<version>${jetty.version}</version>-->
-                    <!--</dependency>-->
-                    <!--<dependency>-->
-                    <!--<groupId>org.apache.camel</groupId>-->
-                    <!--<artifactId>camel-activemq</artifactId>-->
-                    <!--<version>1.1.0</version>-->
-                    <!--</dependency>-->
-                    <!--</dependencies>-->
                 </plugin>
                 <plugin>
                     <groupId>org.mortbay.jetty</groupId>

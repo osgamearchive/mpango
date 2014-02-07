@@ -1,9 +1,9 @@
 package net.sf.mpango.game.core.turn;
 
-import net.sf.mpango.game.core.action.Command;
-import net.sf.mpango.game.core.exception.CommandException;
-
 import java.util.HashSet;
+
+import net.sf.mpango.game.core.commands.Command;
+import net.sf.mpango.game.core.exception.CommandException;
 
 public class Timer {
 

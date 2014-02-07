@@ -1,51 +1,61 @@
 package net.sf.mpango.game.core.turn;
 
-import net.sf.mpango.game.core.action.AbstractTaskCommand;
-import net.sf.mpango.game.core.action.Command;
-import net.sf.mpango.game.core.action.ITaskCommand;
-import net.sf.mpango.game.core.events.CommandExecutedEvent;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
+
+import net.sf.mpango.game.core.commands.AbstractTaskCommand;
+import net.sf.mpango.game.core.commands.Command;
+import net.sf.mpango.game.core.events.CommandEvent;
 import net.sf.mpango.game.core.exception.CommandException;
-import org.easymock.classextension.EasyMock;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import static org.easymock.classextension.EasyMock.replay;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
- * Created by IntelliJ IDEA.
  * User: etux
- * Date: 6/13/11
- * Time: 1:37 AM
- * To change this template use File | Settings | File Templates.
  */
 public class TimerTest {
 
-    private Timer timer;
+    private ExecutorService executorService;
+    @Mock
+    private Command<CommandEvent> mockCommand;
+    @Mock
+    private CommandEvent mockCommandEvent;
 
     @Before
     public void setUp() {
-        timer = new Timer();
+        MockitoAnnotations.initMocks(this);
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     @Test
-    public void testAddCommand() throws CommandException {
-        Command command = EasyMock.createMock(Command.class);
-        command.execute();
-        replay(command);
-        timer.addCommand(command);
-        assertEquals(timer.getCommandSize(),1);
-        timer.addCommand(command);
-        assertEquals(timer.getCommandSize(), 1);
-        ITaskCommand command2 = EasyMock.createMock(ITaskCommand.class);
-        timer.addCommand(command2);
-        assertEquals(timer.getCommandSize(), 2);
+    public void testAddCommand() throws Exception {
+        FutureTask<CommandEvent> task = new FutureTask<>(mockCommand);
+        when(mockCommand.call()).thenReturn(mockCommandEvent);
+        executorService.execute(task);
+
+        final CommandEvent result = task.get();
+
+        assertThat("The command event should be the expected one", result, is(equalTo(mockCommandEvent)));
+        verify(mockCommand).call();
     }
 
     @Test
-    public void testAddAbstractTaskCommand() throws CommandException {
+    public void testAddAbstractTaskCommand() throws ExecutionException, InterruptedException {
 
-        AbstractTaskCommand command = new AbstractTaskCommand (100l, timer.getInternalTimer()) {
+        final CommandEvent mockCommandEvent = mock(CommandEvent.class);
+
+        AbstractTaskCommand<CommandEvent> command = new AbstractTaskCommand (100l, executorService) {
 //            private boolean executed = false;
             @Override
             public int calculateTotalTimeSlices() {
@@ -53,9 +63,9 @@ public class TimerTest {
             }
 
             @Override
-            public CommandExecutedEvent runExecute() {
+            public CommandEvent execute() {
 //                executed = true;
-                return null;  //To change body of implemented methods use File | Settings | File Templates.
+                return mockCommandEvent;  //To change body of implemented methods use File | Settings | File Templates.
             }
 
             @Override
@@ -63,6 +73,11 @@ public class TimerTest {
                 //To change body of implemented methods use File | Settings | File Templates.
             }
         };
-        timer.addCommand(command);
+        FutureTask<CommandEvent> task = new FutureTask<>(command);
+        executorService.execute(task);
+
+        final CommandEvent result = task.get();
+
+        assertThat(result, is(equalTo(mockCommandEvent)));
     }
 }

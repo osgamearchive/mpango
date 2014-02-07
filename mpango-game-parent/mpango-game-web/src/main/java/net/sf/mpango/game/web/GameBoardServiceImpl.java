@@ -9,7 +9,7 @@ import net.sf.json.JSONObject;
 import net.sf.mpango.game.core.entity.GameBoard;
 import net.sf.mpango.game.core.events.Event;
 import net.sf.mpango.game.core.events.GameBoardEvent;
-import net.sf.mpango.game.core.events.GameListener;
+import net.sf.mpango.game.core.events.GameObserver;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
 import net.sf.mpango.game.core.service.IGameBoardService;
 import net.sf.mpango.game.core.service.IGameService;
@@ -34,7 +34,7 @@ import org.cometd.java.annotation.Session;
 @Named
 @Singleton
 @Service("gameBoardService")
-public class GameBoardServiceImpl implements GameListener, IGameBoardService {
+public class GameBoardServiceImpl implements GameObserver, IGameBoardService {
     
     @Inject
     private IGameService gameService;
@@ -74,7 +74,7 @@ public class GameBoardServiceImpl implements GameListener, IGameBoardService {
 
 
 	@Override
-	public void receive (final Event event) throws EventNotSupportedException {
+	public void observe(final Event event) throws EventNotSupportedException {
 		if (event instanceof GameBoardEvent) {
 			//Cast the event to a GameEvent
 			GameBoardEvent gameBoardEvent = (GameBoardEvent) event;

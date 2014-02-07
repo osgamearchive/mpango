@@ -93,11 +93,6 @@
         </dependency>
         <!-- Testing libraries -->
         <dependency>
-            <groupId>net.sourceforge.mpango</groupId>
-            <artifactId>mpango-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>commons-configuration</groupId>
             <artifactId>commons-configuration</artifactId>
         </dependency>

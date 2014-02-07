@@ -1,6 +1,6 @@
-package net.sf.mpango.game.core.action;
+package net.sf.mpango.game.core.commands;
 
-import net.sf.mpango.game.core.events.CommandExecutedEvent;
+import net.sf.mpango.game.core.events.CommandEvent;
 import net.sf.mpango.game.core.exception.CommandException;
 
 /**
@@ -18,18 +18,22 @@ import net.sf.mpango.game.core.exception.CommandException;
  * @author edvera
  *
  */
-public interface ITaskCommand extends Command {
+public interface ITaskCommand<T extends CommandEvent> extends Command<T> {
 
 	/**
 	 * Method that calculates the total amount of Time Slices needed to complete the command.
 	 * @return
 	 */
 	int calculateTotalTimeSlices();
-	/**
-	 * Method that contains the logic of the command.
-	 * @returns The event produced by the execution of this method.
-	 */
-	CommandExecutedEvent runExecute();
+
+    /**
+     * Method that returns the total duration of the execution of the command in milliseconds.
+     * Uses calculateTotalTimeSlices together with the value of a time slice to calculate the total duration of the
+     * task.
+     * @return
+     */
+    long getTotalDuration();
+
 	/**
 	 * Method that evaluates if the execution is possible before adding the command to the queue.
 	 * @throws CommandException In case it is not possible to run the Command for different reasons.

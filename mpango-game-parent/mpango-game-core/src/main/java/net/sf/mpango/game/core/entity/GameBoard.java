@@ -10,8 +10,8 @@ import javax.persistence.Transient;
 
 import net.sf.mpango.common.entity.AbstractEntity;
 import net.sf.mpango.game.core.events.Event;
-import net.sf.mpango.game.core.events.ITurnBasedEntityListener;
-import net.sf.mpango.game.core.events.Listener;
+import net.sf.mpango.game.core.events.ITurnBasedEntityObserver;
+import net.sf.mpango.game.core.events.Observer;
 import net.sf.mpango.game.core.events.TurnEvent;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
 
@@ -23,14 +23,14 @@ import net.sf.mpango.game.core.exception.EventNotSupportedException;
  *
  */
 @Entity
-public class GameBoard extends AbstractEntity<Long> implements ITurnBasedEntityListener {
+public class GameBoard extends AbstractEntity<Long> implements ITurnBasedEntityObserver {
 
     private static final int DEFAULT_COL_NUMBER = 10;
     private static final int DEFAULT_ROW_NUMBER = 10;
 
     private BoardConfiguration configuration;
     private List<Cell> cells;
-	private List<Listener> listeners;
+	private List<Observer> observers;
 	
 	/**
 	 * Constructor that generates an instance randomly.
@@ -74,7 +74,7 @@ public class GameBoard extends AbstractEntity<Long> implements ITurnBasedEntityL
 
         this.configuration = configuration;
         cells = new ArrayList<>(configuration.getColNumber() * configuration.getRowNumber());
-        listeners = new LinkedList<>();
+        observers = new LinkedList<>();
         generateCells();
 	}
 
@@ -105,7 +105,7 @@ public class GameBoard extends AbstractEntity<Long> implements ITurnBasedEntityL
 		notifyAllListeners(turnEvent);
 	}
 	
-	public void receive(final Event event) throws EventNotSupportedException {
+	public void observe(final Event event) throws EventNotSupportedException {
 		throw new EventNotSupportedException(event);
 	}
 	@OneToMany
@@ -129,23 +129,23 @@ public class GameBoard extends AbstractEntity<Long> implements ITurnBasedEntityL
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////
-	// Listener related methods															//
+	// Observer related methods															//
 	//////////////////////////////////////////////////////////////////////////////////////
 	public void notifyAllListeners(final Event event) {
-		for (Listener listener : listeners) {
+		for (Observer observer : observers) {
 			try {
-				listener.receive(event);
+				observer.observe(event);
 			} catch (EventNotSupportedException e) {
 			}
 		}
 	}
 	
-	public void addListener(final Listener listener) {
-		this.listeners.add(listener);
+	public void addListener(final Observer observer) {
+		this.observers.add(observer);
 	}
 	
-	public void removeListener(final Listener listener) {
-		this.listeners.remove(listener);
+	public void removeListener(final Observer observer) {
+		this.observers.remove(observer);
 	}
 	
 }

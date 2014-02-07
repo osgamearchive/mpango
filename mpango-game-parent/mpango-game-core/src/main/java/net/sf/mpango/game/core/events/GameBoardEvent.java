@@ -7,14 +7,14 @@ import net.sf.mpango.game.core.entity.GameBoard;
  * @author etux
  *
  */
-public class GameBoardEvent extends AbstractEvent {
+public class GameBoardEvent extends AbstractEvent<GameBoard> {
 
 	public GameBoardEvent(GameBoard source) {
 		super(source);
 	}
 	
 	public GameBoard getBoard() {
-		return (GameBoard) this.getSource();
+		return getSource();
 	}
 
 	/**

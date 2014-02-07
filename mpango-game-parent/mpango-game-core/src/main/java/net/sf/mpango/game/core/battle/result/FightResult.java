@@ -13,30 +13,35 @@ import net.sf.mpango.game.core.entity.Fleet;
 public class FightResult {
 	
 	private Fleet winners;
-	private Fleet loosers;
+	private Fleet losers;
 	private List<AttackResult> attackResults;
-	
-	public FightResult () {
-		winners = null;
-		loosers = null;
-		attackResults = new ArrayList<AttackResult>();
-	}
 
-	public void setWinners(Fleet winners) {
+    public FightResult() {
+        this (null, null, new ArrayList<AttackResult>());
+    }
+	
+	public FightResult (final Fleet winners, final Fleet losers, final List<AttackResult> attackResults) {
 		this.winners = winners;
+        this.losers = losers;
+        this.attackResults = attackResults;
 	}
 
 	public Fleet getWinners() {
 		return winners;
 	}
 
-	public void setLoosers(Fleet loosers) {
-		this.loosers = loosers;
+    public void setWinners(Fleet winners) {
+        this.winners = winners;
+    }
+
+	public Fleet getLosers() {
+		return losers;
 	}
 
-	public Fleet getLoosers() {
-		return loosers;
-	}
+    public void setLosers(Fleet losers) {
+        this.losers = losers;
+    }
+
 
 	public void addActionResult(AttackResult actionResult) {
 		attackResults.add(actionResult);

@@ -1,11 +1,26 @@
 package net.sf.mpango.game.core.events.channel;
 
-import net.sf.mpango.game.core.events.*;
-import net.sf.mpango.game.core.exception.EventNotSupportedException;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+import javax.jms.Connection;
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageConsumer;
+import javax.jms.ObjectMessage;
+import javax.jms.Session;
+import javax.jms.Topic;
+import javax.jms.TopicConnection;
+import javax.jms.TopicConnectionFactory;
+import javax.jms.TopicPublisher;
+import javax.jms.TopicSession;
+import javax.jms.TopicSubscriber;
+
+import net.sf.mpango.game.core.events.Event;
+import net.sf.mpango.game.core.events.Observer;
+import net.sf.mpango.game.core.exception.EventNotSupportedException;
 import org.apache.activemq.ActiveMQConnectionFactory;
-import javax.jms.*;
-import java.util.*;
 
 /**
  * Class EventChannel encapsulates ActiveMQ session objects and event processing thread. 
@@ -18,7 +33,7 @@ public class EventChannel{
 	
 	private static final String TOPIC_NAME = "${eventChannel.jndiTopicName}";
     private static final String MQ_URL = "${eventChannel.jmsURL}";
-    private static HashMap<Class<?>, ArrayList<Listener>> listenersMap = new HashMap< Class<?>, ArrayList<Listener> >();
+    private static HashMap<Class<?>, ArrayList<Observer>> listenersMap = new HashMap< Class<?>, ArrayList<Observer> >();
     
     private TopicConnectionFactory connFactory = null;
     private Topic eventTopic = null;
@@ -36,7 +51,7 @@ public class EventChannel{
     	return instance;
     }
     
-    public HashMap<Class<?>, ArrayList<Listener>> getListeners(){
+    public HashMap<Class<?>, ArrayList<Observer>> getListeners(){
     	return listenersMap;   	
     }
     
@@ -112,13 +127,13 @@ public class EventChannel{
     
     
     /**
-     * Add event listener
+     * Add event observer
      * @param eventClass
-     * @param listener
+     * @param observer
      */
-    public synchronized void addListener( final Class<?> eventClass, final Listener listener ){
+    public synchronized void addListener( final Class<?> eventClass, final Observer observer){
     	
-    	ArrayList<Listener> listeners = null;
+    	ArrayList<Observer> observers = null;
 
         Class<?> leafCls = getEventLeafInterface( eventClass );
         
@@ -127,50 +142,50 @@ public class EventChannel{
         }
         
         /**
-         * Create a Map record with eventClass and empty listeners list if we
-         * don't have any listeners for this eventClass yet
+         * Create a Map record with eventClass and empty observers list if we
+         * don't have any observers for this eventClass yet
          */       
         if ( listenersMap.get( leafCls ) == null ){
         	
-        	listeners = new ArrayList<Listener>();
-        	listenersMap.put( leafCls, listeners );
+        	observers = new ArrayList<Observer>();
+        	listenersMap.put( leafCls, observers);
         }
         else{
         	/**
-        	 * Or get existing listeners list for adding new listener
+        	 * Or get existing observers list for adding new observer
         	 */
-        	listeners = ( ArrayList<Listener> ) listenersMap.get( leafCls );
+        	observers = ( ArrayList<Observer> ) listenersMap.get( leafCls );
         }
         
         /**
-         * Add listener if it is not in the list
+         * Add observer if it is not in the list
          */
-        if ( listeners.indexOf( listener ) < 0 ){
-        	listeners.add( listener );
+        if ( observers.indexOf(observer) < 0 ){
+        	observers.add(observer);
         }
 	
     }
     
     
     /**
-     * Remove event listener
+     * Remove event observer
      * @param eventClass
-     * @param listener
+     * @param observer
      */
-    public synchronized void removeListener( final Class<?> eventClass, final Listener listener ){
+    public synchronized void removeListener( final Class<?> eventClass, final Observer observer){
     	
-    	ArrayList<Listener> listeners = listenersMap.get( eventClass );
+    	ArrayList<Observer> observers = listenersMap.get( eventClass );
     	
-    	if( listeners != null ){
-    		if( listeners.contains( listener ) ){
-    			listeners.remove( listener );
+    	if( observers != null ){
+    		if( observers.contains(observer) ){
+    			observers.remove(observer);
     		}
     	}
     	
     }
     
     /**
-     * Remove all listeners from the channel
+     * Remove all observers from the channel
      */
     public void removeAllListeners(){
     	
@@ -229,8 +244,8 @@ public class EventChannel{
 	   }
     
  /**
- * Event processing thread class reads messages from JMS topic and calls receive() on subscribed
- * listeners. 
+ * Event processing thread class reads messages from JMS topic and calls observe() on subscribed
+ * observers.
  * @author sol2202
  */
 public static class EventDispatcher implements Runnable{
@@ -318,9 +333,9 @@ public static class EventDispatcher implements Runnable{
 	   
 	   
 	   /**
-	    * Send the event to all listeners of this specific event class
-	    * then send to listeners of superclass
-	    * then to listeners of superclass of superclass etc. through events hierarchy.
+	    * Send the event to all observers of this specific event class
+	    * then send to observers of superclass
+	    * then to observers of superclass of superclass etc. through events hierarchy.
 	    * @param event
 	    */
 	   public void dispatchEvent( Event event ){
@@ -331,16 +346,16 @@ public static class EventDispatcher implements Runnable{
 			   
 			   if( listenersMap.containsKey(eventClass) ){
 				   
-				   ArrayList<Listener> listeners = listenersMap.get( eventClass );
-				   ArrayList<Listener> received = new ArrayList<Listener>();
+				   ArrayList<Observer> observers = listenersMap.get( eventClass );
+				   ArrayList<Observer> received = new ArrayList<Observer>();
 				  
-				   for( Listener listener : listeners ){
+				   for( Observer observer : observers){
 					   					   
-					   if( !received.contains(listener) ){
+					   if( !received.contains(observer) ){
 						   
 						   try{
-							   received.add(listener);
-							   listener.receive( event );  
+							   received.add(observer);
+							   observer.observe(event);
 						   } catch (EventNotSupportedException e){
 					   
 						   }  

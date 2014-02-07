@@ -42,8 +42,9 @@
         </dependency>
         <!-- Testing libraries -->
         <dependency>
-            <groupId>net.sourceforge.mpango</groupId>
-            <artifactId>mpango-test</artifactId>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>1.9.5</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

@@ -11,25 +11,25 @@ public class EventChannelTest extends TestCase {
 	
 	public void testAddListener(){
 		
-		TestListener testListener = new TestListener();		
+		TestObserver testListener = new TestObserver();
 		testChannel.addListener( LeftRightEvent.class, testListener );
 		
-		ArrayList<Listener> listeners = testChannel.getListeners().get(LeftRightEvent.class);
+		ArrayList<Observer> observers = testChannel.getListeners().get(LeftRightEvent.class);
 		
-		assertTrue( listeners.contains(testListener) );
+		assertTrue( observers.contains(testListener) );
 	}
 	
 	
 	public void testRemoveListener(){
 		
-		TestListener listener = new TestListener();
+		TestObserver listener = new TestObserver();
 		testChannel.addListener( RightEvent.class, listener );
 		
 		testChannel.removeListener( RightEvent.class, listener);
 		
-		ArrayList<Listener> listeners = testChannel.getListeners().get(RightEvent.class);
+		ArrayList<Observer> observers = testChannel.getListeners().get(RightEvent.class);
 		
-		assertFalse( listeners.contains(listener) );
+		assertFalse( observers.contains(listener) );
 		
 	}
 	
@@ -38,16 +38,16 @@ public class EventChannelTest extends TestCase {
 		
 		EventChannel.EventDispatcher dispatcher = new EventChannel.EventDispatcher();
 		
-		TestListener RightEventListener = new TestListener();
+		TestObserver RightEventListener = new TestObserver();
 		testChannel.addListener( RightEvent.class, RightEventListener );
 		
-		TestListener LeftEventListener = new TestListener();
+		TestObserver LeftEventListener = new TestObserver();
 		testChannel.addListener( LeftEvent.class, LeftEventListener );
 		
-		TestListener RightRightEventListener = new TestListener();
+		TestObserver RightRightEventListener = new TestObserver();
 		testChannel.addListener( RightRightEvent.class, RightRightEventListener );
 		
-		TestListener LeftRightEventListener = new TestListener();
+		TestObserver LeftRightEventListener = new TestObserver();
 		testChannel.addListener( LeftRightEvent.class, LeftRightEventListener );
 		
 		Event rightEvent = new RightEvent();
@@ -66,11 +66,11 @@ public class EventChannelTest extends TestCase {
 		
 	}
 	
-static class TestListener implements Listener{
+static class TestObserver implements Observer {
 		
 	private Event event = null;
 		
-	public void receive( Event event ){
+	public void observe(Event event){
 		this.event = event;
 	}
 		

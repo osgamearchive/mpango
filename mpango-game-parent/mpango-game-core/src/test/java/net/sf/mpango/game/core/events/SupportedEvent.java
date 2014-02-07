@@ -20,6 +20,6 @@ class SupportedEvent extends AbstractEvent {
 	protected static void assertEvent(SupportedEvent event) {
 		assertTrue("The event must have been handled", event.handled);
 		assertNotNull("The event must contain the source which ocasionated it", event.getSource());
-		assertNotNull("The event must contain the time it happened", event.getTime());
+		assertNotNull("The event must contain the time it happened", event.getOccurrenceTime());
 	}
 }

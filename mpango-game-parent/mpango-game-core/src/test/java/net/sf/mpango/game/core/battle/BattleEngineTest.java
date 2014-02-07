@@ -32,7 +32,7 @@ public class BattleEngineTest extends TestCase {
 		expect(terrain.calculateAttackBonus()).andReturn(1f);
 		FightResult fightResult = new FightResult();
 		fightResult.setWinners(defender);
-		fightResult.setLoosers(attacker);
+		fightResult.setLosers(attacker);
 		expect(defender.fight(attacker, 1f, 1f)).andReturn(fightResult);
 		replay(defender);
 		replay(attacker);
@@ -48,7 +48,7 @@ public class BattleEngineTest extends TestCase {
 		expect(terrain.calculateAttackBonus()).andReturn(1f);
 		FightResult fightResult = new FightResult();
 		fightResult.setWinners(attacker);
-		fightResult.setLoosers(defender);
+		fightResult.setLosers(defender);
 		expect(defender.fight(attacker, 1f, 1f)).andReturn(fightResult);
 		replay(defender);
 		replay(attacker);

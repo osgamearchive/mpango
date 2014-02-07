@@ -1,7 +1,7 @@
 package net.sf.mpango.game.core.events;
 
 /**
- * Interface that exposes the listeners that an object has. All objects that needed to be listened to will implement
+ * Interface that exposes the observers that an object has. All objects that needed to be listened to will implement
  * this interface.
  * @author etux
  *
@@ -9,19 +9,19 @@ package net.sf.mpango.game.core.events;
 public interface Observable {
 	
 	/**
-	 * Method iterates over all subscribed listeners and notifies then of an event.
+	 * Method iterates over all subscribed observers and notifies then of an event.
 	 * @param event
 	 */
 	void notifyListeners(Event event);
 	/**
-	 * To add a new listener to the class.
-	 * @param listener
+	 * To add a new observer to the class.
+	 * @param observer
 	 */
-	void addListener(Listener listener);
+	void addListener(Observer observer);
 	/**
-	 * To remove a listener from the class.
-	 * @param listener
+	 * To remove a observer from the class.
+	 * @param observer
 	 */
-	void removeListener(Listener listener);
+	void removeListener(Observer observer);
 	
 }

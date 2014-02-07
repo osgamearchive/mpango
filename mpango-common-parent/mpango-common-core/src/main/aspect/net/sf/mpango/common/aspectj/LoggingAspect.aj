@@ -34,11 +34,11 @@ public aspect LoggingAspect {
 	}
 	
 	after() : methodCall() {
-        log(thisJoinPoint, Level.INFO, "{0} done", thisJoinPoint.getStaticPart().getSignature().getName());
+        log(thisJoinPoint, Level.INFO, "{0} finished", thisJoinPoint.getStaticPart().getSignature().getName());
 	}
 
 	after() throwing(Throwable ex) : methodCall() {
-        log(thisJoinPoint, Level.WARNING, ex);
+        log(thisJoinPoint, Level.WARNING, "Exception {0} thrown: {1}", ex.getClass(), ex.getMessage());
 	}
 
     private void log(final JoinPoint joinPoint, final Level level, final Object... arguments) {
@@ -46,8 +46,7 @@ public aspect LoggingAspect {
     }
 
     private void log(final JoinPoint joinPoint, final Level level, final String message, final Object... arguments) {
-        final Logger logger = getLogger(joinPoint);
-        logger.log(level, message, arguments);
+        getLogger(joinPoint).log(level, message, arguments);
     }
 
     private Logger getLogger(final JoinPoint joinPoint) {

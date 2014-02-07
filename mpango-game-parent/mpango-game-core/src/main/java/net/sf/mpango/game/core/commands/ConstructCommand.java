@@ -1,18 +1,22 @@
-package net.sf.mpango.game.core.action;
+package net.sf.mpango.game.core.commands;
 
-import java.util.Timer;
+import java.util.concurrent.ExecutorService;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import net.sf.mpango.common.utils.LocalizedMessageBuilder;
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.Construction;
 import net.sf.mpango.game.core.entity.Unit;
 import net.sf.mpango.game.core.enums.ConstructionType;
+import net.sf.mpango.game.core.events.CommandEvent;
 import net.sf.mpango.game.core.events.CommandExecutedEvent;
 import net.sf.mpango.game.core.exception.CommandException;
 import net.sf.mpango.game.core.exception.ConstructionAlreadyInPlaceException;
 import net.sf.mpango.game.core.exception.ConstructionImpossibleException;
 
 /**
- * Command that represents the construction action.
+ * Command that represents the construction commands.
  * 
  * @author edvera
  *
@@ -25,37 +29,38 @@ public class ConstructCommand extends AbstractTaskCommand {
 	protected static final float MINIMUM_FACTOR = 0.1f;
 	/** Constant factor that determines the delay of the timer */
 	protected static final long DELAY_FACTOR_MS = 1000;
-	
-	private Unit unit;
-	private Construction construction;
-	private Cell cell;
-	
+    private Unit unit;
+
+    private final Construction construction;
+    private final Cell cell;
 	/**
 	 * Command builder with all details needed in order to execute the command.
-	 * @param unit Unit that is executing the action.
+	 * @param unit Unit that is executing the commands.
 	 * @param construction Construction to be constructed.
 	 * @param cell Cell where the construction will be constructed.
 	 * @throws CommandException in case it is not possible to construct.
 	 */
-	public ConstructCommand(Unit unit, Construction construction, Cell cell) {
-		this(unit.getTimer(), unit, construction, cell);
+	public ConstructCommand(final Unit unit, final Construction construction, final Cell cell) {
+		this(null, unit, construction, cell);
 	}
-	
+
 	/**
 	 * Construction builder in order to separate the Timer from the unit involved in the construction.
 	 * Thought for unit testing but could be interesting if instead of unit based timers, we want to use player based timers.
-	 * @param timer
+	 * @param executorService
 	 * @param unit
 	 * @param construction
 	 * @param cell
 	 */
-	public ConstructCommand(Timer timer, Unit unit, Construction construction, Cell cell) {
-		super(timer, unit, cell);
+	public ConstructCommand(final ExecutorService executorService, final Unit unit, final Construction construction, final Cell cell) {
+        //In this case, the interested parties in receiving events are the cell and the unit.
+		super(executorService, unit, cell);
 		this.unit = unit;
 		this.cell = cell;
 		this.construction = construction;
 	}
-	/**
+
+    /**
 	 * Method that calculates the amount of time slices the command needs to execute.
 	 * @param constructionTime
 	 * @param constructionSkills
@@ -67,24 +72,20 @@ public class ConstructCommand extends AbstractTaskCommand {
 		int timeSlices 		= ((constructionTime - unitFactor > 0) ? (constructionTime - unitFactor) : 0) + minimumTime;
 		return timeSlices;
 	}
-
 	/**
 	 * Method than contains the logic to execute for the command.
 	 * @returns CommandExecutedEvent even with the this command.
 	 */
 	@Override
-	public CommandExecutedEvent runExecute() {
+	public CommandEvent execute() {;
 		try {
 			this.cell.addConstruction(construction);
 			this.unit.improveConstructionSkills(SKILLS_UPGRADE);
-			if (construction.getType() == ConstructionType.CITY) {
-				this.unit.die();
-			}
-		} catch (ConstructionAlreadyInPlaceException e) {
-			e.printStackTrace();
+            LOGGER.log(Level.INFO, "constructed " + construction.getClass());
+		} catch (final ConstructionAlreadyInPlaceException e) {
+            LOGGER.log(Level.FINEST, LocalizedMessageBuilder.getSystemMessage(this, MessageConstants.CONSTRUCTION_ALREADY_IN_PLACE, construction.getId()));
 		}
-		CommandExecutedEvent event = new CommandExecutedEvent(this);
-		return event;
+		return new CommandExecutedEvent(this);
 	}
 
 	/**
@@ -94,7 +95,7 @@ public class ConstructCommand extends AbstractTaskCommand {
 	@Override
 	public void evaluateExecution() throws CommandException {
 		if (cell.containsConstruction(construction)) throw new ConstructionAlreadyInPlaceException(construction);
-		if ((unit.getCity() == null) & (construction.getType() != ConstructionType.CITY) )throw new ConstructionImpossibleException(construction); 
+		if ((unit.getCity() == null) & (construction.getType() != ConstructionType.CITY) )throw new ConstructionImpossibleException(construction);
 	}
 
 	/**
@@ -107,29 +108,18 @@ public class ConstructCommand extends AbstractTaskCommand {
 		float constructionSkills = unit.getConstructionSkills();
 		return calculateTotalTimeSlices(constructionTime, constructionSkills);
 	}
-	
 
 	public Unit getUnit() {
 		return unit;
-	}
-
-	public void setUnit(Unit unit) {
-		this.unit = unit;
 	}
 
 	public Construction getConstruction() {
 		return construction;
 	}
 
-	public void setConstruction(Construction construction) {
-		this.construction = construction;
-	}
-
 	public Cell getCell() {
 		return cell;
 	}
 
-	public void setCell(Cell cell) {
-		this.cell = cell;
-	}
+    private static final Logger LOGGER = Logger.getLogger(ConstructCommand.class.getName());
 }

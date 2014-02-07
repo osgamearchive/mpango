@@ -1,6 +1,6 @@
 package net.sf.mpango.game.core.events;
 
-public interface TurnListener extends Listener {
+public interface TurnObserver extends Observer {
 
 	void receiveEvent (TurnEvent event);
 }

@@ -7,16 +7,16 @@ import java.io.Serializable;
  * @author edvera
  *
  */
-public interface Event extends Serializable {
+public interface Event<T> extends Serializable {
 
 	/**
 	 * Source of the event
 	 * @return Object that generated the event.
 	 */
-	Object getSource();
+	T getSource();
 	
 	/**
 	 * Method that returns the time where the event was originated.
 	 */
-	long getTime();
+	long getOccurrenceTime();
 }

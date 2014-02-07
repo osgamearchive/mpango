@@ -5,7 +5,7 @@ package net.sf.mpango.game.core.events;
  * @author etux
  *
  */
-public interface ITurnBasedEntityListener extends GameListener {
+public interface ITurnBasedEntityObserver extends GameObserver {
 
 	/**
 	 * Method to tell the entity to react on a turn pass event.

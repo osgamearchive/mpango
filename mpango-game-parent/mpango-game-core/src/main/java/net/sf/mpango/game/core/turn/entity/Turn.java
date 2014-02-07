@@ -4,22 +4,22 @@ import java.util.Date;
 
 public class Turn {
 
-	private Long id;
-	private Long turnNumber;
+	private long id;
+	private long turnNumber;
 	private Date turnStarted;
 	private Date turnFinished;
 	
-	public Turn(long i, Date dateStarted) {
+	public Turn(final long i, final Date dateStarted) {
 		this.turnNumber = i;
 		this.turnStarted = dateStarted;
 	}
-	public Long getId() {
+	public long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Long getTurnNumber() {
+	public long getTurnNumber() {
 		return turnNumber;
 	}
 	public void setTurnNumber(Long turnNumber) {
@@ -41,9 +41,8 @@ public class Turn {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result
-				+ ((turnNumber == null) ? 0 : turnNumber.hashCode());
+		result = prime * result + (int) id;
+		result = prime * result + (int) turnNumber;
 		return result;
 	}
 	@Override
@@ -55,16 +54,9 @@ public class Turn {
 		if (getClass() != obj.getClass())
 			return false;
 		Turn other = (Turn) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (turnNumber == null) {
-			if (other.turnNumber != null)
-				return false;
-		} else if (!turnNumber.equals(other.turnNumber))
-			return false;
+        if (id != other.getId()) {
+            return false;
+        }
 		return true;
 	}
 	

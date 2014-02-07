@@ -1,4 +1,4 @@
-package net.sf.mpango.game.core.action;
+package net.sf.mpango.game.core.commands;
 
 import net.sf.mpango.game.core.entity.Cell;
 import net.sf.mpango.game.core.entity.Unit;
@@ -29,7 +29,7 @@ public class CollectCommandTest {
 		unit.putResources(Resources.FOOD, 1);
 		EasyMock.replay(cell);
 		EasyMock.replay(unit);
-		command.runExecute();
+		command.execute();
 		EasyMock.verify(unit);
 		EasyMock.verify(cell);
 	}

@@ -8,9 +8,9 @@ import javax.jms.ObjectMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import net.sf.mpango.game.core.action.Command;
-import net.sf.mpango.game.core.action.PlayerCommand;
-import net.sf.mpango.game.core.action.UnitCommand;
+import net.sf.mpango.game.core.commands.Command;
+import net.sf.mpango.game.core.commands.PlayerCommand;
+import net.sf.mpango.game.core.commands.UnitCommand;
 import net.sf.mpango.game.core.service.IGameService;
 
 @Component

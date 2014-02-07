@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,10 +16,11 @@ import javax.persistence.Transient;
 
 import net.sf.mpango.common.entity.AbstractEntity;
 import net.sf.mpango.game.core.enums.Resources;
+import net.sf.mpango.game.core.events.CommandEvent;
 import net.sf.mpango.game.core.events.Event;
-import net.sf.mpango.game.core.events.Listener;
 import net.sf.mpango.game.core.events.Observable;
-import net.sf.mpango.game.core.events.ObservableBaseListener;
+import net.sf.mpango.game.core.events.ObservableBaseObserver;
+import net.sf.mpango.game.core.events.Observer;
 import net.sf.mpango.game.core.exception.ConstructionAlreadyInPlaceException;
 import net.sf.mpango.game.core.exception.ConstructionNotFoundException;
 import net.sf.mpango.game.core.exception.EventNotSupportedException;
@@ -32,25 +35,24 @@ import org.hibernate.annotations.CollectionOfElements;
  *
  */
 @Entity
-public class Cell extends AbstractEntity<Long> implements Observable,Listener {
+public class Cell extends AbstractEntity<Long> implements Observable,Observer {
 
-	/** generated serial version uid */
+    /** generated serial version uid */
 	private static final long serialVersionUID = 2294912901732869716L;
-	private Long identifier;
-	private List<Construction> constructions;
-	private Set<Resources> resources;
-	private boolean hasCity;
-	private float defenseBonus;
-	private float attackBonus;
-	private int column;
-	private int row;
-	private int altitude;
-	private Terrain terrain;
-
-    private ObservableBaseListener observableBaseListener;
+    private Long identifier;
+    private List<Construction> constructions;
+    private Set<Resources> resources;
+    private boolean hasCity;
+    private float defenseBonus;
+    private float attackBonus;
+    private int column;
+    private int row;
+    private int altitude;
+    private Terrain terrain;
+    private ObservableBaseObserver observableBaseListener;
 
     public Cell() {
-        observableBaseListener = new ObservableBaseListener(this);
+        observableBaseListener = new ObservableBaseObserver(this);
     }
 
     public Cell(final int rowPosition, final int colPosition, final Set<Resources> resources) {
@@ -60,10 +62,10 @@ public class Cell extends AbstractEntity<Long> implements Observable,Listener {
         this.resources = resources;
         this.constructions = new LinkedList<Construction>();
     }
+
     public Cell(int rowPosition, int colPosition) {
         this(rowPosition, colPosition, new HashSet<Resources>());
 	}
-
 	public void addResource(Resources resource) {
 		resources.add(resource);
 	}
@@ -98,25 +100,26 @@ public class Cell extends AbstractEntity<Long> implements Observable,Listener {
 		}
 		return totalBonus;
 	}
-	public float calculateConstructionAttackBonus () {
+
+    public float calculateConstructionAttackBonus () {
 		float totalBonus = 0;
 		for (Construction construction : constructions) {
 			totalBonus += construction.getAttackBonus ();
 		}
 		return totalBonus;
 	}
-	@OneToMany
+    @OneToMany
 	public List<Construction> getConstructions() {
 		return constructions;
 	}
-	public void setConstructions(List<Construction> constructions) {
+    public void setConstructions(List<Construction> constructions) {
 		this.constructions = constructions;
 	}
-	
 	public boolean containsConstruction(Construction construction) {
 		return this.constructions.contains(construction);
 	}
-	public void addConstruction (Construction construction) throws ConstructionAlreadyInPlaceException {
+
+    public void addConstruction (Construction construction) throws ConstructionAlreadyInPlaceException {
 		if (this.containsConstruction (construction)) {
 			throw new ConstructionAlreadyInPlaceException (construction);
 		}
@@ -125,44 +128,43 @@ public class Cell extends AbstractEntity<Long> implements Observable,Listener {
 		}
 		this.constructions.add(construction);
 	}
-	public void removeConstruction (Construction construction) throws ConstructionNotFoundException {
+    public void removeConstruction (Construction construction) throws ConstructionNotFoundException {
 		if (!this.constructions.contains (construction)) {
 			throw new ConstructionNotFoundException (construction);
 		}
 		this.constructions.remove(construction);
 	}
-
 	@Column
 	public int getColumn() {
 
 
         return column;
 	}
-	public void setColumn(int column) {
+
+    public void setColumn(int column) {
 		this.column = column;
 	}
-	@Column
+    @Column
 	public int getRow() {
 		return row;
 	}
-	public void setRow(int row) {
+    public void setRow(int row) {
 		this.row = row;
 	}
-
 	public float getDefenseBonus() {
 		return defenseBonus;
 	}
-	public void setDefenseBonus(float defenseBonus) {
+
+    public void setDefenseBonus(float defenseBonus) {
 		this.defenseBonus = defenseBonus;
 	}
-
 	public float getAttackBonus() {
 		return attackBonus;
 	}
-	public void setAttackBonus(float attackBonus) {
+
+    public void setAttackBonus(float attackBonus) {
 		this.attackBonus = attackBonus;
 	}
-
     @Transient
 	public boolean isCollectable() {
 		// TODO Auto-generated method stub
@@ -174,15 +176,15 @@ public class Cell extends AbstractEntity<Long> implements Observable,Listener {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-    
+
 	public int getAltitude() {
 		return altitude;
 	}
-	
+
 	public void setAltitude(int altitude) {
 		this.altitude = altitude;
 	}
-	
+
     public Terrain getTerrain() {
         return terrain;
     }
@@ -192,8 +194,12 @@ public class Cell extends AbstractEntity<Long> implements Observable,Listener {
     }
 
     @Override
-    public void receive(Event event) throws EventNotSupportedException {
+    public void observe(final Event event) throws EventNotSupportedException {
         //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    public void observe(final CommandEvent event) {
+        LOGGER.log(Level.INFO, "Event received: " + event);
     }
 
     @Override
@@ -202,12 +208,14 @@ public class Cell extends AbstractEntity<Long> implements Observable,Listener {
     }
 
     @Override
-    public void addListener(Listener listener) {
+    public void addListener(Observer observer) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 
     @Override
-    public void removeListener(Listener listener) {
+    public void removeListener(Observer observer) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
+
+    private static final Logger LOGGER = Logger.getLogger(Cell.class.getName());
 }

@@ -8,7 +8,7 @@ import javax.persistence.Transient;
 
 import net.sf.mpango.common.entity.AbstractEntity;
 import net.sf.mpango.game.core.enums.ConstructionType;
-import net.sf.mpango.game.core.events.Listener;
+import net.sf.mpango.game.core.events.Observer;
 
 /**
  * <p>A construction is an element that can be created by a unit.</p>
@@ -27,7 +27,7 @@ import net.sf.mpango.game.core.events.Listener;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Construction extends AbstractEntity<Long> implements Damageable, Listener {
+public abstract class Construction extends AbstractEntity<Long> implements Damageable, Observer {
 
 	private float maximumHitPoints;
 	private float hitPoints;
@@ -56,10 +56,10 @@ public abstract class Construction extends AbstractEntity<Long> implements Damag
 
 	/**
 	 * <p>Method that takes the damage from an attack substracting it to the total amount of hit poinst that the construction has.</p>
-	 * @param attackPoints
+	 * @param attacker
 	 */
-	public void receiveDamage(float attackPoints) {
-		hitPoints -= attackPoints;
+	public void receiveDamage(final Unit attacker, float attackingBonus, float defensiveBonus) {
+		hitPoints -= attacker.getEffectiveAttackPoints();
 	}
 	/**
 	 * Method that repairs the construction by reestablishing it's hit points to the maximum.
