@@ -1,3 +1,9 @@
+# mpango
+
+Originally developed at https://sourceforge.net/projects/mpango/ by [Eduardo de Vera Toquero](http://sourceforge.net/users/edvera) and published under GPL 2.0.
+
+
+
 First run:
 
 mvn clean install
